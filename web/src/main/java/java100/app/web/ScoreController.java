@@ -17,15 +17,7 @@ import java100.app.service.ScoreService;
 public class ScoreController {
     
     @Autowired ScoreService scoreService;
- 
-    @RequestMapping("update")
-    public String update(Score score) throws Exception {
-        
-        scoreService.update(score);
-        
-        // 프론트 컨트롤러가 실행할 JSP URL을 등록한다.
-        return "redirect:list"; 
-    }
+
     
     @RequestMapping("add")
     public String add(Score score) throws Exception {
@@ -34,6 +26,23 @@ public class ScoreController {
         return "redirect:list";
     }
     
+    @RequestMapping("delete")
+    public String delete(int no) throws Exception {
+        
+        scoreService.delete(no);
+        return "redirect:list";
+    }
+    @RequestMapping("update")
+    public String update(Score score) throws Exception {
+        
+        scoreService.update(score);
+        
+        // 프론트 컨트롤러가 실행할 JSP URL을 등록한다.
+        return "redirect:list"; 
+    }
+
+
+
     
     @RequestMapping("{no}")
     public String view(@PathVariable int no, Model model) throws Exception {
