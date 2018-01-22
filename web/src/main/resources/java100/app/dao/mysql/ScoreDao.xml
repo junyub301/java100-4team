@@ -15,7 +15,7 @@
             ((kor + eng + math) / 3) as aver
     </sql>
 
-    <insert id="insert" parameterType="scores">
+    <insert id="insert" parameterType="score">
         insert into ex_scores(name,kor,eng,math) 
         values(#{name},#{kor},#{eng},#{math})
     </insert>
