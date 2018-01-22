@@ -53,6 +53,7 @@
         values(#{name},#{kor},#{eng},#{math})
     </insert>
 
+<<<<<<< HEAD
 <update id="update" parameterType="score">
         update ex_scores set 
             name=#{name},
@@ -62,11 +63,8 @@
         where no=#{no}
     </update>
 
+=======
 
-    <delete id="delete" parameterType="int">
-        delete from ex_scores
-        where no=#{value}
-    </delete>
     
      <select id="findByNo" resultType="score" parameterType="int">
         <include refid="select1"/>
@@ -76,7 +74,35 @@
         from ex_scores
         where no=#{value} 
     </select>
+>>>>>>> 40d18c96e6900033034e2a9d51fee157d59ed4ac
 
+    <delete id="delete" parameterType="int">
+        delete from ex_scores
+        where no=#{value}
+    </delete>
+    
+<<<<<<< HEAD
+     <select id="findByNo" resultType="score" parameterType="int">
+        <include refid="select1"/>
+          ,kor 
+          ,eng
+          ,math
+        from ex_scores
+        where no=#{value} 
+    </select>
+
+=======
+    
+
+<update id="update" parameterType="score">
+        update ex_scores set 
+            name=#{name},
+            kor=#{kor},
+            eng=#{eng},
+            math=#{math} 
+        where no=#{no}
+    </update>
+>>>>>>> 40d18c96e6900033034e2a9d51fee157d59ed4ac
 </mapper>
 
 
