@@ -22,7 +22,7 @@
           ,eng
           ,math
         from ex_scores
-        where no=#{value}
+        where no=#{value} 
     </select>
 
     

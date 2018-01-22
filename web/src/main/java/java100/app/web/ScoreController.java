@@ -14,7 +14,7 @@ import java100.app.service.ScoreService;
 
 @Controller
 @RequestMapping("/score")
-public class ScoreController {
+public class ScoreController { 
     
     @Autowired ScoreService scoreService;
     
