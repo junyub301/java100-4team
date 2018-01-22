@@ -9,7 +9,7 @@ import java100.app.service.ScoreService;
 
 @Controller
 @RequestMapping("/score")
-public class ScoreController {
+public class ScoreController { 
     
     @Autowired ScoreService scoreService;
     
@@ -34,6 +34,15 @@ public class ScoreController {
         scoreService.add(score);
         return "redirect:list";
     }
+    
+    
+    @RequestMapping("{no}")
+    public String view(@PathVariable int no, Model model) throws Exception {
+        
+        model.addAttribute("score", scoreService.get(no));
+        return "score/view";        
+    }
+
     
 }
 
