@@ -14,10 +14,10 @@
             (kor + eng + math) as sum,
             ((kor + eng + math) / 3) as aver
     </sql>
-<select id="findAll" resultType="score" parameterType="map">
+
+    <select id="findAll" resultType="score" parameterType="map">
         <include refid="select1"/>
         from ex_scores
-     
 
         <if test="words != null">
             <where>
@@ -48,12 +48,26 @@
         limit #{startIndex}, #{size}
     </select>
     
-    <insert id="insert" parameterType="score">
+    <select id="findByNo" resultType="score" parameterType="int">
+        <include refid="select1"/>
+          ,kor 
+          ,eng
+          ,math
+        from ex_scores
+        where no=#{value}
+    </select>
+    
+    <select id="countAll" resultType="int">
+        select count(*) from ex_scores
+    </select>
+    
+    <insert id="insert" parameterType="scores">
         insert into ex_scores(name,kor,eng,math) 
         values(#{name},#{kor},#{eng},#{math})
     </insert>
 
-<update id="update" parameterType="score">
+
+    <update id="update" parameterType="score">
         update ex_scores set 
             name=#{name},
             kor=#{kor},
@@ -61,23 +75,13 @@
             math=#{math} 
         where no=#{no}
     </update>
-    
-     <select id="findByNo" resultType="score" parameterType="int">
-        <include refid="select1"/>
-          ,kor 
-          ,eng
-          ,math
-        from ex_scores
-        where no=#{value} 
-    </select>
+</mapper>  
 
-    <delete id="delete" parameterType="int">
-        delete from ex_scores
-        where no=#{value}
-    </delete>
-    
-    
-</mapper>
+
+
+
+
+
 
 
 
