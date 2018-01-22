@@ -17,7 +17,6 @@
 <select id="findAll" resultType="score" parameterType="map">
         <include refid="select1"/>
         from ex_scores
-    
      
 
         <if test="words != null">
@@ -50,7 +49,7 @@
     </select>
     
     <insert id="insert" parameterType="score">
-        insert into ex_score(name,kor,eng,math) 
+        insert into ex_scores(name,kor,eng,math) 
         values(#{name},#{kor},#{eng},#{math})
     </insert>
 
@@ -79,8 +78,24 @@
         delete from ex_scores
         where no=#{value}
     </delete>
+    
+     <select id="findByNo" resultType="score" parameterType="int">
+        <include refid="select1"/>
+          ,kor 
+          ,eng
+          ,math
+        from ex_scores
+        where no=#{value} 
+    </select>
 
-
+<update id="update" parameterType="score">
+        update ex_scores set 
+            name=#{name},
+            kor=#{kor},
+            eng=#{eng},
+            math=#{math} 
+        where no=#{no}
+    </update>
 </mapper>
 
 

@@ -14,7 +14,7 @@ import java100.app.service.ScoreService;
 
 @Controller
 @RequestMapping("/score")
-public class ScoreController {
+public class ScoreController { 
     
     @Autowired ScoreService scoreService;
 
@@ -42,7 +42,6 @@ public class ScoreController {
     }
 
 
-
     
     @RequestMapping("{no}")
     public String view(@PathVariable int no, Model model) throws Exception {
@@ -52,7 +51,7 @@ public class ScoreController {
     }
 
     
-    
+        
     @RequestMapping("list")
     public String list(
             @RequestParam(value="pn", defaultValue="1") int pageNo,
