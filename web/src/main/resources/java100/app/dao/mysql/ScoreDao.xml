@@ -63,17 +63,6 @@
     </update>
 
 
-
-    
-     <select id="findByNo" resultType="score" parameterType="int">
-        <include refid="select1"/>
-          ,kor 
-          ,eng
-          ,math
-        from ex_scores
-        where no=#{value} 
-    </select>
-
     <delete id="delete" parameterType="int">
         delete from ex_scores
         where no=#{value}
@@ -88,14 +77,6 @@
         where no=#{value} 
     </select>
 
-<update id="update" parameterType="score">
-        update ex_scores set 
-            name=#{name},
-            kor=#{kor},
-            eng=#{eng},
-            math=#{math} 
-        where no=#{no}
-    </update>
 </mapper>
 
 
