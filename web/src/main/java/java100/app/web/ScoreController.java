@@ -19,6 +19,15 @@ public class ScoreController {
     @Autowired ScoreService scoreService;
     
     
+    
+    @RequestMapping("{no}")
+    public String view(@PathVariable int no, Model model) throws Exception {
+        
+        model.addAttribute("score", scoreService.get(no));
+        return "score/view";        
+    }
+
+    
 }
 
 

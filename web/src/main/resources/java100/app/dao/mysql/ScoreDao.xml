@@ -14,6 +14,16 @@
             (kor + eng + math) as sum,
             ((kor + eng + math) / 3) as aver
     </sql>
+    
+    
+     <select id="findByNo" resultType="score" parameterType="int">
+        <include refid="select1"/>
+          ,kor 
+          ,eng
+          ,math
+        from ex_scores
+        where no=#{value}
+    </select>
 
     
 </mapper>  
