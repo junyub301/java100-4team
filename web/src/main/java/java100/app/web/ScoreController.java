@@ -27,6 +27,13 @@ public class ScoreController {
         return "redirect:list"; 
     }
     
+    @RequestMapping("add")
+    public String add(Score score) throws Exception {
+        
+        scoreService.add(score);
+        return "redirect:list";
+    }
+    
 }
 
 
