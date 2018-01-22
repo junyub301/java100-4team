@@ -42,7 +42,7 @@
         where no=#{no}
     </update>
 
-
+ 
     <insert id="insert" parameterType="score">
         insert into ex_scores(name,kor,eng,math) 
         values(#{name},#{kor},#{eng},#{math})
