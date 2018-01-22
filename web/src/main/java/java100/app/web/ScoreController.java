@@ -19,6 +19,13 @@ public class ScoreController {
     @Autowired ScoreService scoreService;
     
     
+    @RequestMapping("add")
+    public String add(Score score) throws Exception {
+        
+        scoreService.add(score);
+        return "redirect:list";
+    }
+    
 }
 
 
