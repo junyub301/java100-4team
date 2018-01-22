@@ -14,7 +14,38 @@
             (kor + eng + math) as sum,
             ((kor + eng + math) / 3) as aver
     </sql>
+<select id="findAll" resultType="score" parameterType="map">
+        <include refid="select1"/>
+        from ex_scores
 
+        <if test="words != null">
+            <where>
+                <foreach collection="words" item="word">
+                    or name like '${word}%'
+                </foreach>
+            </where>
+        </if>
+        
+        <!-- 정렬 조건에 따라 SQL문을 변경한다.-->
+        order by 
+        <choose>
+            <when test="orderColumn == 'sum' and align == 'desc'">
+                sum desc
+            </when>
+            <when test="orderColumn == 'sum' and align == 'asc'">
+                sum asc
+            </when>
+            <when test="orderColumn == 'name' and align == 'desc'">
+                name desc
+            </when>
+            <otherwise>
+                name asc
+            </otherwise>
+        </choose>
+        
+        <!-- 페이지징 처리 -->
+        limit #{startIndex}, #{size}
+    </select>
     
 </mapper>  
 
