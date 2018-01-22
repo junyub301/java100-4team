@@ -15,6 +15,10 @@
             ((kor + eng + math) / 3) as aver
     </sql>
 
+    <delete id="delete" parameterType="int">
+        delete from ex_scores
+        where no=#{value}
+    </delete>
     
 </mapper>  
 

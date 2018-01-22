@@ -18,6 +18,12 @@ public class ScoreController {
     
     @Autowired ScoreService scoreService;
     
+    @RequestMapping("delete")
+    public String delete(int no) throws Exception {
+        
+        scoreService.delete(no);
+        return "redirect:list";
+    }
     
 }
 
