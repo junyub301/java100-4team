@@ -101,6 +101,15 @@
       <property name="basePackage" value="java100.app.dao" />
     </bean>
 
+
+
+
+    <!-- 트랜잭션 작업을 수행할 advice 객체 등록 
+         등록된 트랜잭션 관리자의 id가 'transactionManager'이 아니라면,
+         다음과 같이 transaction-manager 속성을 명시적으로 지정해야 한다.
+         transaction-manager="transactionManager"
+    -->
+
     <tx:advice id="txAdvice">
 	    <tx:attributes>
 	        <!-- 메서드명이 list로 시작하는 경우 트랜잭션 제외한다. -->
