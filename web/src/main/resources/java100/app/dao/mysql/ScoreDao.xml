@@ -53,6 +53,14 @@
         values(#{name},#{kor},#{eng},#{math})
     </insert>
 
+<update id="update" parameterType="score">
+        update ex_scores set 
+            name=#{name},
+            kor=#{kor},
+            eng=#{eng},
+            math=#{math} 
+        where no=#{no}
+    </update>
     
      <select id="findByNo" resultType="score" parameterType="int">
         <include refid="select1"/>
@@ -68,15 +76,7 @@
         where no=#{value}
     </delete>
     
-
-<update id="update" parameterType="score">
-        update ex_scores set 
-            name=#{name},
-            kor=#{kor},
-            eng=#{eng},
-            math=#{math} 
-        where no=#{no}
-    </update>
+    
 </mapper>
 
 
