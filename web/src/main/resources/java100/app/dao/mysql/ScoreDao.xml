@@ -77,7 +77,7 @@
     </update>
     
        <delete id="delete" parameterType="int">
-        delete from ex_score
+        delete from ex_scores
         where no=#{value}
     </delete>
     
