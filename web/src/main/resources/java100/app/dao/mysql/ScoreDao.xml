@@ -16,7 +16,7 @@
     </sql>
 
     <insert id="insert" parameterType="scores">
-        insert into ex_score(name,kor,eng,math) 
+        insert into ex_scores(name,kor,eng,math) 
         values(#{name},#{kor},#{eng},#{math})
     </insert>
 </mapper>  
