@@ -18,6 +18,14 @@ public class ScoreController {
     
     @Autowired ScoreService scoreService;
     
+    @RequestMapping("update")
+    public String update(Score score) throws Exception {
+        
+        scoreService.update(score);
+        
+        // 프론트 컨트롤러가 실행할 JSP URL을 등록한다.
+        return "redirect:list"; 
+    }
     
 }
 
