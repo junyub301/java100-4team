@@ -15,6 +15,7 @@
             ((kor + eng + math) / 3) as aver
     </sql>
 
+
 <update id="update" parameterType="score">
         update ex_scores set 
             name=#{name},
@@ -24,8 +25,9 @@
         where no=#{no}
     </update>
 
-    <insert id="insert" parameterType="scores">
-        insert into ex_score(name,kor,eng,math) 
+
+    <insert id="insert" parameterType="score">
+        insert into ex_scores(name,kor,eng,math) 
         values(#{name},#{kor},#{eng},#{math})
     </insert>
 
