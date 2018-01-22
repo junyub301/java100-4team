@@ -100,28 +100,7 @@
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
       <property name="basePackage" value="java100.app.dao" />
     </bean>
-<<<<<<< HEAD
-  <!--   
-    인터셉터를 등록한다.
-=======
-    
-    <!-- 인터셉터를 등록한다. -->
-    <!--
->>>>>>> branch 'master' of https://github.com/junyub301/java100-4team.git
-    <mvc:interceptors>
-        <mvc:interceptor>
-            <mvc:mapping path="/**"/>
-            <mvc:exclude-mapping path="/auth/**"/>
-            <bean class="java100.app.web.interceptor.AuthInterceptor"/>
-        </mvc:interceptor>
-    </mvc:interceptors>
-<<<<<<< HEAD
-    
-     -->
-=======
-    -->
-    
->>>>>>> branch 'master' of https://github.com/junyub301/java100-4team.git
+
     <!-- 트랜잭션 작업을 수행할 advice 객체 등록 
          등록된 트랜잭션 관리자의 id가 'transactionManager'이 아니라면,
          다음과 같이 transaction-manager 속성을 명시적으로 지정해야 한다.
