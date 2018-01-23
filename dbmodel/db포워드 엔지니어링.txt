@@ -1,20 +1,20 @@
 -- 후기
-DROP TABLE IF EXISTS PostScript2 RESTRICT;
+DROP TABLE IF EXISTS PostScript RESTRICT;
 
 -- 카테고리
-DROP TABLE IF EXISTS Category2 RESTRICT;
+DROP TABLE IF EXISTS Category RESTRICT;
 
 -- 물품
-DROP TABLE IF EXISTS Item2 RESTRICT;
+DROP TABLE IF EXISTS Item RESTRICT;
 
 -- 사진
-DROP TABLE IF EXISTS ItemPhoto2 RESTRICT;
+DROP TABLE IF EXISTS ItemPhoto RESTRICT;
 
 -- 계정
-DROP TABLE IF EXISTS Account2 RESTRICT;
+DROP TABLE IF EXISTS Account RESTRICT;
 
 -- 메시지
-DROP TABLE IF EXISTS Message2 RESTRICT;
+DROP TABLE IF EXISTS Message RESTRICT;
 
 -- 사용자
 DROP TABLE IF EXISTS User RESTRICT;
@@ -23,42 +23,42 @@ DROP TABLE IF EXISTS User RESTRICT;
 DROP TABLE IF EXISTS Purchaser RESTRICT;
 
 -- 후기
-CREATE TABLE PostScript2 (
-	rent_no  <데이터 타입 없음> NOT NULL COMMENT '대여번호', -- 대여번호
-	cnt      VARCHAR(255)       NULL     COMMENT '내용', -- 내용
-	cre_date DATE               NULL     COMMENT '작성일' -- 작성일
+CREATE TABLE PostScript (
+	rent_no  INTEGER      NOT NULL COMMENT '대여번호', -- 대여번호
+	cnt      VARCHAR(255) NULL     COMMENT '내용', -- 내용
+	cre_date DATE         NULL     COMMENT '작성일' -- 작성일
 )
 COMMENT '후기';
 
 -- 후기
-ALTER TABLE PostScript2
-	ADD CONSTRAINT PK_PostScript2 -- 후기 기본키
+ALTER TABLE PostScript
+	ADD CONSTRAINT PK_PostScript -- 후기 기본키
 		PRIMARY KEY (
 			rent_no -- 대여번호
 		);
 
 -- 후기 인덱스
-CREATE INDEX IX_PostScript2
-	ON PostScript2( -- 후기
+CREATE INDEX IX_PostScript
+	ON PostScript( -- 후기
 		cre_date ASC -- 작성일
 	);
 
 -- 카테고리
-CREATE TABLE Category2 (
+CREATE TABLE Category (
 	ct_no INTEGER     NOT NULL COMMENT '카테고리번호', -- 카테고리번호
 	name  VARCHAR(50) NOT NULL COMMENT '이름' -- 이름
 )
 COMMENT '카테고리';
 
 -- 카테고리
-ALTER TABLE Category2
-	ADD CONSTRAINT PK_Category2 -- 카테고리 기본키
+ALTER TABLE Category
+	ADD CONSTRAINT PK_Category -- 카테고리 기본키
 		PRIMARY KEY (
 			ct_no -- 카테고리번호
 		);
 
 -- 물품
-CREATE TABLE Item2 (
+CREATE TABLE Item (
 	it_no     INTEGER     NOT NULL COMMENT '물품번호', -- 물품번호
 	ur_no     INTEGER     NOT NULL COMMENT '사용자번호', -- 사용자번호
 	ct_no     INTEGER     NOT NULL COMMENT '카테고리번호', -- 카테고리번호
@@ -73,23 +73,23 @@ CREATE TABLE Item2 (
 COMMENT '물품';
 
 -- 물품
-ALTER TABLE Item2
-	ADD CONSTRAINT PK_Item2 -- 물품 기본키
+ALTER TABLE Item
+	ADD CONSTRAINT PK_Item -- 물품 기본키
 		PRIMARY KEY (
 			it_no -- 물품번호
 		);
 
 -- 물품 인덱스
-CREATE INDEX IX_Item2
-	ON Item2( -- 물품
+CREATE INDEX IX_Item
+	ON Item( -- 물품
 		it_no ASC -- 물품번호
 	);
 
-ALTER TABLE Item2
+ALTER TABLE Item
 	MODIFY COLUMN it_no INTEGER NOT NULL AUTO_INCREMENT COMMENT '물품번호';
 
 -- 사진
-CREATE TABLE ItemPhoto2 (
+CREATE TABLE ItemPhoto (
 	pho_no   INTEGER      NOT NULL COMMENT '사진번호', -- 사진번호
 	it_no    INTEGER      NULL     COMMENT '물품번호', -- 물품번호
 	pho_path VARCHAR(255) NULL     COMMENT '사진경로' -- 사진경로
@@ -97,55 +97,55 @@ CREATE TABLE ItemPhoto2 (
 COMMENT '사진';
 
 -- 사진
-ALTER TABLE ItemPhoto2
-	ADD CONSTRAINT PK_ItemPhoto2 -- 사진 기본키
+ALTER TABLE ItemPhoto
+	ADD CONSTRAINT PK_ItemPhoto -- 사진 기본키
 		PRIMARY KEY (
 			pho_no -- 사진번호
 		);
 
-ALTER TABLE ItemPhoto2
+ALTER TABLE ItemPhoto
 	MODIFY COLUMN pho_no INTEGER NOT NULL AUTO_INCREMENT COMMENT '사진번호';
 
 -- 계정
-CREATE TABLE Account2 (
-	act_no INTEGER            NOT NULL COMMENT '계정번호', -- 계정번호
-	act_id VARCHAR(50)        NOT NULL COMMENT '아이디', -- 아이디
-	email  VARCHAR(40)        NOT NULL COMMENT '이메일', -- 이메일
-	pwd    VARCHAR(100)       NOT NULL COMMENT '암호', -- 암호
-	name   VARCHAR(50)        NOT NULL COMMENT '이름', -- 이름
-	rank   <데이터 타입 없음> NOT NULL COMMENT '등급' -- 등급
+CREATE TABLE Account (
+	act_no INTEGER      NOT NULL COMMENT '계정번호', -- 계정번호
+	act_id VARCHAR(50)  NOT NULL COMMENT '아이디', -- 아이디
+	email  VARCHAR(40)  NOT NULL COMMENT '이메일', -- 이메일
+	pwd    VARCHAR(100) NOT NULL COMMENT '암호', -- 암호
+	name   VARCHAR(50)  NOT NULL COMMENT '이름', -- 이름
+	rank   INTEGER      NOT NULL COMMENT '등급' -- 등급
 )
 COMMENT '계정';
 
 -- 계정
-ALTER TABLE Account2
-	ADD CONSTRAINT PK_Account2 -- 계정 기본키
+ALTER TABLE Account
+	ADD CONSTRAINT PK_Account -- 계정 기본키
 		PRIMARY KEY (
 			act_no -- 계정번호
 		);
 
 -- 계정 유니크 인덱스
-CREATE UNIQUE INDEX UIX_Account22
-	ON Account2 ( -- 계정
+CREATE UNIQUE INDEX UIX_Account
+	ON Account ( -- 계정
 		act_id ASC -- 아이디
 	);
 
 -- 계정 유니크 인덱스2
 CREATE UNIQUE INDEX UIX_Account2
-	ON Account2 ( -- 계정
+	ON Account ( -- 계정
 		email ASC -- 이메일
 	);
 
 -- 계정 인덱스
-CREATE INDEX IX_Account2
-	ON Account2( -- 계정
+CREATE INDEX IX_Account
+	ON Account( -- 계정
 	);
 
-ALTER TABLE Account2
+ALTER TABLE Account
 	MODIFY COLUMN act_no INTEGER NOT NULL AUTO_INCREMENT COMMENT '계정번호';
 
 -- 메시지
-CREATE TABLE Message2 (
+CREATE TABLE Message (
 	mg_no    INTEGER      NOT NULL COMMENT '메시지번호', -- 메시지번호
 	ur_no    INTEGER      NOT NULL COMMENT '보내는이', -- 보내는이
 	ur_no2   INTEGER      NULL     COMMENT '받는이', -- 받는이
@@ -157,13 +157,13 @@ CREATE TABLE Message2 (
 COMMENT '메시지';
 
 -- 메시지
-ALTER TABLE Message2
-	ADD CONSTRAINT PK_Message2 -- 메시지 기본키
+ALTER TABLE Message
+	ADD CONSTRAINT PK_Message -- 메시지 기본키
 		PRIMARY KEY (
 			mg_no -- 메시지번호
 		);
 
-ALTER TABLE Message2
+ALTER TABLE Message
 	MODIFY COLUMN mg_no INTEGER NOT NULL AUTO_INCREMENT COMMENT '메시지번호';
 
 -- 사용자
@@ -198,15 +198,15 @@ ALTER TABLE User
 
 -- 대여
 CREATE TABLE Purchaser (
-	rent_no  <데이터 타입 없음> NOT NULL COMMENT '대여번호', -- 대여번호
-	ur_no    INTEGER            NOT NULL COMMENT '대여자번호', -- 대여자번호
-	it_no    INTEGER            NOT NULL COMMENT '물품번호', -- 물품번호
-	aply_dat <데이터 타입 없음> NOT NULL COMMENT '신청일', -- 신청일
-	pay_way  <데이터 타입 없음> NOT NULL COMMENT '결제수단', -- 결제수단
-	pay_dat  <데이터 타입 없음> NOT NULL COMMENT '결제일', -- 결제일
-	pay_type <데이터 타입 없음> NOT NULL COMMENT '배송비결제유형', -- 배송비결제유형
-	del_no   VARCHAR(50)        NOT NULL COMMENT '운송장번호', -- 운송장번호
-	del_dat  <데이터 타입 없음> NOT NULL COMMENT '배송일' -- 배송일
+	rent_no  INTEGER     NOT NULL COMMENT '대여번호', -- 대여번호
+	ur_no    INTEGER     NOT NULL COMMENT '대여자번호', -- 대여자번호
+	it_no    INTEGER     NOT NULL COMMENT '물품번호', -- 물품번호
+	aply_dat DATE        NOT NULL COMMENT '신청일', -- 신청일
+	pay_way  INTEGER     NOT NULL COMMENT '결제수단', -- 결제수단
+	pay_dat  DATE        NOT NULL COMMENT '결제일', -- 결제일
+	pay_type INTEGER     NOT NULL COMMENT '배송비결제유형', -- 배송비결제유형
+	del_no   VARCHAR(50) NOT NULL COMMENT '운송장번호', -- 운송장번호
+	del_dat  DATE        NOT NULL COMMENT '배송일' -- 배송일
 )
 COMMENT '대여';
 
@@ -228,8 +228,8 @@ ALTER TABLE Purchaser
 	MODIFY COLUMN ur_no INTEGER NOT NULL AUTO_INCREMENT COMMENT '대여자번호';
 
 -- 후기
-ALTER TABLE PostScript2
-	ADD CONSTRAINT FK_Purchaser_TO_PostScript2 -- 대여 -> 후기
+ALTER TABLE PostScript
+	ADD CONSTRAINT FK_Purchaser_TO_PostScript -- 대여 -> 후기
 		FOREIGN KEY (
 			rent_no -- 대여번호
 		)
@@ -238,18 +238,18 @@ ALTER TABLE PostScript2
 		);
 
 -- 물품
-ALTER TABLE Item2
-	ADD CONSTRAINT FK_Category2_TO_Item2 -- 카테고리 -> 물품
+ALTER TABLE Item
+	ADD CONSTRAINT FK_Category_TO_Item -- 카테고리 -> 물품
 		FOREIGN KEY (
 			ct_no -- 카테고리번호
 		)
-		REFERENCES Category2 ( -- 카테고리
+		REFERENCES Category ( -- 카테고리
 			ct_no -- 카테고리번호
 		);
 
 -- 물품
-ALTER TABLE Item2
-	ADD CONSTRAINT FK_User_TO_Item2 -- 사용자 -> 물품
+ALTER TABLE Item
+	ADD CONSTRAINT FK_User_TO_Item -- 사용자 -> 물품
 		FOREIGN KEY (
 			ur_no -- 사용자번호
 		)
@@ -258,18 +258,18 @@ ALTER TABLE Item2
 		);
 
 -- 사진
-ALTER TABLE ItemPhoto2
-	ADD CONSTRAINT FK_Item2_TO_ItemPhoto2 -- 물품 -> 사진
+ALTER TABLE ItemPhoto
+	ADD CONSTRAINT FK_Item_TO_ItemPhoto -- 물품 -> 사진
 		FOREIGN KEY (
 			it_no -- 물품번호
 		)
-		REFERENCES Item2 ( -- 물품
+		REFERENCES Item ( -- 물품
 			it_no -- 물품번호
 		);
 
 -- 메시지
-ALTER TABLE Message2
-	ADD CONSTRAINT FK_User_TO_Message2 -- 사용자 -> 메시지
+ALTER TABLE Message
+	ADD CONSTRAINT FK_User_TO_Message -- 사용자 -> 메시지
 		FOREIGN KEY (
 			ur_no -- 보내는이
 		)
@@ -278,8 +278,8 @@ ALTER TABLE Message2
 		);
 
 -- 메시지
-ALTER TABLE Message2
-	ADD CONSTRAINT FK_User_TO_Message22 -- 사용자 -> 메시지2
+ALTER TABLE Message
+	ADD CONSTRAINT FK_User_TO_Message2 -- 사용자 -> 메시지2
 		FOREIGN KEY (
 			ur_no2 -- 받는이
 		)
@@ -289,11 +289,11 @@ ALTER TABLE Message2
 
 -- 사용자
 ALTER TABLE User
-	ADD CONSTRAINT FK_Account2_TO_User -- 계정 -> 사용자
+	ADD CONSTRAINT FK_Account_TO_User -- 계정 -> 사용자
 		FOREIGN KEY (
 			ur_no -- 사용자번호
 		)
-		REFERENCES Account2 ( -- 계정
+		REFERENCES Account ( -- 계정
 			act_no -- 계정번호
 		);
 
@@ -309,10 +309,10 @@ ALTER TABLE Purchaser
 
 -- 대여
 ALTER TABLE Purchaser
-	ADD CONSTRAINT FK_Item2_TO_Purchaser -- 물품 -> 대여
+	ADD CONSTRAINT FK_Item_TO_Purchaser -- 물품 -> 대여
 		FOREIGN KEY (
 			it_no -- 물품번호
 		)
-		REFERENCES Item2 ( -- 물품
+		REFERENCES Item ( -- 물품
 			it_no -- 물품번호
 		);
