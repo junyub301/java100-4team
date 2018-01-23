@@ -1,318 +1,318 @@
--- ÈÄ±â
+ï»¿-- í›„ê¸°
 DROP TABLE IF EXISTS PostScript RESTRICT;
 
--- Ä«Å×°í¸®
+-- ì¹´í…Œê³ ë¦¬
 DROP TABLE IF EXISTS Category RESTRICT;
 
--- ¹°Ç°
+-- ë¬¼í’ˆ
 DROP TABLE IF EXISTS Item RESTRICT;
 
--- »çÁø
+-- ì‚¬ì§„
 DROP TABLE IF EXISTS ItemPhoto RESTRICT;
 
--- °èÁ¤
+-- ê³„ì •
 DROP TABLE IF EXISTS Account RESTRICT;
 
--- ¸Þ½ÃÁö
+-- ë©”ì‹œì§€
 DROP TABLE IF EXISTS Message RESTRICT;
 
--- »ç¿ëÀÚ
+-- ì‚¬ìš©ìž
 DROP TABLE IF EXISTS User RESTRICT;
 
--- ´ë¿©
+-- ëŒ€ì—¬
 DROP TABLE IF EXISTS Purchaser RESTRICT;
 
--- ÈÄ±â
+-- í›„ê¸°
 CREATE TABLE PostScript (
-	rent_no  INTEGER      NOT NULL COMMENT '´ë¿©¹øÈ£', -- ´ë¿©¹øÈ£
-	cnt      VARCHAR(255) NULL     COMMENT '³»¿ë', -- ³»¿ë
-	cre_date DATE         NULL     COMMENT 'ÀÛ¼ºÀÏ' -- ÀÛ¼ºÀÏ
+	rent_no  INTEGER      NOT NULL COMMENT 'ëŒ€ì—¬ë²ˆí˜¸', -- ëŒ€ì—¬ë²ˆí˜¸
+	cnt      VARCHAR(255) NULL     COMMENT 'ë‚´ìš©', -- ë‚´ìš©
+	cre_date DATE         NULL     COMMENT 'ìž‘ì„±ì¼' -- ìž‘ì„±ì¼
 )
-COMMENT 'ÈÄ±â';
+COMMENT 'í›„ê¸°';
 
--- ÈÄ±â
+-- í›„ê¸°
 ALTER TABLE PostScript
-	ADD CONSTRAINT PK_PostScript -- ÈÄ±â ±âº»Å°
+	ADD CONSTRAINT PK_PostScript -- í›„ê¸° ê¸°ë³¸í‚¤
 		PRIMARY KEY (
-			rent_no -- ´ë¿©¹øÈ£
+			rent_no -- ëŒ€ì—¬ë²ˆí˜¸
 		);
 
--- ÈÄ±â ÀÎµ¦½º
+-- í›„ê¸° ì¸ë±ìŠ¤
 CREATE INDEX IX_PostScript
-	ON PostScript( -- ÈÄ±â
-		cre_date ASC -- ÀÛ¼ºÀÏ
+	ON PostScript( -- í›„ê¸°
+		cre_date ASC -- ìž‘ì„±ì¼
 	);
 
--- Ä«Å×°í¸®
+-- ì¹´í…Œê³ ë¦¬
 CREATE TABLE Category (
-	ct_no INTEGER     NOT NULL COMMENT 'Ä«Å×°í¸®¹øÈ£', -- Ä«Å×°í¸®¹øÈ£
-	name  VARCHAR(50) NOT NULL COMMENT 'ÀÌ¸§' -- ÀÌ¸§
+	ct_no INTEGER     NOT NULL COMMENT 'ì¹´í…Œê³ ë¦¬ë²ˆí˜¸', -- ì¹´í…Œê³ ë¦¬ë²ˆí˜¸
+	name  VARCHAR(50) NOT NULL COMMENT 'ì´ë¦„' -- ì´ë¦„
 )
-COMMENT 'Ä«Å×°í¸®';
+COMMENT 'ì¹´í…Œê³ ë¦¬';
 
--- Ä«Å×°í¸®
+-- ì¹´í…Œê³ ë¦¬
 ALTER TABLE Category
-	ADD CONSTRAINT PK_Category -- Ä«Å×°í¸® ±âº»Å°
+	ADD CONSTRAINT PK_Category -- ì¹´í…Œê³ ë¦¬ ê¸°ë³¸í‚¤
 		PRIMARY KEY (
-			ct_no -- Ä«Å×°í¸®¹øÈ£
+			ct_no -- ì¹´í…Œê³ ë¦¬ë²ˆí˜¸
 		);
 
--- ¹°Ç°
+-- ë¬¼í’ˆ
 CREATE TABLE Item (
-	it_no     INTEGER     NOT NULL COMMENT '¹°Ç°¹øÈ£', -- ¹°Ç°¹øÈ£
-	ur_no     INTEGER     NOT NULL COMMENT '»ç¿ëÀÚ¹øÈ£', -- »ç¿ëÀÚ¹øÈ£
-	ct_no     INTEGER     NOT NULL COMMENT 'Ä«Å×°í¸®¹øÈ£', -- Ä«Å×°í¸®¹øÈ£
-	title     VARCHAR(50) NOT NULL COMMENT '±Û Á¦¸ñ', -- ±Û Á¦¸ñ
-	name      VARCHAR(50) NOT NULL COMMENT '¹°Ç°¸í', -- ¹°Ç°¸í
-	start     DATE        NOT NULL COMMENT '´ë¿©½ÃÀÛÀÏ', -- ´ë¿©½ÃÀÛÀÏ
-	end       DATE        NOT NULL COMMENT '´ë¿©Á¾·áÀÏ', -- ´ë¿©Á¾·áÀÏ
-	price     INTEGER     NOT NULL COMMENT '´ë¿© ±âº» °¡°Ý', -- ´ë¿© ±âº» °¡°Ý
-	price_day INTEGER     NOT NULL COMMENT '´ë¿© °¡°Ý', -- ´ë¿© °¡°Ý
-	status    BOOLEAN     NOT NULL COMMENT '¹°Ç° »óÅÂ' -- ¹°Ç° »óÅÂ
+	it_no     INTEGER     NOT NULL COMMENT 'ë¬¼í’ˆë²ˆí˜¸', -- ë¬¼í’ˆë²ˆí˜¸
+	ur_no     INTEGER     NOT NULL COMMENT 'ì‚¬ìš©ìžë²ˆí˜¸', -- ì‚¬ìš©ìžë²ˆí˜¸
+	ct_no     INTEGER     NOT NULL COMMENT 'ì¹´í…Œê³ ë¦¬ë²ˆí˜¸', -- ì¹´í…Œê³ ë¦¬ë²ˆí˜¸
+	title     VARCHAR(50) NOT NULL COMMENT 'ê¸€ ì œëª©', -- ê¸€ ì œëª©
+	name      VARCHAR(50) NOT NULL COMMENT 'ë¬¼í’ˆëª…', -- ë¬¼í’ˆëª…
+	start     DATE        NOT NULL COMMENT 'ëŒ€ì—¬ì‹œìž‘ì¼', -- ëŒ€ì—¬ì‹œìž‘ì¼
+	end       DATE        NOT NULL COMMENT 'ëŒ€ì—¬ì¢…ë£Œì¼', -- ëŒ€ì—¬ì¢…ë£Œì¼
+	price     INTEGER     NOT NULL COMMENT 'ëŒ€ì—¬ ê¸°ë³¸ ê°€ê²©', -- ëŒ€ì—¬ ê¸°ë³¸ ê°€ê²©
+	price_day INTEGER     NOT NULL COMMENT 'ëŒ€ì—¬ ê°€ê²©', -- ëŒ€ì—¬ ê°€ê²©
+	status    BOOLEAN     NOT NULL COMMENT 'ë¬¼í’ˆ ìƒíƒœ' -- ë¬¼í’ˆ ìƒíƒœ
 )
-COMMENT '¹°Ç°';
+COMMENT 'ë¬¼í’ˆ';
 
--- ¹°Ç°
+-- ë¬¼í’ˆ
 ALTER TABLE Item
-	ADD CONSTRAINT PK_Item -- ¹°Ç° ±âº»Å°
+	ADD CONSTRAINT PK_Item -- ë¬¼í’ˆ ê¸°ë³¸í‚¤
 		PRIMARY KEY (
-			it_no -- ¹°Ç°¹øÈ£
+			it_no -- ë¬¼í’ˆë²ˆí˜¸
 		);
 
--- ¹°Ç° ÀÎµ¦½º
+-- ë¬¼í’ˆ ì¸ë±ìŠ¤
 CREATE INDEX IX_Item
-	ON Item( -- ¹°Ç°
-		it_no ASC -- ¹°Ç°¹øÈ£
+	ON Item( -- ë¬¼í’ˆ
+		it_no ASC -- ë¬¼í’ˆë²ˆí˜¸
 	);
 
 ALTER TABLE Item
-	MODIFY COLUMN it_no INTEGER NOT NULL AUTO_INCREMENT COMMENT '¹°Ç°¹øÈ£';
+	MODIFY COLUMN it_no INTEGER NOT NULL AUTO_INCREMENT COMMENT 'ë¬¼í’ˆë²ˆí˜¸';
 
--- »çÁø
+-- ì‚¬ì§„
 CREATE TABLE ItemPhoto (
-	pho_no   INTEGER      NOT NULL COMMENT '»çÁø¹øÈ£', -- »çÁø¹øÈ£
-	it_no    INTEGER      NULL     COMMENT '¹°Ç°¹øÈ£', -- ¹°Ç°¹øÈ£
-	pho_path VARCHAR(255) NULL     COMMENT '»çÁø°æ·Î' -- »çÁø°æ·Î
+	pho_no   INTEGER      NOT NULL COMMENT 'ì‚¬ì§„ë²ˆí˜¸', -- ì‚¬ì§„ë²ˆí˜¸
+	it_no    INTEGER      NULL     COMMENT 'ë¬¼í’ˆë²ˆí˜¸', -- ë¬¼í’ˆë²ˆí˜¸
+	pho_path VARCHAR(255) NULL     COMMENT 'ì‚¬ì§„ê²½ë¡œ' -- ì‚¬ì§„ê²½ë¡œ
 )
-COMMENT '»çÁø';
+COMMENT 'ì‚¬ì§„';
 
--- »çÁø
+-- ì‚¬ì§„
 ALTER TABLE ItemPhoto
-	ADD CONSTRAINT PK_ItemPhoto -- »çÁø ±âº»Å°
+	ADD CONSTRAINT PK_ItemPhoto -- ì‚¬ì§„ ê¸°ë³¸í‚¤
 		PRIMARY KEY (
-			pho_no -- »çÁø¹øÈ£
+			pho_no -- ì‚¬ì§„ë²ˆí˜¸
 		);
 
 ALTER TABLE ItemPhoto
-	MODIFY COLUMN pho_no INTEGER NOT NULL AUTO_INCREMENT COMMENT '»çÁø¹øÈ£';
+	MODIFY COLUMN pho_no INTEGER NOT NULL AUTO_INCREMENT COMMENT 'ì‚¬ì§„ë²ˆí˜¸';
 
--- °èÁ¤
+-- ê³„ì •
 CREATE TABLE Account (
-	act_no INTEGER      NOT NULL COMMENT '°èÁ¤¹øÈ£', -- °èÁ¤¹øÈ£
-	act_id VARCHAR(50)  NOT NULL COMMENT '¾ÆÀÌµð', -- ¾ÆÀÌµð
-	email  VARCHAR(40)  NOT NULL COMMENT 'ÀÌ¸ÞÀÏ', -- ÀÌ¸ÞÀÏ
-	pwd    VARCHAR(100) NOT NULL COMMENT '¾ÏÈ£', -- ¾ÏÈ£
-	name   VARCHAR(50)  NOT NULL COMMENT 'ÀÌ¸§', -- ÀÌ¸§
-	rank   INTEGER      NOT NULL COMMENT 'µî±Þ' -- µî±Þ
+	act_no INTEGER      NOT NULL COMMENT 'ê³„ì •ë²ˆí˜¸', -- ê³„ì •ë²ˆí˜¸
+	act_id VARCHAR(50)  NOT NULL COMMENT 'ì•„ì´ë””', -- ì•„ì´ë””
+	email  VARCHAR(40)  NOT NULL COMMENT 'ì´ë©”ì¼', -- ì´ë©”ì¼
+	pwd    VARCHAR(100) NOT NULL COMMENT 'ì•”í˜¸', -- ì•”í˜¸
+	name   VARCHAR(50)  NOT NULL COMMENT 'ì´ë¦„', -- ì´ë¦„
+	rank   INTEGER      NOT NULL COMMENT 'ë“±ê¸‰' -- ë“±ê¸‰
 )
-COMMENT '°èÁ¤';
+COMMENT 'ê³„ì •';
 
--- °èÁ¤
+-- ê³„ì •
 ALTER TABLE Account
-	ADD CONSTRAINT PK_Account -- °èÁ¤ ±âº»Å°
+	ADD CONSTRAINT PK_Account -- ê³„ì • ê¸°ë³¸í‚¤
 		PRIMARY KEY (
-			act_no -- °èÁ¤¹øÈ£
+			act_no -- ê³„ì •ë²ˆí˜¸
 		);
 
--- °èÁ¤ À¯´ÏÅ© ÀÎµ¦½º
+-- ê³„ì • ìœ ë‹ˆí¬ ì¸ë±ìŠ¤
 CREATE UNIQUE INDEX UIX_Account
-	ON Account ( -- °èÁ¤
-		act_id ASC -- ¾ÆÀÌµð
+	ON Account ( -- ê³„ì •
+		act_id ASC -- ì•„ì´ë””
 	);
 
--- °èÁ¤ À¯´ÏÅ© ÀÎµ¦½º2
+-- ê³„ì • ìœ ë‹ˆí¬ ì¸ë±ìŠ¤2
 CREATE UNIQUE INDEX UIX_Account2
-	ON Account ( -- °èÁ¤
-		email ASC -- ÀÌ¸ÞÀÏ
+	ON Account ( -- ê³„ì •
+		email ASC -- ì´ë©”ì¼
 	);
 
--- °èÁ¤ ÀÎµ¦½º
+-- ê³„ì • ì¸ë±ìŠ¤
 CREATE INDEX IX_Account
-	ON Account( -- °èÁ¤
+	ON Account( -- ê³„ì •
 	);
 
 ALTER TABLE Account
-	MODIFY COLUMN act_no INTEGER NOT NULL AUTO_INCREMENT COMMENT '°èÁ¤¹øÈ£';
+	MODIFY COLUMN act_no INTEGER NOT NULL AUTO_INCREMENT COMMENT 'ê³„ì •ë²ˆí˜¸';
 
--- ¸Þ½ÃÁö
+-- ë©”ì‹œì§€
 CREATE TABLE Message (
-	mg_no    INTEGER      NOT NULL COMMENT '¸Þ½ÃÁö¹øÈ£', -- ¸Þ½ÃÁö¹øÈ£
-	ur_no    INTEGER      NOT NULL COMMENT 'º¸³»´ÂÀÌ', -- º¸³»´ÂÀÌ
-	ur_no2   INTEGER      NULL     COMMENT '¹Þ´ÂÀÌ', -- ¹Þ´ÂÀÌ
-	title    VARCHAR(50)  NOT NULL COMMENT 'Á¦¸ñ', -- Á¦¸ñ
-	cnt      VARCHAR(255) NOT NULL COMMENT '³»¿ë', -- ³»¿ë
-	state    BOOLEAN      NOT NULL COMMENT '¼ö½ÅÈ®ÀÎ»óÅÂ', -- ¼ö½ÅÈ®ÀÎ»óÅÂ
-	dis_date DATE         NOT NULL COMMENT '¹ß¼Û³¯Â¥' -- ¹ß¼Û³¯Â¥
+	mg_no    INTEGER      NOT NULL COMMENT 'ë©”ì‹œì§€ë²ˆí˜¸', -- ë©”ì‹œì§€ë²ˆí˜¸
+	ur_no    INTEGER      NOT NULL COMMENT 'ë³´ë‚´ëŠ”ì´', -- ë³´ë‚´ëŠ”ì´
+	ur_no2   INTEGER      NULL     COMMENT 'ë°›ëŠ”ì´', -- ë°›ëŠ”ì´
+	title    VARCHAR(50)  NOT NULL COMMENT 'ì œëª©', -- ì œëª©
+	cnt      VARCHAR(255) NOT NULL COMMENT 'ë‚´ìš©', -- ë‚´ìš©
+	state    BOOLEAN      NOT NULL COMMENT 'ìˆ˜ì‹ í™•ì¸ìƒíƒœ', -- ìˆ˜ì‹ í™•ì¸ìƒíƒœ
+	dis_date DATE         NOT NULL COMMENT 'ë°œì†¡ë‚ ì§œ' -- ë°œì†¡ë‚ ì§œ
 )
-COMMENT '¸Þ½ÃÁö';
+COMMENT 'ë©”ì‹œì§€';
 
--- ¸Þ½ÃÁö
+-- ë©”ì‹œì§€
 ALTER TABLE Message
-	ADD CONSTRAINT PK_Message -- ¸Þ½ÃÁö ±âº»Å°
+	ADD CONSTRAINT PK_Message -- ë©”ì‹œì§€ ê¸°ë³¸í‚¤
 		PRIMARY KEY (
-			mg_no -- ¸Þ½ÃÁö¹øÈ£
+			mg_no -- ë©”ì‹œì§€ë²ˆí˜¸
 		);
 
 ALTER TABLE Message
-	MODIFY COLUMN mg_no INTEGER NOT NULL AUTO_INCREMENT COMMENT '¸Þ½ÃÁö¹øÈ£';
+	MODIFY COLUMN mg_no INTEGER NOT NULL AUTO_INCREMENT COMMENT 'ë©”ì‹œì§€ë²ˆí˜¸';
 
--- »ç¿ëÀÚ
+-- ì‚¬ìš©ìž
 CREATE TABLE User (
-	ur_no    INTEGER      NOT NULL COMMENT '»ç¿ëÀÚ¹øÈ£', -- »ç¿ëÀÚ¹øÈ£
-	acc_no   VARCHAR(100) NOT NULL COMMENT 'ÅëÀå¹øÈ£', -- ÅëÀå¹øÈ£
-	bank     VARCHAR(30)  NOT NULL COMMENT 'ÀºÇà¸í', -- ÀºÇà¸í
-	cnt      VARCHAR(50)  NULL     COMMENT 'ÇÑ¸¶µð', -- ÇÑ¸¶µð
-	phone    VARCHAR(30)  NOT NULL COMMENT 'ÀüÈ­¹øÈ£', -- ÀüÈ­¹øÈ£
-	pst_no   VARCHAR(30)  NOT NULL COMMENT '¿ìÆí¹øÈ£', -- ¿ìÆí¹øÈ£
-	bas_addr VARCHAR(255) NOT NULL COMMENT '±âº»ÁÖ¼Ò', -- ±âº»ÁÖ¼Ò
-	det_addr VARCHAR(255) NOT NULL COMMENT '»ó¼¼ÁÖ¼Ò' -- »ó¼¼ÁÖ¼Ò
+	ur_no    INTEGER      NOT NULL COMMENT 'ì‚¬ìš©ìžë²ˆí˜¸', -- ì‚¬ìš©ìžë²ˆí˜¸
+	acc_no   VARCHAR(100) NOT NULL COMMENT 'í†µìž¥ë²ˆí˜¸', -- í†µìž¥ë²ˆí˜¸
+	bank     VARCHAR(30)  NOT NULL COMMENT 'ì€í–‰ëª…', -- ì€í–‰ëª…
+	cnt      VARCHAR(50)  NULL     COMMENT 'í•œë§ˆë””', -- í•œë§ˆë””
+	phone    VARCHAR(30)  NOT NULL COMMENT 'ì „í™”ë²ˆí˜¸', -- ì „í™”ë²ˆí˜¸
+	pst_no   VARCHAR(30)  NOT NULL COMMENT 'ìš°íŽ¸ë²ˆí˜¸', -- ìš°íŽ¸ë²ˆí˜¸
+	bas_addr VARCHAR(255) NOT NULL COMMENT 'ê¸°ë³¸ì£¼ì†Œ', -- ê¸°ë³¸ì£¼ì†Œ
+	det_addr VARCHAR(255) NOT NULL COMMENT 'ìƒì„¸ì£¼ì†Œ' -- ìƒì„¸ì£¼ì†Œ
 )
-COMMENT '»ç¿ëÀÚ';
+COMMENT 'ì‚¬ìš©ìž';
 
--- »ç¿ëÀÚ
+-- ì‚¬ìš©ìž
 ALTER TABLE User
-	ADD CONSTRAINT PK_User -- »ç¿ëÀÚ ±âº»Å°
+	ADD CONSTRAINT PK_User -- ì‚¬ìš©ìž ê¸°ë³¸í‚¤
 		PRIMARY KEY (
-			ur_no -- »ç¿ëÀÚ¹øÈ£
+			ur_no -- ì‚¬ìš©ìžë²ˆí˜¸
 		);
 
--- »ç¿ëÀÚ À¯´ÏÅ© ÀÎµ¦½º
+-- ì‚¬ìš©ìž ìœ ë‹ˆí¬ ì¸ë±ìŠ¤
 CREATE UNIQUE INDEX UIX_User
-	ON User ( -- »ç¿ëÀÚ
-		acc_no ASC, -- ÅëÀå¹øÈ£
-		bank ASC    -- ÀºÇà¸í
+	ON User ( -- ì‚¬ìš©ìž
+		acc_no ASC, -- í†µìž¥ë²ˆí˜¸
+		bank ASC    -- ì€í–‰ëª…
 	);
 
 ALTER TABLE User
-	MODIFY COLUMN ur_no INTEGER NOT NULL AUTO_INCREMENT COMMENT '»ç¿ëÀÚ¹øÈ£';
+	MODIFY COLUMN ur_no INTEGER NOT NULL AUTO_INCREMENT COMMENT 'ì‚¬ìš©ìžë²ˆí˜¸';
 
--- ´ë¿©
+-- ëŒ€ì—¬
 CREATE TABLE Purchaser (
-	rent_no  INTEGER     NOT NULL COMMENT '´ë¿©¹øÈ£', -- ´ë¿©¹øÈ£
-	ur_no    INTEGER     NOT NULL COMMENT '´ë¿©ÀÚ¹øÈ£', -- ´ë¿©ÀÚ¹øÈ£
-	it_no    INTEGER     NOT NULL COMMENT '¹°Ç°¹øÈ£', -- ¹°Ç°¹øÈ£
-	aply_dat DATE        NOT NULL COMMENT '½ÅÃ»ÀÏ', -- ½ÅÃ»ÀÏ
-	pay_way  INTEGER     NOT NULL COMMENT '°áÁ¦¼ö´Ü', -- °áÁ¦¼ö´Ü
-	pay_dat  DATE        NOT NULL COMMENT '°áÁ¦ÀÏ', -- °áÁ¦ÀÏ
-	pay_type INTEGER     NOT NULL COMMENT '¹è¼Ûºñ°áÁ¦À¯Çü', -- ¹è¼Ûºñ°áÁ¦À¯Çü
-	del_no   VARCHAR(50) NOT NULL COMMENT '¿î¼ÛÀå¹øÈ£', -- ¿î¼ÛÀå¹øÈ£
-	del_dat  DATE        NOT NULL COMMENT '¹è¼ÛÀÏ' -- ¹è¼ÛÀÏ
+	rent_no  INTEGER     NOT NULL COMMENT 'ëŒ€ì—¬ë²ˆí˜¸', -- ëŒ€ì—¬ë²ˆí˜¸
+	ur_no    INTEGER     NOT NULL COMMENT 'ëŒ€ì—¬ìžë²ˆí˜¸', -- ëŒ€ì—¬ìžë²ˆí˜¸
+	it_no    INTEGER     NOT NULL COMMENT 'ë¬¼í’ˆë²ˆí˜¸', -- ë¬¼í’ˆë²ˆí˜¸
+	aply_dat DATE        NOT NULL COMMENT 'ì‹ ì²­ì¼', -- ì‹ ì²­ì¼
+	pay_way  INTEGER     NOT NULL COMMENT 'ê²°ì œìˆ˜ë‹¨', -- ê²°ì œìˆ˜ë‹¨
+	pay_dat  DATE        NOT NULL COMMENT 'ê²°ì œì¼', -- ê²°ì œì¼
+	pay_type INTEGER     NOT NULL COMMENT 'ë°°ì†¡ë¹„ê²°ì œìœ í˜•', -- ë°°ì†¡ë¹„ê²°ì œìœ í˜•
+	del_no   VARCHAR(50) NOT NULL COMMENT 'ìš´ì†¡ìž¥ë²ˆí˜¸', -- ìš´ì†¡ìž¥ë²ˆí˜¸
+	del_dat  DATE        NOT NULL COMMENT 'ë°°ì†¡ì¼' -- ë°°ì†¡ì¼
 )
-COMMENT '´ë¿©';
+COMMENT 'ëŒ€ì—¬';
 
--- ´ë¿©
+-- ëŒ€ì—¬
 ALTER TABLE Purchaser
-	ADD CONSTRAINT PK_Purchaser -- ´ë¿© ±âº»Å°
+	ADD CONSTRAINT PK_Purchaser -- ëŒ€ì—¬ ê¸°ë³¸í‚¤
 		PRIMARY KEY (
-			rent_no -- ´ë¿©¹øÈ£
+			rent_no -- ëŒ€ì—¬ë²ˆí˜¸
 		);
 
--- ´ë¿© À¯´ÏÅ© ÀÎµ¦½º
+-- ëŒ€ì—¬ ìœ ë‹ˆí¬ ì¸ë±ìŠ¤
 CREATE UNIQUE INDEX UIX_Purchaser
-	ON Purchaser ( -- ´ë¿©
-		ur_no ASC, -- ´ë¿©ÀÚ¹øÈ£
-		it_no ASC  -- ¹°Ç°¹øÈ£
+	ON Purchaser ( -- ëŒ€ì—¬
+		ur_no ASC, -- ëŒ€ì—¬ìžë²ˆí˜¸
+		it_no ASC  -- ë¬¼í’ˆë²ˆí˜¸
 	);
 
 ALTER TABLE Purchaser
-	MODIFY COLUMN ur_no INTEGER NOT NULL AUTO_INCREMENT COMMENT '´ë¿©ÀÚ¹øÈ£';
+	MODIFY COLUMN ur_no INTEGER NOT NULL AUTO_INCREMENT COMMENT 'ëŒ€ì—¬ìžë²ˆí˜¸';
 
--- ÈÄ±â
+-- í›„ê¸°
 ALTER TABLE PostScript
-	ADD CONSTRAINT FK_Purchaser_TO_PostScript -- ´ë¿© -> ÈÄ±â
+	ADD CONSTRAINT FK_Purchaser_TO_PostScript -- ëŒ€ì—¬ -> í›„ê¸°
 		FOREIGN KEY (
-			rent_no -- ´ë¿©¹øÈ£
+			rent_no -- ëŒ€ì—¬ë²ˆí˜¸
 		)
-		REFERENCES Purchaser ( -- ´ë¿©
-			rent_no -- ´ë¿©¹øÈ£
+		REFERENCES Purchaser ( -- ëŒ€ì—¬
+			rent_no -- ëŒ€ì—¬ë²ˆí˜¸
 		);
 
--- ¹°Ç°
+-- ë¬¼í’ˆ
 ALTER TABLE Item
-	ADD CONSTRAINT FK_Category_TO_Item -- Ä«Å×°í¸® -> ¹°Ç°
+	ADD CONSTRAINT FK_Category_TO_Item -- ì¹´í…Œê³ ë¦¬ -> ë¬¼í’ˆ
 		FOREIGN KEY (
-			ct_no -- Ä«Å×°í¸®¹øÈ£
+			ct_no -- ì¹´í…Œê³ ë¦¬ë²ˆí˜¸
 		)
-		REFERENCES Category ( -- Ä«Å×°í¸®
-			ct_no -- Ä«Å×°í¸®¹øÈ£
+		REFERENCES Category ( -- ì¹´í…Œê³ ë¦¬
+			ct_no -- ì¹´í…Œê³ ë¦¬ë²ˆí˜¸
 		);
 
--- ¹°Ç°
+-- ë¬¼í’ˆ
 ALTER TABLE Item
-	ADD CONSTRAINT FK_User_TO_Item -- »ç¿ëÀÚ -> ¹°Ç°
+	ADD CONSTRAINT FK_User_TO_Item -- ì‚¬ìš©ìž -> ë¬¼í’ˆ
 		FOREIGN KEY (
-			ur_no -- »ç¿ëÀÚ¹øÈ£
+			ur_no -- ì‚¬ìš©ìžë²ˆí˜¸
 		)
-		REFERENCES User ( -- »ç¿ëÀÚ
-			ur_no -- »ç¿ëÀÚ¹øÈ£
+		REFERENCES User ( -- ì‚¬ìš©ìž
+			ur_no -- ì‚¬ìš©ìžë²ˆí˜¸
 		);
 
--- »çÁø
+-- ì‚¬ì§„
 ALTER TABLE ItemPhoto
-	ADD CONSTRAINT FK_Item_TO_ItemPhoto -- ¹°Ç° -> »çÁø
+	ADD CONSTRAINT FK_Item_TO_ItemPhoto -- ë¬¼í’ˆ -> ì‚¬ì§„
 		FOREIGN KEY (
-			it_no -- ¹°Ç°¹øÈ£
+			it_no -- ë¬¼í’ˆë²ˆí˜¸
 		)
-		REFERENCES Item ( -- ¹°Ç°
-			it_no -- ¹°Ç°¹øÈ£
+		REFERENCES Item ( -- ë¬¼í’ˆ
+			it_no -- ë¬¼í’ˆë²ˆí˜¸
 		);
 
--- ¸Þ½ÃÁö
+-- ë©”ì‹œì§€
 ALTER TABLE Message
-	ADD CONSTRAINT FK_User_TO_Message -- »ç¿ëÀÚ -> ¸Þ½ÃÁö
+	ADD CONSTRAINT FK_User_TO_Message -- ì‚¬ìš©ìž -> ë©”ì‹œì§€
 		FOREIGN KEY (
-			ur_no -- º¸³»´ÂÀÌ
+			ur_no -- ë³´ë‚´ëŠ”ì´
 		)
-		REFERENCES User ( -- »ç¿ëÀÚ
-			ur_no -- »ç¿ëÀÚ¹øÈ£
+		REFERENCES User ( -- ì‚¬ìš©ìž
+			ur_no -- ì‚¬ìš©ìžë²ˆí˜¸
 		);
 
--- ¸Þ½ÃÁö
+-- ë©”ì‹œì§€
 ALTER TABLE Message
-	ADD CONSTRAINT FK_User_TO_Message2 -- »ç¿ëÀÚ -> ¸Þ½ÃÁö2
+	ADD CONSTRAINT FK_User_TO_Message2 -- ì‚¬ìš©ìž -> ë©”ì‹œì§€2
 		FOREIGN KEY (
-			ur_no2 -- ¹Þ´ÂÀÌ
+			ur_no2 -- ë°›ëŠ”ì´
 		)
-		REFERENCES User ( -- »ç¿ëÀÚ
-			ur_no -- »ç¿ëÀÚ¹øÈ£
+		REFERENCES User ( -- ì‚¬ìš©ìž
+			ur_no -- ì‚¬ìš©ìžë²ˆí˜¸
 		);
 
--- »ç¿ëÀÚ
+-- ì‚¬ìš©ìž
 ALTER TABLE User
-	ADD CONSTRAINT FK_Account_TO_User -- °èÁ¤ -> »ç¿ëÀÚ
+	ADD CONSTRAINT FK_Account_TO_User -- ê³„ì • -> ì‚¬ìš©ìž
 		FOREIGN KEY (
-			ur_no -- »ç¿ëÀÚ¹øÈ£
+			ur_no -- ì‚¬ìš©ìžë²ˆí˜¸
 		)
-		REFERENCES Account ( -- °èÁ¤
-			act_no -- °èÁ¤¹øÈ£
+		REFERENCES Account ( -- ê³„ì •
+			act_no -- ê³„ì •ë²ˆí˜¸
 		);
 
--- ´ë¿©
+-- ëŒ€ì—¬
 ALTER TABLE Purchaser
-	ADD CONSTRAINT FK_User_TO_Purchaser -- »ç¿ëÀÚ -> ´ë¿©
+	ADD CONSTRAINT FK_User_TO_Purchaser -- ì‚¬ìš©ìž -> ëŒ€ì—¬
 		FOREIGN KEY (
-			ur_no -- ´ë¿©ÀÚ¹øÈ£
+			ur_no -- ëŒ€ì—¬ìžë²ˆí˜¸
 		)
-		REFERENCES User ( -- »ç¿ëÀÚ
-			ur_no -- »ç¿ëÀÚ¹øÈ£
+		REFERENCES User ( -- ì‚¬ìš©ìž
+			ur_no -- ì‚¬ìš©ìžë²ˆí˜¸
 		);
 
--- ´ë¿©
+-- ëŒ€ì—¬
 ALTER TABLE Purchaser
-	ADD CONSTRAINT FK_Item_TO_Purchaser -- ¹°Ç° -> ´ë¿©
+	ADD CONSTRAINT FK_Item_TO_Purchaser -- ë¬¼í’ˆ -> ëŒ€ì—¬
 		FOREIGN KEY (
-			it_no -- ¹°Ç°¹øÈ£
+			it_no -- ë¬¼í’ˆë²ˆí˜¸
 		)
-		REFERENCES Item ( -- ¹°Ç°
-			it_no -- ¹°Ç°¹øÈ£
+		REFERENCES Item ( -- ë¬¼í’ˆ
+			it_no -- ë¬¼í’ˆë²ˆí˜¸
 		);
