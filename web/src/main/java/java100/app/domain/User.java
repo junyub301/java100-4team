@@ -10,7 +10,7 @@ public class User {
     protected String postNo;
     protected String baseAddress;
     protected String detailAddress;
-
+ 
     public User() {}
     
     public User(int userNo, String accountNo, String bank, String comment, String phone, String postNo, String baseAddress, String detailAddress) {
