@@ -14,13 +14,13 @@ public class User {
     public User() {}
     
     public User(int userNo, String accountNo, String bank, String comment, String phone, String postNo, String baseAddress, String detailAddress) {
-        userNo = this.userNo;
-        accountNo = this.accountNo;
-        bank = this.bank;
-        comment = this.comment;
-        phone = this.phone;
-        baseAddress = this.baseAddress;
-        detailAddress = this.baseAddress;
+        this.userNo = userNo;
+        this.accountNo = accountNo;
+        this.bank = bank;
+        this.comment = comment;
+        this.phone = phone;
+        this.baseAddress = baseAddress;
+        this.detailAddress = detailAddress;
     }
 
     @Override
