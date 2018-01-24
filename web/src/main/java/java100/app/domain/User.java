@@ -11,18 +11,6 @@ public class User {
     protected String baseAddress;
     protected String detailAddress;
  
-    public User() {}
-    
-    public User(int userNo, String accountNo, String bank, String comment, String phone, String postNo, String baseAddress, String detailAddress) {
-        this.userNo = userNo;
-        this.accountNo = accountNo;
-        this.bank = bank;
-        this.comment = comment;
-        this.phone = phone;
-        this.baseAddress = baseAddress;
-        this.detailAddress = detailAddress;
-    }
-
     @Override
     public String toString() {
         return "User [userNo=" + userNo + ", accountNo=" + accountNo + ", bank=" + bank + ", comment=" + comment

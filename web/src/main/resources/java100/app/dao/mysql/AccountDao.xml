@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- DAO 객체를 자동으로 생성하려면,
+     namespace의 값이 인터페이스 이름과 같아야 한다. -->
+<mapper namespace="java100.app.dao.AccountDao">
+
+    
+    
+    <insert id="insert" parameterType="account" 
+            useGeneratedKeys="true" keyColumn="act_no" keyProperty="accountsNo">
+        insert into account(act_id,email,pwd,name,rank) 
+        values(#{accountName},#{email},password(#{password}),#{name},1)
+    </insert>
+
+    
+</mapper>
+
+
+
+
+
+
+
+
+
