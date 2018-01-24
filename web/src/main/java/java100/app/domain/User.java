@@ -29,6 +29,7 @@ public class User {
                 + ", phone=" + phone + ", postNo=" + postNo + ", baseAddress=" + baseAddress + ", detailAddress="
                 + detailAddress + "]";
     }
+    
 
     public int getUserNo() {
         return userNo;
@@ -73,6 +74,7 @@ public class User {
     public String getPostNo() {
         return postNo;
     }
+    
 
     public void setPostNo(String postNo) {
         this.postNo = postNo;
