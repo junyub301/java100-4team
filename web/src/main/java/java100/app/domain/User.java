@@ -1,5 +1,7 @@
 package java100.app.domain;
 
+import java.util.List;
+
 public class User {  
     
     protected int userNo;
@@ -10,14 +12,14 @@ public class User {
     protected String postNo;
     protected String baseAddress;
     protected String detailAddress;
- 
+    protected List<Photo> photos;
+   
     @Override
     public String toString() {
         return "User [userNo=" + userNo + ", accountNo=" + accountNo + ", bank=" + bank + ", comment=" + comment
                 + ", phone=" + phone + ", postNo=" + postNo + ", baseAddress=" + baseAddress + ", detailAddress="
-                + detailAddress + "]";
+                + detailAddress + ", photos=" + photos + "]";
     }
-    
 
     public int getUserNo() {
         return userNo;
@@ -62,7 +64,6 @@ public class User {
     public String getPostNo() {
         return postNo;
     }
-    
 
     public void setPostNo(String postNo) {
         this.postNo = postNo;
@@ -82,6 +83,14 @@ public class User {
 
     public void setDetailAddress(String detailAddress) {
         this.detailAddress = detailAddress;
+    }
+
+    public List<Photo> getPhotos() {
+        return photos;
+    }
+
+    public void setPhotos(List<Photo> photos) {
+        this.photos = photos;
     }
     
     

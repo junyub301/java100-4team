@@ -6,11 +6,69 @@
 <!-- DAO 객체를 자동으로 생성하려면,
      namespace의 값이 인터페이스 이름과 같아야 한다. -->
 <mapper namespace="java100.app.dao.UserDao">
-
+    <resultMap type="user" id="userMap">
+        <id column="ur_no" property="userNo"/>
+        <result column="acc_no" property="accountNo"/>
+        <result column="bank" property="bank"/>
+        <result column="cnt" property="comment"/>
+        <result column="phone" property="phone"/>
+        <result column="pst_no" property="postNo"/>
+        <result column="bas_addr" property="baseAddress"/>
+        <result column="det_addr" property="detailAddress"/>
+    <collection property="photos" ofType="photo">
+            <id column="pho_no" property="no"/>
+            <result column="pho_path" property="photoPath"/>
+            <result column="pho_name" property="photoName"/>
+            <result column="ur_no" property="userNo"/>
+    </collection>
+    </resultMap>
+    
+    <select id="list" resultMap="userMap" parameterType="map">
+        select
+            u.ur_no,
+            u.acc_no,
+            u.bank,
+            u.cnt,
+            u.phone,
+            u.pst_no,
+            u.bas_addr,
+            u.det_addr,
+            p.pho_name
+         from user as u join itemphoto as p on u.ur_no=p.ur_no
+    </select>
+    
+    <select id="findByNo" resultMap="userMap" parameterType="int">
+        select
+            u.ur_no,
+            u.acc_no,
+            u.bank,
+            u.cnt,
+            u.phone,
+            u.pst_no,
+            u.bas_addr,
+            u.det_addr,
+            p.pho_name
+         from user as u join itemphoto as p on u.ur_no=p.ur_no where u.ur_no=#{value}
+    </select>
+    
+    
     <insert id="insert" parameterType="user">
         insert into user(ur_no,acc_no,bank,cnt,phone,pst_no,bas_addr,det_addr) 
         values(#{userNo},#{accountNo},#{bank},#{comment},#{phone},#{postNo},#{baseAddress},#{detailAddress})
     </insert>
+
+    <update id="update" parameterType="user">
+        update user set 
+            acc_no=#{accountNo},
+            bank=#{bank},
+            cnt=#{comment},
+            phone=#{phone},
+            pst_no=#{postNo},
+            bas_addr=#{baseAddress},
+            det_addr=#{detailAddress}
+        where ur_no=#{userNo}
+    </update>
+
 
 </mapper>  
 

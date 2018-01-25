@@ -1,6 +1,9 @@
 package java100.app.service;
 
+import java.util.List;
+
 import java100.app.domain.Account;
+import java100.app.domain.Photo;
 import java100.app.domain.User;
 
 // => "역할"을 강조할 때는 "객체(object)"라는 말보다는 
@@ -13,10 +16,14 @@ import java100.app.domain.User;
 // 가능한 업무 용어를 사용한다.
 //
 public interface UserService {
-    
+    List<Account> listAccount();
+    List<User> listUser();
     int add(Account account, User user);
-    
-    
+    Account getAccount(int no);
+    User getUser(int no);
+    int update(Account account, User user);
+    int delete(int no);
+    void addFiles(List<Photo>photos, int userNo);
 }
 
 

@@ -10,8 +10,7 @@
 <body>
 <script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
 
-
-<form action="add">
+<form action="add" method="post" enctype="multipart/form-data">
 아이디<input id='act_id' type='text' name='accountName'><br>
 이메일<input id='email' type="email" name='email'><br>
 패스워드<input id='pwd' type='password' name='password'><br>
@@ -24,6 +23,7 @@
 <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
 기본주소<input type="text" id="sample6_address" placeholder="주소"name='baseAddress'><br>
 상제주소<input  type="text" id="sample6_address2" placeholder="상세주소" name='detailAddress'><br>
+사진<input  type="file" name='photo'><br>
 <button>전송</button>
 </form>
 

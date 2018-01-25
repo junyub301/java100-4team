@@ -6,8 +6,37 @@
 <!-- DAO 객체를 자동으로 생성하려면,
      namespace의 값이 인터페이스 이름과 같아야 한다. -->
 <mapper namespace="java100.app.dao.AccountDao">
-
     
+    <resultMap type="account" id="accountMap">
+        <id column="act_no" property="accountsNo"/>
+        <result column="act_id" property="accountName"/>
+        <result column="email" property="email"/>
+        <result column="pwd" property="password"/>
+        <result column="name" property="name"/>
+        <result column="rank" property="rank"/>
+    </resultMap>
+    
+    <select id="list" resultMap="accountMap" parameterType="map">
+        select
+            act_no,
+            act_id,
+            email,
+            pwd,
+            name,
+            rank
+         from account
+     </select>
+    
+     <select id="findByNo" resultMap="accountMap" parameterType="int">
+        select
+            act_no,
+            act_id,
+            email,
+            pwd,
+            name,
+            rank
+         from account where act_no=#{value}
+     </select>
     
     <insert id="insert" parameterType="account" 
             useGeneratedKeys="true" keyColumn="act_no" keyProperty="accountsNo">
@@ -15,7 +44,18 @@
         values(#{accountName},#{email},password(#{password}),#{name},1)
     </insert>
 
-    
+    <delete id="delete" parameterType="int">
+        delete from account 
+        where act_no=#{value}
+    </delete>
+    <update id="update" parameterType="account">
+        update account set 
+            act_id=#{accountName},
+            email=#{email},
+            pwd=password(#{password}),
+            name=#{name}
+        where act_no=#{accountsNo}
+    </update>
 </mapper>
 
 
