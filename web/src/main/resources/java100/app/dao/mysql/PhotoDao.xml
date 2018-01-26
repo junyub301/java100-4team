@@ -11,9 +11,14 @@
 <mapper namespace="java100.app.dao.PhotoDao">
 
 
-    <insert id="insert" parameterType="photo">
+    <insert id="insertUser" parameterType="photo">
         insert into itemphoto(pho_name, pho_path,ur_no) 
         values(#{photoName}, #{photoPath}, #{userNo})
+    </insert>
+    
+    <insert id="insertItem" parameterType="photo">
+        insert into itemphoto(pho_name,it_no) 
+        values(#{photoName}, #{itemNo})
     </insert>
 
    <delete id="deleteAllByUserNo" parameterType="int">

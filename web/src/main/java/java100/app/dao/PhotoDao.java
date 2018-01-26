@@ -8,7 +8,8 @@ public interface PhotoDao {
 
     List<Photo> findByUserNo(int no);
     
-    void insert(Photo photo);
+    void insertUser(Photo photo);
+    void insertItem(Photo photo);
 
     void deleteAllByUserNo(int no);
 

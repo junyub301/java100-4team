@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="java100.app.dao.ItemDao">
+    
+    <insert id="insert" parameterType="message" 
+        useGeneratedKeys="true" keyColumn="it_no" keyProperty="itemNo">
+        insert into item(ur_no,category,user_type,title,name,cnt,start,end,price,price_day,status) 
+        values(#{userNo},#{category},#{userType},#{title},#{name},#{content},#{startDate},
+                #{endDate},#{price},#{pricePerDay},#{status})
+    </insert>
+
+
+
+</mapper>
+
+
+
+
+
+
+
+
+

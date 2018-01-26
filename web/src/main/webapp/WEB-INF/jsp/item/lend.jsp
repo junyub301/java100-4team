@@ -19,39 +19,40 @@
 <br><br>
 
 <form action="add" method="post" enctype="multipart/form-data">
-
+<input type="hidden" name='userType' value=1> <!-- userType 1은 빌려주세요 카테고리 -->
+<input type="hidden" name='status' value=0> <!-- status 0은 그냥 등록상태 1은 대여상태 -->
 <div class="form-group row">
 <div class="col-sm-2"></div>
 <div class="col-sm-10">
-    <select class="btn btn-secondary" name=""><option value="">카테고리</option>
-    <option value="">전자제품</option>
-    <option value="">뷰티/악세</option>
-    <option value="">의류</option>
-    <option value="">공구</option>
-    <option value="">ETC</option>
+    <select class="btn btn-secondary" name="category"><option value="0">카테고리</option>
+    <option value=1>전자제품</option>
+    <option value=2>뷰티/악세</option>
+    <option value=3>의류</option>
+    <option value=4>공구</option>
+    <option value=5>ETC</option>
     </select>
     </div>
     
 </div>
 
 <div class="form-group row">
-<label class="col-sm-2 col-form-label" for="email">물품정보</label>
+<label class="col-sm-2 col-form-label" for="title">물품정보</label>
 <div class="col-sm-10">
-<input id='email' class="form-control" type="email" placeholder="물품정보를 입력하세요" name='email'>
+<input id='title' class="form-control" type="text" placeholder="물품정보를 입력하세요" name='title'>
 </div>
 </div>
 
 <div class="form-group row">
-<label class="col-sm-2 col-form-label" for="pwd">제목</label>
+<label class="col-sm-2 col-form-label" for="name">제목</label>
 <div class="col-sm-10">
-<input id='pwd' type='password' class="form-control" placeholder="제목을 입력하세요" name='password'>
+<input id='name' type='text' class="form-control" placeholder="제목을 입력하세요" name='name'>
 </div>
 </div>
 
 <div class="form-group row">
-<label class="col-sm-2 col-form-label" for="name">내용</label>
+<label class="col-sm-2 col-form-label" for="content">내용</label>
 <div class="col-sm-10">
-<textarea id='name' class="form-control" placeholder="내용을 입력하세요"  name='name'>
+<textarea id='content' class="form-control" placeholder="내용을 입력하세요"  name='content'>
 </textarea>
 </div>
 </div>

@@ -92,7 +92,7 @@ public class UserServiceImpl implements UserService {
         for (Photo photo : photos) {
             // 파일 정보를 insert하기 전에 게시물 no를 설정한다.
             photo.setUserNo(userNo);
-            photoDao.insert(photo);
+            photoDao.insertUser(photo);
         }
 
     }

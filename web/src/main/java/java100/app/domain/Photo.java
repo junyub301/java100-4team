@@ -14,6 +14,10 @@ public class Photo {
         this.photoName = photoName;
     }
     
+    public Photo(String photoName) {
+        this.photoName = photoName;
+    }
+    
     @Override
     public String toString() {
         return "Photo [no=" + no + ", photoPath=" + photoPath + ", photoName=" + photoName + ", itemNo=" + itemNo
