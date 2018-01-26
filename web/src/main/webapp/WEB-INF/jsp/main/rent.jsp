@@ -12,7 +12,6 @@
 </head>
 <body>
 
-
 <div style="width: 700px;" class='container'>
 <div class='row justify-content-md-center'>
 <button class="col-sm-5 btn btn-primary" onclick="location.href='rent'">빌려드립니다</button>
@@ -34,7 +33,6 @@
     <option value="">ETC</option>
     </select>
     </div>
-    
 </div>
 
 <div class="form-group row">

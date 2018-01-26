@@ -7,7 +7,8 @@ public class Account {
   protected  String email;
   protected  String password;
   protected  int rank;
-@Override
+
+  @Override
 public String toString() {
     return "Account [accountsNo=" + accountsNo + ", accountName=" + accountName + ", name=" + name + ", email=" + email
             + ", password=" + password + ", rank=" + rank + "]";

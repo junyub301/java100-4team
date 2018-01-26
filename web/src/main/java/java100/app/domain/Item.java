@@ -4,10 +4,12 @@ import java.sql.Date;
 
 public class Item {
     protected int itemNo;
-    protected int userNo;
+    protected int ur_no;
     protected int categoryNo;
-    protected String title;
+    protected int userType;
     protected String name;
+    protected String title;
+    protected String cnt;
     protected Date startDate;
     protected Date endDate;
     protected int price;
@@ -16,26 +18,11 @@ public class Item {
     
     public Item() {}
     
-    public Item(int itemNo, int userNo, int catetegoryNo, 
-            String title, String name, Date startDate,
-            Date endDate, int price, int pricePerDay, boolean status) {
-        this.itemNo = itemNo;
-        this.userNo = userNo;
-        this.categoryNo = catetegoryNo;
-        this.title = title;
-        this.name = name;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.price = price;
-        this.pricePerDay = pricePerDay;
-        this.status = status;
-    }
-
     @Override
     public String toString() {
-        return "Item [itemNo=" + itemNo + ", userNo=" + userNo + ", categoryNo=" + categoryNo + ", title=" + title
-                + ", name=" + name + ", startDate=" + startDate + ", endDate=" + endDate + ", price=" + price
-                + ", pricePerDay=" + pricePerDay + ", status=" + status + "]";
+        return "Item [itemNo=" + itemNo + ", ur_no=" + ur_no + ", categoryNo=" + categoryNo + ", userType=" + userType
+                + ", name=" + name + ", title=" + title + ", cnt=" + cnt + ", startDate=" + startDate + ", endDate="
+                + endDate + ", price=" + price + ", pricePerDay=" + pricePerDay + ", status=" + status + "]";
     }
 
     public int getItemNo() {
@@ -46,12 +33,12 @@ public class Item {
         this.itemNo = itemNo;
     }
 
-    public int getUserNo() {
-        return userNo;
+    public int getUr_no() {
+        return ur_no;
     }
 
-    public void setUserNo(int userNo) {
-        this.userNo = userNo;
+    public void setUr_no(int ur_no) {
+        this.ur_no = ur_no;
     }
 
     public int getCategoryNo() {
@@ -62,12 +49,12 @@ public class Item {
         this.categoryNo = categoryNo;
     }
 
-    public String getTitle() {
-        return title;
+    public int getUserType() {
+        return userType;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setUserType(int userType) {
+        this.userType = userType;
     }
 
     public String getName() {
@@ -76,6 +63,22 @@ public class Item {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getCnt() {
+        return cnt;
+    }
+
+    public void setCnt(String cnt) {
+        this.cnt = cnt;
     }
 
     public Date getStartDate() {
@@ -117,6 +120,5 @@ public class Item {
     public void setStatus(boolean status) {
         this.status = status;
     }
-    
     
 }
