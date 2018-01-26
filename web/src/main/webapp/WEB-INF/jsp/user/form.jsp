@@ -4,29 +4,110 @@
     trimDirectiveWhitespaces="true"%>
 <!DOCTYPE html>
 <html>
-<head>
 <title>회원가입</title>
+<link rel="stylesheet" href='../../node_modules/bootstrap/dist/css/bootstrap.min.css'>
 </head>
 <body>
-<script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
+<h1 align="center">회원가입</h1>
+<br><br>
+
+<div style="width: 700px;" class='container'>
 
 <form action="add" method="post" enctype="multipart/form-data">
-아이디<input id='act_id' type='text' name='accountName'><br>
-이메일<input id='email' type="email" name='email'><br>
-패스워드<input id='pwd' type='password' name='password'><br>
-이름<input id='name' type='text' name='name'><br>
-계좌번호<input id='acc_no' type='text' name='accountNo'><br>
-은행명<input id='bank' type='text' name='bank'><br>
-한마디<input id='cnt' type='text' name='comment'><br>
-전화번호<input id='phone' type='text' name='phone'><br>
-우편번호<input type="text" id="sample6_postcode" placeholder="우편번호" name='postNo'>
-<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
-기본주소<input type="text" id="sample6_address" placeholder="주소"name='baseAddress'><br>
-상세주소<input  type="text" id="sample6_address2" placeholder="상세주소" name='detailAddress'><br>
-사진<input  type="file" name='photo'><br>
-<button>전송</button>
+
+<div class="form-group row">
+<label class="col-sm-2 col-form-label" for="act_id">아이디</label>
+<div class="col-sm-10">
+<input id='act_id' class="form-control" type='text' placeholder="아이디를 입력하세요" name='accountName'>
+</div>
+</div>
+
+<div class="form-group row">
+<label class="col-sm-2 col-form-label" for="email">이메일</label>
+<div class="col-sm-10">
+<input id='email' class="form-control" type="email" placeholder="이메일을 입력하세요" name='email'>
+</div>
+</div>
+
+<div class="form-group row">
+<label class="col-sm-2 col-form-label" for="pwd">암호</label>
+<div class="col-sm-10">
+<input id='pwd' type='password' class="form-control" placeholder="패스워드를 입력하세요" name='password'>
+</div>
+</div>
+
+<div class="form-group row">
+<label class="col-sm-2 col-form-label" for="name">이름</label>
+<div class="col-sm-10">
+<input id='name' type='text' class="form-control" placeholder="이름을 입력하세요"  name='name'>
+</div>
+</div>
+
+<div class="form-group row">
+<label class="col-sm-2 col-form-label" for="acc_no">계좌번호</label>
+<div class="col-sm-10">
+<input id='acc_no' type='text' class="form-control" placeholder="계좌번호를 입력하세요" name='accountNo'>
+</div>
+</div>
+
+<div class="form-group row">
+<label class="col-sm-2 col-form-label" for="bank">은행명</label>
+<div class="col-sm-10">
+<input id='bank' type='text' class="form-control" placeholder="은행명을 입력하세요" name='bank'>
+</div>
+</div>
+
+<div class="form-group row">
+<label class="col-sm-2 col-form-label" for="cnt">한마디</label>
+<div class="col-sm-10">
+<input id='cnt' type='text' class="form-control" placeholder="한마디를 입력하세요" name='comment'>
+</div>
+</div>
+
+<div class="form-group row">
+<label class="col-sm-2 col-form-label" for="phone">전화번호</label>
+<div class="col-sm-10">
+<input id='phone' type='text' class="form-control" placeholder="전화번호를 입력하세요" name='phone'>
+</div>
+</div>
+
+<div class="form-group row">
+<label class="col-sm-2 col-form-label" for="sample6_postcode">우편번호</label>
+<div class="col-sm-10">
+<input type="text" id="sample6_postcode" class="form-control" placeholder="우편번호" name='postNo'>
+<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기">
+</div>
+</div>
+
+<div class="form-group row">
+<label class="col-sm-2 col-form-label" for="sample6_address">기본주소</label>
+<div class="col-sm-10">
+<input type="text" id="sample6_address" class="form-control" placeholder="주소"name='baseAddress'>
+</div>
+</div>
+
+<div class="form-group row">
+<label class="col-sm-2 col-form-label" for="sample6_address2">상세주소</label>
+<div class="col-sm-10">
+<input  type="text" id="sample6_address2" class="form-control" placeholder="상세주소" name='detailAddress'>
+</div>
+</div>
+
+<div class="form-group row">
+<label class="col-sm-2 col-form-label" for="photo">사진첨부</label>
+<div class="col-sm-10">
+<input id='photo' type="file" name='photo'>
+</div>
+</div>
+
+<div class='row justify-content-md-center'>
+<button style='width:200px;'class="btn btn-primary">전송</button>
+</div>
+
 </form>
 
+</div>
+<script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
 <script>
     function sample6_execDaumPostcode() {
         new daum.Postcode({
