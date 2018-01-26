@@ -60,6 +60,49 @@
         <img class="img-fluid mb-5 d-block mx-auto" src="../../img/abc.gif" style="width:80%;" alt="">
 
     </header>
+    
+    <!-- Search Bar -->
+    
+    <div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="input-group" id="adv-search">
+                <input type="text" class="form-control" placeholder="검색어를 입력하세요" />
+                <div class="input-group-btn">
+                    <div class="btn-group" role="group">
+                        <div class="dropdown dropdown-lg">
+                            <button style="width: 50px;" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
+                            <div class="dropdown-menu dropdown-menu-right" role="menu">
+                                <form class="form-horizontal" role="form">
+                                  <div class="form-group">
+                                    <label for="filter">Filter by</label>
+                                    <select class="form-control">
+                                        <option value="0" selected>빌려주세요</option>
+                                        <option value="1">빌려드립니다</option>
+                                    </select>
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="contain">단어 포함</label>
+                                    <input class="form-control" type="text" />
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="contain">단어 포함</label>
+                                    <input class="form-control" type="text" />
+                                  </div>
+                                  <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span>검색</button>
+                                </form>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span>검색 </button>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+    </div>
+    
+    
+    
 
     <!-- Portfolio Grid Section -->
     <section class="portfolio" id="portfolio">
@@ -124,7 +167,7 @@
                     <h3>Fleece Marigold</h3>
                     <p>Which is worse, that everyone has his price, or that the price is always so low.</p><i class="ion-ios-arrow-right"></i>
                 </figcaption>
-                <a href="../user/list"></a>
+                <a href="../item/rent"></a>
             </figure>
           </div>
         </div>
@@ -289,6 +332,7 @@
 
     <!-- Custom scripts for this template -->
     <script src="js/freelancer.min.js"></script>
-
+    
+    <jsp:include page="../jslib.jsp"/>
   </body>
 </html>
