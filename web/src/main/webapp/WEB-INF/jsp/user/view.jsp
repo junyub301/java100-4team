@@ -12,7 +12,7 @@
 </head>
 <body>
 
-<div class='container'>
+<div style="width: 700px;" class='container'>
 <h1>회원상세정보</h1>
 <c:if test="${not empty account}">
 <form action='update' method='post' enctype="multipart/form-data"> 
