@@ -1,28 +1,4 @@
 ﻿-- 후기
-DROP TABLE IF EXISTS PostScript RESTRICT;
-
--- 카테고리
-DROP TABLE IF EXISTS Category RESTRICT;
-
--- 물품
-DROP TABLE IF EXISTS Item RESTRICT;
-
--- 사진
-DROP TABLE IF EXISTS ItemPhoto RESTRICT;
-
--- 계정
-DROP TABLE IF EXISTS Account RESTRICT;
-
--- 메시지
-DROP TABLE IF EXISTS Message RESTRICT;
-
--- 사용자
-DROP TABLE IF EXISTS User RESTRICT;
-
--- 대여
-DROP TABLE IF EXISTS Purchaser RESTRICT;
-
--- 후기
 CREATE TABLE PostScript (
 	rent_no  INTEGER      NOT NULL COMMENT '대여번호', -- 대여번호
 	cnt      VARCHAR(255) NULL     COMMENT '내용', -- 내용
@@ -92,6 +68,8 @@ ALTER TABLE Item
 CREATE TABLE ItemPhoto (
 	pho_no   INTEGER      NOT NULL COMMENT '사진번호', -- 사진번호
 	it_no    INTEGER      NULL     COMMENT '물품번호', -- 물품번호
+	ur_no    INTEGER      NULL     COMMENT '사용자번호', -- 사용자번호
+	pho_name VARCHAR(255) NULL     COMMENT '파일이름', -- 파일이름
 	pho_path VARCHAR(255) NULL     COMMENT '사진경로' -- 사진경로
 )
 COMMENT '사진';
@@ -147,8 +125,7 @@ ALTER TABLE Account
 -- 메시지
 CREATE TABLE Message (
 	mg_no    INTEGER      NOT NULL COMMENT '메시지번호', -- 메시지번호
-	ur_no    INTEGER      NOT NULL COMMENT '보내는이', -- 보내는이
-	ur_no2   INTEGER      NULL     COMMENT '받는이', -- 받는이
+	ur_no    INTEGER      NULL     COMMENT '받는이', -- 받는이
 	title    VARCHAR(50)  NOT NULL COMMENT '제목', -- 제목
 	cnt      VARCHAR(255) NOT NULL COMMENT '내용', -- 내용
 	state    BOOLEAN      NOT NULL COMMENT '수신확인상태', -- 수신확인상태
@@ -265,23 +242,25 @@ ALTER TABLE ItemPhoto
 		)
 		REFERENCES Item ( -- 물품
 			it_no -- 물품번호
-		);
+		)
+		ON DELETE CASCADE;
 
--- 메시지
-ALTER TABLE Message
-	ADD CONSTRAINT FK_User_TO_Message -- 사용자 -> 메시지
+-- 사진
+ALTER TABLE ItemPhoto
+	ADD CONSTRAINT FK_User_TO_ItemPhoto -- 사용자 -> 사진
 		FOREIGN KEY (
-			ur_no -- 보내는이
+			ur_no -- 사용자번호
 		)
 		REFERENCES User ( -- 사용자
 			ur_no -- 사용자번호
-		);
+		)
+		ON DELETE CASCADE;
 
 -- 메시지
 ALTER TABLE Message
 	ADD CONSTRAINT FK_User_TO_Message2 -- 사용자 -> 메시지2
 		FOREIGN KEY (
-			ur_no2 -- 받는이
+			ur_no -- 받는이
 		)
 		REFERENCES User ( -- 사용자
 			ur_no -- 사용자번호
@@ -295,7 +274,8 @@ ALTER TABLE User
 		)
 		REFERENCES Account ( -- 계정
 			act_no -- 계정번호
-		);
+		)
+		ON DELETE CASCADE;
 
 -- 대여
 ALTER TABLE Purchaser

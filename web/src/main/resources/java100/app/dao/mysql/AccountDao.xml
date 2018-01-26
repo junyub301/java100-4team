@@ -15,26 +15,25 @@
         <result column="name" property="name"/>
         <result column="rank" property="rank"/>
     </resultMap>
-    
-    <select id="list" resultMap="accountMap" parameterType="map">
-        select
+    <sql id="select">
+     select
             act_no,
             act_id,
             email,
             pwd,
-            name,
-            rank
+            name
+    
+    </sql>
+    
+    <select id="list" resultMap="accountMap" parameterType="map">
+        <include refid="select"/>
+            ,rank
          from account
      </select>
     
      <select id="findByNo" resultMap="accountMap" parameterType="int">
-        select
-            act_no,
-            act_id,
-            email,
-            pwd,
-            name,
-            rank
+         <include refid="select"/>
+            ,rank
          from account where act_no=#{value}
      </select>
     
@@ -56,6 +55,14 @@
             name=#{name}
         where act_no=#{accountsNo}
     </update>
+    
+      <select id="findByaccountNameAndPassword" 
+            resultMap="accountMap" parameterType="account">
+        <include refid="select"/>
+        from account
+        where act_id=#{accountName} and pwd=password(#{password})
+    </select>
+    
 </mapper>
 
 
