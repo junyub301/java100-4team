@@ -5,6 +5,17 @@
 <!DOCTYPE html>
 <html>
 <title>회원가입</title>
+<script type="text/javascript">
+    function tocheckpw2() {
+        var pwd = document.getElementById("pwd").value;
+        var pwck = document.getElementById("PwCheck").value;
+ 
+        if (pwd != pwck) {
+            document.getElementById('pwsame').innerHTML = '비밀번호가 틀렸습니다. 다시 입력해 주세요';
+            return false;
+        }
+    }
+</script>
 <link rel="stylesheet" href='../../node_modules/bootstrap/dist/css/bootstrap.min.css'>
 </head>
 <body>
@@ -13,7 +24,7 @@
 
 <div style="width: 700px;" class='container'>
 
-<form action="add" method="post" enctype="multipart/form-data">
+<form action="add" method="post" onsubmit="return tocheckpw2()" data-ajax="false" enctype="multipart/form-data">
 
 <div class="form-group row">
 <label class="col-sm-2 col-form-label" for="act_id">아이디</label>
@@ -33,6 +44,14 @@
 <label class="col-sm-2 col-form-label" for="pwd">암호</label>
 <div class="col-sm-10">
 <input id='pwd' type='password' class="form-control" placeholder="패스워드를 입력하세요" name='password'>
+</div>
+</div>
+
+<div class="form-group row">
+<label class="col-sm-2 col-form-label" for="PwCheck">암호 확인</label>
+<div class="col-sm-10">
+<input id="PwCheck" type="password" class="form-control" placeholder="패스워드를 다시 입력하세요">
+<p id="pwsame" style="color:red;">
 </div>
 </div>
 
