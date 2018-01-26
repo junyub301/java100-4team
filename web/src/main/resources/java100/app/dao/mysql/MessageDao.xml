@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="java100.app.dao.MessageDao">
+    
+    <resultMap type="message" id="msgMap">
+        <id column="mg_no" property="messageNo"/>
+        <result column="ur_no" property="userNo"/>
+        <result column="ur_id" property="userId"/>
+        <result column="title" property="title"/>
+        <result column="cnt" property="content"/>
+        <result column="state" property="state"/>
+        <result column="dis_date" property="dispatchDate"/>
+    </resultMap>
+    
+    <select id="list" resultMap="msgMap" parameterType="map">
+        select
+            mg_no,
+            (select act_id from account where ur_no=act_no) as ur_id,
+            title,
+            cnt,
+            state,
+            dis_date
+         from message
+    </select>
+    
+    <select id="findByNo" resultMap="msgMap" parameterType="int">
+        select
+            mg_no,
+            (select act_id from account where ur_no=act_no) as ur_id,
+            title,
+            cnt,
+            state,
+            dis_date
+         from message where mg_no=#{value}
+    </select>
+    
+    
+    <insert id="insert" parameterType="message" 
+        useGeneratedKeys="true" keyColumn="mg_no" keyProperty="messageNo">
+        insert into message(ur_no,title,cnt,state,dis_date) 
+        values(#{userNo},#{title},#{content},0,now())
+    </insert>
+
+    <update id="update" parameterType="message">
+        update message set 
+            title=#{title},
+            cnt=#{content}
+        where mg_no=#{messageNo}
+    </update>
+    
+    <update id="checkMessage" parameterType="message">
+        update message set 
+            state=${state}
+        where mg_no=#{messageNo}
+    </update>
+
+
+</mapper>  
+
+
+
+
+
+
+
+
+
