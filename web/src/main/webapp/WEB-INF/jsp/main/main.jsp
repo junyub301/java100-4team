@@ -18,7 +18,7 @@
     <link href="../../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
-
+    <link href="../../css/test.css" rel="stylesheet" type="text/css">
     <!-- Plugin CSS -->
     <link href="../../vendor/magnific-popup/magnific-popup.css" rel="stylesheet" type="text/css">
 
@@ -57,7 +57,7 @@
     
     <!-- Header -->
     <header class="masthead bg-primary2 text-white text-center" style="">
-        <img class="img-fluid mb-5 d-block mx-auto" src="../../img/abc.gif" style="width:100%;" alt="">
+        <img class="img-fluid mb-5 d-block mx-auto" src="../../img/abc.gif" style="width:80%;" alt="">
 
     </header>
 
@@ -67,124 +67,72 @@
         <h2 class="text-center text-uppercase text-secondary mb-0">정혁♥연서</h2>
         <hr class="star-dark mb-5">
         <div class="row">
-          <div class="col-md-6 col-lg-4">
-            <a class="portfolio-item d-block mx-auto" href="#portfolio-modal-1">
-              <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
-                <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
-                   <img class="img-fluid" src="../../img/profile.png" alt="">
-                </div>
-              </div>
-              <img class="img-fluid" src="../../img/portfolio/cabin.png" alt="">
-            </a>
+          <div class="col-md-6 col-lg-4" >
+            <figure class="snip1384">
+            <img class="img-fluid" src="../../img/portfolio/cabin.png" alt="" />
+                <figcaption>
+                    <h3>Fleece Marigold</h3>
+                    <p>Which is worse, that everyone has his price, or that the price is always so low.</p><i class="ion-ios-arrow-right"></i>
+                </figcaption>
+                <a href="../user/list"></a>
+            </figure>
           </div>
           <div class="col-md-6 col-lg-4">
-            <a class="portfolio-item d-block mx-auto" href="#portfolio-modal-2">
-              <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
-                <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
-                  <i class="fa fa-search-plus fa-3x"></i>
-                </div>
-              </div>
-              <img class="img-fluid" src="../../img/portfolio/cake.png" alt="">
-            </a>
+            <figure class="snip1384">
+            <img class="img-fluid" src="../../img/portfolio/cake.png" alt="" />
+                <figcaption>
+                    <h3>Fleece Marigold</h3>
+                    <p>Which is worse, that everyone has his price, or that the price is always so low.</p><i class="ion-ios-arrow-right"></i>
+                </figcaption>
+                <a href="../user/list"></a>
+            </figure>
           </div>
           <div class="col-md-6 col-lg-4">
-            <a class="portfolio-item d-block mx-auto" href="#portfolio-modal-3">
-              <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
-                <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
-                  <i class="fa fa-search-plus fa-3x"></i>
-                </div>
-              </div>
-              <img class="img-fluid" src="../../img/portfolio/circus.png" alt="">
-            </a>
+            <figure class="snip1384">
+             <img class="img-fluid" src="../../img/portfolio/circus.png" alt="" />
+                <figcaption>
+                    <h3>Fleece Marigold</h3>
+                    <p>Which is worse, that everyone has his price, or that the price is always so low.</p><i class="ion-ios-arrow-right"></i>
+                </figcaption>
+                <a href="../user/list"></a>
+            </figure>
           </div>
           <div class="col-md-6 col-lg-4">
-            <a class="portfolio-item d-block mx-auto" href="#portfolio-modal-4">
-              <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
-                <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
-                  <i class="fa fa-search-plus fa-3x"></i>
-                </div>
-              </div>
-              <img class="img-fluid" src="../../img/portfolio/game.png" alt="">
-            </a>
+          <figure class="snip1384">
+           <img class="img-fluid" src="../../img/portfolio/game.png" alt="" />
+                <figcaption>
+                    <h3>Fleece Marigold</h3>
+                    <p>Which is worse, that everyone has his price, or that the price is always so low.</p><i class="ion-ios-arrow-right"></i>
+                </figcaption>
+                <a href="../user/list"></a>
+            </figure>
           </div>
           <div class="col-md-6 col-lg-4">
-            <a class="portfolio-item d-block mx-auto" href="#portfolio-modal-5">
-              <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
-                <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
-                  <i class="fa fa-search-plus fa-3x"></i>
-                </div>
-              </div>
-              <img class="img-fluid" src="../../img/portfolio/safe.png" alt="">
-            </a>
+            <figure class="snip1384">
+                <img class="img-fluid" src="../../img/portfolio/safe.png" alt="" />
+                <figcaption>
+                    <h3>Fleece Marigold</h3>
+                    <p>Which is worse, that everyone has his price, or that the price is always so low.</p><i class="ion-ios-arrow-right"></i>
+                </figcaption>
+                <a href="../user/list"></a>
+            </figure>
           </div>
           <div class="col-md-6 col-lg-4">
-            <a class="portfolio-item d-block mx-auto" href="#portfolio-modal-6">
-              <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
-                <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
-                  <i class="fa fa-search-plus fa-3x"></i>
-                </div>
-              </div>
-              <img class="img-fluid" src="../../img/portfolio/submarine.png" alt="">
-            </a>
+            <figure class="snip1384">
+                <img class="img-fluid" src="../../img/portfolio/submarine.png" alt="" />
+                <figcaption>
+                    <h3>Fleece Marigold</h3>
+                    <p>Which is worse, that everyone has his price, or that the price is always so low.</p><i class="ion-ios-arrow-right"></i>
+                </figcaption>
+                <a href="../user/list"></a>
+            </figure>
           </div>
         </div>
       </div>
     </section>
 
-    
-    <!-- Footer -->
-    <footer class="footer text-center">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-4 mb-5 mb-lg-0">
-            <h4 class="text-uppercase mb-4">Location</h4>
-            <p class="lead mb-0">2215 John Daniel Drive
-              <br>Clark, MO 65243</p>
-          </div>
-          <div class="col-md-4 mb-5 mb-lg-0">
-            <h4 class="text-uppercase mb-4">Around the Web</h4>
-            <ul class="list-inline mb-0">
-              <li class="list-inline-item">
-                <a class="btn btn-outline-light btn-social text-center rounded-circle" href="#">
-                  <i class="fa fa-fw fa-facebook"></i>
-                </a>
-              </li>
-              <li class="list-inline-item">
-                <a class="btn btn-outline-light btn-social text-center rounded-circle" href="#">
-                  <i class="fa fa-fw fa-google-plus"></i>
-                </a>
-              </li>
-              <li class="list-inline-item">
-                <a class="btn btn-outline-light btn-social text-center rounded-circle" href="#">
-                  <i class="fa fa-fw fa-twitter"></i>
-                </a>
-              </li>
-              <li class="list-inline-item">
-                <a class="btn btn-outline-light btn-social text-center rounded-circle" href="#">
-                  <i class="fa fa-fw fa-linkedin"></i>
-                </a>
-              </li>
-              <li class="list-inline-item">
-                <a class="btn btn-outline-light btn-social text-center rounded-circle" href="#">
-                  <i class="fa fa-fw fa-dribbble"></i>
-                </a>
-              </li>
-            </ul>
-          </div>
-          <div class="col-md-4">
-            <h4 class="text-uppercase mb-4">About Freelancer</h4>
-            <p class="lead mb-0">Freelance is a free to use, open source Bootstrap theme created by
-              <a href="http://startbootstrap.com">Start Bootstrap</a>.</p>
-          </div>
-        </div>
-      </div>
-    </footer>
-
-    <div class="copyright py-4 text-center text-white">
-      <div class="container">
-        <small>Copyright &copy; Your Website 2018</small>
-      </div>
-    </div>
+    <jsp:include page="../footer.jsp"/>
+   
 
     <!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->
     <div class="scroll-to-top d-lg-none position-fixed ">
