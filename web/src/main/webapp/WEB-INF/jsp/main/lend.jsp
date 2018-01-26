@@ -51,7 +51,8 @@
 <div class="form-group row">
 <label class="col-sm-2 col-form-label" for="name">내용</label>
 <div class="col-sm-10">
-<input id='name' type='text' class="form-control" placeholder="내용을 입력하세요"  name='name'>
+<textarea id='name' class="form-control" placeholder="내용을 입력하세요"  name='name'>
+</textarea>
 </div>
 </div>
 
