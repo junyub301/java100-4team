@@ -9,34 +9,42 @@
 <link rel="stylesheet" href='../../node_modules/bootstrap/dist/css/bootstrap.min.css'>
 </head>
 <body>
-<div class='row justify-content-md-center'>
-<button style='width:200px;'class="btn btn-primary" onclick="location.href='rent'">빌려드립니다</button>
-<button style='width:200px;'class="btn btn-primary" onclick="location.href='lend'">빌려주세요</button>
-</div>
-<br><br>
 
 <div style="width: 700px;" class='container'>
+<div class='row justify-content-md-center'>
+<button class="col-sm-5 btn btn-primary" onclick="location.href='rent'">빌려드립니다</button>
+<div class="col-sm-2"></div>
+<button class="col-sm-5 btn btn-primary" onclick="location.href='lend'">빌려주세요</button>
+</div>
+<br><br>
 
 <form action="add" method="post" enctype="multipart/form-data">
 
 <div class="form-group row">
-<label class="col-sm-2 col-form-label" for="act_id">카테고리</label>
+<div class="col-sm-2"></div>
 <div class="col-sm-10">
-<input id='act_id' class="form-control" type='text' placeholder="아이디를 입력하세요" name='accountName'>
-</div>
+    <select class="btn btn-secondary" name=""><option value="">카테고리</option>
+    <option value="">전자제품</option>
+    <option value="">뷰티/악세</option>
+    <option value="">의류</option>
+    <option value="">공구</option>
+    <option value="">ETC</option>
+    </select>
+    </div>
+    
 </div>
 
 <div class="form-group row">
 <label class="col-sm-2 col-form-label" for="email">물품정보</label>
 <div class="col-sm-10">
-<input id='email' class="form-control" type="email" placeholder="이메일을 입력하세요" name='email'>
+<input id='email' class="form-control" type="email" placeholder="물품정보를 입력하세요" name='email'>
 </div>
 </div>
 
 <div class="form-group row">
 <label class="col-sm-2 col-form-label" for="pwd">제목</label>
 <div class="col-sm-10">
-<input id='pwd' type='password' class="form-control" placeholder="패스워드를 입력하세요" name='password'>
+<input id='pwd' type='password' class="form-control" placeholder="제목을 입력하세요" name='password'>
 </div>
 </div>
 

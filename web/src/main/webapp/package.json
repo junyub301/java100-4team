@@ -26,11 +26,12 @@
         "url": "https://github.com/BlackrockDigital/startbootstrap-freelancer.git"
     },
     "dependencies": {
-        "bootstrap": "4.0.0",
+        "bootstrap": "4.0.0-beta.2",
         "font-awesome": "4.7.0",
         "jquery": "3.3.0",
         "jquery.easing": "^1.4.1",
-        "magnific-popup": "^1.1.0"
+        "magnific-popup": "^1.1.0",
+        "popper.js": "^1.12.3"
     },
     "devDependencies": {
         "browser-sync": "2.23.5",
