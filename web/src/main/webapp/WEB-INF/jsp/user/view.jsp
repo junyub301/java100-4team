@@ -7,12 +7,13 @@
 <html>
 <head>
 <title>회원관리</title>
+<link rel="stylesheet" href='../../node_modules/bootstrap/dist/css/bootstrap.min.css'>
+<script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
 </head>
 <body>
-<script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
 
+<div style="width: 700px;" class='container'>
 <h1>회원상세정보</h1>
-
 <c:if test="${not empty account}">
 <form action='update' method='post' enctype="multipart/form-data"> 
 
@@ -24,79 +25,79 @@
 </div> 
 
 <div class='form-group row'> 
-<label for='title'class='col-sm-2 col-form-label'>아이디</label> 
+<label for='title' class='col-sm-2 col-form-label'>아이디</label> 
 <div class='col-sm-10'> 
 <input class='form-control' readonly id='accountName' type='text' name='accountName' value='${account.accountName}'>
 </div> 
 </div> 
 
 <div class='form-group row'> 
-<label for='content'class='col-sm-2 col-form-label'>이메일</label> 
+<label for='email' class='col-sm-2 col-form-label'>이메일</label> 
 <div class='col-sm-10'> 
 <input class='form-control' id='email' type='email' name='email' value='${account.email}'>
 </div> 
 </div> 
 
 <div class='form-group row'> 
-<label for='regdate'class='col-sm-2 col-form-label'>패스워드</label> 
+<label for='regdate' class='col-sm-2 col-form-label'>패스워드</label> 
 <div class='col-sm-10'> 
 <input class='form-control' id='password' type='password' name='password'>
 </div> 
 </div>
 
 <div class='form-group row'> 
-<label for='viewcount'class='col-sm-2 col-form-label'>이름</label> 
+<label for='name' class='col-sm-2 col-form-label'>이름</label> 
 <div class='col-sm-10'> 
 <input class='form-control' id='name' type='text' name='name' value='${account.name}'>
 </div> 
 </div> 
 
 <div class='form-group row'> 
-<label for='viewcount'class='col-sm-2 col-form-label'>통장번호</label> 
+<label for='accountNo'class='col-sm-2 col-form-label'>통장번호</label> 
 <div class='col-sm-10'> 
 <input class='form-control' id='accountNo' type='text' name='accountNo' value='${user.accountNo}'>
 </div> 
 </div> 
 
 <div class='form-group row'> 
-<label for='viewcount'class='col-sm-2 col-form-label'>은행</label> 
+<label for='bank' class='col-sm-2 col-form-label'>은행</label> 
 <div class='col-sm-10'> 
 <input class='form-control' id='bank' type='text' name='bank' value='${user.bank}'>
 </div> 
 </div> 
 
 <div class='form-group row'> 
-<label for='viewcount'class='col-sm-2 col-form-label'>한마디</label> 
+<label for='comment' class='col-sm-2 col-form-label'>한마디</label> 
 <div class='col-sm-10'> 
 <input class='form-control' id='comment' type='text' name='comment' value='${user.comment}'>
 </div> 
 </div> 
 
 <div class='form-group row'> 
-<label for='viewcount'class='col-sm-2 col-form-label'>전화번호</label> 
+<label for='phone' class='col-sm-2 col-form-label'>전화번호</label> 
 <div class='col-sm-10'> 
 <input class='form-control' id='phone' type='text' name='phone' value='${user.phone}'>
+</div> 
+</div> 
+
+<div class='form-group row'> 
+<label for='sample6_postcode' class='col-sm-2 col-form-label'>우편번호</label> 
+<div class='col-sm-10'> 
+<input class='form-control' id='sample6_postcode' type='text' name='postNo' value='${user.postNo}'>
 </div> 
 </div> 
 
 <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
 
 <div class='form-group row'> 
-<label for='viewcount'class='col-sm-2 col-form-label'>우편번호</label> 
-<div class='col-sm-10'> 
-<input class='form-control' id='sample6_postcode' type='text' name='postNo' value='${user.postNo}'>
-</div> 
-</div> 
-
-<div class='form-group row'> 
-<label for='viewcount'class='col-sm-2 col-form-label'>기본주소</label> 
+<label for='sample6_address' class='col-sm-2 col-form-label'>기본주소</label> 
 <div class='col-sm-10'> 
 <input class='form-control' id='sample6_address' type='text' name='baseAddress' value='${user.baseAddress}'>
 </div> 
 </div> 
 
 <div class='form-group row'> 
-<label for='viewcount'class='col-sm-2 col-form-label'>상세주소</label> 
+<label for='sample6_address2' class='col-sm-2 col-form-label'>상세주소</label> 
 <div class='col-sm-10'> 
 <input class='form-control' id='sample6_address2' type='text' name='detailAddress' value='${user.detailAddress}'>
 </div> 
@@ -109,19 +110,15 @@
        <img src="${contextPath}/download/${file.photoName}"/><br>
 <a href="${contextPath}/download/${file.photoName}">${file.photoName}</a><br>
 </c:forEach>
-             
 </div> 
 </div> 
-      
       
 <div class="form-group row">
 <label for="file1" class='col-sm-2 col-form-label'>사진첨부</label>
 <div class='col-sm-10'>
- <input type="file" class="form-control-file" id="file1" name="photo">
+<input type="file" class="form-control-file" id="file1" name="photo">
 </div>
 </div>
-      
-      
      
 <div class='form-group row'> 
 <div class='col-sm-10'> 
@@ -129,10 +126,11 @@
 <a href='delete?no=${account.accountsNo}' class= "btn btn-danger ">삭제</a>
 </div> 
 </div> 
-</form> 
+</form>
 </c:if>
+</div>
 <c:if test="${empty account }">
-         '${no}'번의 회원 정보가 없습니다.
+         '${no}'번의 성적 정보가 없습니다.
 </c:if>
 <script>
     function sample6_execDaumPostcode() {
@@ -177,8 +175,5 @@
         }).open();
     }
 </script>
-
-
 </body>
 </html>
-    

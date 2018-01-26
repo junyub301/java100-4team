@@ -64,10 +64,8 @@ public class LoginController {
     @RequestMapping("logout")
     public String logout(HttpSession session, SessionStatus status) {
         
-        // @SessionAttributes에서 관리하는 세션 데이터를 모두 제거한다.
         status.setComplete();
         
-        // HttpSession 객체를 무효화시킨다.
         session.invalidate();
         
         return "redirect:login";

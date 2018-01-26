@@ -1,5 +1,3 @@
-
-<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     trimDirectiveWhitespaces="true"%>
@@ -8,16 +6,18 @@
 <html>
 <head>
 <title>회원관리</title>
+
+<link rel="stylesheet" href='../../node_modules/bootstrap/dist/css/bootstrap.min.css'>
+
 </head>
 <body>
 
-<button><a href='form'>추가</a></button>
+<div class='container' style="width:600px;">
+<h1 align="center">회원 목록</h1>
+<a class="btn btn-success" href='form'>추가</a>
 
-<h1>회원 목록</h1>
-
-
-<table>
-<thead>
+<table style='margin-top: 10px;'class='table'>
+<thead class="thead-dark">
 <tr>
 <th>번호</th><th>아이디</th><th>이메일</th>
 </tr>
@@ -32,9 +32,9 @@
       </tr> 
 </c:forEach>
 
-
 </tbody>
 </table>
+</div>
 </body>
 </html>
     
