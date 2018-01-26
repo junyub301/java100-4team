@@ -19,7 +19,7 @@
 <table style='margin-top: 10px;'class='table'>
 <thead class="thead-dark">
 <tr>
-<th>번호</th><th>받는사람</th><th>제목</th><th>날짜</th><th>수신확인</th>
+<th>번호</th><th>제목</th><th>받는사람</th><th>날짜</th><th>수신확인</th>
 </tr>
 </thead>
 <tbody>
@@ -27,8 +27,8 @@
 <c:forEach items="${message}" var="message">
       <tr>
         <td>${message.messageNo}</td>
-        <td><a href='${message.messageNo}'>${message.userId}</a></td>
-        <td>${message.title}</td>
+        <td><a href='${message.messageNo}'>${message.title}</a></td>
+        <td>${message.userId}</td>
         <td>${message.dispatchDate}</td>
         <td>${message.state}</td>
       </tr> 
