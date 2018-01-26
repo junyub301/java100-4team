@@ -12,16 +12,6 @@ public class MainController {
         return "main/main";
     }
     
-    @RequestMapping("lend")
-    public String lend() throws Exception {
-        return "main/lend";
-    }
-    
-    @RequestMapping("rent")
-    public String rent() throws Exception {
-        return "main/rent";
-    }
-     
     
 }
 
