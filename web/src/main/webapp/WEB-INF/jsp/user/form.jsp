@@ -17,113 +17,81 @@
     }
 </script>
 <link rel="stylesheet" href='../../node_modules/bootstrap/dist/css/bootstrap.min.css'>
+<link rel='stylesheet' href='../../css/test.css'>
 </head>
-<body>
-<h1 align="center">회원가입</h1>
-<br><br>
+<body style="background-image:url('../../img/portfolio/group.jpg'); 
+background-repeat: no-repeat; background-position: center; 
+background-size: cover; background-attachment: fixed;">
+<!-- <h1 align="center">회원가입</h1>
+<br><br> -->
 
-<div style="width: 700px;" class='container'>
+<div style="width: 700px; margin-top: 50px" class='container'>
 
 <form action="add" method="post" onsubmit="return tocheckpw2()" data-ajax="false" enctype="multipart/form-data">
 
-<div class="form-group row">
-<label class="col-sm-2 col-form-label" for="act_id">아이디</label>
-<div class="col-sm-10">
-<input id='act_id' class="form-control" type='text' placeholder="아이디를 입력하세요" name='accountName'>
-</div>
+<div class="form-group1">
+<input id='act_id' class="form-control1" type='text' placeholder="아이디" name='accountName'>
 </div>
 
-<div class="form-group row">
-<label class="col-sm-2 col-form-label" for="email">이메일</label>
-<div class="col-sm-10">
-<input id='email' class="form-control" type="email" placeholder="이메일을 입력하세요" name='email'>
-</div>
+<div class="form-group1">
+<input id='email' class="form-control1" type="email" placeholder="이메일" name='email'>
 </div>
 
-<div class="form-group row">
-<label class="col-sm-2 col-form-label" for="pwd">암호</label>
-<div class="col-sm-10">
-<input id='pwd' type='password' class="form-control" placeholder="패스워드를 입력하세요" name='password'>
-</div>
+<div class="form-group1">
+<input id='pwd' type='password' class="form-control1" placeholder="비밀번호" name='password'>
 </div>
 
-<div class="form-group row">
-<label class="col-sm-2 col-form-label" for="PwCheck">암호 확인</label>
-<div class="col-sm-10">
-<input id="PwCheck" type="password" class="form-control" placeholder="패스워드를 다시 입력하세요">
+<div class="form-group1">
+<input id="PwCheck" type="password" class="form-control1" placeholder="비밀번호 재입력">
 <p id="pwsame" style="color:red;">
 </div>
+
+<div class="form-group1">
+<input id='name' type='text' class="form-control1" placeholder="이름"  name='name'>
 </div>
 
-<div class="form-group row">
-<label class="col-sm-2 col-form-label" for="name">이름</label>
-<div class="col-sm-10">
-<input id='name' type='text' class="form-control" placeholder="이름을 입력하세요"  name='name'>
-</div>
+<div class="form-group1">
+<input id='acc_no' type='text' class="form-control1" placeholder="계좌번호" name='accountNo'>
 </div>
 
-<div class="form-group row">
-<label class="col-sm-2 col-form-label" for="acc_no">계좌번호</label>
-<div class="col-sm-10">
-<input id='acc_no' type='text' class="form-control" placeholder="계좌번호를 입력하세요" name='accountNo'>
-</div>
+<div class="form-group1">
+<input id='bank' type='text' class="form-control1" placeholder="은행" name='bank'>
 </div>
 
-<div class="form-group row">
-<label class="col-sm-2 col-form-label" for="bank">은행명</label>
-<div class="col-sm-10">
-<input id='bank' type='text' class="form-control" placeholder="은행명을 입력하세요" name='bank'>
-</div>
+<div class="form-group1">
+<input id='cnt' type='text' class="form-control1" placeholder="한마디" name='comment'>
 </div>
 
-<div class="form-group row">
-<label class="col-sm-2 col-form-label" for="cnt">한마디</label>
-<div class="col-sm-10">
-<input id='cnt' type='text' class="form-control" placeholder="한마디를 입력하세요" name='comment'>
-</div>
+<div class="form-group1">
+<input id='phone' type='text' class="form-control1" placeholder="전화번호" name='phone'>
 </div>
 
-<div class="form-group row">
-<label class="col-sm-2 col-form-label" for="phone">전화번호</label>
-<div class="col-sm-10">
-<input id='phone' type='text' class="form-control" placeholder="전화번호를 입력하세요" name='phone'>
-</div>
+<div class="form-group1">
+<input type="text" id="sample6_postcode" class="form-control1" placeholder="우편번호" name='postNo'>
+<input type="button" class="form-control1" onclick="sample6_execDaumPostcode()" value="우편번호 찾기">
 </div>
 
-<div class="form-group row">
-<label class="col-sm-2 col-form-label" for="sample6_postcode">우편번호</label>
-<div class="col-sm-10">
-<input type="text" id="sample6_postcode" class="form-control" placeholder="우편번호" name='postNo'>
-<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기">
-</div>
+<div class="form-group1">
+<input type="text" id="sample6_address" class="form-control1" placeholder="주소"name='baseAddress'>
 </div>
 
-<div class="form-group row">
-<label class="col-sm-2 col-form-label" for="sample6_address">기본주소</label>
-<div class="col-sm-10">
-<input type="text" id="sample6_address" class="form-control" placeholder="주소"name='baseAddress'>
-</div>
+<div class="form-group1">
+<input  type="text" id="sample6_address2" class="form-control1" placeholder="상세주소" name='detailAddress'>
 </div>
 
-<div class="form-group row">
-<label class="col-sm-2 col-form-label" for="sample6_address2">상세주소</label>
-<div class="col-sm-10">
-<input  type="text" id="sample6_address2" class="form-control" placeholder="상세주소" name='detailAddress'>
-</div>
-</div>
-
-<div class="form-group row">
-<label class="col-sm-2 col-form-label" for="photo">사진첨부</label>
-<div class="col-sm-10">
-<input id='photo' type="file" name='photo'>
-</div>
+<div class="form-group1">
+<input id='photo' class="form-control1" type="file" name='photo'>
 </div>
 
 <div class='row justify-content-md-center'>
-<button style='width:200px;'class="btn btn-primary">전송</button>
+<button style="width:469px; height: 45px; margin-bottom: 0.5rem;" class="btn btn-primary">회원가입</button>
 </div>
-
 </form>
+
+<div align="center" class='form-group1'>
+                    <button style="width:70%; height: 45px; margin-bottom: -0.7rem;" onclick="location='../auth/login.jsp'"
+                        class='btn btn-info btn-sm'>로그인</button>
+            </div>
 
 </div>
 <script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
