@@ -117,6 +117,12 @@ body {
   background-color: #ffffff;
 }
 
+
+/* main이미지 margin*/
+.img-margin {
+  margin-bottom: -0.7rem !important;
+}
+
 /* auth/login 로그인 입력 폼 사이즈*/
 .container1 {
     width: 500px;
@@ -124,5 +130,4 @@ body {
     margin-right: auto;
     margin-left: auto;
 }
-
 
