@@ -63,14 +63,13 @@
 						class='btn btn-primary btn-sm'>로그인</button>
 				</div>
 			</div>
+		</form>
 			<div class='form-group row'>
 				<div class='col-sm-10'>
-					<button onclick="location='form.jsp'"
+					<button onclick="location='../user/form'"
 						class='btn btn-primary btn-sm'>회원가입</button>
 				</div>
 			</div>
-
-		</form>
 
 		<jsp:include page="../footer.jsp" />
 
