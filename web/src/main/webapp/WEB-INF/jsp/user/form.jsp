@@ -42,8 +42,8 @@ background-size: cover; background-attachment: fixed;">
 </div>
 
 <div class="form-group1">
-<input id="PwCheck" type="password" class="form-control1" placeholder="비밀번호 재입력">
-<p id="pwsame" style="color:red;">
+<input id="PwCheck" type="password" class="form-control1" style="margin-bottom: 0.3rem;" placeholder="비밀번호 재입력">
+<p align="center" id="pwsame" style="color:red;">
 </div>
 
 <div class="form-group1">
@@ -63,12 +63,12 @@ background-size: cover; background-attachment: fixed;">
 </div>
 
 <div class="form-group1">
-<input id='phone' type='text' class="form-control1" placeholder="전화번호" name='phone'>
+<input id='phone' type='text' class="form-control1"  style="margin-bottom: 0.3rem;" placeholder="전화번호" name='phone'>
 </div>
 
 <div class="form-group1">
+<input style="margin-bottom: 0.5rem; background-color: #D8D8D8;" type="button" class="form-control1" onclick="sample6_execDaumPostcode()" value="우편번호 찾기">
 <input type="text" id="sample6_postcode" class="form-control1" placeholder="우편번호" name='postNo'>
-<input type="button" class="form-control1" onclick="sample6_execDaumPostcode()" value="우편번호 찾기">
 </div>
 
 <div class="form-group1">
@@ -89,7 +89,7 @@ background-size: cover; background-attachment: fixed;">
 </form>
 
 <div align="center" class='form-group1'>
-                    <button style="width:70%; height: 45px; margin-bottom: -0.7rem;" onclick="location='../auth/login.jsp'"
+                    <button style="width:70%; height: 45px; margin-bottom: -0.7rem; background-color: " onclick="location='../auth/login.jsp'"
                         class='btn btn-info btn-sm'>로그인</button>
             </div>
 
