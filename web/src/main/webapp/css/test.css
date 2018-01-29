@@ -116,3 +116,13 @@ figure.snip1384.hover i {
 body {
   background-color: #ffffff;
 }
+
+/* auth/login 로그인 입력 폼 사이즈*/
+.container1 {
+    width: 500px;
+    margin-top: 250px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+

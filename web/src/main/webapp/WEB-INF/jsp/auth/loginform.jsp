@@ -11,23 +11,12 @@
 <link rel='stylesheet' href='../../css/common.css'>
 </head>
 <body>
- <section id="portfolio">
-      <div class="container">
-        <h2 class="text-center">Portfolio</h2>
-        <hr class="star-primary">
-          <div class="col-sm-4 portfolio-item">
-              <div class="caption">
-                <div class="caption-content">
-                </div>
-              </div>
-              
-           
-    </section>
-<div class='container'>
 
-<jsp:include page="../header.jsp"/>
+    
+<div class='container1'>
 
-<h1>로그인</h1>
+<%-- <jsp:include page="../header.jsp"/> --%>
+
 
 <form action="login" method='post'> 
 
@@ -69,8 +58,8 @@
 </div>
 
 </form>
-
-<jsp:include page="../footer.jsp"/>
+<%-- 
+<jsp:include page="../footer.jsp"/> --%>
 
 </div>
 
