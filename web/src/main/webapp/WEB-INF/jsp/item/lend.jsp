@@ -21,6 +21,7 @@
 <form action="add" method="post" enctype="multipart/form-data">
 <input type="hidden" name='userType' value=1> <!-- userType 1은 빌려주세요 카테고리 -->
 <input type="hidden" name='status' value=0> <!-- status 0은 그냥 등록상태 1은 대여상태 -->
+<input type="hidden" name='userNo' value='${sessionScope.loginUser.accountsNo}'> <!-- userNo등록 사용자번호 받아오기 로그인 정보에서 받아옴-->
 <div class="form-group row">
 <div class="col-sm-2"></div>
 <div class="col-sm-10">
