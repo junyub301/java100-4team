@@ -7,57 +7,48 @@
 <title>로그인</title>
 <link rel='stylesheet'
 	href='../../node_modules/bootstrap/dist/css/bootstrap.min.css'>
-<link rel='stylesheet' href='../../css/common.css'>
+<link rel='stylesheet' href='../../css/test.css'>
 </head>
-<body style="background-image:url('../../img/portfolio/group.jpg'); background-size: cover">
+<body style="background-image:url('../../img/portfolio/group.jpg'); 
+background-repeat: no-repeat; background-position: center; 
+background-size: cover; background-attachment: fixed;">
+
 <div class='container1'>
 
-		<h1>로그인</h1>
-
 		<form action="login" method='post'>
-
+            
+            <div class='form-group row'>        
+             <img style="width: 70%; opacity: inherit;" src="../../img/portfolio/rg.jpg">
+            </div>
+            
 			<div class='form-group row'>
-				<label for='accountName' class='col-sm-2 col-form-label'>아이디</label>
-				<div class='col-sm-10'>
-					<input class='form-control' id='accountName' type='text'
+					<input style="width: 70%; height: 45px; margin-bottom: -0.7rem;" placeholder="아이디" class='form-control' id='accountName' type='text'
 						name='accountName' value='${cookie.accountName.value}'>
-				</div>
 			</div>
 
 			<div class='form-group row'>
-				<label for='password' class='col-sm-2 col-form-label'>암호</label>
-				<div class='col-sm-10'>
-					<input class='form-control' id='password' type='password'
+					<input style="width: 70%; height: 45px; margin-bottom: -0.5rem;" placeholder="비밀번호" class='form-control' id='password' type='password'
 						name='password'>
-				</div>
 			</div>
 
-			<div class='form-group row'>
-				<div class="col-sm-2"></div>
-				<div class="col-sm-10">
+			<!-- <div class='form-group row'>
 					<div class="form-check">
 						<input type="checkbox" class="form-check-input"
 							id="saveaccountName" name="saveaccountName"> <label
 							class="form-check-label" for="saveaccountName">아이디 저장</label>
-					</div>
 				</div>
+			</div> -->
+
+			<div class='form-group row'>
+					<button style="width:70%; height: 45px; margin-bottom: -0.7rem;" onclick="location='../main/main.jsp'"
+						class='btn btn-info btn-sm'>로그인</button>
+			</div>
+			<div class='form-group row'>
+					<button style="width:70%; height: 45px; margin-bottom: -0.7rem; opacity: 20px;" onclick="location='../user/form'"
+						class='btn btn-info btn-sm'>회원가입</button>
 			</div>
 
-</form>
-			<div class='form-group row'>
-				<div class='col-sm-10'>
-					<button onclick="location='list.jsp'"
-						class='btn btn-primary btn-sm'>로그인</button>
-				</div>
-			</div>
 		</form>
-			<div class='form-group row'>
-				<div class='col-sm-10'>
-					<button onclick="location='../user/form'"
-						class='btn btn-primary btn-sm'>회원가입</button>
-				</div>
-			</div>
-
 	</div>
 
 	<jsp:include page="../jslib.jsp" />
