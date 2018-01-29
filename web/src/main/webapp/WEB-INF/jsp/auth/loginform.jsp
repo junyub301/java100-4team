@@ -17,17 +17,17 @@ background-size: cover; background-attachment: fixed;">
 
 		<form action="login" method='post'>
             
-            <div class='form-group row'>        
+            <div align="center" class='form-group1'>        
              <img style="width: 70%; opacity: inherit;" src="../../img/portfolio/rg.jpg">
             </div>
             
-			<div class='form-group row'>
-					<input style="width: 70%; height: 45px; margin-bottom: -0.7rem;" placeholder="아이디" class='form-control' id='accountName' type='text'
+			<div class='form-group1'>
+					<input placeholder="아이디" class='form-control1' id='accountName' type='text'
 						name='accountName' value='${cookie.accountName.value}'>
 			</div>
 
-			<div class='form-group row'>
-					<input style="width: 70%; height: 45px; margin-bottom: -0.5rem;" placeholder="비밀번호" class='form-control' id='password' type='password'
+			<div class='form-group1'>
+					<input placeholder="비밀번호" class='form-control1' id='password' type='password'
 						name='password'>
 			</div>
 
@@ -39,11 +39,11 @@ background-size: cover; background-attachment: fixed;">
 				</div>
 			</div> -->
 
-			<div class='form-group row'>
+			<div align="center" class='form-group1'>
 					<button style="width:70%; height: 45px; margin-bottom: -0.7rem;" onclick="location='../main/main.jsp'"
 						class='btn btn-info btn-sm'>로그인</button>
 			</div>
-			<div class='form-group row'>
+			<div align="center" class='form-group1'>
 					<button style="width:70%; height: 45px; margin-bottom: -0.7rem; opacity: 20px;" onclick="location='../user/form'"
 						class='btn btn-info btn-sm'>회원가입</button>
 			</div>
