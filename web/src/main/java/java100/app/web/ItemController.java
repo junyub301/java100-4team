@@ -45,7 +45,6 @@ public class ItemController {
             
             uploadFiles.add(new Photo(filename));
         }
-        item.setUserNo(1); // 임시로 등록자를 1번 사용자로 설정
         itemService.add(item,uploadFiles);
         return "redirect:../main/main";
     }
