@@ -197,7 +197,7 @@
             <div class="col-lg-8 mx-auto">
               <h2 class="text-secondary text-uppercase mb-0">Project Name</h2>
               <hr class="star-dark mb-5">
-              <img class="img-fluid mb-5" src="img/portfolio/cabin.png" alt="">
+              <img class="img-fluid mb-5" src="/img/portfolio/cabin.png" alt="">
               <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
               <a class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss" href="#">
                 <i class="fa fa-close"></i>
@@ -219,7 +219,7 @@
             <div class="col-lg-8 mx-auto">
               <h2 class="text-secondary text-uppercase mb-0">Project Name</h2>
               <hr class="star-dark mb-5">
-              <img class="img-fluid mb-5" src="img/portfolio/cake.png" alt="">
+              <img class="img-fluid mb-5" src="/img/portfolio/cake.png" alt="">
               <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
               <a class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss" href="#">
                 <i class="fa fa-close"></i>
@@ -241,7 +241,7 @@
             <div class="col-lg-8 mx-auto">
               <h2 class="text-secondary text-uppercase mb-0">Project Name</h2>
               <hr class="star-dark mb-5">
-              <img class="img-fluid mb-5" src="img/portfolio/circus.png" alt="">
+              <img class="img-fluid mb-5" src="/img/portfolio/circus.png" alt="">
               <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
               <a class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss" href="#">
                 <i class="fa fa-close"></i>
@@ -263,7 +263,7 @@
             <div class="col-lg-8 mx-auto">
               <h2 class="text-secondary text-uppercase mb-0">Project Name</h2>
               <hr class="star-dark mb-5">
-              <img class="img-fluid mb-5" src="img/portfolio/game.png" alt="">
+              <img class="img-fluid mb-5" src="/img/portfolio/game.png" alt="">
               <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
               <a class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss" href="#">
                 <i class="fa fa-close"></i>
@@ -285,7 +285,7 @@
             <div class="col-lg-8 mx-auto">
               <h2 class="text-secondary text-uppercase mb-0">Project Name</h2>
               <hr class="star-dark mb-5">
-              <img class="img-fluid mb-5" src="img/portfolio/safe.png" alt="">
+              <img class="img-fluid mb-5" src="/img/portfolio/safe.png" alt="">
               <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
               <a class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss" href="#">
                 <i class="fa fa-close"></i>
@@ -307,7 +307,7 @@
             <div class="col-lg-8 mx-auto">
               <h2 class="text-secondary text-uppercase mb-0">Project Name</h2>
               <hr class="star-dark mb-5">
-              <img class="img-fluid mb-5" src="img/portfolio/submarine.png" alt="">
+              <img class="img-fluid mb-5" src="/img/portfolio/submarine.png" alt="">
               <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
               <a class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss" href="#">
                 <i class="fa fa-close"></i>
@@ -319,19 +319,19 @@
     </div>
 
     <!-- Bootstrap core JavaScript -->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- <script src="/vendor/jquery/jquery.min.js"></script> -->
+    <!--  <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script> -->
 
     <!-- Plugin JavaScript -->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-    <script src="vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+    <!--  <script src="/vendor/jquery-easing/jquery.easing.min.js"></script> -->
+    <!-- <script src="/vendor/magnific-popup/jquery.magnific-popup.min.js"></script> -->
 
     <!-- Contact Form JavaScript -->
-    <script src="js/jqBootstrapValidation.js"></script>
-    <script src="js/contact_me.js"></script>
+    <!-- <script src="/js/jqBootstrapValidation.js"></script> -->
+    <!-- <script src="/js/contact_me.js"></script> -->
 
     <!-- Custom scripts for this template -->
-    <script src="js/freelancer.min.js"></script>
+    <!-- <script src="/js/freelancer.min.js"></script> -->
     
     <jsp:include page="../jslib.jsp"/>
   </body>
