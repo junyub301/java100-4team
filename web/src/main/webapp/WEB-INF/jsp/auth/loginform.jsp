@@ -9,24 +9,8 @@
 	href='../../node_modules/bootstrap/dist/css/bootstrap.min.css'>
 <link rel='stylesheet' href='../../css/common.css'>
 </head>
-<body>
-	<section id="portfolio">
-		<div class="container">
-			<h2 class="text-center">Portfolio</h2>
-			<hr class="star-primary">
-			<div class="col-sm-4 portfolio-item">
-				<div class="caption">
-					<div class="caption-content"></div>
-				</div>
-			</div>
-		</div>
-    
+<body style="background-image:url('../../img/portfolio/group.jpg'); background-size: cover">
 <div class='container1'>
-	</section>
-	<div class='container'>
-<%-- <jsp:include page="../header.jsp"/> --%>
-
-		<jsp:include page="../header.jsp" />
 
 		<h1>로그인</h1>
 
@@ -60,9 +44,6 @@
 			</div>
 
 </form>
-<%-- 
-<jsp:include page="../footer.jsp"/> --%>
-=======
 			<div class='form-group row'>
 				<div class='col-sm-10'>
 					<button onclick="location='list.jsp'"
@@ -77,7 +58,6 @@
 				</div>
 			</div>
 
-		<jsp:include page="../footer.jsp" />
 	</div>
 
 	<jsp:include page="../jslib.jsp" />
