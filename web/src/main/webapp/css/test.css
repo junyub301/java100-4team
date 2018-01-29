@@ -116,3 +116,8 @@ figure.snip1384.hover i {
 body {
   background-color: #ffffff;
 }
+
+/* main이미지 margin*/
+.img-margin {
+  margin-bottom: -0.7rem !important;
+}
