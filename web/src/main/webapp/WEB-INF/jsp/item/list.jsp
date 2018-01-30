@@ -13,21 +13,21 @@
 </head>
 <body>
 	<div class='container'>
-		<div style="width: 700px;" class='row justify-content-md-center'>
+		<div style="width: 700px;margin:auto" class='row justify-content-md-center'>
 			<button class="col-sm-5 btn btn-primary"
 				onclick="location.href='rent'">빌려드립니다</button>
 			<div class="col-sm-2"></div>
 			<button class="col-sm-5 btn btn-primary"
 				onclick="location.href='lend'">빌려주세요</button>
 		</div>
-
+<c:forEach items="${list}" var="item">
 		<div class="row mb-2">
 			<div class="col-md-6">
 				<div class="card flex-md-row mb-4 box-shadow h-md-250">
 					<div class="card-body d-flex flex-column align-items-start">
-						<strong class="d-inline-block mb-2 text-primary">World</strong>
+						<strong class="d-inline-block mb-2 text-primary">${item.itemNo}</strong>
 						<h3 class="mb-0">
-							<a class="text-dark" href="#">Featured post</a>
+							<a class="text-dark" href="#">${item.name}</a>
 						</h3>
 						<div class="mb-1 text-muted">Nov 12</div>
 						<p class="card-text mb-auto">This is a wider card with
@@ -60,6 +60,7 @@
 				</div>
 			</div>
 		</div>
+		</c:forEach>
 	</div>
 	<jsp:include page="../jslib.jsp" />
 </body>
