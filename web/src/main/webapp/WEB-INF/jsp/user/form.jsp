@@ -67,7 +67,7 @@ background-size: cover; background-attachment: fixed;">
 </div>
 
 <div class="form-group1">
-<input style='display:inline-block;width:315px;margin-left: 100px;' type="text" id="sample6_postcode" class="form-control1" placeholder="우편번호" name='postNo'>
+<input style='display:inline-block;width:315px;margin-left: 102px;' type="text" id="sample6_postcode" class="form-control1" placeholder="우편번호" name='postNo'>
 <input style='display:inline-block;width:150px;' 
 style="margin-bottom: 0.5rem; background-color: #D8D8D8;" type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기">
 </div>
@@ -83,14 +83,14 @@ style="margin-bottom: 0.5rem; background-color: #D8D8D8;" type="button" onclick=
 <input style="margin-bottom: 0.7rem;" id='photo' class="file-input" type="file" name='photo'>
 </div>
 
-<div class='form-group1'>
-<button class="form-control1 btn btn-primary">회원가입</button>
+<div class='form-group1'>   
+<button class="form-control2 btn btn-info">회원가입</button>
 </div>
 </form>
 
 <div class='form-group1'>
 <button onclick="location='../auth/login.jsp'"
-                        class='form-control1 btn btn-info btn-sm'>로그인</button>
+                        class='form-control2 btn btn-info btn-sm'>로그인</button>
 </div>
 
 </div>

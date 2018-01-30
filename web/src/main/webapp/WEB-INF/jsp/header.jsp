@@ -6,6 +6,7 @@
     
 
   <%-- Header --%>
+  
     <header class="masthead bg-primary2 text-white text-center">
        <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav">
       <div class="container">
