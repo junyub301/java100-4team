@@ -10,6 +10,7 @@ public interface ItemService {
 
     List<Item> list();
     
+    Item getItem(int no);
 }
 
 

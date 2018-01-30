@@ -26,10 +26,16 @@ public class ItemServiceImpl implements ItemService {
         } 
         return count; 
     }
-
+ 
     @Override
     public List<Item> list() {
         return itemDao.findAll();
+    }
+
+    @Override
+    public Item getItem(int no) {
+        Item item = itemDao.findByNo(no);
+        return item;
     }
     
     

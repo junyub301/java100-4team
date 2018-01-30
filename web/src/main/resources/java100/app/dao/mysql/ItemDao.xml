@@ -33,8 +33,7 @@
         
     </resultMap>
     
-    
-    <insert id="insert" parameterType="message" 
+    <insert id="insert" parameterType="item" 
         useGeneratedKeys="true" keyColumn="it_no" keyProperty="itemNo">
         insert into item(ur_no,category,user_type,title,name,cnt,start,end,price,price_day,status) 
         values(#{userNo},#{category},#{userType},#{title},#{name},#{content},#{startDate},
@@ -55,6 +54,19 @@
             join user as u on i.ur_no=u.ur_no
             left join itemphoto as p on i.it_no=p.it_no
     </select>
+    
+    <select id="findByNo" resultMap="itemMap" parameterType="int">
+        select
+            u.ur_no,
+            i.it_no,
+            i.name,
+            i.start,
+            i.end,
+            i.price,
+            i.price_day
+         from item i join user u on u.ur_no=i.it_no where i.it_no=#{value}
+    </select>
+
 </mapper>
 
 
