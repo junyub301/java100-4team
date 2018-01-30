@@ -15,22 +15,31 @@
 </head>
 <body>
 <br><br>
-<%--드롭다운식으로 수정해야함 --%>
-<div style='width: 600px;height:400px;display:inline-block;float:left;'>
-<br><br>
-<table style='width:400px;margin-left:70px;'class="table table-dark">
-    <tr>
-      <td>이용내역</td>
+
+<div style='width: 800px;height:400px;display:inline-block;float:left;'>
+<br>
+<table style='margin-left:420px;width:300px;'class="table table-striped table-dark">
+    <tr onclick="folding1()">
+      <td><a style='text-decoration:none;color:white;' href='#'>이용내역</a></td>
     </tr>
-    <tr>
-      <td>회원정보변경</td>
+    <tr id="f1" style="display: none;">
+      <td>&nbsp;&nbsp;&nbsp;<a style='text-decoration:none;color:white;' href='#'>등록/대여/반납현황</a></td>
     </tr>
-    <tr>
-      <td>메시지</td>
+    <tr onclick="folding2()">
+      <td><a style='text-decoration:none;color:white;' href='#'>회원정보변경</a></td>
+    </tr>
+    <tr id="f2" style="display: none;">
+      <td>&nbsp;&nbsp;&nbsp;<a style='text-decoration:none;color:white;' href='#'>회원정보변경</a></td>
+    </tr>
+    <tr onclick="folding3()">
+      <td><a style='text-decoration:none;color:white;' href='../msg/list'>메시지</a></td>
+    </tr>
+    <tr id="f3" style="display: none;">
+      <td>&nbsp;&nbsp;&nbsp;<a style='text-decoration:none;color:white;' href='../msg/list'>메시지</a></td>
     </tr>
 </table>
 </div>
-<div style="width: 700px;display:inline-block;margin-right:500px;" >
+<div style="width: 700px;display:inline-block;margin-right:500px;position:fixed;">
 
 <c:if test="${not empty account}">
 <form action='update' method='post' onsubmit="return tocheckpw1()" enctype="multipart/form-data"> 
@@ -39,7 +48,7 @@
 <input id='no' type="hidden" name='accountsNo' value='${account.accountsNo}'>
 
 
-<div style='display:inline-block;width:250px;float:left'>
+<div style='display:inline-block;width:250px;height:200px;float:left'>
        <c:forEach items="${user.photos}" var="file">
        <a href="${contextPath}/download/${file.photoName}">
         <img width="200px" src="${contextPath}/download/${file.photoName}"></a>
@@ -220,5 +229,35 @@ ${file.photoName} --%>
     }
 </script>
 
+<script type="text/javascript">
+function folding1() {
+    if (f1.style.display == 'none') {
+        f1.style.display = '';
+        f2.style.display = 'none';
+        f3.style.display = 'none';
+    } else {
+        f1.style.display = 'none';
+        
+    }
+}
+function folding2() {
+    if (f2.style.display == 'none') {
+        f2.style.display = '';
+        f1.style.display = 'none';
+        f3.style.display = 'none';
+    } else {
+        f2.style.display = 'none';
+    }
+}
+function folding3() {
+    if (f3.style.display == 'none') {
+        f3.style.display = '';
+        f1.style.display = 'none';
+        f2.style.display = 'none';
+    } else {
+        f3.style.display = 'none';
+    }
+}
+</script>
 </body>
 </html>
