@@ -61,5 +61,6 @@
 			</div>
 		</div>
 	</div>
+	<jsp:include page="../jslib.jsp" />
 </body>
 </html>

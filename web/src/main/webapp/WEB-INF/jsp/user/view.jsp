@@ -259,5 +259,6 @@ function folding3() {
     }
 }
 </script>
+<jsp:include page="../jslib.jsp" />
 </body>
 </html>

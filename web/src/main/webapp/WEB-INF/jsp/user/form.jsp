@@ -25,7 +25,7 @@ background-size: cover; background-attachment: fixed;">
 <!-- <h1 align="center">회원가입</h1>
 <br><br> -->
 
-<div style="width: 700px; margin-top: 50px" class='container'>
+<div style="margin-top: 100px;" class='container1'>
 
 <form action="add" method="post" onsubmit="return tocheckpw2()" data-ajax="false" enctype="multipart/form-data">
 
@@ -67,8 +67,8 @@ background-size: cover; background-attachment: fixed;">
 </div>
 
 <div class="form-group1">
-<input style='display:inline-block;width:315px;margin-left: 102px;' type="text" id="sample6_postcode" class="form-control1" placeholder="우편번호" name='postNo'>
-<input style='display:inline-block;width:150px;' 
+<input style='display:inline-block;width:250px;margin-left: 75px;' type="text" id="sample6_postcode" class="form-control1" placeholder="우편번호" name='postNo'>
+<input style='display:inline-block;width:96px;' 
 style="margin-bottom: 0.5rem; background-color: #D8D8D8;" type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기">
 </div>
 
@@ -83,17 +83,44 @@ style="margin-bottom: 0.5rem; background-color: #D8D8D8;" type="button" onclick=
 <input style="margin-bottom: 0.7rem;" id='photo' class="file-input" type="file" name='photo'>
 </div>
 
-<div class='form-group1'>   
-<button class="form-control2 btn btn-info">회원가입</button>
-</div>
-</form>
-
 <div class='form-group1'>
-<button onclick="location='../auth/login.jsp'"
-                        class='form-control2 btn btn-info btn-sm'>로그인</button>
-</div>
+                    <button id="btn2"  hidden="0" class='form-control2 btn btn-info btn-sm'>회원가입</button>
+            </div>
+            <div class='form-group1'>
+                 <div id="btn1" class="button_base b07_3d_double_roll">
+                       <div>회원가입</div>
+                      <div>회원가입</div>
+                      <div>회원가입</div>
+                      <div>회원가입</div>
+                  </div>    
+            </div>
+</form>
+<div class='form-group1'>
+                 <div onclick="location='../auth/login.jsp'" id="btn1" class="button_base b07_3d_double_roll">
+                      <div>로그인</div>
+                      <div>로그인</div>
+                      <div>로그인</div>
+                      <div>로그인</div>
+                  </div>    
+            </div>
 
 </div>
+<script>
+var btn1 = document.querySelector('#btn1')
+var btn2 = document.querySelector('#btn2')
+
+btn1.addEventListener('click', function(event) {
+  var me = new MouseEvent('click')
+
+  btn2.dispatchEvent(me)
+})
+
+btn2.addEventListener('click', function(event) {
+})
+
+
+</script>
+
 <script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
 <script>
     function sample6_execDaumPostcode() {
@@ -138,6 +165,7 @@ style="margin-bottom: 0.5rem; background-color: #D8D8D8;" type="button" onclick=
         }).open();
     }
 </script>
+<jsp:include page="../jslib.jsp" />
 </body>
 </html>
     
