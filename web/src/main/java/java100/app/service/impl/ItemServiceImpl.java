@@ -26,6 +26,12 @@ public class ItemServiceImpl implements ItemService {
         }
         return count;
     }
+
+    @Override
+    public Item getItem(int no) {
+        Item item = itemDao.findByNo(no);
+        return item;
+    }
     
     
 

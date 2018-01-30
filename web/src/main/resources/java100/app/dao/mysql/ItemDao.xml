@@ -4,6 +4,22 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="java100.app.dao.ItemDao">
+    <resultMap type="item" id="itemMap">
+        <id column="it_no" property="itemNo"/>
+        <result column="ur_no" property="userNo"/>
+        <result column="title" property="title"/>
+        <result column="name" property="name"/>
+        <result column="cnt" property="content"/>
+        <result column="start" property="startDate"/>
+        <result column="end" property="endDate"/>
+        <result column="price" property="price"/>
+        <result column="price_day" property="pricePerDay"/>
+        <result column="status" property="status"/>
+        <result column="category" property="category"/>
+        <result column="user_type" property="userType"/>
+        
+ 
+    </resultMap>
     
     <insert id="insert" parameterType="message" 
         useGeneratedKeys="true" keyColumn="it_no" keyProperty="itemNo">
@@ -11,6 +27,18 @@
         values(#{userNo},#{category},#{userType},#{title},#{name},#{content},#{startDate},
                 #{endDate},#{price},#{pricePerDay},#{status})
     </insert>
+    
+    <select id="findByNo" resultMap="itemMap" parameterType="int">
+        select
+            u.ur_no,
+            i.it_no,
+            i.name,
+            i.start,
+            i.end,
+            i.price,
+            i.price_day
+         from item i join user u on u.ur_no=i.it_no where i.it_no=#{value}
+    </select>
 
 
 

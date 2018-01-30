@@ -4,8 +4,11 @@ import java100.app.domain.Item;
 
 public interface ItemDao {
     int insert(Item item);
-    
+    Item findByNo(int no);
 }
+
+
+
 
 
 

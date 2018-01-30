@@ -6,6 +6,7 @@ import java100.app.domain.Photo;
 
 public interface ItemService {
     int add(Item item, List<Photo> photoList);
+    Item getItem(int no);
 }
 
 

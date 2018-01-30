@@ -1,6 +1,6 @@
 package java100.app.domain;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Item {
     protected int itemNo;
