@@ -10,6 +10,7 @@ public interface AccountDao {
     int insert(Account account);
     Account findByNo(int no);
     int update(Account account);
+    int update2(Account account);
     int delete(int no);
     Account findByaccountNameAndPassword(Map<String,Object> params);
 }

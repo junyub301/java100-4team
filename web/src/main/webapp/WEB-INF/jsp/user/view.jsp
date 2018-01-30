@@ -15,22 +15,28 @@
 </head>
 <body>
 <br><br>
-<%--옆에 메뉴 내일수정--%>
-<div style=''>회원정보</div>
-
-<div style="width: 700px;" class='container'>
+<%--드롭다운식으로 수정해야함 --%>
+<div style='width: 600px;height:400px;display:inline-block;float:left;'>
+<br><br>
+<table style='width:400px;margin-left:70px;'class="table table-dark">
+    <tr>
+      <td>이용내역</td>
+    </tr>
+    <tr>
+      <td>회원정보변경</td>
+    </tr>
+    <tr>
+      <td>메시지</td>
+    </tr>
+</table>
+</div>
+<div style="width: 700px;display:inline-block;margin-right:500px;" >
 
 <c:if test="${not empty account}">
-<form action='update' method='post' enctype="multipart/form-data"> 
+<form action='update' method='post' onsubmit="return tocheckpw1()" enctype="multipart/form-data"> 
 
-<%-- 계정번호 주석처리
-<div class='form-group row'> 
-<label for='no'class='col-sm-2 col-form-label'>번호</label> 
-<div class='col-sm-10'> 
-<input class='form-control' readonly id='no' type='number' name='accountsNo' value='${account.accountsNo}'>
-</div> 
-</div> 
---%>
+<%--계정번호 히든처리 --%>
+<input id='no' type="hidden" name='accountsNo' value='${account.accountsNo}'>
 
 
 <div style='display:inline-block;width:250px;float:left'>
@@ -45,11 +51,9 @@ ${file.photoName} --%>
 <br>
 <div style='display:inline-block;width:400px;'> 
 <label for='accountName' class='col-form-label' style='width:120px;'>아이디</label> 
-<!-- <div class='col-sm-4'>  -->
 <input class='form-control' style='display:inline-block;width:250px;' readonly id='accountName' type='text' name='accountName' value='${account.accountName}'>
 </div> 
 <br><br>
-<!-- </div> -->  
 
 <div style='display:inline-block;width:400px;'> 
 <label for='password' class='col-form-label' style='width:120px;'>패스워드</label> 
@@ -64,7 +68,10 @@ ${file.photoName} --%>
 <!--버튼모양수정해야함  -->
 <div class="form-group row">
 <div class='col-sm-10'>
-<input type="file" class="form-control-file"  id="file1" name="photo">
+<span id="fileInputForm" class="btn btn-secondary" style="font-size:0.8em; padding-top:0px;  position:relative; float:left;margin-left:50px;width:100px;height:20px; overflow:hidden; cursor:pointer;">
+사진변경
+</span>
+<input type="file" class="form-control-file"  id="file1" name="photo" style='position:absolute; margin-left:50px;width:100px;height:20px;opacity: 0;'>
 </div>
 </div>
 
@@ -137,17 +144,22 @@ ${file.photoName} --%>
 </div> 
 </div> 
 
-     
 
 <div class='col-sm-10'>
-<div style='width:230px;height:40px;display:inline-block;'></div> 
-<button class= "btn btn-primary">변경</button> 
+<div style='width:280px;height:40px;display:inline-block;'></div> 
+<button class="btn btn-primary">수정</button> 
+<%-- 삭제버튼숨김
 <a href='delete?no=${account.accountsNo}' class= "btn btn-danger ">삭제</a>
+--%>
 </div> 
 
 </form>
+
 </c:if> 
 </div>
+
+
+
 <c:if test="${empty account }">
          '${no}'번의 성적 정보가 없습니다.
 </c:if>
@@ -194,5 +206,19 @@ ${file.photoName} --%>
         }).open();
     }
 </script>
+
+<%-- 비밀번호 확인 스크립트--%>
+<script type="text/javascript">
+    function tocheckpw1() {
+        var pw = document.getElementById("password").value;
+        var pwck = document.getElementById("checkpwd").value;
+ 
+        if (pw != pwck) {
+            alert('비밀번호가 틀렸습니다. 다시 입력해 주세요');
+            return false;
+        }
+    }
+</script>
+
 </body>
 </html>

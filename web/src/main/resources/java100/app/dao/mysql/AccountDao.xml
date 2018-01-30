@@ -56,6 +56,14 @@
         where act_no=#{accountsNo}
     </update>
     
+    <update id="update2" parameterType="account">
+        update account set 
+            act_id=#{accountName},
+            email=#{email},
+            name=#{name}
+        where act_no=#{accountsNo}
+    </update>
+    
       <select id="findByaccountNameAndPassword" 
             resultMap="accountMap" parameterType="account">
         <include refid="select"/>
