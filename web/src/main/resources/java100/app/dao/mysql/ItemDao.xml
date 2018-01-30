@@ -4,6 +4,35 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="java100.app.dao.ItemDao">
+    <resultMap type="item" id="itemMap">
+        <id column="it_no" property="itemNo"/>
+        <result column="ur_no" property="userNo"/>
+        <result column="category" property="category"/>
+        <result column="user_type" property="userType"/>
+        <result column="name" property="name"/>
+        <result column="title" property="title"/>
+        <result column="cnt" property="content"/>
+        <result column="start" property="startDate"/>
+        <result column="end" property="endDate"/>
+        <result column="price" property="price"/>
+        <result column="price_day" property="pricePerDay"/>
+        <result column="status" property="status"/>
+        
+        <association property="writer" javaType="user">
+            <id     column="ur_no"       property="userNo"/>
+        </association>
+        
+        <collection property="photos"  ofType="Photo">
+            <id     column="pho_no"       property="no"/>
+            <result column="it_no"   property="itemNo"/>
+            <result column="ur_no"   property="userNo"/>
+            <result column="pho_name"   property="photoName"/>
+            <result column="pho_path"   property="photoPath"/>
+            
+        </collection>
+        
+    </resultMap>
+    
     
     <insert id="insert" parameterType="message" 
         useGeneratedKeys="true" keyColumn="it_no" keyProperty="itemNo">
@@ -11,9 +40,21 @@
         values(#{userNo},#{category},#{userType},#{title},#{name},#{content},#{startDate},
                 #{endDate},#{price},#{pricePerDay},#{status})
     </insert>
-
-
-
+    <select id="findAll" resultMap="itemMap">
+        select 
+            i.it_no, i.ur_no, i.category, i.user_type, i.name, 
+            i.title, i.cnt, i.start, i.end,
+            i.price, i.price_day, i.status,
+            u.ur_no,
+            p.pho_no as pho_no,
+            p.it_no as it_no,
+            p.ur_no as ur_no,
+            p.pho_name as pho_name,
+            p.pho_path as pho_path
+            from item as i
+            join user as u on i.ur_no=u.ur_no
+            left join itemphoto as p on i.it_no=p.it_no
+    </select>
 </mapper>
 
 

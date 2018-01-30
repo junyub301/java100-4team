@@ -5,17 +5,20 @@ import java.util.Date;
 public class Item {
     protected int itemNo;
     protected int userNo;
-    protected String title;
+    protected int category;
+    protected int userType;
     protected String name;
+    protected String title;
     protected String content;
     protected Date startDate;
     protected Date endDate;
     protected int price;
     protected int pricePerDay;
     protected boolean status;
-    protected int category;
-    protected int userType;
     protected String filename;
+    protected Photo photos;
+    protected User writer;
+    
     @Override
     public String toString() {
         return "Item [itemNo=" + itemNo + ", userNo=" + userNo + ", title=" + title + ", name=" + name + ", content="

@@ -8,6 +8,7 @@ import javax.servlet.ServletContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -48,7 +49,11 @@ public class ItemController {
         itemService.add(item,uploadFiles);
         return "redirect:../main/main";
     }
-    
+    @RequestMapping("list")
+    public String list(Model model) throws Exception {
+        model.addAttribute("list", itemService.list());
+        return "item/list";
+    }
     
     
     
