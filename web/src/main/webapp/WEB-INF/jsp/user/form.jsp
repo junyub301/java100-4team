@@ -67,41 +67,31 @@ background-size: cover; background-attachment: fixed;">
 </div>
 
 <div class="form-group1">
-<input style="margin-bottom: 0.5rem; background-color: #D8D8D8;" type="button" class="form-control1" onclick="sample6_execDaumPostcode()" value="우편번호 찾기">
-<input type="text" id="sample6_postcode" class="form-control1" placeholder="우편번호" name='postNo'>
+<input style='display:inline-block;width:315px;margin-left: 100px;' type="text" id="sample6_postcode" class="form-control1" placeholder="우편번호" name='postNo'>
+<input style='display:inline-block;width:150px;' 
+style="margin-bottom: 0.5rem; background-color: #D8D8D8;" type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기">
 </div>
 
 <div class="form-group1">
 <input type="text" id="sample6_address" class="form-control1" placeholder="주소"name='baseAddress'>
 </div>
+<div class="form-group1">
+<input type="text" id="sample6_address2" class="form-control1" placeholder="상세주소" name='detailAddress'>
+</div>
 
 <div class="form-group1">
-<input  type="text" id="sample6_address2" class="form-control1" placeholder="상세주소" name='detailAddress'>
+<input style="margin-bottom: 0.7rem;" id='photo' class="file-input" type="file" name='photo'>
 </div>
 
-<div class="form-group1">
-<input style="margin-bottom: 0.7rem;" id='photo' class="form-control1" type="file" name='photo'>
-</div>
-
-<div class="file_input">
-    <label>
-        File Attach
-        <input type="file" onchange="javascript:document.getElementById('file_route').value=this.value">
-    </label>
-    <input type="text" readonly="readonly" title="File Route" id="file_route">
-</div>
-
-
-
-<div class='row justify-content-md-center'>
-<button style="width:469px; height: 45px; margin-bottom: 0.5rem;" class="btn btn-primary">회원가입</button>
+<div class='form-group1'>
+<button class="form-control1 btn btn-primary">회원가입</button>
 </div>
 </form>
 
-<div align="center" class='form-group1'>
-                    <button style="width:70%; height: 45px; margin-bottom: -0.7rem; background-color: " onclick="location='../auth/login.jsp'"
-                        class='btn btn-info btn-sm'>로그인</button>
-            </div>
+<div class='form-group1'>
+<button onclick="location='../auth/login.jsp'"
+                        class='form-control1 btn btn-info btn-sm'>로그인</button>
+</div>
 
 </div>
 <script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>

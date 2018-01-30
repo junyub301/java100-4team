@@ -12,8 +12,8 @@
 
 
     <insert id="insertUser" parameterType="photo">
-        insert into itemphoto(pho_name, pho_path,ur_no) 
-        values(#{photoName}, #{photoPath}, #{userNo})
+        insert into itemphoto(pho_name,ur_no) 
+        values(#{photoName}, #{userNo})
     </insert>
     
     <insert id="insertItem" parameterType="photo">

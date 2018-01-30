@@ -61,7 +61,7 @@ public class UserController {
             // part파일은 uploadDir경로에 저장해라.
             String filename = this.writeUploadFile(part, uploadDir);
             
-            uploadFiles.add(new Photo(uploadDir, filename));
+            uploadFiles.add(new Photo(filename));
         }
         
         user.setPhotos(uploadFiles);
@@ -84,7 +84,7 @@ public class UserController {
             // part파일은 uploadDir경로에 저장해라.
             String filename = this.writeUploadFile(part, uploadDir);
             
-            uploadFiles.add(new Photo(uploadDir, filename));
+            uploadFiles.add(new Photo(filename));
         }
         // Board 객체에 저장한 파일명을 등록한다. 
         user.setPhotos(uploadFiles);
