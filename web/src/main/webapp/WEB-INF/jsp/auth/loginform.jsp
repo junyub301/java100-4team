@@ -8,6 +8,7 @@
 <link rel='stylesheet'
 	href='../../node_modules/bootstrap/dist/css/bootstrap.min.css'>
 <link rel='stylesheet' href='../../css/test.css'>
+
 </head>
 <body style="background-image:url('../../img/portfolio/group.jpg'); 
 background-repeat: no-repeat; background-position: center; 
@@ -18,7 +19,7 @@ background-size: cover; background-attachment: fixed;">
 		<form action="login" method='post'>
             
             <div align="center" class='form-group1'>        
-             <img style="width: 70%; opacity: inherit;" src="../../img/portfolio/rg.jpg">
+             <img style="width: 20%; opacity: inherit;margin-top: 100px" src="../../img/portfolio/shareicon2.png">
             </div>
             
 			<div class='form-group1'>
@@ -39,16 +40,44 @@ background-size: cover; background-attachment: fixed;">
 				</div>
 			</div> -->
 
-			<div align="center" class='form-group1'>
-					<button style="width:70%; height: 45px; margin-bottom: -0.7rem;" class='btn btn-info btn-sm'>로그인</button>
+			<div class='form-group1'>
+					<button id="btn2"  hidden="0" class='form-control2 btn btn-info btn-sm'>로그인</button>
+			</div>
+			<div class='form-group1'>
+			     <div id="btn1" class="button_base b07_3d_double_roll">
+		              <div>로그인</div>
+		              <div>로그인</div>
+		              <div>로그인</div>
+		              <div>로그인</div>
+		          </div>    
 			</div>
 		</form>
-			<div align="center" class='form-group1'>
-					<button style="width:70%; height: 45px; margin-bottom: -0.7rem; opacity: 20px;" onclick="location='../user/form'"
-						class='btn btn-info btn-sm'>회원가입</button>
-			</div>
+            <div class='form-group1'>
+                 <div onclick="location='../user/form'" class="button_base b07_3d_double_roll">
+                      <div>회원가입</div>
+                      <div>회원가입</div>
+                      <div>회원가입</div>
+                      <div>회원가입</div>
+                  </div>    
+            </div>
+            
+    </div>
+<script>
+var btn1 = document.querySelector('#btn1')
+var btn2 = document.querySelector('#btn2')
 
-	</div>
+btn1.addEventListener('click', function(event) {
+  var me = new MouseEvent('click')
+
+  btn2.dispatchEvent(me)
+})
+
+btn2.addEventListener('click', function(event) {
+})
+
+
+</script>
+
 
 	<jsp:include page="../jslib.jsp" />
 
