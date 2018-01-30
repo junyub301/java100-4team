@@ -8,12 +8,16 @@ import javax.servlet.ServletContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
+//github.com/junyub301/java100-4team.git
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import java100.app.domain.Item;
 import java100.app.domain.Photo;
 import java100.app.service.ItemService;
+import java100.app.service.UserService;
 
 @Controller
 @RequestMapping("/item")
@@ -21,6 +25,7 @@ public class ItemController {
     
     @Autowired ServletContext servletContext;
     @Autowired ItemService itemService;
+    @Autowired UserService userService;
     
     @RequestMapping("rent")
     public String form() throws Exception {
@@ -47,6 +52,20 @@ public class ItemController {
         }
         itemService.add(item,uploadFiles);
         return "redirect:../main/main";
+    }
+    @RequestMapping("list")
+    public String list(Model model) throws Exception {
+        model.addAttribute("list", itemService.list());
+        return "item/list";
+    }
+    @RequestMapping("{no}")
+    public String view(@PathVariable int no, Model model) throws Exception {
+
+
+        model.addAttribute("item", itemService.getItem(no));
+        model.addAttribute("user", userService.getUser(no));
+
+        return "item/view";
     }
     
     

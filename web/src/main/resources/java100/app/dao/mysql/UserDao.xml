@@ -15,6 +15,7 @@
         <result column="pst_no" property="postNo"/>
         <result column="bas_addr" property="baseAddress"/>
         <result column="det_addr" property="detailAddress"/>
+        
     <collection property="photos" ofType="photo">
             <id column="pho_no" property="no"/>
             <result column="pho_path" property="photoPath"/>

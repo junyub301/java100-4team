@@ -1,8 +1,8 @@
 package java100.app.domain;
 
-import java.util.Date;
+import java.sql.Date;
 
-public class Item {
+public class Item { 
     protected int itemNo;
     protected int userNo;
     protected String title;
@@ -16,12 +16,15 @@ public class Item {
     protected int category;
     protected int userType;
     protected String filename;
+    protected Photo photos;
+    protected User writer;
+    
     @Override
     public String toString() {
         return "Item [itemNo=" + itemNo + ", userNo=" + userNo + ", title=" + title + ", name=" + name + ", content="
                 + content + ", startDate=" + startDate + ", endDate=" + endDate + ", price=" + price + ", pricePerDay="
                 + pricePerDay + ", status=" + status + ", category=" + category + ", userType=" + userType
-                + ", filename=" + filename + "]";
+                + ", filename=" + filename + ", photos=" + photos + ", writer=" + writer + "]";
     }
     public int getItemNo() {
         return itemNo;
@@ -101,6 +104,20 @@ public class Item {
     public void setFilename(String filename) {
         this.filename = filename;
     }
+    public Photo getPhotos() {
+        return photos;
+    }
+    public void setPhotos(Photo photos) {
+        this.photos = photos;
+    }
+    public User getWriter() {
+        return writer;
+    }
+    public void setWriter(User writer) {
+        this.writer = writer;
+    }
+    
+   
     
    
     

@@ -23,8 +23,19 @@ public class ItemServiceImpl implements ItemService {
         for (Photo photo : photoList) {
             photo.setItemNo(item.getItemNo());
             photoDao.insertItem(photo);
-        }
-        return count;
+        } 
+        return count; 
+    }
+ 
+    @Override
+    public List<Item> list() {
+        return itemDao.findAll();
+    }
+
+    @Override
+    public Item getItem(int no) {
+        Item item = itemDao.findByNo(no);
+        return item;
     }
     
     

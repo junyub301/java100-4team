@@ -13,5 +13,7 @@ public interface PhotoDao {
 
     void deleteAllByUserNo(int no);
 
+    List<Photo> findByItemNo(int no);
+
 
 }
