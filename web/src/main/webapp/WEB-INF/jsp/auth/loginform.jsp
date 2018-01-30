@@ -38,12 +38,11 @@ background-size: cover; background-attachment: fixed;">
 							class="form-check-label" for="saveaccountName">아이디 저장</label>
 				</div>
 			</div> -->
-		</form>
 
 			<div align="center" class='form-group1'>
-					<button style="width:70%; height: 45px; margin-bottom: -0.7rem;" onclick="location='../main/main.jsp'"
-						class='btn btn-info btn-sm'>로그인</button>
+					<button style="width:70%; height: 45px; margin-bottom: -0.7rem;" class='btn btn-info btn-sm'>로그인</button>
 			</div>
+		</form>
 			<div align="center" class='form-group1'>
 					<button style="width:70%; height: 45px; margin-bottom: -0.7rem; opacity: 20px;" onclick="location='../user/form'"
 						class='btn btn-info btn-sm'>회원가입</button>

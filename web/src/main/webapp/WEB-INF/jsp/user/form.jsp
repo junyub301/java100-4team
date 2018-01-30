@@ -80,8 +80,18 @@ background-size: cover; background-attachment: fixed;">
 </div>
 
 <div class="form-group1">
-<input id='photo' class="form-control1" type="file" name='photo'>
+<input style="margin-bottom: 0.7rem;" id='photo' class="form-control1" type="file" name='photo'>
 </div>
+
+<div class="file_input">
+    <label>
+        File Attach
+        <input type="file" onchange="javascript:document.getElementById('file_route').value=this.value">
+    </label>
+    <input type="text" readonly="readonly" title="File Route" id="file_route">
+</div>
+
+
 
 <div class='row justify-content-md-center'>
 <button style="width:469px; height: 45px; margin-bottom: 0.5rem;" class="btn btn-primary">회원가입</button>
