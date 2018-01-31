@@ -1,6 +1,8 @@
 package java100.app.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,7 +30,14 @@ public class ItemServiceImpl implements ItemService {
     }
  
     @Override
-    public List<Item> list() {
+    public List<Item> list(int pageNo, int pageSize, Map<String, Object> options) {
+        HashMap<String,Object> params = new HashMap<>();
+        params.put("startIndex", (pageNo - 1) * pageSize);
+        params.put("size", pageSize);
+        
+        if (options != null) {
+            params.putAll(options);
+        }
         return itemDao.findAll();
     }
 
@@ -37,7 +46,10 @@ public class ItemServiceImpl implements ItemService {
         Item item = itemDao.findByNo(no);
         return item;
     }
-    
+    @Override
+    public int getTotalCount() {
+        return  itemDao.countAll();
+    }
     
 
 }

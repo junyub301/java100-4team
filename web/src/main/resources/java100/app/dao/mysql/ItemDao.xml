@@ -31,6 +31,9 @@
         </collection>
         
     </resultMap>
+    <select id="countAll" resultType="int">
+        select count(*) from item;
+    </select>
     
     <insert id="insert" parameterType="item" 
         useGeneratedKeys="true" keyColumn="it_no" keyProperty="itemNo">

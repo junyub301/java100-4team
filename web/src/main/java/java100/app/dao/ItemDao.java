@@ -8,6 +8,7 @@ public interface ItemDao {
     int insert(Item item);
     List<Item> findAll(); 
     Item findByNo(int no);
+    int countAll();
 }
 
 

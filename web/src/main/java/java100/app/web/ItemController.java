@@ -3,6 +3,7 @@ package java100.app.web;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.ServletContext;
 
@@ -12,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 //github.com/junyub301/java100-4team.git
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java100.app.domain.Item;
@@ -53,10 +55,73 @@ public class ItemController {
         itemService.add(item,uploadFiles);
         return "redirect:../main/main";
     }
-    @RequestMapping("list")
-    public String list(Model model) throws Exception {
-        model.addAttribute("list", itemService.list());
-        return "item/list";
+    @RequestMapping("lendlist")
+    public String lendlist(@RequestParam(value="ps", defaultValue="5") int pageNo,
+            @RequestParam(value="ps", defaultValue="5") int pageSize,
+            @RequestParam(value="words", required=false) String[] words,
+            @RequestParam(value="oc", required=false) String orderColumn,
+            @RequestParam(value="al", required=false) String align,
+            Model model) throws Exception {
+        if (pageNo < 1) {
+            pageNo = 1;
+        }
+        
+        if (pageSize < 5 || pageSize > 15) {
+            pageSize = 5;
+        } 
+        
+        HashMap<String,Object> options = new HashMap<>();
+        if (words != null && words[0].length() > 0) {
+            options.put("words", words);
+        }
+        options.put("orderColumn", orderColumn);
+        options.put("align", align);
+        
+        int totalCount = itemService.getTotalCount();
+        int lastPageNo = totalCount / pageSize;
+        if ((totalCount % pageSize) > 0) {
+            lastPageNo++;
+        }
+        
+        // view 컴포넌트가 사용할 값을 Model에 담는다.
+        model.addAttribute("pageNo", pageNo);
+        model.addAttribute("lastPageNo", lastPageNo);
+        model.addAttribute("list", itemService.list(pageNo, pageSize, options));
+        return "item/lendlist";
+    }
+    @RequestMapping("rentlist")
+    public String rentlist(@RequestParam(value="pn", defaultValue="1") int pageNo,
+            @RequestParam(value="ps", defaultValue="5") int pageSize,
+            @RequestParam(value="words", required=false) String[] words,
+            @RequestParam(value="oc", required=false) String orderColumn,
+            @RequestParam(value="al", required=false) String align,
+            Model model) throws Exception {
+        if (pageNo < 1) {
+            pageNo = 1;
+        }
+        
+        if (pageSize < 5 || pageSize > 15) {
+            pageSize = 5;
+        } 
+        
+        HashMap<String,Object> options = new HashMap<>();
+        if (words != null && words[0].length() > 0) {
+            options.put("words", words);
+        }
+        options.put("orderColumn", orderColumn);
+        options.put("align", align);
+        
+        int totalCount = itemService.getTotalCount();
+        int lastPageNo = totalCount / pageSize;
+        if ((totalCount % pageSize) > 0) {
+            lastPageNo++;
+        }
+        
+        // view 컴포넌트가 사용할 값을 Model에 담는다.
+        model.addAttribute("pageNo", pageNo);
+        model.addAttribute("lastPageNo", lastPageNo);
+        model.addAttribute("list", itemService.list(pageNo, pageSize, options));
+        return "item/rentlist";
     }
     @RequestMapping("{no}")
     public String view(@PathVariable int no, Model model) throws Exception {
