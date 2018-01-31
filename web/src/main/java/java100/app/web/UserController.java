@@ -66,7 +66,7 @@ public class UserController {
         
         user.setPhotos(uploadFiles);
         userService.add(account, user);
-        return "redirect:list";
+        return "redirect:../main/main";
     }
     
     @RequestMapping("update")

@@ -31,7 +31,7 @@ public class ItemController {
     
     @RequestMapping("rent")
     public String form() throws Exception {
-        return "item/rent";
+        return "item/rent"; 
     }
     
     @RequestMapping("lend")
