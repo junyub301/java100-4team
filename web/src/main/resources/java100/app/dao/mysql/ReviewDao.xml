@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="java100.app.dao.ReviewDao">
+    
+    <resultMap type="review" id="rvMap">
+        <id column="rent_no" property="rentNo"/>
+        <result column="cnt" property="contents"/>
+        <result column="cre_date" property="createdDate"/>
+    </resultMap>
+    
+    <select id="list" resultMap="rvMap" parameterType="map">
+        select
+            rent_no,
+            cnt,
+            cre_date
+         from review
+    </select>
+    
+    <select id="findByNo" resultMap="rvMap" parameterType="int">
+        select
+            rent_no,
+            cnt,
+            cre_date
+         from review where rent_no=#{value}
+    </select>
+    
+    
+    <insert id="insert" parameterType="review" 
+        useGeneratedKeys="true" keyColumn="rent_no" keyProperty="rentNo">
+        
+        insert into review(rent_no,cnt,cre_date) 
+            values(#{rentNo},#{contents},now())
+    </insert>
+
+    <update id="update" parameterType="review">
+        update review set 
+            cnt=#{contents}
+        where rent_no=#{rentNo}
+    </update>
+    
+    <delete id="delete" parameterType="int">
+        delete from review 
+        where rent_no=#{value}
+    </delete>
+
+</mapper>  
+
+
+
+
+
+
+
+
+

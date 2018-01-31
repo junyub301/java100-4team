@@ -18,8 +18,13 @@
 <%--대여자번호(로그인사용자)--%>
 <input id='lenderNo' class="form-control" type="hidden" name='lenderNo' value='${sessionScope.loginUser.accountsNo}'>
 
-<%--아직 미구현 
-<input id='itemNo' class="form-control" type="hidden" placeholder="아이템번호" name='itemNo'>--%>
+<%--아이템번호(나중에 수정)--%>
+<div class="form-group row">
+<label class="col-sm-2 col-form-label" for="itemNo">아이템번호</label>
+<input id='itemNo' class="form-control" type="number" name='itemNo' placeholder="(임시로 거래할 아이템번호넣으세요)" >
+ <div class="col-sm-10">
+ </div>
+ </div>
  
 <div class="form-group row">
 <label class="col-sm-2 col-form-label" for="requestDate">신청일</label>
