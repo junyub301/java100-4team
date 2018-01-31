@@ -34,7 +34,7 @@
     
     <!-- Header -->
     <header class="masthead bg-primary2 text-white text-center" style="">
-        <img class="img-fluid img-margin d-block mx-auto" src="../../img/abc.gif" style="width:100%; margin-bottom:-0.7rem; " alt="">
+        <img class="img-fluid img-margin d-block mx-auto" src="../../img/portfolio/main_img.jpg" style="width:100%; height:550px; margin-bottom:-0.7rem; " alt="">
 
     </header>
     
@@ -84,8 +84,8 @@
     <!-- Portfolio Grid Section -->
     <section class="portfolio" id="portfolio">
       <div class="container">
-        <h2 class="text-center text-uppercase text-secondary mb-0">정혁♥연서</h2>
-        <hr class="star-dark mb-5">
+        <!-- <h2 class="text-center text-uppercase text-secondary mb-0">정혁♥연서</h2> -->
+        <!-- <hr class="star-dark mb-5"> -->
         <div class="row">
           <div class="col-md-6 col-lg-4" >
             <figure class="snip1384">
