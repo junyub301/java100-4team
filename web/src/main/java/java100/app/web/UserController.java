@@ -66,6 +66,7 @@ public class UserController {
         
         user.setPhotos(uploadFiles);
         userService.add(account, user);
+        
         return "redirect:../main/main";
     }
     

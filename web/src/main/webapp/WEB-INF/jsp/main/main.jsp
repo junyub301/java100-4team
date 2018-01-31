@@ -10,7 +10,7 @@
     <meta name="author" content="">
 
     <title>SHARE</title>
-
+    
     <!-- Bootstrap core CSS -->
     <link href="../../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
