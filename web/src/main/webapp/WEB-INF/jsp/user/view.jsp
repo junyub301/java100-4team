@@ -16,9 +16,11 @@
 <body>
 <br><br>
 
-<div style='width: 800px;height:400px;display:inline-block;float:left;'>
+<div class='container' style="width:1000px;position:relative;">
+
+<div style='width: 320px;height:400px;display:inline-block;float:left;'>
 <br>
-<table style='margin-left:420px;width:300px;'class="table table-striped table-dark">
+<table style='width:300px;'class="table table-striped table-dark">
     <tr onclick="folding1()">
       <td><a style='text-decoration:none;color:white;' href='#'>이용내역</a></td>
     </tr>
@@ -39,8 +41,7 @@
     </tr>
 </table>
 </div>
-<div style="width: 700px;display:inline-block;margin-right:500px;position:fixed;">
-
+<div style='display:inline-block;position: absolute;width:690px;'>
 <c:if test="${not empty account}">
 <form action='update' method='post' onsubmit="return tocheckpw1()" enctype="multipart/form-data"> 
 
@@ -51,7 +52,7 @@
 <div style='display:inline-block;width:250px;height:200px;float:left'>
        <c:forEach items="${user.photos}" var="file">
        <a href="${contextPath}/download/${file.photoName}">
-        <img width="200px" src="${contextPath}/download/${file.photoName}"></a>
+        <img width="200px" align="middle" src="${contextPath}/download/${file.photoName}"></a>
         
 <%-- 파일이름 출력 숨김
 ${file.photoName} --%>
@@ -157,14 +158,15 @@ ${file.photoName} --%>
 <div class='col-sm-10'>
 <div style='width:280px;height:40px;display:inline-block;'></div> 
 <button class="btn btn-primary">수정</button> 
-<%-- 삭제버튼숨김
+<%-- 삭제버튼관리자만 보게해야함--%>
 <a href='delete?no=${account.accountsNo}' class= "btn btn-danger ">삭제</a>
---%>
+
 </div> 
 
 </form>
 
 </c:if> 
+</div>
 </div>
 
 
