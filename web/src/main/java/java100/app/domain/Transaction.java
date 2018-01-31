@@ -13,13 +13,14 @@ public class Transaction {
     protected int deliveryPayType;   //배송비결제유형
     protected int deliveryNo;      //운송장 번호
     protected Date deliveryDate;    //배송일
-    
+    protected Item item;    //물품 저장
     
     @Override
     public String toString() {
         return "Transaction [no=" + no + ", lenderNo=" + lenderNo + ", itemNo=" + itemNo + ", requestDate="
                 + requestDate + ", payMethod=" + payMethod + ", payDate=" + payDate + ", deliveryPayType="
-                + deliveryPayType + ", deliveryNo=" + deliveryNo + ", deliveryDate=" + deliveryDate + "]";
+                + deliveryPayType + ", deliveryNo=" + deliveryNo + ", deliveryDate=" + deliveryDate + ", item=" + item
+                + "]";
     }
 
     public int getNo() {
@@ -93,6 +94,15 @@ public class Transaction {
     public void setDeliveryDate(Date deliveryDate) {
         this.deliveryDate = deliveryDate;
     }
+
+    public Item getItem() {
+        return item;
+    }
+
+    public void setItem(Item item) {
+        this.item = item;
+    }
+    
     
     
     
