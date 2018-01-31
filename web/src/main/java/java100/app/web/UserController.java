@@ -1,9 +1,12 @@
 package java100.app.web;
 
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
 import javax.servlet.ServletContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -136,6 +139,10 @@ public class UserController {
 
         return filename;
     }
+    
+   
+
+
     
 }
 
