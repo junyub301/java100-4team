@@ -2,14 +2,14 @@ package java100.app.domain;
 
 import java.sql.Date;
 
-public class PostScript {
+public class Review {
     protected int rentNo;
     protected String contents;
     protected Date createdDate;
     
-    public PostScript() {}
+    public Review() {}
 
-    public PostScript(int rentNo, String contents, Date createdDate) {
+    public Review(int rentNo, String contents, Date createdDate) {
         this.rentNo = rentNo;
         this.contents = contents;
         this.createdDate = createdDate;
@@ -17,7 +17,7 @@ public class PostScript {
     
     @Override
     public String toString() {
-        return "PostScript [rentNo=" + rentNo + ", contents=" + contents + ", createdDate=" + createdDate + "]";
+        return "Review [rentNo=" + rentNo + ", contents=" + contents + ", createdDate=" + createdDate + "]";
     }
     
     public int getRentNo() {

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="java100.app.dao.TransactionDao">
+    
+    <resultMap type="transaction" id="trMap">
+        <id column="rent_no" property="no"/>
+        <result column="ur_no" property="lenderNo"/>
+        <result column="it_no" property="itemNo"/>
+        <result column="aply_dat" property="requestDate"/>
+        <result column="pay_way" property="payMethod"/>
+        <result column="pay_dat" property="payDate"/>
+        <result column="pay_type" property="deliveryPayType"/>
+        <result column="del_no" property="deliveryNo"/>
+        <result column="del_dat" property="deliveryDate"/>
+        
+        <association property="item" javaType="item">
+            <id column="it_no" property="itemNo"/>
+	        <result column="ur_no" property="userNo"/>
+	        <result column="category" property="category"/>
+	        <result column="user_type" property="userType"/>
+	        <result column="name" property="name"/>
+	        <result column="title" property="title"/>
+	        <result column="cnt" property="content"/>
+	        <result column="start" property="startDate"/>
+	        <result column="end" property="endDate"/>
+	        <result column="price" property="price"/>
+	        <result column="price_day" property="pricePerDay"/>
+	        <result column="status" property="status"/>
+        </association>
+        
+    </resultMap>
+    
+    <select id="list" resultMap="trMap" parameterType="map">
+        select
+            t.rent_no,
+            t.ur_no,
+            t.it_no,
+            t.aply_dat,
+            t.pay_way,
+            t.pay_dat,
+            t.pay_type,
+            t.del_no,
+            t.del_dat,
+            i.name,
+            i.price_day,
+            i.status
+         from transaction t
+         join item i on i.it_no=t.it_no
+    </select>
+    
+    <select id="findByNo" resultMap="trMap" parameterType="int">
+        select
+            t.rent_no,
+            t.ur_no,
+            t.it_no,
+            t.aply_dat,
+            t.pay_way,
+            t.pay_dat,
+            t.pay_type,
+            t.del_no,
+            t.del_dat,
+            i.name,
+            i.price_day,
+            i.start,
+            i.end,
+            i.status
+         from transaction t 
+         left join item i on i.it_no=t.it_no
+         where t.rent_no=#{value}
+    </select>
+    
+    
+    <insert id="insert" parameterType="transaction" 
+        useGeneratedKeys="true" keyColumn="rent_no" keyProperty="no">
+        insert into transaction(ur_no,it_no,aply_dat,pay_way,pay_dat,
+                                pay_type,del_no,del_dat) 
+        values(#{lenderNo},#{itemNo},#{requestDate},#{payMethod},#{payDate},
+                #{deliveryPayType},#{deliveryNo},#{deliveryDate})
+    </insert>
+
+    <update id="update" parameterType="transaction">
+        update transaction set 
+           aply_dat=#{requestDate},
+           pay_way=#{payMethod},
+           pay_dat=#{payDate},
+           pay_type=#{deliveryPayType},
+           del_no=#{deliveryNo},
+           del_dat=#{deliveryDate}
+        where rent_no=#{no}
+    </update>
+    
+    <delete id="delete" parameterType="int">
+        delete from transaction 
+        where rent_no=#{value}
+    </delete>
+
+</mapper>  
+
+
+
+
+
+
+
+
+
