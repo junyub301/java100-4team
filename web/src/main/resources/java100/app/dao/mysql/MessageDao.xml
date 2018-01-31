@@ -56,7 +56,11 @@
             state=${state}
         where mg_no=#{messageNo}
     </update>
-
+    
+    <delete id="delete" parameterType="int">
+        delete from message 
+        where mg_no=#{value}
+    </delete>
 
 </mapper>  
 
