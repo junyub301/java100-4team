@@ -24,27 +24,29 @@
 		</div>
 		<c:forEach items="${list}" var="item">
 			<c:set var="userType" value="${item.userType}" />
-				<c:if test="${userType eq 0}">
-					<div style="display: inline-block" class="col-md-6">
-						<div class="card flex-md-row mb-4 box-shadow h-md-250">
-							<div class="card-body d-flex flex-column align-items-start">
-								<strong class="d-inline-block mb-2 text-primary">${item.itemNo}</strong>
-								<h3 class="mb-0">
-									<a class="text-dark" href="#">${item.name}</a>
-								</h3>
-								<div class="mb-1 text-muted">${item.startDate}-${item.endDate}</div>
-								<p class="card-text mb-auto">${item.content}</p>
-								<a href="#">Continue reading</a>
-							</div>
-							<a href=""></a> <img
-								class="card-img-right flex-auto d-none d-md-block"
-								data-src="holder.js/200x250?theme=thumb"
-								alt="Thumbnail [200x250]" style="width: 200px; height: 250px;"
-								src="${contextPath}/download/${item.photos.photoName}"
-								data-holder-rendered="true">
+			<c:if test="${userType eq 0}">
+				<div style="display: inline-block" class="col-md-6">
+					<div class="card flex-md-row mb-4 box-shadow h-md-250">
+						<div class="card-body d-flex flex-column align-items-start">
+							<strong class="d-inline-block mb-2 text-primary">${item.itemNo}</strong>
+							<h3 class="mb-0">
+								<a class="text-dark" href="#">${item.name}</a>
+							</h3>
+							<div class="mb-1 text-muted">${item.startDate}-${item.endDate}</div>
+							<p class="card-text mb-auto">${item.content}</p>
+							<a href="#">Continue reading</a>
 						</div>
+						<a href=""></a> <img
+							class="card-img-right flex-auto d-none d-md-block"
+							data-src="holder.js/200x250?theme=thumb"
+							alt="Thumbnail [200x250]" style="width: 200px; height: 250px;"
+							<c:forEach items="${item.photos}" var="photo">
+								src="${contextPath}/download/${photo.photoName}"
+                            </c:forEach>
+							data-holder-rendered="true">
 					</div>
-				</c:if>
+				</div>
+			</c:if>
 		</c:forEach>
 		<jsp:include page="../paging.jsp" />
 	</div>
