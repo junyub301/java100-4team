@@ -8,9 +8,9 @@
   <%-- Header --%>
   
     <header class="masthead bg-primary2 text-white text-center">
-       <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav">
-      <div style="margin-left:50px; display: inline-block;">
-        <a class="navbar-brand js-scroll-trigger" href="./main">Sharer & Sharee</a>
+       <div style="opacity: 0.5; z-index: 2;" class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav">
+      <div style="margin-left:50px; z-index:1; display: inline-block;">
+        <a class="navbar-brand" href="./main">Sharer & Sharee</a>
         
       </div>
         <div style="margin-right:50px;" class="navbar-nav ml-auto" id="navbarResponsive">
@@ -27,7 +27,8 @@
     </c:otherwise>
     </c:choose>
         </div>
-    </nav>
+    </div>
+    
     
     </header>
 
