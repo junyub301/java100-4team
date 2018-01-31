@@ -16,7 +16,7 @@
         <div style="margin-right:50px;" class="navbar-nav ml-auto" id="navbarResponsive">
       <c:choose>
     <c:when test="${sessionScope.loginUser != null}">
-        <div class="col-sm-1">${sessionScope.loginUser.name}</div>
+        <div class="col-sm-7">${sessionScope.loginUser.name}</div>
         <a href="${contextPath}/app/auth/logout" 
            class='btn btn-light btn-sm'>Logout</a>
     </c:when>
