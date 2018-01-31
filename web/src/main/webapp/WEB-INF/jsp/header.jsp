@@ -10,7 +10,7 @@
     <header class="masthead bg-primary2 text-white text-center">
        <div style="opacity: 0.5; z-index: 2;" class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav">
       <div style="margin-left:50px; z-index:1; display: inline-block;">
-        <a class="navbar-brand" href="./main">Sharer & Sharee</a>
+        <a class="navbar-brand" href="../main/main">Sharer & Sharee</a>
         
       </div>
         <div style="margin-right:50px;" class="navbar-nav ml-auto" id="navbarResponsive">
