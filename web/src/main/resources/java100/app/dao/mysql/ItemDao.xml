@@ -64,7 +64,9 @@
             i.end,
             i.price,
             i.price_day
-         from item i join user u on u.ur_no=i.it_no where i.it_no=#{value}
+            from item i
+            join user u on u.ur_no=i.it_no 
+            where i.it_no=#{value}
     </select>
 
 </mapper>
