@@ -11,36 +11,26 @@
 <link rel="stylesheet" href='../../node_modules/bootstrap/dist/css/bootstrap.min.css'>
 <script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
 <link href="../../css/freelancer.min.css" rel="stylesheet">
+
 <jsp:include page="../header.jsp"/>
 </head>
 <body>
+
+
 <br><br>
-<%--드롭다운식으로 수정해야함 --%>
-<div style='width: 600px;height:400px;display:inline-block;float:left;'>
-<br><br>
-<table style='width:400px;margin-left:70px;'class="table table-dark">
-    <tr>
-      <td>이용내역</td>
-    </tr>
-    <tr>
-      <td>회원정보변경</td>
-    </tr>
-    <tr>
-      <td>메시지</td>
-    </tr>
-</table>
-</div>
-<div style="width: 700px;display:inline-block;margin-right:500px;" >
+<div class='form-group row'> 
+       <div class='col-sm-10'> 
+       <a href="${contextPath}/download/${item.filename}">
+        <img width="50%" src="${contextPath}/download/${item.filename}">프로필사진</a>
+    </div> 
+    </div> 
 
-
-
-
-<br>
-<div style='display:inline-block;width:400px;'> 
-<label for='name' class='col-form-label' style='width:120px;'>물품명</label> 
-<input class='form-control' style='display:inline-block;width:250px;' readonly id='name' type='text' name='name' value='${item.name}'>
+<div class='form-group row'> 
+<label for='name' class='col-sm-2 col-form-label' >물품명</label> 
+<div class='col-sm-10'> 
+<input class='form-control' style='width:510px;' readonly id='name' type='text' name='name' value='${item.name}'>
 </div> 
-<br><br>
+</div> 
 
 
 <div class='form-group row'> 
@@ -49,6 +39,7 @@
 <input class='form-control' style='width:510px;' id='content' type='text' name='content' value='${item.content}'>
 </div> 
 </div> 
+
 
 
 <div class='form-group row'> 
@@ -80,7 +71,17 @@
 </div> 
 </div> 
 
-</div>
+    
+<h2>물품사진</h2>
+<div class='form-group row'> 
+       <div class='col-sm-10'> 
+  <c:forEach items="${item.photos}" var="file">
+       <a href="${contextPath}/download/${file.photoName}">
+        <img width="30%" src="${contextPath}/download/${file.photoName}"></a>
+    </c:forEach>
+    </div> 
+    </div> 
+
 
 
 

@@ -1,6 +1,7 @@
 package java100.app.domain;
 
 import java.sql.Date;
+import java.util.List;
 
 public class Item { 
     protected int itemNo;
@@ -16,8 +17,10 @@ public class Item {
     protected int category;
     protected int userType;
     protected String filename;
-    protected Photo photos;
+    protected List<Photo> photos;
     protected User writer;
+    
+    
     
     @Override
     public String toString() {
@@ -104,10 +107,10 @@ public class Item {
     public void setFilename(String filename) {
         this.filename = filename;
     }
-    public Photo getPhotos() {
+    public List<Photo> getPhotos() {
         return photos;
     }
-    public void setPhotos(Photo photos) {
+    public void setPhotos(List<Photo> photos) {
         this.photos = photos;
     }
     public User getWriter() {
@@ -117,6 +120,7 @@ public class Item {
         this.writer = writer;
     }
     
+   
    
     
    
