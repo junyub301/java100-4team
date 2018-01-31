@@ -1,6 +1,6 @@
 ﻿-- 후기
-ALTER TABLE PostScript
-	DROP FOREIGN KEY FK_Purchaser_TO_PostScript; -- 대여 -> 후기
+ALTER TABLE review
+	DROP FOREIGN KEY FK_transaction_TO_review; -- 대여 -> 후기
 
 -- 물품
 ALTER TABLE Item
@@ -23,15 +23,15 @@ ALTER TABLE User
 	DROP FOREIGN KEY FK_Account_TO_User; -- 계정 -> 사용자
 
 -- 대여
-ALTER TABLE Purchaser
-	DROP FOREIGN KEY FK_User_TO_Purchaser; -- 사용자 -> 대여
+ALTER TABLE transaction
+	DROP FOREIGN KEY FK_User_TO_transaction; -- 사용자 -> 대여
 
 -- 대여
-ALTER TABLE Purchaser
-	DROP FOREIGN KEY FK_Item_TO_Purchaser; -- 물품 -> 대여
+ALTER TABLE transaction
+	DROP FOREIGN KEY FK_Item_TO_transaction; -- 물품 -> 대여
 
 -- 후기
-ALTER TABLE PostScript
+ALTER TABLE review
 	DROP PRIMARY KEY; -- 후기 기본키
 
 -- 물품
@@ -55,11 +55,11 @@ ALTER TABLE User
 	DROP PRIMARY KEY; -- 사용자 기본키
 
 -- 대여
-ALTER TABLE Purchaser
+ALTER TABLE transaction
 	DROP PRIMARY KEY; -- 대여 기본키
 
 -- 후기 인덱스
-DROP INDEX IX_PostScript ON PostScript;
+DROP INDEX IX_review ON review;
 
 -- 물품 인덱스
 DROP INDEX IX_Item ON Item;
@@ -77,10 +77,10 @@ DROP INDEX UIX_Account2 ON Account;
 DROP INDEX UIX_User ON User;
 
 -- 대여 유니크 인덱스
-DROP INDEX UIX_Purchaser ON Purchaser;
+DROP INDEX UIX_transaction ON transaction;
 
 -- 후기
-DROP TABLE IF EXISTS PostScript RESTRICT;
+DROP TABLE IF EXISTS review RESTRICT;
 
 -- 물품
 DROP TABLE IF EXISTS Item RESTRICT;
@@ -98,4 +98,4 @@ DROP TABLE IF EXISTS Message RESTRICT;
 DROP TABLE IF EXISTS User RESTRICT;
 
 -- 대여
-DROP TABLE IF EXISTS Purchaser RESTRICT;
+DROP TABLE IF EXISTS transaction RESTRICT;
