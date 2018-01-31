@@ -6,14 +6,19 @@
 <html>
 <title>회원가입</title>
 <script type="text/javascript">
-    function tocheckpw2() {
+    function loseFocus() {
         var pwd = document.getElementById("pwd").value;
         var pwck = document.getElementById("PwCheck").value;
  
-        if (pwd != pwck) {
-            document.getElementById('pwsame').innerHTML = '비밀번호가 틀렸습니다. 다시 입력해 주세요';
-            return false;
-        }
+            if (pwd != pwck) {
+                document.getElementById('pwsame').innerHTML = '<p style="color:red;">' + '비밀번호가 틀렸습니다. 다시 입력해 주세요' + '</p>';
+                return false;
+            }
+            
+            if (pwd = pwck) {
+                document.getElementById('pwsame').innerHTML = '<p style="color:green;">' + '좋아요~' + '</p>';
+                return false;
+            }
     }
 </script>
 <link rel="stylesheet" href='../../node_modules/bootstrap/dist/css/bootstrap.min.css'>
@@ -42,7 +47,7 @@ background-size: cover; background-attachment: fixed;">
 </div>
 
 <div class="form-group1">
-<input id="PwCheck" type="password" class="form-control1" style="margin-bottom: 0.3rem;" placeholder="비밀번호 재입력">
+<input id="PwCheck" type="password" class="form-control1" style="margin-bottom: 0.3rem;" placeholder="비밀번호 재입력"  onfocusout="loseFocus()">
 <p align="center" id="pwsame" style="color:red;">
 </div>
 
