@@ -45,14 +45,14 @@
 <div class='form-group row'> 
 <label for='startDate' class='col-sm-2 col-form-label'>시작일</label> 
 <div class='col-sm-10'> 
-<input class='form-control' style='width:510px;' id='startDate' type='text' name='startDate' value='${item.startDate}'>
+<input class='form-control' style='width:510px;' id='startDate' type='date' name='startDate' value='${item.startDate}'>
 </div> 
 </div> 
 
 <div class='form-group row'> 
 <label for='endDate' class='col-sm-2 col-form-label'>끝?</label> 
 <div class='col-sm-10'> 
-<input class='form-control' style='width:510px;' id='endDate' type='text' name='endDate' value='${item.endDate}'>
+<input class='form-control' style='width:510px;' id='endDate' type='date' name='endDate' value='${item.endDate}'>
 </div> 
 </div> 
 
