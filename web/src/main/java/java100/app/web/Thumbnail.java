@@ -11,7 +11,7 @@ public class Thumbnail {
         try {
             int thumbnail_width = 100;
             int thumbnail_height = 100;
-            File origin_file_name = new File("C:\\Users\\bit-user\\git\\java100-4team\\web\\src\\main\\webapp\\img\\portfolio"+File.separator+"main_img.jpg");
+            File origin_file_name = new File("C:\\Users\\bit-user\\git\\java100-4team\\web\\src\\main\\webapp\\img\\portfolio"+File.separator+"rg.jpg");
             File thumb_file_name = new File("C:\\Users\\bit-user\\git\\java100-4team\\web\\src\\main\\webapp\\img\\portfolio"+File.separator+"thumbnail_image.jpg");
  
             BufferedImage buffer_original_image = ImageIO.read(origin_file_name);

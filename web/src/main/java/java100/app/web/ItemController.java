@@ -1,10 +1,13 @@
 package java100.app.web;
 
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.imageio.ImageIO;
 import javax.servlet.ServletContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +56,7 @@ public class ItemController {
             uploadFiles.add(new Photo(filename));
         }
         itemService.add(item,uploadFiles);
+        
         return "redirect:../main/main";
     }
     @RequestMapping("lendlist")
@@ -121,6 +125,8 @@ public class ItemController {
         model.addAttribute("pageNo", pageNo);
         model.addAttribute("lastPageNo", lastPageNo);
         model.addAttribute("list", itemService.list(pageNo, pageSize, options));
+        
+        
         return "item/rentlist";
     }
     @RequestMapping("{no}")
@@ -162,6 +168,27 @@ public class ItemController {
         part.transferTo(new File(path + "/" + filename));
 
         return filename;
+    }
+
+    private String Thumbnail(File filename, String uploadDir) {
+        try {
+            int thumbnail_width = 100;
+            int thumbnail_height = 100;
+            /*
+             * File origin_file_name = new File(원본경로 + File.separator+"main_img.jpg"); File
+             * thumb_file_name = new File(썸네일경로 + File.separator+"thumbnail_image.jpg");
+             */
+
+            BufferedImage buffer_original_image = ImageIO.read(filename);
+            BufferedImage buffer_thumbnail_image = new BufferedImage(thumbnail_width, thumbnail_height,
+                    BufferedImage.TYPE_3BYTE_BGR);
+            Graphics2D graphic = buffer_thumbnail_image.createGraphics();
+            graphic.drawImage(buffer_original_image, 0, 0, thumbnail_width, thumbnail_height, null);
+            ImageIO.write(buffer_thumbnail_image, "jpg", thumb_file_name);
+            System.out.println("썸네일 생성완료");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     
 }
