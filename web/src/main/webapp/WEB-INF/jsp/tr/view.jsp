@@ -102,6 +102,7 @@
 <div class='col-sm-10'> 
 <button  class= "btn btn-primary ">변경</button> 
 <a href='delete?no=${transaction.no}' class= "btn btn-danger ">삭제</a>
+<a href="../rv/form?no=${transaction.no}" class= "btn btn-warning ">리뷰등록</a>
 </div> 
 </div> 
 </form>

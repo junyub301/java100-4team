@@ -8,47 +8,47 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java100.app.domain.Transaction;
-import java100.app.service.TransactionService;
+import java100.app.domain.Review;
+import java100.app.service.ReviewService;
 
 @Controller
-@RequestMapping("/tr")
-public class TransactionController {
+@RequestMapping("/rv")
+public class ReviewController {
     
     @Autowired ServletContext servletContext;
-    @Autowired TransactionService transactionService;
+    @Autowired ReviewService reviewService;
     
     @RequestMapping("form")
-    public String form() throws Exception {
-        return "tr/form";
+    public String form(int no, Model model) throws Exception {
+        model.addAttribute("no", no);
+        return "rv/form";
     }
 
-    
-    @RequestMapping("add")
-    public String add(Transaction transaction) throws Exception {
-        transactionService.add(transaction);
-        return "redirect:list";
-    }
-    
+     
     @RequestMapping("list")
     public String list(Model model) throws Exception {
-        model.addAttribute("transaction", transactionService.list());
-        return "tr/list";
+        model.addAttribute("review", reviewService.list());
+        
+        return "rv/list";
     }
     
     @RequestMapping("{no}")
     public String view(@PathVariable int no, Model model) throws Exception {
-        model.addAttribute("transaction", transactionService.get(no));
-        
-        return "tr/view";
+        model.addAttribute("review", reviewService.get(no));
+
+        return "rv/view";
     }
     
-    
+    @RequestMapping("add")
+    public String add(Review review) throws Exception {
+        reviewService.add(review);
+        return "redirect:list";
+    }
     
     @RequestMapping("update")
-    public String update(Transaction transaction) throws Exception  {
-        System.out.println(transaction);
-        transactionService.update(transaction);
+    public String update(Review review) throws Exception  {
+        
+        reviewService.update(review);
         
         return "redirect:list";
     }
@@ -56,7 +56,7 @@ public class TransactionController {
     @RequestMapping("delete")
     public String delete(int no) throws Exception  {
 
-        transactionService.delete(no);
+        reviewService.delete(no);
 
         return "redirect:list";
     }
