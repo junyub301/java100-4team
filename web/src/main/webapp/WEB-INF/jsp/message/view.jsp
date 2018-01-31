@@ -70,6 +70,6 @@
 <c:if test="${empty message }">
          '${no}'번의 메세지 정보가 없습니다.
 </c:if>
-
+<jsp:include page="../jslib.jsp" />
 </body>
 </html>

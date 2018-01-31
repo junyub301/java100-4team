@@ -1,5 +1,5 @@
 ﻿-- 후기
-CREATE TABLE PostScript (
+CREATE TABLE review (
 	rent_no  INTEGER      NOT NULL COMMENT '대여번호', -- 대여번호
 	cnt      VARCHAR(255) NULL     COMMENT '내용', -- 내용
 	cre_date DATE         NULL     COMMENT '작성일' -- 작성일
@@ -7,44 +7,32 @@ CREATE TABLE PostScript (
 COMMENT '후기';
 
 -- 후기
-ALTER TABLE PostScript
-	ADD CONSTRAINT PK_PostScript -- 후기 기본키
+ALTER TABLE review
+	ADD CONSTRAINT PK_review -- 후기 기본키
 		PRIMARY KEY (
 			rent_no -- 대여번호
 		);
 
 -- 후기 인덱스
-CREATE INDEX IX_PostScript
-	ON PostScript( -- 후기
+CREATE INDEX IX_review
+	ON review( -- 후기
 		cre_date ASC -- 작성일
 	);
 
--- 카테고리
-CREATE TABLE Category (
-	ct_no INTEGER     NOT NULL COMMENT '카테고리번호', -- 카테고리번호
-	name  VARCHAR(50) NOT NULL COMMENT '이름' -- 이름
-)
-COMMENT '카테고리';
-
--- 카테고리
-ALTER TABLE Category
-	ADD CONSTRAINT PK_Category -- 카테고리 기본키
-		PRIMARY KEY (
-			ct_no -- 카테고리번호
-		);
-
 -- 물품
 CREATE TABLE Item (
-	it_no     INTEGER     NOT NULL COMMENT '물품번호', -- 물품번호
-	ur_no     INTEGER     NOT NULL COMMENT '사용자번호', -- 사용자번호
-	ct_no     INTEGER     NOT NULL COMMENT '카테고리번호', -- 카테고리번호
-	title     VARCHAR(50) NOT NULL COMMENT '글 제목', -- 글 제목
-	name      VARCHAR(50) NOT NULL COMMENT '물품명', -- 물품명
-	start     DATE        NOT NULL COMMENT '대여시작일', -- 대여시작일
-	end       DATE        NOT NULL COMMENT '대여종료일', -- 대여종료일
-	price     INTEGER     NOT NULL COMMENT '대여 기본 가격', -- 대여 기본 가격
-	price_day INTEGER     NOT NULL COMMENT '대여 가격', -- 대여 가격
-	status    BOOLEAN     NOT NULL COMMENT '물품 상태' -- 물품 상태
+	it_no     INTEGER      NOT NULL COMMENT '물품번호', -- 물품번호
+	ur_no     INTEGER      NOT NULL COMMENT '사용자번호', -- 사용자번호
+	category  INTEGER      NOT NULL COMMENT '카테고리', -- 카테고리
+	user_type INTEGER      NOT NULL COMMENT '사용자상태', -- 사용자상태
+	name      VARCHAR(50)  NOT NULL COMMENT '물품명', -- 물품명
+	title     VARCHAR(50)  NOT NULL COMMENT '글 제목', -- 글 제목
+	cnt       VARCHAR(255) NOT NULL COMMENT '내용', -- 내용
+	start     DATE         NULL     COMMENT '대여시작일', -- 대여시작일
+	end       DATE         NULL     COMMENT '대여종료일', -- 대여종료일
+	price     INTEGER      NULL     COMMENT '대여 기본 가격', -- 대여 기본 가격
+	price_day INTEGER      NULL     COMMENT '대여 가격', -- 대여 가격
+	status    BOOLEAN      NULL     COMMENT '물품 상태' -- 물품 상태
 )
 COMMENT '물품';
 
@@ -69,8 +57,7 @@ CREATE TABLE ItemPhoto (
 	pho_no   INTEGER      NOT NULL COMMENT '사진번호', -- 사진번호
 	it_no    INTEGER      NULL     COMMENT '물품번호', -- 물품번호
 	ur_no    INTEGER      NULL     COMMENT '사용자번호', -- 사용자번호
-	pho_name VARCHAR(255) NULL     COMMENT '파일이름', -- 파일이름
-	pho_path VARCHAR(255) NULL     COMMENT '사진경로' -- 사진경로
+	pho_name VARCHAR(255) NULL     COMMENT '파일이름' -- 파일이름
 )
 COMMENT '사진';
 
@@ -174,55 +161,46 @@ ALTER TABLE User
 	MODIFY COLUMN ur_no INTEGER NOT NULL AUTO_INCREMENT COMMENT '사용자번호';
 
 -- 대여
-CREATE TABLE Purchaser (
+CREATE TABLE transaction (
 	rent_no  INTEGER     NOT NULL COMMENT '대여번호', -- 대여번호
 	ur_no    INTEGER     NOT NULL COMMENT '대여자번호', -- 대여자번호
 	it_no    INTEGER     NOT NULL COMMENT '물품번호', -- 물품번호
-	aply_dat DATE        NOT NULL COMMENT '신청일', -- 신청일
-	pay_way  INTEGER     NOT NULL COMMENT '결제수단', -- 결제수단
-	pay_dat  DATE        NOT NULL COMMENT '결제일', -- 결제일
-	pay_type INTEGER     NOT NULL COMMENT '배송비결제유형', -- 배송비결제유형
-	del_no   VARCHAR(50) NOT NULL COMMENT '운송장번호', -- 운송장번호
-	del_dat  DATE        NOT NULL COMMENT '배송일' -- 배송일
+	aply_dat DATE        NULL     COMMENT '신청일', -- 신청일
+	pay_way  INTEGER     NULL     COMMENT '결제수단', -- 결제수단
+	pay_dat  DATE        NULL     COMMENT '결제일', -- 결제일
+	pay_type INTEGER     NULL     COMMENT '배송비결제유형', -- 배송비결제유형
+	del_no   VARCHAR(50) NULL     COMMENT '운송장번호', -- 운송장번호
+	del_dat  DATE        NULL     COMMENT '배송일' -- 배송일
 )
 COMMENT '대여';
 
 -- 대여
-ALTER TABLE Purchaser
-	ADD CONSTRAINT PK_Purchaser -- 대여 기본키
+ALTER TABLE transaction
+	ADD CONSTRAINT PK_transaction -- 대여 기본키
 		PRIMARY KEY (
 			rent_no -- 대여번호
 		);
 
 -- 대여 유니크 인덱스
-CREATE UNIQUE INDEX UIX_Purchaser
-	ON Purchaser ( -- 대여
+CREATE UNIQUE INDEX UIX_transaction
+	ON transaction ( -- 대여
 		ur_no ASC, -- 대여자번호
 		it_no ASC  -- 물품번호
 	);
 
-ALTER TABLE Purchaser
+ALTER TABLE transaction
 	MODIFY COLUMN ur_no INTEGER NOT NULL AUTO_INCREMENT COMMENT '대여자번호';
 
 -- 후기
-ALTER TABLE PostScript
-	ADD CONSTRAINT FK_Purchaser_TO_PostScript -- 대여 -> 후기
+ALTER TABLE review
+	ADD CONSTRAINT FK_transaction_TO_review -- 대여 -> 후기
 		FOREIGN KEY (
 			rent_no -- 대여번호
 		)
-		REFERENCES Purchaser ( -- 대여
+		REFERENCES transaction ( -- 대여
 			rent_no -- 대여번호
-		);
-
--- 물품
-ALTER TABLE Item
-	ADD CONSTRAINT FK_Category_TO_Item -- 카테고리 -> 물품
-		FOREIGN KEY (
-			ct_no -- 카테고리번호
 		)
-		REFERENCES Category ( -- 카테고리
-			ct_no -- 카테고리번호
-		);
+		ON DELETE CASCADE;
 
 -- 물품
 ALTER TABLE Item
@@ -232,7 +210,8 @@ ALTER TABLE Item
 		)
 		REFERENCES User ( -- 사용자
 			ur_no -- 사용자번호
-		);
+		)
+		ON DELETE CASCADE;
 
 -- 사진
 ALTER TABLE ItemPhoto
@@ -264,7 +243,8 @@ ALTER TABLE Message
 		)
 		REFERENCES User ( -- 사용자
 			ur_no -- 사용자번호
-		);
+		)
+		ON DELETE CASCADE;
 
 -- 사용자
 ALTER TABLE User
@@ -278,21 +258,23 @@ ALTER TABLE User
 		ON DELETE CASCADE;
 
 -- 대여
-ALTER TABLE Purchaser
-	ADD CONSTRAINT FK_User_TO_Purchaser -- 사용자 -> 대여
+ALTER TABLE transaction
+	ADD CONSTRAINT FK_User_TO_transaction -- 사용자 -> 대여
 		FOREIGN KEY (
 			ur_no -- 대여자번호
 		)
 		REFERENCES User ( -- 사용자
 			ur_no -- 사용자번호
-		);
+		)
+		ON DELETE CASCADE;
 
 -- 대여
-ALTER TABLE Purchaser
-	ADD CONSTRAINT FK_Item_TO_Purchaser -- 물품 -> 대여
+ALTER TABLE transaction
+	ADD CONSTRAINT FK_Item_TO_transaction -- 물품 -> 대여
 		FOREIGN KEY (
 			it_no -- 물품번호
 		)
 		REFERENCES Item ( -- 물품
 			it_no -- 물품번호
-		);
+		)
+		ON DELETE CASCADE;

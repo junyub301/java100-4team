@@ -35,6 +35,7 @@
 </tbody>
 </table>
 </div>
+<jsp:include page="../jslib.jsp" />
 </body>
 </html>
     

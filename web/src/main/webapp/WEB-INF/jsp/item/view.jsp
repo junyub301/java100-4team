@@ -86,6 +86,6 @@
 
 
 
-
+<jsp:include page="../jslib.jsp" />
 </body>
 </html>

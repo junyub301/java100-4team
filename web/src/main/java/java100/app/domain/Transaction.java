@@ -2,10 +2,10 @@ package java100.app.domain;
 
 import java.sql.Date;
 
-public class Purchaser {
+public class Transaction {
     
     protected int no;
-    protected int lenderNo;
+    protected int lenderNo; //userNo
     protected int itemNo;
     protected Date requestDate;  // 신청일
     protected int payMethod;   // 결제유형
@@ -14,11 +14,12 @@ public class Purchaser {
     protected int deliveryNo;      //운송장 번호
     protected Date deliveryDate;    //배송일
     
+    
     @Override
     public String toString() {
-        return "Purchaser [no=" + no + ", lenderNo=" + lenderNo + ", itemNo=" + itemNo + ", requestDate=" + requestDate
-                + ", payMethod=" + payMethod + ", payDate=" + payDate + ", deliveryPayType=" + deliveryPayType
-                + ", deliveryNo=" + deliveryNo + ", deliveryDate=" + deliveryDate + "]";
+        return "Transaction [no=" + no + ", lenderNo=" + lenderNo + ", itemNo=" + itemNo + ", requestDate="
+                + requestDate + ", payMethod=" + payMethod + ", payDate=" + payDate + ", deliveryPayType="
+                + deliveryPayType + ", deliveryNo=" + deliveryNo + ", deliveryDate=" + deliveryDate + "]";
     }
 
     public int getNo() {

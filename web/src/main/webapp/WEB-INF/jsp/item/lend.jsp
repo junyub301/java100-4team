@@ -73,7 +73,7 @@
 </div>
 
 </form>
-
+<jsp:include page="../jslib.jsp" />
 </div>
 </body>
 </html>
