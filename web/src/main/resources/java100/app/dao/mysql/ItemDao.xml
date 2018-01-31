@@ -17,6 +17,7 @@
         <result column="price" property="price"/>
         <result column="price_day" property="pricePerDay"/>
         <result column="status" property="status"/>
+        <result column="ur_pho" property="filename"/>
         
         <association property="writer" javaType="user">
             <id     column="ur_no"       property="userNo"/>
@@ -61,8 +62,13 @@
             i.start,
             i.end,
             i.price,
+            p.pho_name,
+            (select pho_name from itemphoto where u.ur_no=ur_no)as 
+            ur_pho,
             i.price_day
-         from item i join user u on u.ur_no=i.it_no where i.it_no=#{value}
+         from item i join user u on u.ur_no=i.ur_no
+         left join itemphoto as p on i.it_no=p.it_no 
+            where i.it_no=#{value}
     </select>
 
 </mapper>
