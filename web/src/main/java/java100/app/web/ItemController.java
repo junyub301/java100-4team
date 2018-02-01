@@ -1,20 +1,16 @@
 package java100.app.web;
 
-import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import javax.imageio.ImageIO;
 import javax.servlet.ServletContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
-//github.com/junyub301/java100-4team.git
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -23,6 +19,7 @@ import java100.app.domain.Item;
 import java100.app.domain.Photo;
 import java100.app.service.ItemService;
 import java100.app.service.UserService;
+import net.coobird.thumbnailator.Thumbnails;
 
 @Controller
 @RequestMapping("/item")
@@ -53,6 +50,11 @@ public class ItemController {
             
             String filename = this.writeUploadFile(part, uploadDir);
             
+            //썸네일 생성 메소드 호출 = 이름리턴     ** Thumbnail(저장경로,원본파일이름,썸네일너비,썸네일높이)
+            
+            String Thumbnail = this.Thumbnail(uploadDir,filename,50,50);
+            
+            //포토도메인 수정해서 썸네일도 추가해야함...DB도 추가해야함
             uploadFiles.add(new Photo(filename));
         }
         itemService.add(item,uploadFiles);
@@ -169,27 +171,25 @@ public class ItemController {
 
         return filename;
     }
-
-    private String Thumbnail(File filename, String uploadDir) {
-        try {
-            int thumbnail_width = 100;
-            int thumbnail_height = 100;
-            /*
-             * File origin_file_name = new File(원본경로 + File.separator+"main_img.jpg"); File
-             * thumb_file_name = new File(썸네일경로 + File.separator+"thumbnail_image.jpg");
-             */
-
-            BufferedImage buffer_original_image = ImageIO.read(filename);
-            BufferedImage buffer_thumbnail_image = new BufferedImage(thumbnail_width, thumbnail_height,
-                    BufferedImage.TYPE_3BYTE_BGR);
-            Graphics2D graphic = buffer_thumbnail_image.createGraphics();
-            graphic.drawImage(buffer_original_image, 0, 0, thumbnail_width, thumbnail_height, null);
-            ImageIO.write(buffer_thumbnail_image, "jpg", thumb_file_name);
-            System.out.println("썸네일 생성완료");
-        } catch (Exception e) {
-            e.printStackTrace();
+    
+    //썸네일 저장 코드(s_원본파일로 저장)
+    private String Thumbnail(String uploadDir, String filename, int width, int height) {
+        File image = new File(uploadDir+"//"+filename); 
+        File thumbnail = new File(uploadDir+"//s_"+filename); 
+        if (image.exists()) { 
+            try {
+                int pos = filename.lastIndexOf(".");
+                String format = filename.substring(pos + 1);
+                Thumbnails.of(image).size(width, height).outputFormat(format).toFile(thumbnail);
+            } catch (IOException e) {
+                e.printStackTrace();
+            } 
         }
+        return "s_"+filename;
     }
+   
+    
+    
     
 }
 
