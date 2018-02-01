@@ -38,7 +38,7 @@ public class ItemServiceImpl implements ItemService {
         if (options != null) {
             params.putAll(options);
         }
-        return itemDao.findAll();
+        return itemDao.findAll(params);
     }
 
     @Override
