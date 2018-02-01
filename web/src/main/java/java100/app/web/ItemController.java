@@ -1,13 +1,10 @@
 package java100.app.web;
 
-import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import javax.imageio.ImageIO;
 import javax.servlet.ServletContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -170,14 +167,14 @@ public class ItemController {
         return filename;
     }
 
-    private String Thumbnail(File filename, String uploadDir) {
+   /* private String Thumbnail(File filename, String uploadDir) {
         try {
             int thumbnail_width = 100;
             int thumbnail_height = 100;
-            /*
+            
              * File origin_file_name = new File(원본경로 + File.separator+"main_img.jpg"); File
              * thumb_file_name = new File(썸네일경로 + File.separator+"thumbnail_image.jpg");
-             */
+             
 
             BufferedImage buffer_original_image = ImageIO.read(filename);
             BufferedImage buffer_thumbnail_image = new BufferedImage(thumbnail_width, thumbnail_height,
@@ -189,7 +186,7 @@ public class ItemController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
+    }*/
     
 }
 
