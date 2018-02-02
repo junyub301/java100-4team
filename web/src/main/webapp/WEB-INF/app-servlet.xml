@@ -44,7 +44,7 @@
 	   <mvc:interceptor>
 	       <mvc:mapping path="/**"/>
 	       <mvc:exclude-mapping path="/auth/**"/>
-	       <bean class="java100.app.web.Interceptor.AuthInterceptor"/>
+	       <bean class="java100.app.web.interceptor.AuthInterceptor"/>
 	   </mvc:interceptor>  
 	</mvc:interceptors> 
 	
