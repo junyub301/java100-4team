@@ -3,6 +3,7 @@ package java100.app.web.json;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.ServletContext;
 
@@ -25,18 +26,14 @@ public class UserController {
     @Autowired ServletContext servletContext;
     @Autowired UserService userService;
     
-    @RequestMapping("form")
-    public String form() throws Exception {
-        return "user/form";
-    }
-
-     
     @RequestMapping("list")
-    public String list(Model model) throws Exception {
-        model.addAttribute("account", userService.listAccount());
-        model.addAttribute("user", userService.listUser());
+    public Object list() throws Exception {
+        HashMap<String, Object> result = new HashMap<>();
         
-        return "user/list";
+        result.put("account", userService.listAccount());
+        result.put("user",userService.listUser());
+        
+        return result;
     }
     
     @RequestMapping("{no}")
