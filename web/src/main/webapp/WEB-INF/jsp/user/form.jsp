@@ -89,10 +89,10 @@ style="margin-bottom: 0.5rem; background-color: #D8D8D8;" type="button" onclick=
 </div>
 
 <div class='form-group1'>
-                    <button id="btn2"  hidden="0" class='form-control2 btn btn-info btn-sm'>회원가입</button>
+                    <button id="addBtn"  hidden="0" class='form-control2 btn btn-info btn-sm'>회원가입</button>
             </div>
             <div class='form-group1'>
-                 <div id="btn1" class="button_base b07_3d_double_roll">
+                 <div id="loginBtn" class="button_base b07_3d_double_roll">
                        <div>회원가입</div>
                       <div>회원가입</div>
                       <div>회원가입</div>
@@ -101,7 +101,7 @@ style="margin-bottom: 0.5rem; background-color: #D8D8D8;" type="button" onclick=
             </div>
 </form>
 <div class='form-group1'>
-                 <div onclick="location='../auth/login.jsp'" id="btn1" class="button_base b07_3d_double_roll">
+                 <div onclick="location='../auth/login.jsp'" id="loginBtn" class="button_base b07_3d_double_roll">
                       <div>로그인</div>
                       <div>로그인</div>
                       <div>로그인</div>
@@ -111,16 +111,16 @@ style="margin-bottom: 0.5rem; background-color: #D8D8D8;" type="button" onclick=
 
 </div>
 <script>
-var btn1 = document.querySelector('#btn1')
-var btn2 = document.querySelector('#btn2')
+var loginBtn = document.querySelector('#loginBtn')
+var addBtn = document.querySelector('#addBtn')
 
-btn1.addEventListener('click', function(event) {
+loginBtn.addEventListener('click', function(event) {
   var me = new MouseEvent('click')
 
-  btn2.dispatchEvent(me)
+  addBtn.dispatchEvent(me)
 })
 
-btn2.addEventListener('click', function(event) {
+addBtn.addEventListener('click', function(event) {
 })
 
 

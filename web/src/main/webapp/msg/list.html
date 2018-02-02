@@ -1,0 +1,80 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>메세지관리</title>
+
+<link rel="stylesheet" href='/node_modules/bootstrap/dist/css/bootstrap.min.css'>
+<link href="http://fonts.googleapis.com/earlyaccess/nanumgothic.css" rel="stylesheet" type="text/css">
+
+</head>
+<body>
+
+<div class='container' style="width:600px;">
+<h1 align="center">메세지 목록</h1>
+<a class="btn btn-success" href='form.html'>추가</a>
+
+<table id='list' style='margin-top: 10px;'class='table'>
+<thead class="thead-dark">
+<tr>
+<th>번호</th><th>제목</th><th>받는사람</th><th>날짜</th><th>수신확인</th>
+</tr>
+</thead>
+<tbody>
+
+
+</tbody>
+</table>
+</div>
+<script src='/node_modules/jquery/dist/jquery.min.js'></script>
+<script src='/node_modules/popper.js/dist/umd/popper.min.js'></script>
+<script src='/node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
+
+<script type="text/javascript">
+var tbody = $('#list > tbody')
+load();
+
+function load() {
+   
+    $.ajax('../json/msg/list', {
+        /*method: 'GET',*/
+        dataType: 'json',
+        success: (result) => {
+            
+            tbody.html(""); // <tbody> 콘텐츠를 지운다.
+            
+            for (var data of result.message) {
+                var disDate = new Date(data.dispatchDate); 
+                $('<tr>')
+                    .html(  
+                        "<td>" + data.messageNo + "</td>" + 
+                        "<td><a href='form.html?no=" + data.messageNo + "'>" + data.title + "</a></td>" + 
+                        "<td>" + data.userId + "</td>" +
+                        "<td>" + disDate.toLocaleDateString() + "</td>" +
+                        "<td>" + data.state + "</td>")
+                    .appendTo(tbody);
+            }
+             
+        
+        },
+        error: () => {
+            window.alert('서버 실행 오류!');
+        }
+    });
+}
+</script>
+
+
+</body>
+</html>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    

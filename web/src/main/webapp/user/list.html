@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>회원관리</title>
+<link rel="stylesheet" href='../node_modules/bootstrap/dist/css/bootstrap.min.css'>
+</head>
+<body>
+<div class='container' style="width:600px;">
+<h1 align="center">회원 목록</h1>
+<a href='form.html' class="btn btn-success">추가</a>
+<table id="list" style='margin-top: 10px;'class='table'>
+<thead class="thead-dark">
+<tr>
+<th>번호</th><th>아이디</th><th>이메일</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+</div>
+<link href="http://fonts.googleapis.com/earlyaccess/nanumgothic.css" rel="stylesheet" type="text/css">
+<script src='/node_modules/jquery/dist/jquery.slim.min.js'></script>
+<script src='/node_modules/popper.js/dist/umd/popper.min.js'></script>
+<script src='/node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
+<script src='../node_modules/jquery/dist/jquery.min.js'></script>
+
+<script type="text/javascript">
+var tbody = $('#list > tbody'); 
+load();
+
+function load() { 
+    $.ajax('../json/user/list', {
+        dataType: 'json',
+        success: (result) => {
+            
+            tbody.html("");
+            for (var data of result.account) {
+                $('<tr>')
+                    .html(
+                    "<td>" + data.accountsNo + "</td>" + 
+                    "<td><a href='form.html?no=" + data.accountsNo + "'>" + data.accountName + "</a></td>" + 
+                    "<td>" + data.email + "</td>")
+                    .appendTo(tbody);
+            }
+            
+        },
+        error: () => {
+            window.alert('서버 실행 오류!');
+        }
+    })
+}
+</script>
+</body>
+</html>
+    
