@@ -1,9 +1,10 @@
 package java100.app.web.json;
 
+import java.util.HashMap;
+
 import javax.servlet.ServletContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,47 +19,47 @@ public class MessageController {
     @Autowired ServletContext servletContext;
     @Autowired MessageService messageService;
     
-    @RequestMapping("form")
-    public String form() throws Exception {
-        return "message/form";
-    }
-
      
     @RequestMapping("list")
-    public String list(Model model) throws Exception {
-        model.addAttribute("message", messageService.list());
+    public Object list() throws Exception {
+        HashMap<String,Object> result = new HashMap<>();
+        result.put("message", messageService.list());
         
-        return "message/list";
+        return result;
     }
     
     @RequestMapping("{no}")
-    public String view(@PathVariable int no, Model model) throws Exception {
-        model.addAttribute("message", messageService.get(no));
+    public Object view(@PathVariable int no) throws Exception {
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("message", messageService.get(no));
 
-        return "message/view";
+        return result;
     }
     
     @RequestMapping("add")
-    public String add(Message message) throws Exception {
+    public Object add(Message message) throws Exception {
         message.setUserNo(1); //임시로 받는 사람번호 설정
         messageService.add(message);
-        return "redirect:list";
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("stauts", "success");
+        return result;
     }
     
     @RequestMapping("update")
-    public String update(Message message) throws Exception  {
-        
+    public Object update(Message message) throws Exception  {
         messageService.update(message);
-        
-        return "redirect:list";
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("stauts", "success");
+        return result;
     }
 
     @RequestMapping("delete")
-    public String delete(int no) throws Exception  {
-
+    public Object delete(int no) throws Exception  {
         messageService.delete(no);
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("stauts", "success");
 
-        return "redirect:list";
+        return result;
     }
     
     
