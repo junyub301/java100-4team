@@ -1,11 +1,12 @@
 package java100.app.web.json;
 
+import java.util.HashMap;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,18 +26,18 @@ public class LoginController {
     @Autowired UserService userService;
     
     @RequestMapping(value="login", method=RequestMethod.GET)
-    public String form(Model model) {
-        model.addAttribute("menuVisible", false);
-        return "auth/loginform";
+    public Object form(HashMap<String, Object> result) {
+        
+        result.put("menuVisible", false);
+        return result;
     }
     
     @RequestMapping(value="login", method=RequestMethod.POST)
-    public String login(
+    public Object login(
             String accountName, 
             String password,
             String saveaccountName,
-            HttpServletResponse response,
-            Model model) {
+            HttpServletResponse response) {
         
         Account account= accountService.get(accountName, password);
         
@@ -49,23 +50,23 @@ public class LoginController {
             cookie.setMaxAge(0);
             response.addCookie(cookie);
         }
-        
+        HashMap<String,Object> result = new HashMap<>();
+
         if (account == null) {
-            model.addAttribute("loginUser", null);
-            model.addAttribute("menuVisible", false);
-            return "auth/loginfail"; 
+            result.put("loginUser", null);
+            result.put("menuVisible", false);
+            return result; 
         }
          
-        model.addAttribute("loginUser", account);
+        result.put("loginUser", account);
         
-        return "redirect:../main/main";
+        return result;
     }
     
     @RequestMapping("logout")
-    public String logout(HttpSession session, SessionStatus status) {
+    public Object logout(HttpSession session, SessionStatus status) {
         
         status.setComplete();
-        
         session.invalidate();
         
         return "redirect:login";
