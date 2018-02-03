@@ -1,46 +1,16 @@
 {
-    "title": "Freelancer",
-    "name": "startbootstrap-freelancer",
-    "version": "4.0.0",
-    "description": "A freelancer portfolio HTML theme for Bootstrap.",
-    "keywords": [
-        "css",
-        "sass",
-        "html",
-        "responsive",
-        "theme",
-        "template"
-    ],
-    "homepage": "https://startbootstrap.com/template-overviews/freelancer",
-    "bugs": {
-        "url": "https://github.com/BlackrockDigital/startbootstrap-freelancer/issues",
-        "email": "feedback@startbootstrap.com"
-    },
-    "license": "MIT",
-    "author": "Start Bootstrap",
-    "contributors": [
-        "David Miller (http://davidmiller.io/)"
-    ],
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/BlackrockDigital/startbootstrap-freelancer.git"
-    },
-    "dependencies": {
-        "bootstrap": "4.0.0-beta.2",
-        "font-awesome": "4.7.0",
-        "jquery": "3.3.0",
-        "jquery.easing": "^1.4.1",
-        "magnific-popup": "^1.1.0",
-        "popper.js": "^1.12.3"
-    },
-    "devDependencies": {
-        "browser-sync": "2.23.5",
-        "gulp": "^3.9.1",
-        "gulp-clean-css": "3.9.2",
-        "gulp-filter": "5.1.0",
-        "gulp-header": "2.0.1",
-        "gulp-rename": "^1.2.2",
-        "gulp-sass": "^3.1.0",
-        "gulp-uglify": "3.0.0"
-    }
+  "name": "java-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^4.0.0-beta.2",
+    "jquery": "^3.2.1",
+    "popper.js": "^1.12.3"
+  }
 }
