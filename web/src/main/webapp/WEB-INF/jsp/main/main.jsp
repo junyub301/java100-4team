@@ -18,6 +18,8 @@
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
 
+    
+    
 </head>
 
   <body id="page-top">
@@ -149,10 +151,9 @@
         </div>
       </div>
     </section>
- 
-    <jsp:include page="../footer.jsp"/>
-   
 
+    <jsp:include page="../footer.jsp"/>
+       
     <jsp:include page="../jslib.jsp"/>
   </body>
 </html>
