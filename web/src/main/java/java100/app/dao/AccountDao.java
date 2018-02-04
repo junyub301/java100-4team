@@ -13,6 +13,7 @@ public interface AccountDao {
     int update2(Account account);
     int delete(int no);
     Account findByaccountNameAndPassword(Map<String,Object> params);
+    int check(String id);
 }
 
 

@@ -103,5 +103,11 @@ public class UserServiceImpl implements UserService {
         }
 
     }
+    
+    @Override
+    public int checkSignup(String id) {
+        return accountDao.check(id);
+    }
+
 
 }

@@ -71,6 +71,11 @@
         where act_id=#{accountName} and pwd=password(#{password})
     </select>
     
+    
+    <select id = "check" parameterType = "String" resultType = "int">
+        SELECT COUNT(*) FROM account WHERE act_id = #{accountName}
+    </select>
+    
 </mapper>
 
 

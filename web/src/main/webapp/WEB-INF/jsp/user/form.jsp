@@ -35,7 +35,8 @@ background-size: cover; background-attachment: fixed;">
 <form action="add" method="post" onsubmit="return tocheckpw2()" data-ajax="false" enctype="multipart/form-data">
 
 <div class="form-group1">
-<input id='act_id' class="form-control1" type='text' placeholder="아이디" name='accountName'>
+<input id='act_id' style=' border:1px solid;'  class="form-control1" type='text' placeholder="아이디" name='accountName' >
+<div  id="checkMsg" ></div>
 </div>
 
 <div class="form-group1">
@@ -110,6 +111,28 @@ style="margin-bottom: 0.5rem; background-color: #D8D8D8;" type="button" onclick=
             </div>
 
 </div>
+<jsp:include page="../jslib.jsp" />
+<script type="text/javascript">
+$(document).ready(function(){
+    $('#act_id').keyup(() => {
+        $.ajax({
+            type: 'POST',
+            url: '../user/checkSignup',
+            data: {
+                "id" : $('#act_id').val()
+            },
+            success: function(data){
+                if($.trim(data) == 0){
+                    $('#checkMsg').html('<p style="color:blue">사용가능</p>');
+                } 
+                else{
+                    $('#checkMsg').html('<p style="color:red">사용불가능</p>');
+                }
+            }
+        });    //end ajax    
+    });    //end on    
+});
+</script>
 <script>
 var loginBtn = document.querySelector('#loginBtn')
 var addBtn = document.querySelector('#addBtn')
@@ -170,7 +193,6 @@ addBtn.addEventListener('click', function(event) {
         }).open();
     }
 </script>
-<jsp:include page="../jslib.jsp" />
 </body>
 </html>
     
