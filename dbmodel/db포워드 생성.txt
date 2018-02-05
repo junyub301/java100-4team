@@ -57,6 +57,7 @@ CREATE TABLE ItemPhoto (
 	pho_no   INTEGER      NOT NULL COMMENT '사진번호', -- 사진번호
 	it_no    INTEGER      NULL     COMMENT '물품번호', -- 물품번호
 	ur_no    INTEGER      NULL     COMMENT '사용자번호', -- 사용자번호
+	th_name  VARCHAR(255) NULL     COMMENT '썸네일', -- 썸네일
 	pho_name VARCHAR(255) NULL     COMMENT '파일이름' -- 파일이름
 )
 COMMENT '사진';
