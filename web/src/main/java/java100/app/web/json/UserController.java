@@ -51,7 +51,7 @@ public class UserController {
     }
     
     @RequestMapping("add")
-    public String add(Account account, User user, MultipartFile[] photo) throws Exception {
+    public Object add(Account account, User user, MultipartFile[] photo) throws Exception {
         String uploadDir = servletContext.getRealPath("/download");
         ArrayList<Photo> uploadFiles = new ArrayList<>();
         for (MultipartFile part: photo) {
@@ -65,11 +65,13 @@ public class UserController {
         }
         
         user.setPhotos(uploadFiles);
-        userService.add(account, user);
+        userService.add(account, user); 
         
-        return "redirect:../main/main";
+        HashMap<String,Object> result = new HashMap<>();
+        result.put("status",  "success");
+        return result;
     }
-    
+        
     @RequestMapping("update")
     public String update(Account account, User user, MultipartFile[] photo) throws Exception  {
         // 업로드 파일을 정장할 위치를 가져온다.
@@ -110,7 +112,7 @@ public class UserController {
     @ResponseBody
     @RequestMapping(value = "/checkSignup", method = RequestMethod.POST)
     public String checkSignup(HttpServletRequest request, Model model) {
-        String id = request.getParameter("id");
+        String id = request.getParameter("accountName");
         int rowcount = userService.checkSignup(id);
         
         return String.valueOf(rowcount);

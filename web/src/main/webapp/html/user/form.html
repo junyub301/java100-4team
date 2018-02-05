@@ -1,24 +1,26 @@
 
 <!DOCTYPE html>
 <html>
+<head>
 <title>회원가입</title>
 <meta charset="UTF-8">
-<link rel="stylesheet" href='../node_modules/bootstrap/dist/css/bootstrap.min.css'>
-<link rel='stylesheet' href='../css/test.css'>
+<link rel="stylesheet" href='../../node_modules/bootstrap/dist/css/bootstrap.min.css'>
+<link rel='stylesheet' href='../../css/test.css'>
+<link href="http://fonts.googleapis.com/earlyaccess/nanumgothic.css" rel="stylesheet" type="text/css">
 </head>
-<body style="background-image:url('../img/portfolio/group.jpg'); 
+<body style="background-image:url('../../img/portfolio/group.jpg'); 
 background-repeat: no-repeat; background-position: center; 
 background-size: cover; background-attachment: fixed;">
 <!-- <h1 align="center">회원가입</h1>
 <br><br> -->
 
-<div style="margin-top: 100px;" class='container1'>
+<div style="margin-top: 100px" class='container1'>
 
-<form action="add" method="post" onsubmit="return tocheckpw2()" data-ajax="false" enctype="multipart/form-data">
+<form id="form" method="post" onsubmit="return" enctype="multipart/form-data">
 
 <div class="form-group1" >
-<input id='act_id' class="form-control1" type='text' placeholder="아이디" name='accountName' >
-<div id="checkMsg"  ></div>
+<input id='act_id' class="form-control1" type='text' placeholder="아이디" name='accountName' style="margin-bottom: 0.3rem;">
+<p align="center" id="checkMsg" >
 </div>
 
 <div class="form-group1">
@@ -30,7 +32,7 @@ background-size: cover; background-attachment: fixed;">
 </div>
 
 <div class="form-group1">
-<input id="PwCheck" type="password" class="form-control1" style="margin-bottom: 0.3rem;" placeholder="비밀번호 재입력" onfocusout="loseFocus()" >
+<input id="PwCheck" type="password" class="form-control1" style="margin-bottom: 0.3rem;" placeholder="비밀번호 재입력" >
 <p align="center" id="pwsame">
 </div>
 
@@ -67,24 +69,24 @@ style="margin-bottom: 0.5rem; background-color: #D8D8D8;" type="button" onclick=
 <input type="text" id="sample6_address2" class="form-control1" placeholder="상세주소" name='detailAddress'>
 </div>
 
-<div class="form-group1">
+<div id="file" class="form-group1">
 <input style="margin-bottom: 0.7rem;" id='photo' class="file-input" type="file" name='photo'>
 </div>
 
 <div class='form-group1'>
-                    <button id="addBtn"  hidden="0" class='form-control2 btn btn-info btn-sm'>회원가입</button>
-            </div>
-            <div class='form-group1'>
-                 <div id="loginBtn" class="button_base b07_3d_double_roll">
-                       <div>회원가입</div>
-                      <div>회원가입</div>
-                      <div>회원가입</div>
-                      <div>회원가입</div>
-                  </div>    
-            </div>
+    <button id="addBtn" type="button" hidden="0" class='form-control2 btn btn-info btn-sm'>회원가입</button>
+</div>
+<div class='form-group1'>
+    <div id="loginBtn" class="button_base b07_3d_double_roll">
+        <div>회원가입</div>
+        <div>회원가입</div>
+        <div>회원가입</div>
+        <div>회원가입</div>
+    </div>    
+</div>
 </form>
 <div class='form-group1'>
-                 <div onclick="location='../auth/login.jsp'" id="loginBtn" class="button_base b07_3d_double_roll">
+                 <div onclick="location='../../auth/login.jsp'" id="loginBtn" class="button_base b07_3d_double_roll">
                       <div>로그인</div>
                       <div>로그인</div>
                       <div>로그인</div>
@@ -93,19 +95,33 @@ style="margin-bottom: 0.5rem; background-color: #D8D8D8;" type="button" onclick=
             </div>
 
 </div>
-<link href="http://fonts.googleapis.com/earlyaccess/nanumgothic.css" rel="stylesheet" type="text/css">
-<script src='/node_modules/jquery/dist/jquery.min.js'></script>
-<script src='/node_modules/popper.js/dist/umd/popper.min.js'></script>
-<script src='/node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
+<script src='../../node_modules/jquery/dist/jquery.min.js'></script>
+<script src='../../node_modules/popper.js/dist/umd/popper.min.js'></script>
+<script src='../../node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
 
 <script type="text/javascript">
+var pwd = $('#pwd'),
+    pwd2 = $('#PwCheck'),
+    id = $('#act_id'),
+    email = $('#email'),
+    nameItem = $('#name'),
+    accNo = $('#acc_no'),
+    bank = $('#bank'),
+    cnt = $('#cnt'),
+    phone = $('#phone'),
+    postNo = $('#sample6_postcode'),
+    baseAddr = $('#sample6_address'),
+    detailAddr = $('#sample6_address2'),
+    photos = $('#photo'),
+    addBtn = $('#addBtn');
+
 $(document).ready(function(){
-    $('#act_id').keyup(() => {
+    id.keyup(() => {
         $.ajax({
             type: 'POST',
-            url: '../../json/user/checkSignup',
+            url: '  ../../json/user/checkSignup',
             data: {
-                "id" : $('#act_id').val()
+                "accountName" : id.val()
             },
             success: function(data){
                 if($.trim(data) == 0){
@@ -117,6 +133,34 @@ $(document).ready(function(){
             }
         });    //end ajax    
     });    //end on    
+});
+
+$('#PwCheck').keyup(() => {
+    
+    
+    if (pwd.val() == pwd2.val()) {
+        $('#pwsame').html("<p style='color:blue;'>일치합니다.</p>");
+    } else {
+        $('#pwsame').html("<p style='color:red;'>비밀번호가 틀렸습니다. 다시 입력해 주세요</p>");
+    }
+});
+
+addBtn.click(() => {
+    var formData = new FormData($("#form")[0]);
+    $.ajax('../../json/user/add', {
+        data : formData,
+        dataType: 'json',
+        method: 'POST',
+        processData : false,
+        contentType : false,
+        success: (result) => {
+            location.href = "list.html";
+        },
+        error:function(request,status,error){
+            alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+         }
+
+    });
 });
 
 </script>
@@ -136,23 +180,6 @@ addBtn.addEventListener('click', function(event) {
 })
 
 
-</script>
-
-<script type="text/javascript">
-function loseFocus() {
-    var pwd = document.getElementById("pwd").value;
-    var pwck = document.getElementById("PwCheck").value;
-
-        if (pwd != pwck) {
-            document.getElementById('pwsame').innerHTML = '<p style="color:red;">' + '비밀번호가 틀렸습니다. 다시 입력해 주세요' + '</p>';
-            return false;
-        }
-        
-        if (pwd = pwck) {
-            document.getElementById('pwsame').innerHTML = '<p style="color:green;">' + '좋아요~' + '</p>';
-            return false;
-        }
-}
 </script>
 
 
