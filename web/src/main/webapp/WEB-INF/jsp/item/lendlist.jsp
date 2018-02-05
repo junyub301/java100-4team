@@ -13,8 +13,6 @@
 <link rel='stylesheet' href='../..css/common.css'>
 </head>
 <body>
-<jsp:include page="../header.jsp"/>
-
 	<div class='container'>
 		<div style="width: 700px; margin: auto"
 			class='row justify-content-md-center'>
@@ -26,7 +24,7 @@
 		</div>
 		<c:forEach items="${list}" var="item">
 			<c:set var="userType" value="${item.userType}" />
-			<c:if test="${userType eq 0}">
+			<c:if test="${userType eq 1}">
 				<div style="display: inline-block; cursor: pointer;" onclick="location.href='${item.itemNo}'" class="col-md-6">
 					<div class="card flex-md-row mb-4 box-shadow h-md-250">
 						<div class="card-body d-flex flex-column align-items-start">
@@ -42,7 +40,6 @@
 							<h3 class="mb-0">
 								<a class="text-dark" href="#">${item.name}</a>
 							</h3>
-							<div class="mb-1 text-muted">${item.startDate}-${item.endDate}</div>
 							<p class="card-text mb-auto">${item.content}</p>
 							<a href="#">${item.title}</a>
 						</div>

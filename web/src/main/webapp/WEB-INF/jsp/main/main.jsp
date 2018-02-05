@@ -74,7 +74,7 @@
                                 </form>
                             </div>
                         </div>
-                        <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span>검색 </button>
+                        <button onclick="location.href='../item/list'" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span>검색 </button>
                     </div>
                 </div>
             </div>
@@ -84,7 +84,7 @@
 
     <!-- Portfolio Grid Section -->
     <section class="portfolio" id="portfolio">
-      <div class="container">
+      <div id="conts" class="container">
         <!-- <h2 class="text-center text-uppercase text-secondary mb-0">정혁♥연서</h2> -->
         <!-- <hr class="star-dark mb-5"> -->
         <div class="row">
@@ -142,7 +142,7 @@
             <figure class="snip1384">
                 <img class="img-fluid" src="../../img/portfolio/submarine.png" alt="" />
                 <figcaption>
-                    <h3>Fleece Marigold</h3>
+                    <h3>Add Item</h3>
                     <p>Which is worse, that everyone has his price, or that the price is always so low.</p><i class="ion-ios-arrow-right"></i>
                 </figcaption>
                 <a href="../item/rent"></a>
@@ -155,5 +155,14 @@
     <jsp:include page="../footer.jsp"/>
        
     <jsp:include page="../jslib.jsp"/>
+<!-- <script type="text/javascript">
+
+    $('#rent').click(function(){
+        $('#conts').css('display', 'none');
+        });
+
+</script> -->
+    
+    
   </body>
 </html>

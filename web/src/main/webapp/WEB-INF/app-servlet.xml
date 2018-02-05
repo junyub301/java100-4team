@@ -40,15 +40,22 @@
     
 	<!-- 인터셉터를 등록한다. -->
 	
-	<!-- 
+	 
 	<mvc:interceptors>
 	   <mvc:interceptor>
+	       <!-- <mvc:mapping path="/**"/> -->
 	       <mvc:mapping path="/**"/>
+	       <mvc:exclude-mapping path="/main/main"/>
 	       <mvc:exclude-mapping path="/auth/**"/>
+	       <mvc:exclude-mapping path="/user/**"/>
+	      <!--  <mvc:exclude-mapping path="/tr/**"/>
+	       <mvc:exclude-mapping path="/rv/**"/>
+	       <mvc:exclude-mapping path="/message/**"/>
+	       <mvc:exclude-mapping path="/item/**"/> -->
 	       <bean class="java100.app.web.interceptor.AuthInterceptor"/>
-	   </mvc:interceptor>  
+	   </mvc:interceptor>   
 	</mvc:interceptors> 
-	 -->
+	
 
 
 	
