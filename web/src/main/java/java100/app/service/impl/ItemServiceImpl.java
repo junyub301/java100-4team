@@ -20,13 +20,9 @@ public class ItemServiceImpl implements ItemService {
     @Autowired PhotoDao photoDao;
     
     @Override
-    public int add(Item item, List<Photo> photoList) {
-        int count = itemDao.insert(item);
-        for (Photo photo : photoList) {
-            photo.setItemNo(item.getItemNo());
-            photoDao.insertItem(photo);
-        } 
-        return count; 
+    public int add(Item item) {
+      
+        return itemDao.insert(item);
     }
  
     @Override
@@ -49,6 +45,17 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public int getTotalCount() {
         return  itemDao.countAll();
+    }
+
+    @Override
+    public int upload(int no, List<Photo> photoList) {
+        if (!photoList.isEmpty()) {
+            for (Photo photo : photoList) {
+                photo.setItemNo(no);
+                photoDao.insertItem(photo);
+            }
+        }
+        return 0;
     }
     
 

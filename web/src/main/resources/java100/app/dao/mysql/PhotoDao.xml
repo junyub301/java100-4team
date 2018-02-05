@@ -17,8 +17,8 @@
     </insert>
     
     <insert id="insertItem" parameterType="photo">
-        insert into itemphoto(pho_name,it_no) 
-        values(#{photoName}, #{itemNo})
+        insert into itemphoto(pho_name,it_no,th_name) 
+        values(#{photoName}, #{itemNo},#{thumbnailName})
     </insert>
 
    <delete id="deleteAllByUserNo" parameterType="int">
