@@ -7,8 +7,6 @@
 <head>
 <meta http-equiv="Refresh" content="2;login">
 <title>로그인</title>
-<link rel='stylesheet' href='../../node_modules/bootstrap/dist/css/bootstrap.min.css'>
-<link rel='stylesheet' href='../../css/common.css'>
 </head>
 <body style="background-image:url('../../img/portfolio/group.jpg'); 
 background-repeat: no-repeat; background-position: center; 

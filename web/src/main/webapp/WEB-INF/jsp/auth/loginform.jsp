@@ -5,8 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>로그인</title>
-<link rel='stylesheet'
-	href='../../node_modules/bootstrap/dist/css/bootstrap.min.css'>
+<link rel='stylesheet' href='../../css/bootstrap.min.css'>
 <link rel='stylesheet' href='../../css/test.css'>
 
 </head>
@@ -41,7 +40,7 @@ background-size: cover; background-attachment: fixed;">
 			</div> -->
 
 			<div class='form-group1'>
-					<button id="btn2"  hidden="0" class='form-control2 btn btn-info btn-sm'>로그인</button>
+					<button id="btn2" hidden="0" class='form-control2 btn btn-info btn-sm'>로그인</button>
 			</div>
 			<div class='form-group1'>
 			     <div id="btn1" class="button_base b07_3d_double_roll">
