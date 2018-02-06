@@ -12,16 +12,14 @@
 <script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
 <link href="../../css/freelancer.min.css" rel="stylesheet">
 
-<jsp:include page="../header.jsp"/>
 </head>
 <body>
+<jsp:include page="../header.jsp"/>
 
-<br><br>
+<div class='view_container'>
 <div class='form-group row'> 
-       <div class='col-sm-10'> 
        <a href="${contextPath}/download/${item.filename}">
-        <img width="50%" src="${contextPath}/download/${item.filename}">프로필사진</a>
-    </div> 
+        <img class="viewimg" src="${contextPath}/download/${item.filename}"></a>
     </div> 
 
 <div class='form-group row'> 
@@ -81,7 +79,7 @@
     </div> 
     </div> 
 
-
+</div>
 
 
 

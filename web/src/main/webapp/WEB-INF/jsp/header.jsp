@@ -12,24 +12,24 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
   <%-- Header --%>
     <header>  
-       <div class="header1 bg-secondary text-uppercase">
-        <div style="margin-top: 17px; margin-left: 20px; margin-right: 20px;">
-        <a style="color: white; text-decoration: none;" href="../main/main">
+       <div class="header1">
+        <div class="header_text">
+        <a style="margin-left:50px; color: black; text-decoration: none;" href="../main/main">
         <h4 class="fontsetting">SharerSharee</h4></a>
         <nav class="nav1">
         <ul class="ul1">
         
-        <li style="float: right; padding: 0; list-style: none;">
+        <li style="margin-right:50px; float: right; padding: 0; list-style: none;">
       <c:choose>
     <c:when test="${sessionScope.loginUser != null}">
-        <a style="color: white;">${sessionScope.loginUser.name}</a>
+        <a style="color: black;">${sessionScope.loginUser.name}</a>
         <a href="${contextPath}/app/auth/logout" 
-           style="color: white; text-decoration: none;" class='login1'>Logout</a>
+           style="color: black; text-decoration: none;" class='login1'>Logout</a>
     </c:when>
 
     <c:otherwise>
        <a href="${contextPath}/app/auth/login" 
-           style="color: white; text-decoration: none;" class='login1'>Login</a>
+           style="color: black; text-decoration: none;" class='login1'>Login</a>
     </c:otherwise>
     </c:choose>
         </li>

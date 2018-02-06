@@ -9,15 +9,15 @@
 <link rel="stylesheet" href='../../node_modules/bootstrap/dist/css/bootstrap.min.css'>
 </head>
 <body>
+<jsp:include page="../header.jsp"/>
 
-<div style="width: 700px;" class='container'>
-<div class='row justify-content-md-center'>
+<div style="width: 700px; margin: auto;" class='row justify-content-md-center'>
 <button class="col-sm-5 btn btn-primary" onclick="location.href='rent'">빌려드립니다</button>
 <div class="col-sm-2"></div>
 <button class="col-sm-5 btn btn-primary" onclick="location.href='lend'">빌려주세요</button>
 </div>
-<br><br>
 
+<div class="rl_container">
 <form action="add" method="post" enctype="multipart/form-data">
 <input type="hidden" name='userType' value=1> <!-- userType 1은 빌려주세요 카테고리 -->
 <input type="hidden" name='status' value=0> <!-- status 0은 그냥 등록상태 1은 대여상태 -->

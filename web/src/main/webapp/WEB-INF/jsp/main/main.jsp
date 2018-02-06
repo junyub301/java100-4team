@@ -28,23 +28,17 @@
     <jsp:include page="../header.jsp"/>
     
     <!-- Header -->
-    <header class="masthead bg-primary2 text-white text-center" style="">
-    <div style="position: relative; top: -80px;">
-        <img class="img-fluid img-margin d-block mx-auto" src="../../img/portfolio/isCAhgO.jpg" style="width:100%; height:650px; margin-bottom:-0.7rem; " alt="">
+    <div>
+        <img class="" src="../../img/portfolio/isCAhgO.jpg" 
+        style="width:100%; height:550px; margin-bottom:-0.7rem;
+        position: relative; z-index: auto;">
     </div>
-
-    </header>
+    
+    <!-- background div -->    
+    <div style="margin-top: -49px;" class="scback_div">
     
     <!-- Search Bar -->
-    
-    <div style="position: relative; opacity:0.5; top: -145px;" class="navbar navbar-expand-lg bg-secondary text-uppercase" id="mainNav">
-      <div style="margin-left:50px; display: inline-block;">
-        <a style="opacity: 0;" class="navbar-brand js-scroll-trigger" href="./main">Sharer  Sharee</a>
-        
-      </div>
-    </div>
-    
-    <div style="position: relative; top: -195px;" class="container">
+    <div style="display: table-cell; vertical-align: middle;" class="searchBar">
     <div class="row">
         <div class="col-md-12">
             <div class="input-group" id="adv-search">
@@ -81,10 +75,11 @@
           </div>
         </div>
     </div>
+    </div>
 
     <!-- Portfolio Grid Section -->
-    <section class="portfolio" id="portfolio">
-      <div id="conts" class="container">
+    <section class="" id="portfolio">
+      <div class="container">
         <!-- <h2 class="text-center text-uppercase text-secondary mb-0">정혁♥연서</h2> -->
         <!-- <hr class="star-dark mb-5"> -->
         <div class="row">
