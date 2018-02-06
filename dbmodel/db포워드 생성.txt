@@ -20,12 +20,12 @@ CREATE INDEX IX_review
 	);
 
 -- 물품
-CREATE TABLE Item (
+CREATE TABLE item (
 	it_no     INTEGER      NOT NULL COMMENT '물품번호', -- 물품번호
 	ur_no     INTEGER      NOT NULL COMMENT '사용자번호', -- 사용자번호
 	category  INTEGER      NOT NULL COMMENT '카테고리', -- 카테고리
 	user_type INTEGER      NOT NULL COMMENT '사용자상태', -- 사용자상태
-	name      VARCHAR(50)  NOT NULL COMMENT '물품명', -- 물품명
+	item_name      VARCHAR(50)  NOT NULL COMMENT '물품명', -- 물품명
 	title     VARCHAR(50)  NOT NULL COMMENT '글 제목', -- 글 제목
 	cnt       VARCHAR(255) NOT NULL COMMENT '내용', -- 내용
 	start     DATE         NULL     COMMENT '대여시작일', -- 대여시작일
@@ -37,23 +37,23 @@ CREATE TABLE Item (
 COMMENT '물품';
 
 -- 물품
-ALTER TABLE Item
-	ADD CONSTRAINT PK_Item -- 물품 기본키
+ALTER TABLE item
+	ADD CONSTRAINT PK_item -- 물품 기본키
 		PRIMARY KEY (
 			it_no -- 물품번호
 		);
 
 -- 물품 인덱스
-CREATE INDEX IX_Item
-	ON Item( -- 물품
+CREATE INDEX IX_item
+	ON item( -- 물품
 		it_no ASC -- 물품번호
 	);
 
-ALTER TABLE Item
+ALTER TABLE item
 	MODIFY COLUMN it_no INTEGER NOT NULL AUTO_INCREMENT COMMENT '물품번호';
 
 -- 사진
-CREATE TABLE ItemPhoto (
+CREATE TABLE itemphoto (
 	pho_no   INTEGER      NOT NULL COMMENT '사진번호', -- 사진번호
 	it_no    INTEGER      NULL     COMMENT '물품번호', -- 물품번호
 	ur_no    INTEGER      NULL     COMMENT '사용자번호', -- 사용자번호
@@ -63,55 +63,55 @@ CREATE TABLE ItemPhoto (
 COMMENT '사진';
 
 -- 사진
-ALTER TABLE ItemPhoto
-	ADD CONSTRAINT PK_ItemPhoto -- 사진 기본키
+ALTER TABLE itemphoto
+	ADD CONSTRAINT PK_itemphoto -- 사진 기본키
 		PRIMARY KEY (
 			pho_no -- 사진번호
 		);
 
-ALTER TABLE ItemPhoto
+ALTER TABLE itemphoto
 	MODIFY COLUMN pho_no INTEGER NOT NULL AUTO_INCREMENT COMMENT '사진번호';
 
 -- 계정
-CREATE TABLE Account (
+CREATE TABLE account (
 	act_no INTEGER      NOT NULL COMMENT '계정번호', -- 계정번호
 	act_id VARCHAR(50)  NOT NULL COMMENT '아이디', -- 아이디
 	email  VARCHAR(40)  NOT NULL COMMENT '이메일', -- 이메일
 	pwd    VARCHAR(100) NOT NULL COMMENT '암호', -- 암호
-	name   VARCHAR(50)  NOT NULL COMMENT '이름', -- 이름
+	act_name   VARCHAR(50)  NOT NULL COMMENT '이름', -- 이름
 	rank   INTEGER      NOT NULL COMMENT '등급' -- 등급
 )
 COMMENT '계정';
 
 -- 계정
-ALTER TABLE Account
-	ADD CONSTRAINT PK_Account -- 계정 기본키
+ALTER TABLE account
+	ADD CONSTRAINT PK_account -- 계정 기본키
 		PRIMARY KEY (
 			act_no -- 계정번호
 		);
 
 -- 계정 유니크 인덱스
-CREATE UNIQUE INDEX UIX_Account
-	ON Account ( -- 계정
+CREATE UNIQUE INDEX UIX_account
+	ON account ( -- 계정
 		act_id ASC -- 아이디
 	);
 
 -- 계정 유니크 인덱스2
-CREATE UNIQUE INDEX UIX_Account2
-	ON Account ( -- 계정
+CREATE UNIQUE INDEX UIX_account2
+	ON account ( -- 계정
 		email ASC -- 이메일
 	);
 
 -- 계정 인덱스
-CREATE INDEX IX_Account
-	ON Account( -- 계정
+CREATE INDEX IX_account
+	ON account( -- 계정
 	);
 
-ALTER TABLE Account
+ALTER TABLE account
 	MODIFY COLUMN act_no INTEGER NOT NULL AUTO_INCREMENT COMMENT '계정번호';
 
 -- 메시지
-CREATE TABLE Message (
+CREATE TABLE message (
 	mg_no    INTEGER      NOT NULL COMMENT '메시지번호', -- 메시지번호
 	ur_no    INTEGER      NULL     COMMENT '받는이', -- 받는이
 	title    VARCHAR(50)  NOT NULL COMMENT '제목', -- 제목
@@ -122,17 +122,17 @@ CREATE TABLE Message (
 COMMENT '메시지';
 
 -- 메시지
-ALTER TABLE Message
-	ADD CONSTRAINT PK_Message -- 메시지 기본키
+ALTER TABLE message
+	ADD CONSTRAINT PK_message -- 메시지 기본키
 		PRIMARY KEY (
 			mg_no -- 메시지번호
 		);
 
-ALTER TABLE Message
+ALTER TABLE message
 	MODIFY COLUMN mg_no INTEGER NOT NULL AUTO_INCREMENT COMMENT '메시지번호';
 
 -- 사용자
-CREATE TABLE User (
+CREATE TABLE user (
 	ur_no    INTEGER      NOT NULL COMMENT '사용자번호', -- 사용자번호
 	acc_no   VARCHAR(100) NOT NULL COMMENT '통장번호', -- 통장번호
 	bank     VARCHAR(30)  NOT NULL COMMENT '은행명', -- 은행명
@@ -145,20 +145,20 @@ CREATE TABLE User (
 COMMENT '사용자';
 
 -- 사용자
-ALTER TABLE User
-	ADD CONSTRAINT PK_User -- 사용자 기본키
+ALTER TABLE user
+	ADD CONSTRAINT PK_user -- 사용자 기본키
 		PRIMARY KEY (
 			ur_no -- 사용자번호
 		);
 
 -- 사용자 유니크 인덱스
-CREATE UNIQUE INDEX UIX_User
-	ON User ( -- 사용자
+CREATE UNIQUE INDEX UIX_user
+	ON user ( -- 사용자
 		acc_no ASC, -- 통장번호
 		bank ASC    -- 은행명
 	);
 
-ALTER TABLE User
+ALTER TABLE user
 	MODIFY COLUMN ur_no INTEGER NOT NULL AUTO_INCREMENT COMMENT '사용자번호';
 
 -- 대여
@@ -204,78 +204,78 @@ ALTER TABLE review
 		ON DELETE CASCADE;
 
 -- 물품
-ALTER TABLE Item
-	ADD CONSTRAINT FK_User_TO_Item -- 사용자 -> 물품
+ALTER TABLE item
+	ADD CONSTRAINT FK_user_TO_item -- 사용자 -> 물품
 		FOREIGN KEY (
 			ur_no -- 사용자번호
 		)
-		REFERENCES User ( -- 사용자
+		REFERENCES user ( -- 사용자
 			ur_no -- 사용자번호
 		)
 		ON DELETE CASCADE;
 
 -- 사진
-ALTER TABLE ItemPhoto
-	ADD CONSTRAINT FK_Item_TO_ItemPhoto -- 물품 -> 사진
+ALTER TABLE itemphoto
+	ADD CONSTRAINT FK_item_TO_itemphoto -- 물품 -> 사진
 		FOREIGN KEY (
 			it_no -- 물품번호
 		)
-		REFERENCES Item ( -- 물품
+		REFERENCES item ( -- 물품
 			it_no -- 물품번호
 		)
 		ON DELETE CASCADE;
 
 -- 사진
-ALTER TABLE ItemPhoto
-	ADD CONSTRAINT FK_User_TO_ItemPhoto -- 사용자 -> 사진
+ALTER TABLE itemphoto
+	ADD CONSTRAINT FK_user_TO_itemphoto -- 사용자 -> 사진
 		FOREIGN KEY (
 			ur_no -- 사용자번호
 		)
-		REFERENCES User ( -- 사용자
+		REFERENCES user ( -- 사용자
 			ur_no -- 사용자번호
 		)
 		ON DELETE CASCADE;
 
 -- 메시지
-ALTER TABLE Message
-	ADD CONSTRAINT FK_User_TO_Message2 -- 사용자 -> 메시지2
+ALTER TABLE message
+	ADD CONSTRAINT FK_user_TO_message2 -- 사용자 -> 메시지2
 		FOREIGN KEY (
 			ur_no -- 받는이
 		)
-		REFERENCES User ( -- 사용자
+		REFERENCES user ( -- 사용자
 			ur_no -- 사용자번호
 		)
 		ON DELETE CASCADE;
 
 -- 사용자
-ALTER TABLE User
-	ADD CONSTRAINT FK_Account_TO_User -- 계정 -> 사용자
+ALTER TABLE user
+	ADD CONSTRAINT FK_account_TO_user -- 계정 -> 사용자
 		FOREIGN KEY (
 			ur_no -- 사용자번호
 		)
-		REFERENCES Account ( -- 계정
+		REFERENCES account ( -- 계정
 			act_no -- 계정번호
 		)
 		ON DELETE CASCADE;
 
 -- 대여
 ALTER TABLE transaction
-	ADD CONSTRAINT FK_User_TO_transaction -- 사용자 -> 대여
+	ADD CONSTRAINT FK_user_TO_transaction -- 사용자 -> 대여
 		FOREIGN KEY (
 			ur_no -- 대여자번호
 		)
-		REFERENCES User ( -- 사용자
+		REFERENCES user ( -- 사용자
 			ur_no -- 사용자번호
 		)
 		ON DELETE CASCADE;
 
 -- 대여
 ALTER TABLE transaction
-	ADD CONSTRAINT FK_Item_TO_transaction -- 물품 -> 대여
+	ADD CONSTRAINT FK_item_TO_transaction -- 물품 -> 대여
 		FOREIGN KEY (
 			it_no -- 물품번호
 		)
-		REFERENCES Item ( -- 물품
+		REFERENCES item ( -- 물품
 			it_no -- 물품번호
 		)
 		ON DELETE CASCADE;
