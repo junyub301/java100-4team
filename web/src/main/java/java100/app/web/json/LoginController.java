@@ -71,6 +71,14 @@ public class LoginController {
         
         return "redirect:login";
     }
+    
+    @RequestMapping("userName")
+    public String userName(HttpSession session) {
+        String name = ((Account)session.getAttribute("loginUser")).getName();
+        return name;
+    }
+    
+    
 }
 
 
