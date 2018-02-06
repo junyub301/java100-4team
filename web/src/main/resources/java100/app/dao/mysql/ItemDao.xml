@@ -9,7 +9,7 @@
         <result column="ur_no" property="userNo"/>
         <result column="category" property="category"/>
         <result column="user_type" property="userType"/>
-        <result column="name" property="name"/>
+        <result column="item_name" property="name"/>
         <result column="title" property="title"/>
         <result column="cnt" property="content"/>
         <result column="start" property="startDate"/>
@@ -38,13 +38,13 @@
     
     <insert id="insert" parameterType="item" 
         useGeneratedKeys="true" keyColumn="it_no" keyProperty="itemNo">
-        insert into item(ur_no,category,user_type,title,name,cnt,start,end,price,price_day,status) 
+        insert into item(ur_no,category,user_type,title,item_name,cnt,start,end,price,price_day,status) 
         values(#{userNo},#{category},#{userType},#{title},#{name},#{content},#{startDate},
                 #{endDate},#{price},#{pricePerDay},#{status})
     </insert>
     <select id="findAll" resultMap="itemMap" parameterType="map">
         select 
-            i.it_no, i.ur_no, i.category, i.user_type, i.name, 
+            i.it_no, i.ur_no, i.category, i.user_type, i.item_name, 
             i.title, i.cnt, i.start, i.end,
             i.price, i.price_day, i.status,
             u.ur_no,
@@ -92,7 +92,7 @@
         select
             u.ur_no,
             i.it_no,
-            i.name,
+            i.item_name,
             i.start,
             i.end,
             i.price,
