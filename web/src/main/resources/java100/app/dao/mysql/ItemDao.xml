@@ -48,7 +48,7 @@
         values(#{userNo},#{category},#{userType},#{title},#{name},#{content},#{startDate},
                 #{endDate},#{price},#{pricePerDay},#{status})
     </insert>
-    <select id="findAll" resultMap="itemMap" parameterType="map">
+    <select id="findrentAll" resultMap="itemMap" parameterType="map">
         select 
             i.it_no, i.ur_no, i.category, i.user_type, i.item_name, 
             i.title, i.cnt, i.start, i.end,
@@ -61,6 +61,7 @@
             from item as i
             join user as u on i.ur_no=u.ur_no
             left join itemphoto as p on i.it_no=p.it_no
+            where user_type = 0
             
         <if test="words != null">
             <where>

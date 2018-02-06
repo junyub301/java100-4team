@@ -61,12 +61,12 @@
 		<nav style="position: fixed; left:0px; right:0px;" aria-label="Page navigation">
 			<ul class="pagination justify-content-center">
 				<li class="page-item ${prevPageDisabled}"><a class="page-link"
-					href="list?pn=${pageNo - 1}" tabindex="${prevPageTabIndex}">이전</a></li>
+					href="lendlist?pn=${pageNo - 1}" tabindex="${prevPageTabIndex}">이전</a></li>
 
 				<li class="page-item"><a class="page-link" href="#">${pageNo}</a></li>
 
 				<li class="page-item ${nextPageDisabled}"><a class="page-link"
-					href="list?pn=${pageNo + 1}" tabindex="${nextPageTabIndex}">다음</a></li>
+					href="lendlist?pn=${pageNo + 1}" tabindex="${nextPageTabIndex}">다음</a></li>
 			</ul>
 		</nav>
 </body>

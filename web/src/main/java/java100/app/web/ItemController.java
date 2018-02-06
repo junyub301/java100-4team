@@ -95,8 +95,8 @@ public class ItemController {
         model.addAttribute("lastPageNo", lastPageNo);
         model.addAttribute("list", itemService.list(pageNo, pageSize, options));
         
-        
         return "item/list";
+        
     }
     
     @RequestMapping("lendlist")
@@ -146,9 +146,6 @@ public class ItemController {
         model.addAttribute("user", userService.getUser(no));
         return "item/view";
     }
-    
-    
-    
     
     
     long prevMillis = 0;

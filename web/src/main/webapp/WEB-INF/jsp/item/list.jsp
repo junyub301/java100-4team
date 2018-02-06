@@ -10,7 +10,7 @@
 <title>리스트</title>
 <link rel="stylesheet"
 	href='../../node_modules/bootstrap/dist/css/bootstrap.min.css'>
-<link rel='stylesheet' href='../..css/common.css'>
+<!-- <link rel='stylesheet' href='../..css/common.css'> -->
 </head>
 <body>
 <jsp:include page="../header.jsp"/>
@@ -26,8 +26,8 @@
 	<div class='itembox_container'>
 		
 		<c:forEach items="${list}" var="item">
-			<c:set var="userType" value="${item.userType}" />
-			<c:if test="${userType eq 0}">
+			<c:set var="userType" value="${item.userType}"/>
+			  <c:if test="${userType eq 0}">
 				<div style="display: inline; cursor: pointer;" onclick="location.href='${item.itemNo}'">
 					<div class="itembox">
 						<div class="">
@@ -49,7 +49,7 @@
 						</div>
 					</div>
 				</div>
-			</c:if>
+			 </c:if>
 		</c:forEach>
 		
 		<c:set var="prevPageDisabled" value="${(pageNo > 1) ? '':'disabled'}" />

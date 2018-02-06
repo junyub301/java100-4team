@@ -409,8 +409,8 @@ body {
 /******** item list box *********/
 
 .itembox_container {
-	width: 1060px;
-	height: 640px;
+	width: 1000px;
+	height: 700px;
 	padding-right: 15px;
 	padding-left: 15px;
 	margin-right: auto;

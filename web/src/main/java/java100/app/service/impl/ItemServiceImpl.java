@@ -41,13 +41,12 @@ public class ItemServiceImpl implements ItemService {
         if (options != null) {
             params.putAll(options);
         }
-        return itemDao.findAll(params);
+        return itemDao.findrentAll(params);
     }
 
     @Override
     public Item getItem(int no) {
         Item item = itemDao.findByNo(no);
-        System.out.println(item);
         return item;
     }
     @Override
