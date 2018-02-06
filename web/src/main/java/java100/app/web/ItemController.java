@@ -144,7 +144,6 @@ public class ItemController {
 
         model.addAttribute("item", itemService.getItem(no));
         model.addAttribute("user", userService.getUser(no));
-
         return "item/view";
     }
     

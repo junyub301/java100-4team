@@ -23,6 +23,20 @@
     </div> 
 
 <div class='form-group row'> 
+<label for='name' class='col-sm-2 col-form-label' >이름</label> 
+<div class='col-sm-10'> 
+<input class='form-control' style='width:510px;' id='ac_name' type='text' value='${item.account.name}'>
+</div> 
+</div>
+
+<div class='form-group row'> 
+<label for='name' class='col-sm-2 col-form-label' >글제목</label> 
+<div class='col-sm-10'> 
+<input class='form-control' style='width:510px;' id='title' type='text' name='title' value='${item.title}'>
+</div> 
+</div> 
+
+<div class='form-group row'> 
 <label for='name' class='col-sm-2 col-form-label' >물품명</label> 
 <div class='col-sm-10'> 
 <input class='form-control' style='width:510px;' readonly id='name' type='text' name='name' value='${item.name}'>
@@ -30,13 +44,13 @@
 </div> 
 
 
-<div class='form-group row'> 
+<%-- <div class='form-group row'> 
 <label for='content' class='col-sm-2 col-form-label'>한마디</label> 
 <div class='col-sm-10'> 
 <input class='form-control' style='width:510px;' id='content' type='text' name='content' value='${item.content}'>
 </div> 
 </div> 
-
+ --%>
 
 
 <div class='form-group row'> 

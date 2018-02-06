@@ -12,7 +12,7 @@
         <result column="act_id" property="accountName"/>
         <result column="email" property="email"/>
         <result column="pwd" property="password"/>
-        <result column="name" property="name"/>
+        <result column="act_name" property="name"/>
         <result column="rank" property="rank"/>
     </resultMap>
     <sql id="select">
@@ -21,7 +21,7 @@
             act_id,
             email,
             pwd,
-            name
+            act_name
     
     </sql>
     
@@ -39,7 +39,7 @@
     
     <insert id="insert" parameterType="account" 
             useGeneratedKeys="true" keyColumn="act_no" keyProperty="accountsNo">
-        insert into account(act_id,email,pwd,name,rank) 
+        insert into account(act_id,email,pwd,act_name,rank) 
         values(#{accountName},#{email},password(#{password}),#{name},1)
     </insert>
 
@@ -52,7 +52,7 @@
             act_id=#{accountName},
             email=#{email},
             pwd=password(#{password}),
-            name=#{name}
+            act_name=#{name}
         where act_no=#{accountsNo}
     </update>
     
@@ -60,7 +60,7 @@
         update account set 
             act_id=#{accountName},
             email=#{email},
-            name=#{name}
+            act_name=#{name}
         where act_no=#{accountsNo}
     </update>
     

@@ -41,11 +41,11 @@
                             </c:forEach>
 							data-holder-rendered="true">
 							<h3 class="mb-0">
-								<a class="box_text" href="#">${item.name}</a>
+								<a class="box_text" href="#">${item.title}</a>
 							</h3>
 							<div class="mb-1 text-muted">${item.startDate}-${item.endDate}</div>
 							<p class="box_text">${item.content}</p>
-							<a href="#">${item.title}</a>
+							<a href="#">${item.name}</a>
 						</div>
 					</div>
 				</div>

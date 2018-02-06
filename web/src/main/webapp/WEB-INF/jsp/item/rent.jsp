@@ -41,14 +41,14 @@
 <div class="form-group row">
 <label class="col-sm-2 col-form-label" for="title">물품정보</label>
 <div class="col-sm-10">
-<input id='title' class="form-control" type="text" placeholder="물품정보를 입력하세요" name='title'>
+<input id='name' class="form-control" type="text" placeholder="물품정보를 입력하세요" name='name'>
 </div>
 </div>
 
 <div class="form-group row">
 <label class="col-sm-2 col-form-label" for="name">제목</label>
 <div class="col-sm-10">
-<input id='name' type='text' class="form-control" placeholder="제목을 입력하세요" name='name'>
+<input id='title' type='text' class="form-control" placeholder="제목을 입력하세요" name='title'>
 </div>
 </div>
 
