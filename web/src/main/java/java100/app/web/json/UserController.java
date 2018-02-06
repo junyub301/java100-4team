@@ -21,6 +21,7 @@ import java100.app.domain.Account;
 import java100.app.domain.Photo;
 import java100.app.domain.User;
 import java100.app.service.UserService;
+import net.coobird.thumbnailator.Thumbnails;
 
 @RestController
 @RequestMapping("/user")
@@ -40,14 +41,14 @@ public class UserController {
     }
     
     @RequestMapping("{no}")
-    public String view(@PathVariable int no, Model model) throws Exception {
+    public Object view(@PathVariable int no) throws Exception {
 
+        HashMap<String,Object> result = new HashMap<>();
 
-        model.addAttribute("account", userService.getAccount(no));
-        model.addAttribute("user", userService.getUser(no));
+        result.put("account", userService.getAccount(no));
+        result.put("user", userService.getUser(no));
 
-
-        return "user/view";
+        return result;
     }
     
     @RequestMapping("add")
@@ -61,7 +62,9 @@ public class UserController {
             // part파일은 uploadDir경로에 저장해라.
             String filename = this.writeUploadFile(part, uploadDir);
             
-            uploadFiles.add(new Photo(filename));
+            String Thumbnail = this.Thumbnail(uploadDir,filename,50,50);
+
+            uploadFiles.add(new Photo(filename,Thumbnail));
         }
         
         user.setPhotos(uploadFiles);
@@ -73,7 +76,7 @@ public class UserController {
     }
         
     @RequestMapping("update")
-    public String update(Account account, User user, MultipartFile[] photo) throws Exception  {
+    public Object update(Account account, User user, MultipartFile[] photo) throws Exception  {
         // 업로드 파일을 정장할 위치를 가져온다.
         String uploadDir = servletContext.getRealPath("/download");
 
@@ -87,16 +90,18 @@ public class UserController {
             // part파일은 uploadDir경로에 저장해라.
             String filename = this.writeUploadFile(part, uploadDir);
             
-            uploadFiles.add(new Photo(filename));
+            String Thumbnail = this.Thumbnail(uploadDir,filename,50,50);
+
+            uploadFiles.add(new Photo(filename,Thumbnail));
         }
         // Board 객체에 저장한 파일명을 등록한다. 
         user.setPhotos(uploadFiles);
         
         userService.update(account, user);
         
-        
-        // 프론트 컨트롤러가 실행할 JSP URL을 등록한다.
-        return "redirect:list";
+        HashMap<String,Object> result = new HashMap<>();
+        result.put("status", uploadFiles);
+        return result;
     }
 
     @RequestMapping("delete")
@@ -148,6 +153,21 @@ public class UserController {
         return filename;
     }
     
+  //썸네일 저장 코드(s_원본파일로 저장)
+    private String Thumbnail(String uploadDir, String filename, int width, int height) {
+        File image = new File(uploadDir+"//"+filename); 
+        File thumbnail = new File(uploadDir+"//s_"+filename); 
+        if (image.exists()) { 
+            try {
+                int pos = filename.lastIndexOf(".");
+                String format = filename.substring(pos + 1);
+                Thumbnails.of(image).size(width, height).outputFormat(format).toFile(thumbnail);
+            } catch (IOException e) {
+                e.printStackTrace();
+            } 
+        }
+        return "s_"+filename;
+    }
    
 
 

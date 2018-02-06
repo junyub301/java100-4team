@@ -14,6 +14,9 @@ background-size: cover; background-attachment: fixed;">
 <!-- <h1 align="center">회원가입</h1>
 <br><br> -->
 
+
+
+
 <div style="margin-top: 100px" class='container1'>
 
 <form id="form" method="post" onsubmit="return" enctype="multipart/form-data">
@@ -154,7 +157,7 @@ addBtn.click(() => {
         processData : false,
         contentType : false,
         success: (result) => {
-            location.href = "list.html";
+            location.href = "../main/main.html";
         },
         error:function(request,status,error){
             alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
