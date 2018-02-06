@@ -21,7 +21,7 @@
 	        <result column="ur_no" property="userNo"/>
 	        <result column="category" property="category"/>
 	        <result column="user_type" property="userType"/>
-	        <result column="name" property="name"/>
+	        <result column="item_name" property="name"/>
 	        <result column="title" property="title"/>
 	        <result column="cnt" property="content"/>
 	        <result column="start" property="startDate"/>
@@ -44,7 +44,7 @@
             t.pay_type,
             t.del_no,
             t.del_dat,
-            i.name,
+            i.item_name,
             i.price_day,
             i.status
          from transaction t
@@ -62,7 +62,7 @@
             t.pay_type,
             t.del_no,
             t.del_dat,
-            i.name,
+            i.item_name,
             i.price_day,
             i.start,
             i.end,

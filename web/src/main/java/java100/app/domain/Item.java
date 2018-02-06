@@ -19,7 +19,15 @@ public class Item {
     protected String filename;
     protected List<Photo> photos;
     protected User writer;
+    protected Account account;
     
+    
+    public Account getAccount() {
+        return account;
+    }
+    public void setAccount(Account account) {
+        this.account = account;
+    }
     
     
     @Override
@@ -27,7 +35,7 @@ public class Item {
         return "Item [itemNo=" + itemNo + ", userNo=" + userNo + ", title=" + title + ", name=" + name + ", content="
                 + content + ", startDate=" + startDate + ", endDate=" + endDate + ", price=" + price + ", pricePerDay="
                 + pricePerDay + ", status=" + status + ", category=" + category + ", userType=" + userType
-                + ", filename=" + filename + ", photos=" + photos + ", writer=" + writer + "]";
+                + ", filename=" + filename + ", photos=" + photos + ", writer=" + writer + ", account=" + account + "]";
     }
     public int getItemNo() {
         return itemNo;

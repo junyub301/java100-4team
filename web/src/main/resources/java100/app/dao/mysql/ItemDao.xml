@@ -20,18 +20,24 @@
         <result column="ur_pho" property="filename"/>
         
         <association property="writer" javaType="user">
-            <id     column="ur_no"       property="userNo"/>
+            <id column="ur_no" property="userNo"/>
         </association>
         
-        <collection property="photos"  ofType="Photo">
-            <id     column="pho_no"       property="no"/>
-            <result column="it_no"   property="itemNo"/>
-            <result column="ur_no"   property="userNo"/>
-            <result column="pho_name"   property="photoName"/>
-            
+        <association property="account" javaType="Account">
+            <id column="act_no" property="accountsNo"/>
+            <result column="act_name" property="name"/>
+        </association>
+        
+        
+        <collection property="photos" ofType="Photo">
+            <id column="pho_no" property="no"/>
+            <result column="it_no" property="itemNo"/>
+            <result column="ur_no" property="userNo"/>
+            <result column="pho_name" property="photoName"/>
         </collection>
         
     </resultMap>
+    
     <select id="countAll" resultType="int">
         select count(*) from item;
     </select>
@@ -90,8 +96,10 @@
     
     <select id="findByNo" resultMap="itemMap" parameterType="int">
         select
+            a.act_name,
             u.ur_no,
             i.it_no,
+            i.title,
             i.item_name,
             i.start,
             i.end,
@@ -101,6 +109,7 @@
             ur_pho,
             i.price_day
          from item i join user u on u.ur_no=i.ur_no
+         left join account a on i.ur_no=a.act_no
          left join itemphoto as p on i.it_no=p.it_no 
             where i.it_no=#{value}
     </select>

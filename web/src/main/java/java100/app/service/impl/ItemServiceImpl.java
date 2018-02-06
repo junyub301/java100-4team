@@ -47,6 +47,7 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public Item getItem(int no) {
         Item item = itemDao.findByNo(no);
+        System.out.println(item);
         return item;
     }
     @Override
