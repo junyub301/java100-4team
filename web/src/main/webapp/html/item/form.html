@@ -126,7 +126,6 @@ var addBtn = $('#addBtn'),
     pricePerDay = $('#pricePerDay');
 //빌려드립니다 클릭이벤트
 $('#rentView').click(() => {
-    userType.val(0);
     $('.my-view').css('display',"");
     $('#rentView').removeClass('btn-secondary').addClass('btn-primary');
     $('#lendView').removeClass('btn-primary').addClass('btn-secondary');
@@ -136,7 +135,6 @@ $('#rentView').click(() => {
 });
 //빌려주세요 클릭이벤트
 $('#lendView').click(() => {
-    userType.val(1);
     $('.my-view').css('display', 'none'); 
     $('#rentView').removeClass('btn-primary').addClass('btn-secondary');
     $('#lendView').removeClass('btn-secondary').addClass('btn-primary');
@@ -149,68 +147,36 @@ addBtn.click(() => {
     if (category.val() == 0) {
         return alert('카테고리 선택하세요');
     }
-    if (userType.val() == 0) {
+    if (userType.val() == 1) {
+        deleteName();
+        };
+    
+    var formData = new FormData($('#formData')[0]);
     $.ajax('../../json/item/add', {
-        data: {
-            userType : userType.val(),
-            category : category.val(),
-            name : itemName.val(),
-            title : title.val(),
-            content : content.val(),
-            startDate : startDate.val(),
-            endDate : endDate.val(),
-            price : price.val(),
-            pricePerDay : pricePerDay.val()
-        },
+        data: formData,
         dataType: 'json',
         method: 'POST',
+        processData: false,
+        contentType: false,
         success: (result) => {
+            alert();
             location.href='list.html';
             },
-        error: () => {
-            window.alert('서버 실행 오류!');
-            }
+        error: (request,status,error) => {
+            alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+        }
     }); 
-    }
-    else {
-    $.ajax('../../json/item/add', {
-        data: {
-            userType : userType.val(),
-            category : category.val(),
-            name : itemName.val(),
-            title : title.val(),
-            content : content.val()
-        },
-        dataType: 'json',
-        method: 'POST',
-        success: (result) => {
-            location.href='list.html';
-            },
-        error: () => {
-            window.alert('서버 실행 오류!');
-            }
-    }); 
-    }
     
-    if ($('#photo1').val != null) {
-    var formData = new FormData();
-    formData.append("fileObj", $("#photo1")[0].files[0]);
-    formData.append("fileObj2", $("#photo2")[0].files[0]);
-    formData.append("fileObj3", $("#photo3")[0].files[0]);
     
-    $.ajax('../../json/item/upload',{
-                processData: false,
-                contentType: false,
-                data: formData,
-                type: 'POST',
-                success: () => {}
-                }
-           );
-    
-    };  
 });
+//빌려주세요에서 값이 없으면 오류나서 안쓰이는 인풋쪽 name속성 삭제
 
-
+function deleteName() {
+    startDate.removeAttr('name');
+    endDate.removeAttr('name');
+    price.removeAttr('name');
+    pricePerDay.removeAttr('name');
+}
 </script>
 
 </body>

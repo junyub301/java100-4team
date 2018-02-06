@@ -20,9 +20,16 @@ public class ItemServiceImpl implements ItemService {
     @Autowired PhotoDao photoDao;
     
     @Override
-    public int add(Item item) {
-      
-        return itemDao.insert(item);
+    public int add(Item item, List<Photo> photoList) {
+        int count = itemDao.insert(item);
+        if (!photoList.isEmpty()) {
+        try {
+            upload(item.getItemNo(), photoList);
+            } catch (Exception e) {
+                System.out.println("첨부파일 등록 중 예외 발생!");
+            }
+        }
+        return count;
     }
  
     @Override

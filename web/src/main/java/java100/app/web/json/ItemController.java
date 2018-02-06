@@ -3,7 +3,6 @@ package java100.app.web.json;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
@@ -12,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import java100.app.domain.Account;
 import java100.app.domain.Item;
@@ -31,34 +29,25 @@ public class ItemController {
     @Autowired ItemService itemService;
     @Autowired UserService userService;
     @RequestMapping("add")
-    public int add(Item item, HttpSession session) throws Exception {
-        Account account = (Account) session.getAttribute("loginUser");
-        item.setUserNo(account.getAccountsNo());
-        itemService.add(item);
-        it_no = item.getItemNo();
-        return it_no;
-}
-    @RequestMapping("upload")
-    public String upload(MultipartHttpServletRequest photo) throws Exception {
+    public Object add(Item item,MultipartFile[] photo, HttpSession session) throws Exception {
+        Account account = (Account) session.getAttribute("loginUser"); //로그인정보 받아오기
         String uploadDir = servletContext.getRealPath("/download");
+        item.setUserNo(account.getAccountsNo()); //user번호 저장하기
         ArrayList<Photo> uploadFiles = new ArrayList<>();
-        Iterator<String> files = photo.getFileNames();
-        while(files.hasNext()){
-            String uploadFile = files.next();
+        for (MultipartFile part: photo) {
+            if (part.isEmpty())
+                continue;
 
-            MultipartFile part = photo.getFile(uploadFile);
-
+            // part파일은 uploadDir경로에 저장해라.
             String filename = this.writeUploadFile(part, uploadDir);
             //썸네일 생성 메소드 호출 = 이름리턴     ** Thumbnail(저장경로,원본파일이름,썸네일너비,썸네일높이)
-
             String Thumbnail = this.Thumbnail(uploadDir,filename,50,50);
-
             uploadFiles.add(new Photo(filename,Thumbnail));
         }
-        itemService.upload(it_no, uploadFiles);
-        it_no = 0;
-        return "success";
-    }
+        
+        itemService.add(item, uploadFiles);
+        return it_no;
+}
     
     
     
