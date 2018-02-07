@@ -1,101 +1,101 @@
-﻿-- 후기
+-- �ı�
 ALTER TABLE review
-	DROP FOREIGN KEY FK_transaction_TO_review; -- 대여 -> 후기
+	DROP FOREIGN KEY FK_transaction_TO_review; -- �뿩 -> �ı�
 
--- 물품
-ALTER TABLE Item
-	DROP FOREIGN KEY FK_user_TO_Item; -- 사용자 -> 물품
-
--- 사진
-ALTER TABLE ItemPhoto
-	DROP FOREIGN KEY FK_item_TO_itemPhoto; -- 물품 -> 사진
-
--- 사진
-ALTER TABLE ItemPhoto
-	DROP FOREIGN KEY FK_User_TO_itemPhoto; -- 사용자 -> 사진
-
--- 메시지
-ALTER TABLE Message
-	DROP FOREIGN KEY FK_User_TO_message2; -- 사용자 -> 메시지2
-
--- 사용자
-ALTER TABLE User
-	DROP FOREIGN KEY FK_account_TO_User; -- 계정 -> 사용자
-
--- 대여
-ALTER TABLE transaction
-	DROP FOREIGN KEY FK_user_TO_transaction; -- 사용자 -> 대여
-
--- 대여
-ALTER TABLE transaction
-	DROP FOREIGN KEY FK_item_TO_transaction; -- 물품 -> 대여
-
--- 후기
-ALTER TABLE review
-	DROP PRIMARY KEY; -- 후기 기본키
-
--- 물품
+-- ��ǰ
 ALTER TABLE item
-	DROP PRIMARY KEY; -- 물품 기본키
+	DROP FOREIGN KEY FK_user_TO_item; -- ����� -> ��ǰ
 
--- 사진
-ALTER TABLE itemPhoto
-	DROP PRIMARY KEY; -- 사진 기본키
+-- ����
+ALTER TABLE itemphoto
+	DROP FOREIGN KEY FK_item_TO_itemphoto; -- ��ǰ -> ����
 
--- 계정
-ALTER TABLE account
-	DROP PRIMARY KEY; -- 계정 기본키
+-- ����
+ALTER TABLE itemphoto
+	DROP FOREIGN KEY FK_user_TO_itemphoto; -- ����� -> ����
 
--- 메시지
+-- �޽���
 ALTER TABLE message
-	DROP PRIMARY KEY; -- 메시지 기본키
+	DROP FOREIGN KEY FK_user_TO_message; -- ����� -> �޽���
 
--- 사용자
+-- �����
 ALTER TABLE user
-	DROP PRIMARY KEY; -- 사용자 기본키
+	DROP FOREIGN KEY FK_account_TO_user; -- ���� -> �����
 
--- 대여
+-- �뿩
 ALTER TABLE transaction
-	DROP PRIMARY KEY; -- 대여 기본키
+	DROP FOREIGN KEY FK_user_TO_transaction; -- ����� -> �뿩
 
--- 후기 인덱스
+-- �뿩
+ALTER TABLE transaction
+	DROP FOREIGN KEY FK_item_TO_transaction; -- ��ǰ -> �뿩
+
+-- �ı�
+ALTER TABLE review
+	DROP PRIMARY KEY; -- �ı� �⺻Ű
+
+-- ��ǰ
+ALTER TABLE item
+	DROP PRIMARY KEY; -- ��ǰ �⺻Ű
+
+-- ����
+ALTER TABLE itemphoto
+	DROP PRIMARY KEY; -- ���� �⺻Ű
+
+-- ����
+ALTER TABLE account
+	DROP PRIMARY KEY; -- ���� �⺻Ű
+
+-- �޽���
+ALTER TABLE message
+	DROP PRIMARY KEY; -- �޽��� �⺻Ű
+
+-- �����
+ALTER TABLE user
+	DROP PRIMARY KEY; -- ����� �⺻Ű
+
+-- �뿩
+ALTER TABLE transaction
+	DROP PRIMARY KEY; -- �뿩 �⺻Ű
+
+-- �ı� �ε���
 DROP INDEX IX_review ON review;
 
--- 물품 인덱스
-DROP INDEX IX_item ON Item;
+-- ��ǰ �ε���
+DROP INDEX IX_item ON item;
 
--- 계정 인덱스
+-- ���� �ε���
 DROP INDEX IX_account ON account;
 
--- 계정 유니크 인덱스
+-- ���� ����ũ �ε���
 DROP INDEX UIX_account ON account;
 
--- 계정 유니크 인덱스2
+-- ���� ����ũ �ε���2
 DROP INDEX UIX_account2 ON account;
 
--- 사용자 유니크 인덱스
-DROP INDEX UIX_User ON user;
+-- ����� ����ũ �ε���
+DROP INDEX UIX_user ON user;
 
--- 대여 유니크 인덱스
+-- �뿩 ����ũ �ε���
 DROP INDEX UIX_transaction ON transaction;
 
--- 후기
+-- �ı�
 DROP TABLE IF EXISTS review RESTRICT;
 
--- 물품
+-- ��ǰ
 DROP TABLE IF EXISTS item RESTRICT;
 
--- 사진
-DROP TABLE IF EXISTS itemPhoto RESTRICT;
+-- ����
+DROP TABLE IF EXISTS itemphoto RESTRICT;
 
--- 계정
+-- ����
 DROP TABLE IF EXISTS account RESTRICT;
 
--- 메시지
+-- �޽���
 DROP TABLE IF EXISTS message RESTRICT;
 
--- 사용자
+-- �����
 DROP TABLE IF EXISTS user RESTRICT;
 
--- 대여
+-- �뿩
 DROP TABLE IF EXISTS transaction RESTRICT;
