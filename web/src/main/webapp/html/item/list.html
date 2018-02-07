@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="UTF-8">
 <style type="text/css">
 </style>
 <title>리스트</title>
-<link rel="stylesheet"
-    href='../../node_modules/bootstrap/dist/css/bootstrap.min.css'>
 </head>
 <body>
+<header>  
+    </header>
 
         <div class='container'>
         <div class='row justify-content-md-center'>
@@ -22,40 +23,12 @@
 <div class="album py-5">
     <div class='container'>
         <div class='row'>
-         <c:forEach items="${list}" var="item">
-            <c:set var="userType" value="${item.userType}"/>
-              <c:if test="${userType eq 0}">
-              
-            <div class="col-md-4 col-sm-6 col-xs-12 m_pointer" onclick="location.href='${item.itemNo}'">
-              <div class="card mb-4 box-shadow">
-
-              <img class="card-img-top"
-                            data-src="holder.js/300x200?theme=thumb"
-                            alt="Thumbnail [300x200]"
-                            style="height: 225px; width: 100%; display: block;"
-                            <c:forEach items="${item.photos}" var="photo">
-                                src="${contextPath}/download/${photo.photoName}"
-                            </c:forEach>
-                            data-holder-rendered="true">
-                
-                <div class="card-body">
-                <h3 class="mb-0">
-                  <p class="card-text text-truncate">${item.title}</p></h3>
-                  <p class="card-text mb-1 text-muted">${item.startDate}-${item.endDate}</p>
-                  <p class="card-text text-truncate">${item.content}</p>
-                  <p class="card-text text-truncate">${item.name}</p>
-                  <div class="d-flex justify-content-between align-items-center">
-                    <!-- <div class="btn-group">
-                      <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                    </div>
-                    <small class="text-muted">9 mins</small> -->
-                  </div>
-                </div>
-              </div>
-            </div>
-          </c:if>
-        </c:forEach>
+        
+        <div id="list">
+        
+        
+        </div>
+        
         
    <nav aria-label="Page navigation">
   <ul class="pagination justify-content-center">
@@ -71,24 +44,39 @@
         
 </div>
 </div>
-
-    <style type="text/css">
-      .m_pointer{
-        cursor: pointer;
-      }
-    </style>
+</div>
+    
+<script src='../../node_modules/jquery/dist/jquery.min.js'></script>
+<script src='../../node_modules/popper.js/dist/umd/popper.min.js'></script>
+<script src='../../node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
+<script src='../../js/fileupload.js'></script>
 <script type="text/javascript">
 
+var tbody = $('#list > tbody'), 
+prevBtn = $("#prevBtn"),
+currBtn = $("#currBtn"),
+nextBtn = $("#nextBtn"),
+currPageNo = 1;
+
+$('header').load('../header.jsp');
 
 load(1);
+
+prevBtn.click(() => {
+    load(currPageNo - 1)
+});
+nextBtn.click(() => {
+    load(currPageNo + 1)
+});
+
 
 function load(pageNo, options) {
     
     if (options == undefined) options = {};
     options.pn = pageNo;
     
-    $.ajax('../json/score/list', {
-        /* method: 'GET' */
+    $.ajax('../../json/item/list', {
+        
         data: options,
         dataType: 'json',
         success: (result) => {
@@ -96,14 +84,23 @@ function load(pageNo, options) {
             tbody.html(""); // <tbody> 콘텐츠를 지운다
             
             for (var data of result.list) {
-                $('<tr>')
+                var date = Date(data.startDate);
+                
+                $('#list')
                 .html(
-                    "<td>" + data.no + "</td>" +
-                    "<td><a href='form.html?no=" + data.no +"'>" + data.name + "</a></td>" +
-                    "<td>" + data.sum + "</td>" +
-                    "<td>" + data.aver+ "</td>")
-                .appendTo(tbody);
+                    '<div class="card-body">' +
+                    '<h3 class="mb-0">' +    
+                    '<p class="card-text text-truncate">' + data.name + '</p></h3>' +
+                    '<p class="card-text mb-1 text-muted">'+ date.toLocaleDateString + '-' + data.endDate +'</p>' +
+                    '<p class="card-text text-truncate">' + data.content + '</p>' +
+                    '<p>' + data.name+ '</p><div>');
+                
             }
+            
+            /* $("<div>hello stackoverflow users</div>").appendTo("#targetDIV"); //appendTo: Append at inside bottom
+            $("<div>Hello, Stack Overflow users</div>").prependTo("#targetDIV"); //prependTo: Append at inside top
+            $("#targetDIV").html("<div>Hello, Stack Overflow users</div>"); //.html(): Clean HTML inside and append
+            $("#targetDIV").append("<div>Hello, Stack Overflow users</div>"); //Same as appendTo */
             
             currPageNo = result.pageNo;
             currBtn.html(currPageNo);

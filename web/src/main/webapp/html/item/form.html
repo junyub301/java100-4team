@@ -124,10 +124,10 @@
 
 </div>
 </div>
-<script src='/node_modules/jquery/dist/jquery.min.js'></script>
-<script src='/node_modules/popper.js/dist/umd/popper.min.js'></script>
-<script src='/node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
-<script src='/js/fileupload.js'></script>
+<script src='../../node_modules/jquery/dist/jquery.min.js'></script>
+<script src='../../node_modules/popper.js/dist/umd/popper.min.js'></script>
+<script src='../../node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
+<script src='../../js/fileupload.js'></script>
 
 <script type="text/javascript">
 var addBtn = $('#addBtn'),
@@ -192,7 +192,7 @@ addBtn.click(() => {
         processData: false,
         contentType: false,
         success: () => {
-            location.href='/app/item/list';
+            location.href='/json/item/list.html';
             },
         error: (request,status,error) => {
             alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);

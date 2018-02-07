@@ -98,44 +98,6 @@ public class ItemController {
         
     }
     
-    @RequestMapping("lendlist")
-    public String lendlist(
-            @RequestParam(value="pn", defaultValue="1") int pageNo,
-            @RequestParam(value="ps", defaultValue="6") int pageSize,
-            @RequestParam(value="words", required=false) String[] words,
-            @RequestParam(value="oc", required=false) String orderColumn,
-            @RequestParam(value="al", required=false) String align,
-            Model model) throws Exception {
-        
-        if (pageNo < 1) {
-            pageNo = 1;
-        }
-        if (pageSize < 6 || pageSize > 15) {
-            pageSize = 6;
-        } 
-        
-        HashMap<String,Object> options = new HashMap<>();
-        if (words != null && words[0].length() > 0) {
-            options.put("words", words);
-        }
-        options.put("orderColumn", orderColumn);
-        options.put("align", align);
-        
-        int totalCount = itemService.getTotalCount();
-        int lastPageNo = totalCount / pageSize;
-        if ((totalCount % pageSize) > 0) {
-            lastPageNo++;
-        }
-        
-        // view 컴포넌트가 사용할 값을 Model에 담는다.
-        model.addAttribute("pageNo", pageNo);
-        model.addAttribute("lastPageNo", lastPageNo);
-        model.addAttribute("list", itemService.lendlist(pageNo, pageSize, options));
-        
-        
-        return "item/lendlist";
-    }
-    
     
     @RequestMapping("{no}")
     public String view(@PathVariable int no, Model model) throws Exception {

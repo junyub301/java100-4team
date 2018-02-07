@@ -10,7 +10,6 @@ public interface ItemService {
     int add(Item item, List<Photo> photoList);
     int upload(int no, List<Photo> photoList);
     List<Item> list(int pageNo, int pageSize, Map<String, Object> options);
-    List<Item> lendlist(int pageNo, int pageSize, Map<String, Object> options);
     Item getItem(int no);
     int getTotalCount();
 }
