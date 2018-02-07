@@ -39,7 +39,7 @@
  <div class="col-sm-2"></div>
   <form class="mx-auto form-inline col-sm-6">
     <input class="form-control mr-sm-2 col-sm-6" type="search" placeholder="Search" aria-label="Search">
-    </div>
+   
     <button onclick="location.href='../item/list'" 
     class="btn btn-outline-secondary my-2 my-sm-0" type="button">Search</button>
   </form>
@@ -56,7 +56,7 @@
         opacity: 0.8;
       }
     </style>
-    </nav>
+    
     
 
     <!-- Portfolio Grid Section -->

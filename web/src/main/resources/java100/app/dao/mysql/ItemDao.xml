@@ -47,7 +47,7 @@
         values(#{userNo},#{category},#{userType},#{title},#{name},#{content},#{startDate},
                 #{endDate},#{price},#{pricePerDay},#{status})
     </insert>
-    <select id="findrentAll" resultMap="itemMap" parameterType="map">
+    <select id="findAll" resultMap="itemMap" parameterType="map">
         select 
             i.it_no, i.ur_no, i.category, i.user_type, i.item_name, 
             i.title, i.cnt, i.start, i.end,
