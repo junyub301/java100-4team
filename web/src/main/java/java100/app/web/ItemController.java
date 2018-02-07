@@ -39,7 +39,6 @@ public class ItemController {
         return "item/lend";
     }
     
-    
     @RequestMapping("add")
     public String add(Item item, MultipartFile[] photo) throws Exception {
         String uploadDir = servletContext.getRealPath("/download");
@@ -93,7 +92,7 @@ public class ItemController {
         // view 컴포넌트가 사용할 값을 Model에 담는다.
         model.addAttribute("pageNo", pageNo);
         model.addAttribute("lastPageNo", lastPageNo);
-        model.addAttribute("list", itemService.list(pageNo, pageSize, options));
+        model.addAttribute("list", itemService.rentlist(pageNo, pageSize, options));
         
         return "item/list";
         
@@ -131,7 +130,7 @@ public class ItemController {
         // view 컴포넌트가 사용할 값을 Model에 담는다.
         model.addAttribute("pageNo", pageNo);
         model.addAttribute("lastPageNo", lastPageNo);
-        model.addAttribute("list", itemService.list(pageNo, pageSize, options));
+        model.addAttribute("list", itemService.lendlist(pageNo, pageSize, options));
         
         
         return "item/lendlist";

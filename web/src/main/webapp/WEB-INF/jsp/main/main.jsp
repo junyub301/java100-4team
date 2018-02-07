@@ -12,14 +12,14 @@
     <title>SHARE</title>
     
     <!-- Bootstrap core CSS -->
-    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+   <!--  <link href="../../css/bootstrap.min.css" rel="stylesheet">
     <link href="../../css/freelancer.min.css" rel="stylesheet">
     <link href="../../css/test.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
 
     
-    
+     -->
 </head>
 
   <body id="page-top">
@@ -34,48 +34,30 @@
         position: relative; z-index: auto;">
     </div>
     
-    <!-- background div -->    
-    <div style="margin-top: -49px;" class="scback_div">
+    <!-- search bar -->    
+ <nav class="c_opacity navbar navbar-dark">
+ <div class="col-sm-2"></div>
+  <form class="mx-auto form-inline col-sm-6">
+    <input class="form-control mr-sm-2 col-sm-6" type="search" placeholder="Search" aria-label="Search">
+    </div>
+    <button onclick="location.href='../item/list'" 
+    class="btn btn-outline-secondary my-2 my-sm-0" type="button">Search</button>
+  </form>
+</nav>
+      <style>
+      .c_opacity {
+        margin-top: -44px;
+        background: #000000; 
+        background: rgba(0, 0, 0, 0.3);
+
+      }
+      .s_opacity {
+        margin-top: -44px;
+        opacity: 0.8;
+      }
+    </style>
+    </nav>
     
-    <!-- Search Bar -->
-    <div style="display: table-cell; vertical-align: middle;" class="searchBar">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="input-group" id="adv-search">
-                <input type="text" class="form-control" placeholder="검색어를 입력하세요" />
-                <div class="input-group-btn">
-                    <div class="btn-group" role="group">
-                        <div class="dropdown dropdown-lg">
-                            <button style="width: 50px;" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
-                            <div class="dropdown-menu dropdown-menu-right" role="menu">
-                                <form class="form-horizontal" role="form">
-                                  <div class="form-group">
-                                    <label for="filter">Filter by</label>
-                                    <select class="form-control">
-                                        <option value="0" selected>빌려주세요</option>
-                                        <option value="1">빌려드립니다</option>
-                                    </select>
-                                  </div>
-                                  <div class="form-group">
-                                    <label for="contain">단어 포함</label>
-                                    <input class="form-control" type="text" />
-                                  </div>
-                                  <div class="form-group">
-                                    <label for="contain">단어 포함</label>
-                                    <input class="form-control" type="text" />
-                                  </div>
-                                  <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span>검색</button>
-                                </form>
-                            </div>
-                        </div>
-                        <button onclick="location.href='../item/list'" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span>검색 </button>
-                    </div>
-                </div>
-            </div>
-          </div>
-        </div>
-    </div>
-    </div>
 
     <!-- Portfolio Grid Section -->
     <section class="" id="portfolio">
@@ -83,9 +65,9 @@
         <!-- <h2 class="text-center text-uppercase text-secondary mb-0">정혁♥연서</h2> -->
         <!-- <hr class="star-dark mb-5"> -->
         <div class="row">
-          <div class="col-md-6 col-lg-4" >
+          <div class="col-md-6 col-lg-4 col-xs-12" >
             <figure class="snip1384">
-            <img class="img-fluid" src="../../img/portfolio/cabin.png" alt="" />
+            <img class="" src="../../img/portfolio/cabin.png" alt="" />
                 <figcaption>
                     <h3>Fleece Marigold</h3>
                     <p>Which is worse, that everyone has his price, or that the price is always so low.</p><i class="ion-ios-arrow-right"></i>
@@ -93,9 +75,9 @@
                 <a href="../user/list"></a>
             </figure>
           </div>
-          <div class="col-md-6 col-lg-4">
+          <div class="col-md-6 col-lg-4 col-xs-12">
             <figure class="snip1384">
-            <img class="img-fluid" src="../../img/portfolio/cake.png" alt="" />
+            <img class="" src="../../img/portfolio/cake.png" alt="" />
                 <figcaption>
                     <h3>Fleece Marigold</h3>
                     <p>Which is worse, that everyone has his price, or that the price is always so low.</p><i class="ion-ios-arrow-right"></i>
@@ -103,9 +85,9 @@
                 <a href="../user/list"></a>
             </figure>
           </div>
-          <div class="col-md-6 col-lg-4">
+          <div class="col-md-6 col-lg-4 col-xs-12">
             <figure class="snip1384">
-             <img class="img-fluid" src="../../img/portfolio/circus.png" alt="" />
+             <img class="" src="../../img/portfolio/circus.png" alt="" />
                 <figcaption>
                     <h3>Fleece Marigold</h3>
                     <p>Which is worse, that everyone has his price, or that the price is always so low.</p><i class="ion-ios-arrow-right"></i>
@@ -113,9 +95,9 @@
                 <a href="../user/list"></a>
             </figure>
           </div>
-          <div class="col-md-6 col-lg-4">
+          <div class="col-md-6 col-lg-4 col-xs-12">
           <figure class="snip1384">
-           <img class="img-fluid" src="../../img/portfolio/game.png" alt="" />
+           <img class="" src="../../img/portfolio/game.png" alt="" />
                 <figcaption>
                     <h3>Fleece Marigold</h3>
                     <p>Which is worse, that everyone has his price, or that the price is always so low.</p><i class="ion-ios-arrow-right"></i>
@@ -123,9 +105,9 @@
                 <a href="../user/list"></a>
             </figure>
           </div>
-          <div class="col-md-6 col-lg-4">
+          <div class="col-md-6 col-lg-4 col-xs-12" >
             <figure class="snip1384">
-                <img class="img-fluid" src="../../img/portfolio/safe.png" alt="" />
+                <img class="" src="../../img/portfolio/safe.png" alt="" />
                 <figcaption>
                     <h3>Fleece Marigold</h3>
                     <p>Which is worse, that everyone has his price, or that the price is always so low.</p><i class="ion-ios-arrow-right"></i>
@@ -133,9 +115,9 @@
                 <a href="../user/list"></a>
             </figure>
           </div>
-          <div class="col-md-6 col-lg-4">
+          <div class="col-md-6 col-lg-4 col-xs-12">
             <figure class="snip1384">
-                <img class="img-fluid" src="../../img/portfolio/submarine.png" alt="" />
+                <img class="" src="../../img/portfolio/submarine.png" alt="" />
                 <figcaption>
                     <h3>Add Item</h3>
                     <p>Which is worse, that everyone has his price, or that the price is always so low.</p><i class="ion-ios-arrow-right"></i>

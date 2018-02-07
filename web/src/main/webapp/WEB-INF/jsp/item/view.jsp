@@ -16,7 +16,7 @@
 <body>
 <jsp:include page="../header.jsp"/>
 
-<div class='view_container'>
+<div class='container'>
 <div class='form-group row'> 
        <a href="${contextPath}/download/${item.filename}">
         <img class="viewimg" src="${contextPath}/download/${item.filename}"></a>

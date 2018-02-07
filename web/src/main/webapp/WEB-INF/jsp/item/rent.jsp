@@ -13,13 +13,16 @@
 <body>
 <jsp:include page="../header.jsp"/>
 
-<div style="width: 700px; margin: auto;" class='row justify-content-md-center'>
+<div class='container'>
+<div class='row justify-content-md-center'>
 <button class="col-sm-5 btn btn-primary" onclick="location.href='rent'">빌려드립니다</button>
 <div class="col-sm-2"></div>
 <button class="col-sm-5 btn btn-primary" onclick="location.href='lend'">빌려주세요</button>
 </div>
+</div>
 
-<div class="rl_container">
+<div class="album py-5">
+<div class="container">
 <form action="add" method="post" enctype="multipart/form-data">
 <input type="hidden" name='userType' value=0> <!-- userType 0은 빌려드립니다 카테고리 -->
 <input type="hidden" name='status' value=0> <!-- status 0은 그냥 등록상태 1은 대여상태 -->
@@ -27,7 +30,8 @@
 <div class="form-group row">
 <div class="col-sm-2"></div>
 <div class="col-sm-10">
-    <select class="btn btn-secondary" name="category"><option value=0>카테고리</option>
+    <select id="cg" class="btn btn-secondary" name="category">
+    <option value=0>카테고리</option>
     <option value=1>전자제품</option>
     <option value=2>뷰티/악세</option>
     <option value=3>의류</option>
@@ -105,7 +109,7 @@
 </div>
 
 <div class='row justify-content-md-center'>
-<button style='width:200px;'class="btn btn-primary">등록</button>
+<button class="col-sm-3 btn btn-primary">등록</button>
 </div>
 
 <script type="text/javascript">
@@ -114,7 +118,15 @@ document.getElementById('startDate').valueAsDate = new Date();
 
 </form>
 </div>
+</div>
 <jsp:include page="../jslib.jsp"/>
+<script type="text/javascript">
+
+
+
+</script>
+
+
 </body>
 </html>
     

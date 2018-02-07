@@ -33,7 +33,7 @@ public class ItemServiceImpl implements ItemService {
     }
  
     @Override
-    public List<Item> list(int pageNo, int pageSize, Map<String, Object> options) {
+    public List<Item> rentlist(int pageNo, int pageSize, Map<String, Object> options) {
         HashMap<String,Object> params = new HashMap<>();
         params.put("startIndex", (pageNo - 1) * pageSize);
         params.put("size", pageSize);
@@ -42,6 +42,18 @@ public class ItemServiceImpl implements ItemService {
             params.putAll(options);
         }
         return itemDao.findrentAll(params);
+    }
+    
+    @Override
+    public List<Item> lendlist(int pageNo, int pageSize, Map<String, Object> options) {
+        HashMap<String,Object> params = new HashMap<>();
+        params.put("startIndex", (pageNo - 1) * pageSize);
+        params.put("size", pageSize);
+        
+        if (options != null) {
+            params.putAll(options);
+        }
+        return itemDao.findlendAll(params);
     }
 
     @Override

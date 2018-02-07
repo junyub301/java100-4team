@@ -350,92 +350,28 @@ body {
 }
 
 /******** Header *********/
-
-.header1 {
-    width: 100%;
-    height: 60px;
-    position: relative;
-    z-index: auto;
-    display: table;
-    background-color: #ffffff;
-    background-color: rgba( 255, 255, 255, 1 );
+.custom_container {
+  padding-right: 35px;
+  padding-left: 35px;
+  margin-right: auto;
+  margin-left: auto;
 }
 
-.scback_div {
-    width: 100%;
-    height: 60px;
-    position: relative;
-    z-index: auto;
-    display: table;
-    background-color: #000000;
-    background-color: rgba( 0, 0, 0, 0.5 );
+@media (min-width: 768px) {
+  .container {
+    width: 750px;
+  }
 }
 
-.header_text {
-	display:table-cell; 
-	vertical-align:middle; 
+@media (min-width: 992px) {
+  .container {
+    width: 970px;
+  }
 }
-
-.nav1 {
-    float: right;
-    
-}
-
-.ul1 {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-}
-
-.login1 {
-    background-image: url('');
-    background-repeat: no-repeat;
-    background-position: 24px 21px;
-    background-size: 16px 16px;
-    background-clip: padding-box;
-    -webkit-background-clip: padding-box;
-    -moz-background-clip: padding;
 
 }
 
-.fontsetting {
-	margin: 0;
-    padding: 0;
-    width: 300px;
-    display: inline-block;
-}
 
-
-/******** item list box *********/
-
-.itembox_container {
-	width: 1000px;
-	height: 700px;
-	padding-right: 15px;
-	padding-left: 15px;
-	margin-right: auto;
-	margin-left: auto;
-}
-
-.itembox {
-	border: solid;
-	padding: 15px;
-	margin: 10px;
-	width: 300px;
-	height: 300px;
-	display: inline-block; 
-
-}
-
-.itemimg {
-	width: 100%; height: 150px;
-}
-
-.box_text {
-	white-space: nowrap; 
-	overflow: hidden;
-    text-overflow: ellipsis;
-}
 
 /******** rent/lend *********/
 .rl_container {
@@ -461,6 +397,8 @@ body {
     width: 100%; height: 150px;
     border-radius: 100px;
 }
+
+
 
 }
 

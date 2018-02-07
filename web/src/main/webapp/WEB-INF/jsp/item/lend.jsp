@@ -11,13 +11,16 @@
 <body>
 <jsp:include page="../header.jsp"/>
 
-<div style="width: 700px; margin: auto;" class='row justify-content-md-center'>
+<div class='container'>
+<div class='row justify-content-md-center'>
 <button class="col-sm-5 btn btn-primary" onclick="location.href='rent'">빌려드립니다</button>
 <div class="col-sm-2"></div>
 <button class="col-sm-5 btn btn-primary" onclick="location.href='lend'">빌려주세요</button>
 </div>
+</div>
 
-<div class="rl_container">
+<div class="album py-5">
+<div class="container">
 <form action="add" method="post" enctype="multipart/form-data">
 <input type="hidden" name='userType' value=1> <!-- userType 1은 빌려주세요 카테고리 -->
 <input type="hidden" name='status' value=0> <!-- status 0은 그냥 등록상태 1은 대여상태 -->
@@ -69,11 +72,12 @@
 
 
 <div class='row justify-content-md-center'>
-<button style='width:200px;'class="btn btn-primary">등록</button>
+<button class="col-sm-3 btn btn-primary">등록</button>
 </div>
 
 </form>
 <jsp:include page="../jslib.jsp" />
+</div>
 </div>
 </body>
 </html>
