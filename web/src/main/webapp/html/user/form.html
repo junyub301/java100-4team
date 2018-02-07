@@ -101,6 +101,7 @@ style="margin-bottom: 0.5rem; background-color: #D8D8D8;" type="button" onclick=
 <script src='../../node_modules/jquery/dist/jquery.min.js'></script>
 <script src='../../node_modules/popper.js/dist/umd/popper.min.js'></script>
 <script src='../../node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
+<script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
 
 <script type="text/javascript">
 var pwd = $('#pwd'),
@@ -166,10 +167,7 @@ addBtn.click(() => {
     });
 });
 
-</script>
 
-
-<script>
 var loginBtn = document.querySelector('#loginBtn')
 var addBtn = document.querySelector('#addBtn')
 
@@ -183,11 +181,6 @@ addBtn.addEventListener('click', function(event) {
 })
 
 
-</script>
-
-
-<script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
-<script>
     function sample6_execDaumPostcode() {
         new daum.Postcode({
             oncomplete: function(data) {

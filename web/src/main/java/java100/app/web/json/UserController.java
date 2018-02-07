@@ -90,7 +90,7 @@ public class UserController {
             // part파일은 uploadDir경로에 저장해라.
             String filename = this.writeUploadFile(part, uploadDir);
             
-            String Thumbnail = this.Thumbnail(uploadDir,filename,50,50);
+            String Thumbnail = this.Thumbnail(uploadDir,filename,150,150);
 
             uploadFiles.add(new Photo(filename,Thumbnail));
         }
@@ -105,11 +105,14 @@ public class UserController {
     }
 
     @RequestMapping("delete")
-    public String delete(int no) throws Exception  {
-
+    public Object delete(int no) throws Exception  {
+        
         userService.delete(no);
-
-        return "redirect:list";
+        
+        HashMap<String,Object> result = new HashMap<>();
+        result.put("status", "success");
+        
+        return result;
     }
     
 
