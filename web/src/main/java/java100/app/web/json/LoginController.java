@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,20 +25,15 @@ public class LoginController {
     
     @Autowired AccountService accountService;
     @Autowired UserService userService;
-    
-    @RequestMapping(value="login", method=RequestMethod.GET)
-    public Object form(HashMap<String, Object> result) {
-        
-        result.put("menuVisible", false);
-        return result;
-    }
-    
+   
     @RequestMapping(value="login", method=RequestMethod.POST)
     public Object login(
             String accountName, 
             String password,
             String saveaccountName,
-            HttpServletResponse response) {
+            HttpServletResponse response,
+            HttpSession session,
+            Model model) {
         
         Account account= accountService.get(accountName, password);
         
@@ -53,12 +49,12 @@ public class LoginController {
         HashMap<String,Object> result = new HashMap<>();
 
         if (account == null) {
-            result.put("loginUser", null);
-            result.put("menuVisible", false);
-            return result; 
+            model.addAttribute("loginUser", null);
+            result.put("status", "fail"); 
+        } else {
+            model.addAttribute("loginUser", account);
+            result.put("status", "success");
         }
-         
-        result.put("loginUser", account);
         
         return result;
     }
@@ -69,13 +65,27 @@ public class LoginController {
         status.setComplete();
         session.invalidate();
         
-        return "redirect:login";
+        HashMap<String,Object> result = new HashMap<>();
+        result.put("status", "success");
+        return result;
     }
     
-    @RequestMapping("userName")
-    public String userName(HttpSession session) {
-        String name = ((Account)session.getAttribute("loginUser")).getName();
-        return name;
+    @RequestMapping("loginUser")
+    public Object userName(HttpSession session) {
+        
+        Account account = ((Account)session.getAttribute("loginUser"));
+        
+        HashMap<String,Object> result = new HashMap<>();
+        
+        if (account != null) {
+            result.put("status", "success");
+            result.put("account", account);
+        } else {
+            result.put("status", "fail");
+        }
+            
+        return result;
+    
     }
     
     

@@ -63,12 +63,9 @@
 <div style='display:inline-block;position: absolute;width:690px;'>
 
 <form id="form" method='POST' onsubmit="return" enctype="multipart/form-data"> 
-
-<input id='no' type="hidden" name='accountsNo' value='37'>
-
+<div id="nodiv"></div>
 
 <div id="imdiv" style='display:inline-block;width:250px;height:200px;float:left'>
-        <img id="imag" width="200px" align="middle" src="/download/1517876261842_0.png">
 </div> 
 <br>
 <div style='display:inline-block;width:400px;'> 
@@ -170,7 +167,7 @@
 <div class='col-sm-10'>
 <div style='width:280px;height:40px;display:inline-block;'></div> 
 <button id="updateBtn" type="button" class="btn btn-primary">수정</button> 
-<a href='delete?no=37' class= "btn btn-danger ">삭제</a>
+<button type="button" id="deleteBtn" class= "btn btn-danger ">삭제</button>
 
 </div> 
 
@@ -191,6 +188,7 @@ var pwd = $('#pwd'),
 	email = $('#email'),
 	nameItem = $('#name'),
 	accNo = $('#accountNo'),
+	no = $('#no'),
 	bank = $('#bank'),
 	cnt = $('#comment'),
 	phone = $('#phone'),
@@ -199,7 +197,9 @@ var pwd = $('#pwd'),
 	detailAddr = $('#sample6_address2'),
 	photos = $('#photo'),
 	addBtn = $('#addBtn'),
+	deleteBtn = $('#deleteBtn'),
 	imd = $('#imdiv'),
+	nod = $('#nodiv'),
 	updateBtn = $('#updateBtn');
 
 
@@ -225,9 +225,11 @@ if (index != -1) { // 기존 데이터를 조회할 경우
                 postNo.val(result.user.postNo);
                 baseAddr.val(result.user.baseAddress);
                 detailAddr.val(result.user.detailAddress);
-                for (var data of result.user) {
-                    console.log(data)                    
+                for (var data of result.user.photos){
+                    var filename = data.photoName
+                    imd.html( '<img id="imag" width="200px" align="middle" src="/download/' + filename + '">');
                 }
+                nod.html("<input id='no' type='hidden' name='accountsNo' value='" + result.account.accountsNo + "'>")
             },
             error: () => {
                 window.alert('서버 실행 오류!');
@@ -295,13 +297,14 @@ $(() => {
         }
 
           reader.readAsDataURL(input.files[0]);
-        }
+        } 
     }
     
 
 updateBtn.click(() => {
     
     var formData = new FormData($("#form")[0]);
+    
     $.ajax('../../json/user/update', {
         data : formData,
         dataType: 'json',
@@ -309,17 +312,36 @@ updateBtn.click(() => {
         processData : false,
         contentType : false,
         success: (result) => {
+            $('#imag').change(() => {
             imd.html("");
             for (var data of result.status) {
                 var filename = data.photoName;
                 console.log(filename)
-            imd.html( '<img id="imag" width="200px" align="middle" src="/download/' + filename + '">');
-            }
+                return imd.html( '<img id="imag" width="200px" align="middle" src="/download/' + filename + '">');
+                }
+            });
+            location.href = "list.html";
         },
         error:function(request,status,error){
             alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
          }
 
+    });
+});
+
+deleteBtn.click(() => {
+    
+    $.ajax('../../json/user/delete', {
+        data : {
+            no: $('#no').val()
+        },
+        dataType: 'json',
+        success: (result) => {
+            location.href = "list.html";
+        },
+        error: () => {
+            window.alert('서버 실행 오류!');
+        }
     });
 });
 
