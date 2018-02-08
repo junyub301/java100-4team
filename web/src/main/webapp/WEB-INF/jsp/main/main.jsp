@@ -67,7 +67,7 @@
         <div class="row">
           <div class="col-md-6 col-lg-4 col-xs-12" >
             <figure class="snip1384">
-            <img class="" src="../../img/portfolio/cabin.png" alt="" />
+            <img class="img-fluid" src="../../img/portfolio/1.jpg" alt="" />
                 <figcaption>
                     <h3>Fleece Marigold</h3>
                     <p>Which is worse, that everyone has his price, or that the price is always so low.</p><i class="ion-ios-arrow-right"></i>
@@ -77,7 +77,7 @@
           </div>
           <div class="col-md-6 col-lg-4 col-xs-12">
             <figure class="snip1384">
-            <img class="" src="../../img/portfolio/cake.png" alt="" />
+            <img class="img-fluid" src="../../img/portfolio/2.jpg" alt="" />
                 <figcaption>
                     <h3>Fleece Marigold</h3>
                     <p>Which is worse, that everyone has his price, or that the price is always so low.</p><i class="ion-ios-arrow-right"></i>
@@ -87,7 +87,7 @@
           </div>
           <div class="col-md-6 col-lg-4 col-xs-12">
             <figure class="snip1384">
-             <img class="" src="../../img/portfolio/circus.png" alt="" />
+             <img class="img-fluid" src="../../img/portfolio/3.jpg" alt="" />
                 <figcaption>
                     <h3>Fleece Marigold</h3>
                     <p>Which is worse, that everyone has his price, or that the price is always so low.</p><i class="ion-ios-arrow-right"></i>
@@ -97,7 +97,7 @@
           </div>
           <div class="col-md-6 col-lg-4 col-xs-12">
           <figure class="snip1384">
-           <img class="" src="../../img/portfolio/game.png" alt="" />
+           <img class="img-fluid" src="../../img/portfolio/4.jpg" alt="" />
                 <figcaption>
                     <h3>Fleece Marigold</h3>
                     <p>Which is worse, that everyone has his price, or that the price is always so low.</p><i class="ion-ios-arrow-right"></i>
@@ -107,7 +107,7 @@
           </div>
           <div class="col-md-6 col-lg-4 col-xs-12" >
             <figure class="snip1384">
-                <img class="" src="../../img/portfolio/safe.png" alt="" />
+                <img class="img-fluid" src="../../img/portfolio/5.jpg" alt="" />
                 <figcaption>
                     <h3>Fleece Marigold</h3>
                     <p>Which is worse, that everyone has his price, or that the price is always so low.</p><i class="ion-ios-arrow-right"></i>
@@ -117,7 +117,7 @@
           </div>
           <div class="col-md-6 col-lg-4 col-xs-12">
             <figure class="snip1384">
-                <img class="" src="../../img/portfolio/submarine.png" alt="" />
+                <img class="img-fluid" src="../../img/portfolio/6.png" alt="" />
                 <figcaption>
                     <h3>Add Item</h3>
                     <p>Which is worse, that everyone has his price, or that the price is always so low.</p><i class="ion-ios-arrow-right"></i>

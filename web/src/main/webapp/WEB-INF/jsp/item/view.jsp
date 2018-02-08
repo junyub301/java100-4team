@@ -14,89 +14,54 @@
 <body>
 <jsp:include page="../header.jsp"/>
 
-<div class="album py-5">
-<div class='container'>
-<div class='form-group row'> 
-<div class='col-sm-1'></div>
-       <a href="${contextPath}/download/${item.filename}">
-        <img class="viewimg" src="${contextPath}/download/${item.filename}"></a>
-    </div> 
-
-<div class='form-group row'>
-<label for='name' class='col-sm-2 col-form-label' >아이디</label> 
-<div class='col-sm-6'> 
-<input class='form-control' readonly id='ac_name' type='text' value='${item.account.accountName}'>
-</div> 
+<div class="container">
+<div class="row">
+<div class="col-sm-4"></div>
+<div class="col-md-4 col-sm-6 col-xs-12">
+<div class="card-body">
+<div class="col-sm-9">
+    <div class="card-text">
+    <a href="/download/1518049263844_0.jpg">
+    <img src="/download/1518049263844_0.jpg" class="img-responsive img-circle proimg" alt="사진이 없습니다"></a>
+      <h4 class="py-3 text_center" style="color:#3680C1">gm1</h4>
+      <p class="text_center text-muted">Team Leader</p>
+      <!-- <ul class="list-inline social-buttons">
+        <li><a href="http://www.free-css.com/free-css-templates"><i class="fa fa-twitter"></i></a></li>
+        <li><a href="http://www.free-css.com/free-css-templates"><i class="fa fa-facebook"></i></a></li>
+        <li><a href="http://www.free-css.com/free-css-templates"><i class="fa fa-linkedin"></i></a></li>
+      </ul> -->
+  </div>
+</div>
+</div>
+</div>
 </div>
 
-<div class='form-group row'>
-<label for='name' class='col-sm-2 col-form-label' >글제목</label> 
-<div class='col-sm-6'> 
-<input class='form-control' readonly id='title' type='text' name='title' value='${item.title}'>
-</div> 
-</div> 
-
-<div class='form-group row'>
-<label for='name' class='col-sm-2 col-form-label' >물품명</label> 
-<div class='col-sm-6'> 
-<input class='form-control' readonly id='name' type='text' name='name' value='${item.name}'>
-</div> 
-</div> 
+<div class="row">
+<div class="col-md-2"></div>
+<div class="card-body" style="display: inline-block;">
+<h3 class="mb-0">
+<p class="card-text text_center">${item.title}</p></h3>
+<p class="card-text text_center">${item.name}</p>
+</div>
 
 
-<%-- <div class='form-group row'> 
-<label for='content' class='col-sm-2 col-form-label'>한마디</label> 
-<div class='col-sm-6'> 
-<input class='form-control' style='width:510px;' id='content' type='text' name='content' value='${item.content}'>
-</div> 
-</div> 
- --%>
+<div class="card-body" style="display: inline-block;">
+<p class="card-text text_right text-muted">${item.startDate}-${item.endDate}</p>
+<p class="card-text text_right text-muted">${item.price}  원</p>
+<p class="card-text text_right text-muted">${item.pricePerDay}  원</p></div>
+<div class="col-md-3"></div>
+</div>
 
-
-<div class='form-group row'> 
-<label for='startDate' class='col-sm-2 col-form-label'>시작일</label> 
-<div class='col-sm-6'> 
-<input class='form-control' readonly id='startDate' type='date' name='startDate' value='${item.startDate}'>
-</div> 
-</div> 
-
-<div class='form-group row'>
-<label for='endDate' class='col-sm-2 col-form-label'>끝?</label> 
-<div class='col-sm-6'> 
-<input class='form-control' readonly id='endDate' type='date' name='endDate' value='${item.endDate}'>
-</div> 
-</div> 
-
-<div class='form-group row'> 
-<label for='price'class='col-sm-2 col-form-label'>가격</label> 
-<div class='col-sm-6'> 
-<input class='form-control' readonly id='price' type='text' name='price' value='${item.price}'>
-</div> 
-</div> 
-
-
-<div class='form-group row'> 
-<label for='pricePerDay' class='col-sm-2 col-form-label'>하루가격</label> 
-<div class='col-sm-6'> 
-<input class='form-control' readonly id='pricePerDay' type='text' name='pricePerDay' value='${item.pricePerDay}'>
-</div> 
-</div> 
-
-    
-<div class='form-group row'> 
-       <div class='col-md-4 col-sm-6 col-xs-12'> 
+<div class="row py-5">
+<div class="col-sm-2"></div>
   <c:forEach items="${item.photos}" var="file">
        <a href="${contextPath}/download/${file.photoName}">
-        <img style="height: 225px; width: 250px; display: block;"
+        <img style="height: 225px; width: 250px; display: block; margin: 10px;"
          src="${contextPath}/download/${file.photoName}"></a>
     </c:forEach>
-    </div> 
-    </div> 
-
+    <div class="col-sm-1"></div>
 </div>
-
 </div>
-
 
 <jsp:include page="../jslib.jsp" />
 </body>
