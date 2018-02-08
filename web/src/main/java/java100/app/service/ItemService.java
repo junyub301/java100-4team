@@ -9,9 +9,9 @@ import java100.app.domain.Photo;
 public interface ItemService {
     int add(Item item, List<Photo> photoList);
     int upload(int no, List<Photo> photoList);
-    List<Item> list(int pageNo, int pageSize, Map<String, Object> options);
+    List<Item> list(int pageNo, int pageSize, Map<String, Object> options, int userType);
     Item getItem(int no);
-    int getTotalCount();
+    int getTotalCount(int userType);
 }
 
 

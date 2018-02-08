@@ -33,10 +33,11 @@ public class ItemServiceImpl implements ItemService {
     }
  
     @Override
-    public List<Item> list(int pageNo, int pageSize, Map<String, Object> options) {
+    public List<Item> list(int pageNo, int pageSize, Map<String, Object> options, int userType) {
         HashMap<String,Object> params = new HashMap<>();
         params.put("startIndex", (pageNo - 1) * pageSize);
         params.put("size", pageSize);
+        params.put("userType", userType);
         
         if (options != null) {
             params.putAll(options);
@@ -50,7 +51,7 @@ public class ItemServiceImpl implements ItemService {
         return item;
     }
     @Override
-    public int getTotalCount() {
+    public int getTotalCount(int userType) {
         return  itemDao.countAll();
     }
 
