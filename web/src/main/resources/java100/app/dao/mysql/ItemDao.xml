@@ -60,17 +60,17 @@
             p.pho_name as pho_name
             from item as i
             join user as u on i.ur_no=u.ur_no
-            left join itemphoto as p on i.it_no=p.it_no
-            where user_type=#{userType}
-            
-        <if test="words != null">
-            <where>
-                <foreach collection="words" item="word">
-                    or i.title like '%{word}%'
-                </foreach>
-            </where>
+            join itemphoto as p on i.it_no=p.it_no
+            where user_type=#{userType} 
+        <if test="categoryNo != 0">
+            and category=#{categoryNo}
         </if>
         
+        <if test="words != null">
+            <foreach collection="words" item="word">
+                and title like '%${word}%'
+             </foreach>
+        </if>
         <!-- 정렬 조건에 따라 SQL문을 변경한다.-->
         order by 
         <choose>

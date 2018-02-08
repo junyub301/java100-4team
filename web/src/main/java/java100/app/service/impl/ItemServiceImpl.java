@@ -33,12 +33,12 @@ public class ItemServiceImpl implements ItemService {
     }
  
     @Override
-    public List<Item> list(int pageNo, int pageSize, Map<String, Object> options, int userType) {
+    public List<Item> list(int pageNo, int pageSize, Map<String, Object> options, int userType, int categoryNo) {
         HashMap<String,Object> params = new HashMap<>();
         params.put("startIndex", (pageNo - 1) * pageSize);
         params.put("size", pageSize);
         params.put("userType", userType);
-        
+        params.put("categoryNo", categoryNo);
         if (options != null) {
             params.putAll(options);
         }
