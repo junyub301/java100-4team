@@ -66,60 +66,60 @@
         <div class="row">
           <div class="col-md-6 col-lg-4 col-xs-12" >
             <figure class="snip1384">
-            <img class="img-fluid" src="../../img/portfolio/1.jpg" alt="" />
+            <img style="height: 225px; width: 100%; display: block;" class="img-fluid" src="../../img/portfolio/1.jpg" alt="" />
                 <figcaption>
-                    <h3>Fleece Marigold</h3>
-                    <p>Which is worse, that everyone has his price, or that the price is always so low.</p><i class="ion-ios-arrow-right"></i>
+                    <h3>CATEGORY</h3>
+                    <p>category</p><i class="ion-ios-arrow-right"></i>
                 </figcaption>
                 <a href="../item/list?cr=1"></a>
             </figure>
           </div>
           <div class="col-md-6 col-lg-4 col-xs-12">
             <figure class="snip1384">
-            <img class="img-fluid" src="../../img/portfolio/2.jpg" alt="" />
+            <img style="height: 225px; width: 100%; display: block;" class="img-fluid" src="../../img/portfolio/2.jpg" alt="" />
                 <figcaption>
-                    <h3>Fleece Marigold</h3>
-                    <p>Which is worse, that everyone has his price, or that the price is always so low.</p><i class="ion-ios-arrow-right"></i>
+                    <h3>CATEGORY</h3>
+                    <p>category</p><i class="ion-ios-arrow-right"></i>
                 </figcaption>
                 <a href="../item/list?cr=2"></a>
             </figure>
           </div>
           <div class="col-md-6 col-lg-4 col-xs-12">
             <figure class="snip1384">
-             <img class="img-fluid" src="../../img/portfolio/3.jpg" alt="" />
+             <img style="height: 225px; width: 100%; display: block;" class="img-fluid" src="../../img/portfolio/3.jpg" alt="" />
                 <figcaption>
-                    <h3>Fleece Marigold</h3>
-                    <p>Which is worse, that everyone has his price, or that the price is always so low.</p><i class="ion-ios-arrow-right"></i>
+                    <h3>CATEGORY</h3>
+                    <p>category</p><i class="ion-ios-arrow-right"></i>
                 </figcaption>
                 <a href="../item/list?cr=3"></a>
             </figure>
           </div>
           <div class="col-md-6 col-lg-4 col-xs-12">
           <figure class="snip1384">
-           <img class="img-fluid" src="../../img/portfolio/4.jpg" alt="" />
+           <img style="height: 225px; width: 100%; display: block;" class="img-fluid" src="../../img/portfolio/4.jpg" alt="" />
                 <figcaption>
-                    <h3>Fleece Marigold</h3>
-                    <p>Which is worse, that everyone has his price, or that the price is always so low.</p><i class="ion-ios-arrow-right"></i>
+                    <h3>CATEGORY</h3>
+                    <p>category</p><i class="ion-ios-arrow-right"></i>
                 </figcaption>
                 <a href="../item/list?cr=4"></a>
             </figure>
           </div>
           <div class="col-md-6 col-lg-4 col-xs-12" >
             <figure class="snip1384">
-                <img class="img-fluid" src="../../img/portfolio/5.jpg" alt="" />
+                <img style="height: 225px; width: 100%; display: block;" class="img-fluid" src="../../img/portfolio/5.jpg" alt="" />
                 <figcaption>
-                    <h3>Fleece Marigold</h3>
-                    <p>Which is worse, that everyone has his price, or that the price is always so low.</p><i class="ion-ios-arrow-right"></i>
+                    <h3>CATEGORY</h3>
+                    <p>category</p><i class="ion-ios-arrow-right"></i>
                 </figcaption>
                 <a href="../item/list?cr=5"></a>
             </figure>
           </div>
           <div class="col-md-6 col-lg-4 col-xs-12">
             <figure class="snip1384">
-                <img class="img-fluid" src="../../img/portfolio/6.png" alt="" />
+                <img style="height: 225px; width: 100%; display: block;" class="img-fluid" src="../../img/portfolio/6.png" alt="" />
                 <figcaption>
                     <h3>Add Item</h3>
-                    <p>Which is worse, that everyone has his price, or that the price is always so low.</p><i class="ion-ios-arrow-right"></i>
+                    <p>category</p><i class="ion-ios-arrow-right"></i>
                 </figcaption>
                 <a href="../item/rent"></a>
             </figure>
