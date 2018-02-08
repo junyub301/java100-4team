@@ -88,50 +88,11 @@ public class ItemController {
         HashMap<String,Object> result = new HashMap<>();
         result.put("pageNo", pageNo);
         result.put("lastPageNo", lastPageNo);
-        result.put("list", itemService.rentlist(pageNo, pageSize, options));
+        result.put("list", itemService.list(pageNo, pageSize, options));
         
         return result;
     }
     
-    @RequestMapping("lendlist")
-    public Object lendlist(
-            @RequestParam(value="pn", defaultValue="1") int pageNo,
-            @RequestParam(value="ps", defaultValue="6") int pageSize,
-            @RequestParam(value="words", required=false) String[] words,
-            @RequestParam(value="oc", required=false) String orderColumn,
-            @RequestParam(value="al", required=false) String alignColumn) throws Exception {
-        
-        if (pageNo < 1) {
-            pageNo = 1;
-        }
-        if (pageSize < 6 || pageSize > 15) {
-            pageSize = 6;
-        } 
-        
-        HashMap<String,Object> options = new HashMap<>();
-        options.put("words", words);
-        options.put("orderColumn", orderColumn);
-        options.put("alignColumn", alignColumn);
-
-        if (words != null && words[0].length() > 0) {
-            options.put("words", words);
-        }
-        
-        
-        int totalCount = itemService.getTotalCount();
-        int lastPageNo = totalCount / pageSize;
-        if ((totalCount % pageSize) > 0) {
-            lastPageNo++;
-        }
-        
-        
-        HashMap<String,Object> result = new HashMap<>();
-        result.put("pageNo", pageNo);
-        result.put("lastPageNo", lastPageNo);
-        result.put("list", itemService.lendlist(pageNo, pageSize, options));
-        
-        return result;
-    }
     
     @RequestMapping("{no}")
     public String view(@PathVariable int no, Model model) throws Exception {

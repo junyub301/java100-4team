@@ -48,7 +48,7 @@
         values(#{userNo},#{category},#{userType},#{title},#{name},#{content},#{startDate},
                 #{endDate},#{price},#{pricePerDay},#{status})
     </insert>
-    <select id="findrentAll" resultMap="itemMap" parameterType="map">
+    <select id="findAll" resultMap="itemMap" parameterType="map">
         select 
             i.it_no, i.ur_no, i.category, i.user_type, i.item_name, 
             i.title, i.cnt, i.start, i.end,
@@ -94,53 +94,7 @@
         <!-- 페이지징 처리 -->
         limit #{startIndex}, #{size}
     </select>
-    
-    <select id="findlendAll" resultMap="itemMap" parameterType="map">
-        select 
-            i.it_no, i.ur_no, i.category, i.user_type, i.item_name, 
-            i.title, i.cnt, i.start, i.end,
-            i.price, i.price_day, i.status,
-            u.ur_no,
-            p.pho_no as pho_no,
-            p.it_no as it_no,
-            p.ur_no as ur_no,
-            p.pho_name as pho_name
-            from item as i
-            join user as u on i.ur_no=u.ur_no
-            left join itemphoto as p on i.it_no=p.it_no
-            where user_type = 1
-            
-        <if test="words != null">
-            <where>
-                <foreach collection="words" item="word">
-                    or i.title like '%${word}%'
-                </foreach>
-            </where>
-        </if>
-        
-        <!-- 정렬 조건에 따라 SQL문을 변경한다.-->
-        order by 
-        <choose>
-            <when test="orderColumn == 'title' and align == 'desc'">
-                i.title desc
-            </when>
-            <when test="orderColumn == 'title' and align == 'asc'">
-                i.title asc
-            </when>
-            <when test="orderColumn == 'it_no' and align == 'desc'">
-                i.it_no desc
-            </when>
-            <when test="orderColumn == 'it_no' and align == 'asc'">
-                i.it_no asc
-            </when>
-            <otherwise>
-                i.it_no desc
-            </otherwise>
-        </choose>
-        
-        <!-- 페이지징 처리 -->
-        limit #{startIndex}, #{size}
-    </select>
+ 
     
     <select id="findByNo" resultMap="itemMap" parameterType="int">
         select
