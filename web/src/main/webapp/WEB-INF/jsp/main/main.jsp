@@ -37,11 +37,10 @@
     <!-- search bar -->    
  <nav class="c_opacity navbar navbar-dark">
  <div class="col-sm-2"></div>
-  <form class="mx-auto form-inline col-sm-6">
-    <input class="form-control mr-sm-2 col-sm-6" type="search" placeholder="Search" aria-label="Search">
+  <form action=../item/list class="mx-auto form-inline col-sm-6">
+    <input class="form-control mr-sm-2 col-sm-6" type="search" name='words' placeholder="Search" aria-label="Search">
    
-    <button onclick="location.href='../item/list'" 
-    class="btn btn-outline-secondary my-2 my-sm-0" type="button">Search</button>
+    <button class="btn btn-outline-secondary my-2 my-sm-0">Search</button>
   </form>
 </nav>
       <style>
@@ -72,7 +71,7 @@
                     <h3>Fleece Marigold</h3>
                     <p>Which is worse, that everyone has his price, or that the price is always so low.</p><i class="ion-ios-arrow-right"></i>
                 </figcaption>
-                <a href="../user/list"></a>
+                <a href="../item/list?cr=1"></a>
             </figure>
           </div>
           <div class="col-md-6 col-lg-4 col-xs-12">
@@ -82,7 +81,7 @@
                     <h3>Fleece Marigold</h3>
                     <p>Which is worse, that everyone has his price, or that the price is always so low.</p><i class="ion-ios-arrow-right"></i>
                 </figcaption>
-                <a href="../user/list"></a>
+                <a href="../item/list?cr=2"></a>
             </figure>
           </div>
           <div class="col-md-6 col-lg-4 col-xs-12">
@@ -92,7 +91,7 @@
                     <h3>Fleece Marigold</h3>
                     <p>Which is worse, that everyone has his price, or that the price is always so low.</p><i class="ion-ios-arrow-right"></i>
                 </figcaption>
-                <a href="../user/list"></a>
+                <a href="../item/list?cr=3"></a>
             </figure>
           </div>
           <div class="col-md-6 col-lg-4 col-xs-12">
@@ -102,7 +101,7 @@
                     <h3>Fleece Marigold</h3>
                     <p>Which is worse, that everyone has his price, or that the price is always so low.</p><i class="ion-ios-arrow-right"></i>
                 </figcaption>
-                <a href="../user/list"></a>
+                <a href="../item/list?cr=4"></a>
             </figure>
           </div>
           <div class="col-md-6 col-lg-4 col-xs-12" >
@@ -112,7 +111,7 @@
                     <h3>Fleece Marigold</h3>
                     <p>Which is worse, that everyone has his price, or that the price is always so low.</p><i class="ion-ios-arrow-right"></i>
                 </figcaption>
-                <a href="../user/list"></a>
+                <a href="../item/list?cr=5"></a>
             </figure>
           </div>
           <div class="col-md-6 col-lg-4 col-xs-12">
