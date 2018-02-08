@@ -43,18 +43,6 @@ public class ItemServiceImpl implements ItemService {
         }
         return itemDao.findAll(params);
     }
-    
-    @Override
-    public List<Item> lendlist(int pageNo, int pageSize, Map<String, Object> options) {
-        HashMap<String,Object> params = new HashMap<>();
-        params.put("startIndex", (pageNo - 1) * pageSize);
-        params.put("size", pageSize);
-        
-        if (options != null) {
-            params.putAll(options);
-        }
-        return itemDao.findlendAll(params);
-    }
 
     @Override
     public Item getItem(int no) {

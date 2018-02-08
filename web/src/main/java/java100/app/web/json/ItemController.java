@@ -53,10 +53,8 @@ public class ItemController {
         return it_no;
 }
     
-    
-    
     @RequestMapping("list")
-    public Object rentlist(
+    public Object list(
             @RequestParam(value="pn", defaultValue="1") int pageNo,
             @RequestParam(value="ps", defaultValue="6") int pageSize,
             @RequestParam(value="words", required=false) String[] words,
@@ -71,11 +69,14 @@ public class ItemController {
         } 
         
         HashMap<String,Object> options = new HashMap<>();
+        options.put("words", words);
+        options.put("orderColumn", orderColumn);
+        options.put("alignColumn", alignColumn);
+
         if (words != null && words[0].length() > 0) {
             options.put("words", words);
         }
-        options.put("orderColumn", orderColumn);
-        options.put("align", alignColumn);
+        
         
         int totalCount = itemService.getTotalCount();
         int lastPageNo = totalCount / pageSize;
@@ -91,19 +92,16 @@ public class ItemController {
         
         return result;
     }
+    
+    
     @RequestMapping("{no}")
     public String view(@PathVariable int no, Model model) throws Exception {
-
 
         model.addAttribute("item", itemService.getItem(no));
         model.addAttribute("user", userService.getUser(no));
 
         return "item/view";
     }
-    
-    
-    
-    
     
     long prevMillis = 0;
     int count = 0;
