@@ -30,19 +30,19 @@ public class LoginController {
     public Object login(
             String accountName, 
             String password,
-            String saveaccountName,
+            boolean saveaccountName,
             HttpServletResponse response,
             HttpSession session,
             Model model) {
         
-        Account account= accountService.get(accountName, password);
+        Account account = accountService.get(accountName, password);
         
-        if (saveaccountName != null) {
+        if (saveaccountName) {
             Cookie cookie = new Cookie("accountName", accountName);
             cookie.setMaxAge(60 * 60 * 24 * 30);
             response.addCookie(cookie);
         } else {
-            Cookie cookie = new Cookie("email", "");
+            Cookie cookie = new Cookie("accountName", "");
             cookie.setMaxAge(0);
             response.addCookie(cookie);
         }
@@ -73,7 +73,7 @@ public class LoginController {
     @RequestMapping("loginUser")
     public Object userName(HttpSession session) {
         
-        Account account = ((Account)session.getAttribute("loginUser"));
+        Account account = (Account)session.getAttribute("loginUser");
         
         HashMap<String,Object> result = new HashMap<>();
         

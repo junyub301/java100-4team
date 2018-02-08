@@ -3,12 +3,17 @@
 <head>
 <title>물품 등록</title>
 <meta charset='UTF-8'>
-
+<link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../css/freelancer.min.css" rel="stylesheet">
+    <link href="../../css/test.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/earlyaccess/nanumgothic.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
 <style type="text/css">
 
 </style>
 
-<link href="/css/fileupload.css" rel="stylesheet" type="text/css">
+<link href="../../css/fileupload.css" rel="stylesheet" type="text/css">
 
 </head>
 <body>
@@ -124,9 +129,9 @@
 
 </div>
 </div>
-<script src='/node_modules/jquery/dist/jquery.min.js'></script>
-<script src='/node_modules/popper.js/dist/umd/popper.min.js'></script>
-<script src='/node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
+<script src='../../node_modules/jquery/dist/jquery.min.js'></script>
+<script src='../../node_modules/popper.js/dist/umd/popper.min.js'></script>
+<script src='../../node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
 <script src='/js/fileupload.js'></script>
 
 <script type="text/javascript">
@@ -142,12 +147,12 @@ var addBtn = $('#addBtn'),
     price = $('#price'),
     pricePerDay = $('#pricePerDay');
     
-$('header').load('../header.jsp');
+$('header').load('../header.html');
     
-    
+/*     
 $.ajax({
     type: 'POST',
-    url: '/json/auth/userName',
+    url: '../../json/auth/loginUser',
     success: (data) => {
         $('#userName').html(data);
         },
@@ -155,7 +160,7 @@ $.ajax({
         alert('회원정보 로드 실패!');
     }
 });    //end ajax    
-
+ */
 //빌려드립니다 클릭이벤트
 $('#rentView').click(() => {
     $('.my-view').css('display',"");
