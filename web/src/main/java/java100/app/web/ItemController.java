@@ -63,6 +63,7 @@ public class ItemController {
     }
     @RequestMapping("list")
     public String rentlist(
+            @RequestParam(value="cr", defaultValue="0") int categoryNo,
             @RequestParam(value="pn", defaultValue="1") int pageNo,
             @RequestParam(value="ps", defaultValue="6") int pageSize,
             @RequestParam(value="words", required=false) String[] words,
@@ -94,7 +95,7 @@ public class ItemController {
         // view 컴포넌트가 사용할 값을 Model에 담는다.
         model.addAttribute("pageNo", pageNo);
         model.addAttribute("lastPageNo", lastPageNo);
-        model.addAttribute("list", itemService.list(pageNo, pageSize, options, userType));
+        model.addAttribute("list", itemService.list(pageNo, pageSize, options, userType, categoryNo));
         
         return "item/list";
         
@@ -102,6 +103,7 @@ public class ItemController {
     
     @RequestMapping("lendlist")
     public String lendlist(
+            @RequestParam(value="cr", defaultValue="0") int categoryNo,
             @RequestParam(value="pn", defaultValue="1") int pageNo,
             @RequestParam(value="ps", defaultValue="6") int pageSize,
             @RequestParam(value="words", required=false) String[] words,
@@ -133,7 +135,7 @@ public class ItemController {
         // view 컴포넌트가 사용할 값을 Model에 담는다.
         model.addAttribute("pageNo", pageNo);
         model.addAttribute("lastPageNo", lastPageNo);
-        model.addAttribute("list", itemService.list(pageNo, pageSize, options, userType));
+        model.addAttribute("list", itemService.list(pageNo, pageSize, options, userType, categoryNo));
         
         return "item/lendlist";
         
