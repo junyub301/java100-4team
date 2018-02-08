@@ -4,9 +4,9 @@
     trimDirectiveWhitespaces="true"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
     
-    <link href="/web/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/web/css/freelancer.min.css" rel="stylesheet">
-    <link href="/web/css/test.css" rel="stylesheet" type="text/css">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/freelancer.min.css" rel="stylesheet">
+    <link href="/css/test.css" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/earlyaccess/nanumgothic.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">

@@ -17,9 +17,10 @@
 $.getJSON('../../json/auth/loginUser', function(result) {
     if (result.status == 'fail') {
         location.href = '../auth/loginform.html';
+        $('#logoutBtn').html("Login") 
         return;
     }
-     
+    $('#logoutBtn').html("Logout") 
     $('#username').html(result.account.name);
 }); 
 
