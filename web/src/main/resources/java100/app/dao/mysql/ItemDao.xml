@@ -39,10 +39,10 @@
     </resultMap>
     
     <select id="countAll" resultType="int">
-        select count(*) from item;
+        select count(*) from item where user_type=#{userType}
     </select>
     
-    <insert id="insert" parameterType="item" 
+    <insert id="insert" parameterType="item"
         useGeneratedKeys="true" keyColumn="it_no" keyProperty="itemNo">
         insert into item(ur_no,category,user_type,title,item_name,cnt,start,end,price,price_day,status) 
         values(#{userNo},#{category},#{userType},#{title},#{name},#{content},#{startDate},
@@ -61,12 +61,12 @@
             from item as i
             join user as u on i.ur_no=u.ur_no
             left join itemphoto as p on i.it_no=p.it_no
-            where user_type = 0
+            where user_type=#{userType}
             
         <if test="words != null">
             <where>
                 <foreach collection="words" item="word">
-                    or i.title like '%${word}%'
+                    or i.title like '%{word}%'
                 </foreach>
             </where>
         </if>

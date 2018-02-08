@@ -14,7 +14,6 @@
 </head>
 <body>
 <jsp:include page="../header.jsp"/>
-
 		<div class='container'>
 		<div class='row justify-content-md-center'>
 			<button class="col-sm-5 btn btn-primary"
