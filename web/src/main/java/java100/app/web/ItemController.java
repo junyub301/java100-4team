@@ -66,7 +66,7 @@ public class ItemController {
             @RequestParam(value="cr", defaultValue="0") int categoryNo,
             @RequestParam(value="pn", defaultValue="1") int pageNo,
             @RequestParam(value="ps", defaultValue="6") int pageSize,
-            @RequestParam(value="words", required=false) String[] words,
+            @RequestParam(value="words", required=false) String word,
             @RequestParam(value="oc", required=false) String orderColumn,
             @RequestParam(value="al", required=false) String align,
             Model model) throws Exception {
@@ -80,7 +80,8 @@ public class ItemController {
         
         int userType = 0;
         HashMap<String,Object> options = new HashMap<>();
-        if (words != null && words[0].length() > 0) {
+        if (word != null && word.length() > 0) {
+            String[] words = word.split(" ");
             options.put("words", words);
         }
         options.put("orderColumn", orderColumn);
@@ -192,6 +193,7 @@ public class ItemController {
                 e.printStackTrace();
             } 
         }
+        System.out.println("섬네일생성");
         return "s_"+filename;
     }
 }

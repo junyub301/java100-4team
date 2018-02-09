@@ -30,7 +30,7 @@
     <!-- Header -->
     <div>
         <img class="" src="../../img/portfolio/isCAhgO.jpg" 
-        style="width:100%; height:550px; margin-bottom:-0.7rem;
+        style="width:100%; height:300px; margin-bottom:-0.7rem;
         position: relative; z-index: auto;">
     </div>
     
@@ -39,34 +39,41 @@
  <div class="col-sm-2"></div>
   <form action=../item/list class="mx-auto form-inline col-sm-6">
     <input class="form-control mr-sm-2 col-sm-6" type="search" name='words' placeholder="Search" aria-label="Search">
-   
-    <button class="btn btn-outline-secondary my-2 my-sm-0">Search</button>
+    <button class="btn btn-outline-secondary my-2 my-sm-0 col-sm-2">Search</button>
   </form>
 </nav>
       <style>
       .c_opacity {
         margin-top: -44px;
-        background: #000000; 
-        background: rgba(0, 0, 0, 0.3);
+       /*  background: #000000; 
+        background: rgba(0, 0, 0, 0.3); */
 
       }
       .s_opacity {
         margin-top: -44px;
         opacity: 0.8;
       }
+      
+      ul{
+        list-style:none;
+        padding-left:0px;
+        }
+        .img-fluid{
+        height: 225px; width: 100%; display: block;
+        }
     </style>
     
     
 
-    <!-- Portfolio Grid Section -->
-    <section class="" id="portfolio">
+    <!-- Grid Section -->
       <div class="container">
-        <!-- <h2 class="text-center text-uppercase text-secondary mb-0">정혁♥연서</h2> -->
-        <!-- <hr class="star-dark mb-5"> -->
+     
+    <div class="py-4">
+        
         <div class="row">
           <div class="col-md-6 col-lg-4 col-xs-12" >
             <figure class="snip1384">
-            <img style="height: 225px; width: 100%; display: block;" class="img-fluid" src="../../img/portfolio/1.jpg" alt="" />
+            <img class="img-fluid" src="../../img/portfolio/1.jpg" alt="" />
                 <figcaption>
                     <h3>CATEGORY</h3>
                     <p>category</p><i class="ion-ios-arrow-right"></i>
@@ -76,7 +83,7 @@
           </div>
           <div class="col-md-6 col-lg-4 col-xs-12">
             <figure class="snip1384">
-            <img style="height: 225px; width: 100%; display: block;" class="img-fluid" src="../../img/portfolio/2.jpg" alt="" />
+            <img class="img-fluid" src="../../img/portfolio/2.jpg" alt="" />
                 <figcaption>
                     <h3>CATEGORY</h3>
                     <p>category</p><i class="ion-ios-arrow-right"></i>
@@ -84,9 +91,9 @@
                 <a href="../item/list?cr=2"></a>
             </figure>
           </div>
-          <div class="col-md-6 col-lg-4 col-xs-12">
+          <div class="col-md-6 col-lg-4 col-xs-12"> 
             <figure class="snip1384">
-             <img style="height: 225px; width: 100%; display: block;" class="img-fluid" src="../../img/portfolio/3.jpg" alt="" />
+             <img class="img-fluid" src="../../img/portfolio/3.jpg" alt="" />
                 <figcaption>
                     <h3>CATEGORY</h3>
                     <p>category</p><i class="ion-ios-arrow-right"></i>
@@ -96,7 +103,7 @@
           </div>
           <div class="col-md-6 col-lg-4 col-xs-12">
           <figure class="snip1384">
-           <img style="height: 225px; width: 100%; display: block;" class="img-fluid" src="../../img/portfolio/4.jpg" alt="" />
+           <img class="img-fluid" src="../../img/portfolio/4.jpg" alt="" />
                 <figcaption>
                     <h3>CATEGORY</h3>
                     <p>category</p><i class="ion-ios-arrow-right"></i>
@@ -106,7 +113,7 @@
           </div>
           <div class="col-md-6 col-lg-4 col-xs-12" >
             <figure class="snip1384">
-                <img style="height: 225px; width: 100%; display: block;" class="img-fluid" src="../../img/portfolio/5.jpg" alt="" />
+                <img class="img-fluid" src="../../img/portfolio/5.jpg" alt="" />
                 <figcaption>
                     <h3>CATEGORY</h3>
                     <p>category</p><i class="ion-ios-arrow-right"></i>
@@ -116,7 +123,7 @@
           </div>
           <div class="col-md-6 col-lg-4 col-xs-12">
             <figure class="snip1384">
-                <img style="height: 225px; width: 100%; display: block;" class="img-fluid" src="../../img/portfolio/6.png" alt="" />
+                <img class="img-fluid" src="../../img/portfolio/6.png" alt="" />
                 <figcaption>
                     <h3>Add Item</h3>
                     <p>category</p><i class="ion-ios-arrow-right"></i>
@@ -125,20 +132,15 @@
             </figure>
           </div>
         </div>
-      </div>
-    </section>
+        <div class="row">
+        
+        </div> 
+	</div>
+  </div>
 
     <jsp:include page="../footer.jsp"/>
        
     <jsp:include page="../jslib.jsp"/>
-<!-- <script type="text/javascript">
 
-    $('#rent').click(function(){
-        $('#conts').css('display', 'none');
-        });
-
-</script> -->
-    
-    
   </body>
 </html>
