@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,7 +40,8 @@
                             alt="Thumbnail [300x200]"
                             style="height: 225px; width: 100%; display: block;"
                             <c:forEach items="${item.photos}" var="photo">
-                                src="${contextPath}/download/${photo.photoName}"
+                             <c:set var ="string2" value = "${fn:split(photo.photoName, ',')}"/>
+                                src="${contextPath}/download/${string2[0]}"
                             </c:forEach>
                             data-holder-rendered="true">
                 
@@ -86,6 +88,8 @@
         cursor: pointer;
       }
     </style>
+
+
       
 </body>
 </html>

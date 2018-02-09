@@ -68,6 +68,7 @@
 <label class="col-sm-2 col-form-label" for="photo">사진첨부</label>
 <div class="col-sm-10">
 <input id='photo' type="file" name='photo'>
+
 </div>
 </div>
 <div class="form-group row">
