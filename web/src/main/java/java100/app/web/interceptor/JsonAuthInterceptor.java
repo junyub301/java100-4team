@@ -1,15 +1,10 @@
 package java100.app.web.interceptor;
 
-import java.io.PrintWriter;
-import java.util.HashMap;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.web.servlet.HandlerInterceptor;
-
-import com.google.gson.Gson;
 
 public class JsonAuthInterceptor implements HandlerInterceptor {
     @Override
@@ -23,20 +18,36 @@ public class JsonAuthInterceptor implements HandlerInterceptor {
         HttpSession session = request.getSession();
         
         // 로그인 정보가 없으면 로그인 폼으로 보낸다.
-        if (session.getAttribute("loginUser") == null) {
-            
-            HashMap<String,Object> result = new HashMap<>();
-            result.put("status", "fail");
-            result.put("message", "사용 권한이 없습니다.");
-            
-            response.setContentType("application/json;charset=UTF-8");
-            PrintWriter out = response.getWriter();
-            out.print(new Gson().toJson(result));
-            return false;
-            // 로그인 된 상태가 아니라면 다음 인터셉터의 실행을 모두 멈추고,
-            // 즉시 로그인 폼으로 간다.
+            String path = request.getContextPath();
+            boolean result = false;
+            try {
+                if(session.getAttribute("loginUser") == null){
+                    if(isAjaxRequest(request)){
+                        response.sendError(401);
+                        return false;
+                    }else{
+                        response.sendRedirect(path + "/app/auth/login");  
+                        result =  false;
+                    }
+                }else{
+                    result =  true;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false;
+            }
+            return result;
         }
-        
-        return true;
-    }
+         
+        private boolean isAjaxRequest(HttpServletRequest req) {
+            String header = req.getHeader("AJAX");
+            if ("true".equals(header)){
+             return true;
+            }else{
+             return false;
+            }
+        }
+
+
+
 }

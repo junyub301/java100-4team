@@ -55,6 +55,7 @@ public class ItemController {
     
     @RequestMapping("list")
     public Object list(
+            @RequestParam(value="cr", defaultValue="0") int categoryNo,
             @RequestParam(value="pn", defaultValue="1") int pageNo,
             @RequestParam(value="ps", defaultValue="6") int pageSize,
             @RequestParam(value="words", required=false) String[] words,
@@ -68,6 +69,7 @@ public class ItemController {
             pageSize = 6;
         } 
         
+        int userType = 0;
         HashMap<String,Object> options = new HashMap<>();
         options.put("words", words);
         options.put("orderColumn", orderColumn);
@@ -77,18 +79,16 @@ public class ItemController {
             options.put("words", words);
         }
         
-        int userType = 0;
         int totalCount = itemService.getTotalCount(userType);
         int lastPageNo = totalCount / pageSize;
         if ((totalCount % pageSize) > 0) {
             lastPageNo++;
         }
         
-        
         HashMap<String,Object> result = new HashMap<>();
         result.put("pageNo", pageNo);
         result.put("lastPageNo", lastPageNo);
-        result.put("list", itemService.list(pageNo, pageSize, options, userType));
+        result.put("list", itemService.list(pageNo, pageSize, options, userType, categoryNo));
         
         return result;
     }

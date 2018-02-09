@@ -1,14 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
+<style>
+  .m_pointer{
+        cursor: pointer;
+      }
+    </style>
 <meta charset="UTF-8">
 <style type="text/css">
 </style>
 <title>리스트</title>
 </head>
 <body>
-<header>  
-    </header>
+
+<header></header>
 
         <div class='container'>
         <div class='row justify-content-md-center'>
@@ -22,10 +27,9 @@
     
 <div class="album py-5">
     <div class='container'>
-        <div class='row'>
+        <div id="list" class='row'>
         
-        <div id="list">
-        
+        <div></div>
         
         </div>
         
@@ -52,13 +56,13 @@
 <script src='../../js/fileupload.js'></script>
 <script type="text/javascript">
 
-var tbody = $('#list > tbody'), 
+var tbody = $('#list > div'), 
 prevBtn = $("#prevBtn"),
 currBtn = $("#currBtn"),
 nextBtn = $("#nextBtn"),
 currPageNo = 1;
 
-$('header').load('../header.jsp');
+$('header').load('../header.html');
 
 load(1);
 
@@ -80,27 +84,32 @@ function load(pageNo, options) {
         data: options,
         dataType: 'json',
         success: (result) => {
-            
-            tbody.html(""); // <tbody> 콘텐츠를 지운다
+        tbody.html(""); // <tbody> 콘텐츠를 지운다
             
             for (var data of result.list) {
-                var date = Date(data.startDate);
-                
-                $('#list')
+                console.log(data)
+                var date = new Date(data.startDate);
+                for (var photo of data.photos){
+                    var filename = photo.photoName;
+                $('<div class="col-md-4 col-sm-6 col-xs-12 m_pointer" onclick="location.href=' + data.itemNo +'">')
                 .html(
-                    '<div class="card-body">' +
-                    '<h3 class="mb-0">' +    
-                    '<p class="card-text text-truncate">' + data.name + '</p></h3>' +
-                    '<p class="card-text mb-1 text-muted">'+ date.toLocaleDateString + '-' + data.endDate +'</p>' +
-                    '<p class="card-text text-truncate">' + data.content + '</p>' +
-                    '<p>' + data.name+ '</p><div>');
-                
+                        '<div class="card mb-4 box-shadow">' +
+                         '<img class="card-img-top"' + 
+                                      'data-src="holder.js/300x200?theme=thumb"' +
+                                      'alt="Thumbnail [300x200]"' +
+                                      'style="height: 225px; width: 100%; display: block;"' +
+                                      'src="/download/' + filename + '"' +
+                                      'data-holder-rendered="true">' +
+                          '<div class="card-body"> ' +
+                          '<h3 class="mb-0">'+
+                            '<p class="card-text text-truncate">' + data.title + '</p></h3>' +
+                            '<p class="card-text mb-1 text-muted" type="date">'+ date+'-' + data.endDate +'</p>' +
+                            '<p class="card-text text-truncate">'+ data.name + '</p>' +
+                            '<p class="card-text text-truncate">'+ data.content + '</p>' +
+                            '<div class="d-flex justify-content-between align-items-center">' + 
+                            '</div></div></div>').appendTo($('#list'));
+                        }
             }
-            
-            /* $("<div>hello stackoverflow users</div>").appendTo("#targetDIV"); //appendTo: Append at inside bottom
-            $("<div>Hello, Stack Overflow users</div>").prependTo("#targetDIV"); //prependTo: Append at inside top
-            $("#targetDIV").html("<div>Hello, Stack Overflow users</div>"); //.html(): Clean HTML inside and append
-            $("#targetDIV").append("<div>Hello, Stack Overflow users</div>"); //Same as appendTo */
             
             currPageNo = result.pageNo;
             currBtn.html(currPageNo);
@@ -115,7 +124,7 @@ function load(pageNo, options) {
                 $(nextBtn.parent()).addClass("disabled");
             } else{
                 $(nextBtn.parent()).removeClass("disabled");
-            }
+            } 
         },
         
         error: () => {

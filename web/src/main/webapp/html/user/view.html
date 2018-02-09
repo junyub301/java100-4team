@@ -225,6 +225,7 @@ if (index != -1) { // 기존 데이터를 조회할 경우
         $.ajax('../../json/user/' + arr[1], {
             dataType: 'json',
             success: (result) => {
+                console.log(result)
                 id.val(result.account.accountName);
                 pwd.val(result.account.password)
                 nameItem.val(result.account.name);

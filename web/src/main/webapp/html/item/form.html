@@ -132,7 +132,10 @@
 <script src='../../node_modules/jquery/dist/jquery.min.js'></script>
 <script src='../../node_modules/popper.js/dist/umd/popper.min.js'></script>
 <script src='../../node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
+<<<<<<< HEAD
 <script src='/js/fileupload.js'></script>
+=======
+>>>>>>> branch 'master' of https://github.com/junyub301/java100-4team.git
 <script src='../../js/fileupload.js'></script>
 
 <script type="text/javascript">
@@ -150,8 +153,7 @@ var addBtn = $('#addBtn'),
     
 $('header').load('../header.html');
     
-/*     
-$.ajax({
+/*   $.ajax({
     type: 'POST',
     url: '../../json/auth/loginUser',
     success: (data) => {
@@ -161,6 +163,7 @@ $.ajax({
         alert('회원정보 로드 실패!');
     }
 });    //end ajax    
+  
  */
 //빌려드립니다 클릭이벤트
 $('#rentView').click(() => {
@@ -198,7 +201,7 @@ addBtn.click(() => {
         processData: false,
         contentType: false,
         success: () => {
-            location.href='/json/item/list.html';
+            location.href='list.html';
             },
         error: (request,status,error) => {
             alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
