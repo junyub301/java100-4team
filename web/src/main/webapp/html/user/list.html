@@ -19,29 +19,33 @@
 </tbody>
 </table>
 </div>
+<script id="template1" type="text/x-handlebars-template">
+{{#each account}}
+<tr>
+  <td>{{accountsNo}}</td>
+  <td><a href="view.html?no={{accountsNo}}">{{accountName}}</a></td>
+  <td>{{email}}</td>
+  <td>{{aver}}</td>
+</tr>
+{{/each}}
+</script>
 <link href="http://fonts.googleapis.com/earlyaccess/nanumgothic.css" rel="stylesheet" type="text/css">
+<script src='../../node_modules/handlebars/dist/handlebars.min.js'></script>
 <script src='../../node_modules/popper.js/dist/umd/popper.min.js'></script>
 <script src='../../node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
 <script src='../../node_modules/jquery/dist/jquery.min.js'></script>
 
 <script type="text/javascript">
-var tbody = $('#list > tbody'); 
+var tbody = $('#list > tbody'),
+template1Src = $('#template1').html(),
+template1Engine = Handlebars.compile(template1Src);
 load();
 
 function load() { 
     $.ajax('../../json/user/list', {
         dataType: 'json',
         success: (result) => {
-            
-            tbody.html("");
-            for (var data of result.account) {
-                $('<tr>')
-                    .html(
-                    "<td>" + data.accountsNo + "</td>" + 
-                    "<td><a href='view.html?no=" + data.accountsNo + "'>" + data.accountName + "</a></td>" + 
-                    "<td>" + data.email + "</td>")
-                    .appendTo(tbody);
-            }
+            tbody.html(template1Engine(result));
             
         },
         error: () => {

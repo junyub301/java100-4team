@@ -15,6 +15,13 @@
 <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
 <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
 </head>
+<style>
+  img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+</style>
 <body>
   <header>  
        <div class="header1 bg-secondary text-uppercase">
@@ -65,7 +72,8 @@
 <form id="form" method='POST' onsubmit="return" enctype="multipart/form-data"> 
 <div id="nodiv"></div>
 
-<div id="imdiv" style='display:inline-block;width:250px;height:200px;float:left'>
+<div id="imdiv" style='display:inline-block;width:200px;height:200px;float:left; margin-right: 55px;'>
+
 </div> 
 <br>
 <div style='display:inline-block;width:400px;'> 
@@ -87,10 +95,10 @@
 <!--버튼모양수정해야함  -->
 <div class="form-group row">
 <div class='col-sm-10'>
-<span id="fileInputForm" class="btn btn-secondary" style="font-size:0.8em; padding-top:0px;  position:relative; float:left;margin-left:50px;width:100px;height:20px; overflow:hidden; cursor:pointer;">
+<span id="fileInputForm" class="btn btn-primary" style="font-size:1em; cursor:pointer; padding-top:0px;  position:relative; float:left;width:200px;height:30px; overflow:hidden; cursor:pointer;">
 사진변경
 </span>
-<input type="file" class="form-control-file"  id="photo" name="photo" style='position:absolute; margin-left:50px;width:100px;height:20px;opacity: 0;'>
+<input type="file" class="form-control-file"  id="photo" name="photo" style='position:absolute;cursor:pointer; width:200px;height:30px;opacity: 0;'>
 </div>
 </div>
 
@@ -106,7 +114,7 @@
 <div class='form-group row'> 
 <label for='name' class='col-sm-2 col-form-label'>이름</label> 
 <div class='col-sm-10'> 
-<input class='form-control' style='width:510px;' id='name' type='text' name='name'>
+<input class='form-control' style='width:510px;' readonly id='name' type='text' name='name'>
 </div> 
 </div> 
 
@@ -141,11 +149,14 @@
 
 <div class='form-group row'> 
 <label for='sample6_postcode' class='col-sm-2 col-form-label'>우편번호</label> 
-<div class='col-sm-5'> 
-<input class='form-control' style='display:inline-block;width:300px;' id='sample6_postcode' type='text' name='postNo'>
+<div class='col-sm-5' style="margin-right: 20px"> 
+<input class='form-control' style='display:inline-block;width:200px;' id='sample6_postcode' type='text' name='postNo'>
 </div>
-<div style='width:50px;'></div>
-<input type="button" style='display:inline-block;width:185px;' onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+
+
+<div style='width:185px;height:40px;display:inline-block; margin-left: 20px'>
+<input class="btn btn-primary" type="button" style='display:inline-block;width:185px;' onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+</div> 
 </div> 
 
 
@@ -227,7 +238,7 @@ if (index != -1) { // 기존 데이터를 조회할 경우
                 detailAddr.val(result.user.detailAddress);
                 for (var data of result.user.photos){
                     var filename = data.photoName
-                    imd.html( '<img id="imag" width="200px" align="middle" src="/download/' + filename + '">');
+                    imd.html( '<img id="imag"  align="middle" src="/download/' + filename + '">');
                 }
                 nod.html("<input id='no' type='hidden' name='accountsNo' value='" + result.account.accountsNo + "'>")
             },
@@ -317,7 +328,7 @@ updateBtn.click(() => {
             for (var data of result.status) {
                 var filename = data.photoName;
                 console.log(filename)
-                return imd.html( '<img id="imag" width="200px" align="middle" src="/download/' + filename + '">');
+                return imd.html( '<img id="imag"  align="middle" src="/download/' + filename + '">');
                 }
             });
             location.href = "list.html";
