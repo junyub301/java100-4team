@@ -77,8 +77,8 @@ public class ItemController {
             options.put("words", words);
         }
         
-        
-        int totalCount = itemService.getTotalCount();
+        int userType = 0;
+        int totalCount = itemService.getTotalCount(userType);
         int lastPageNo = totalCount / pageSize;
         if ((totalCount % pageSize) > 0) {
             lastPageNo++;
@@ -88,7 +88,7 @@ public class ItemController {
         HashMap<String,Object> result = new HashMap<>();
         result.put("pageNo", pageNo);
         result.put("lastPageNo", lastPageNo);
-        result.put("list", itemService.list(pageNo, pageSize, options));
+        result.put("list", itemService.list(pageNo, pageSize, options, userType));
         
         return result;
     }
