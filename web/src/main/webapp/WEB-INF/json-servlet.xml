@@ -52,19 +52,18 @@
           
         <property name="mapperLocations" value="classpath*:java100/app/dao/mysql/*Dao.xml"/>
         <property name="typeAliasesPackage" value="java100.app.domain"/> 
-    </bean>    
- <!--    
+    </bean>  
+     
     <mvc:interceptors>
        <mvc:interceptor>
            <mvc:mapping path="/**"/>
-           <mvc:exclude-mapping path="/main/main"/>
-           <mvc:exclude-mapping path="/user/**"/>
-           <mvc:exclude-mapping path="/item/**"/> 
+           <mvc:exclude-mapping path="/main/main.html"/>
+           <mvc:exclude-mapping path="/auth/**"/> 
            <bean class="java100.app.web.interceptor.JsonAuthInterceptor"/>
        </mvc:interceptor>   
     </mvc:interceptors> 
--->
-</beans>
+    
+ </beans>
 
 
 

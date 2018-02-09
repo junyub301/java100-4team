@@ -1,4 +1,9 @@
-
+<link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/freelancer.min.css" rel="stylesheet">
+    <link href="/css/test.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/earlyaccess/nanumgothic.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
 <nav class="site-header sticky-top py-1">
       <div class="custom_container d-flex flex-column flex-md-row justify-content-between">
     
@@ -8,7 +13,7 @@
         <a onclick="location.href='../main/main.html'" class="py-2 d-none d-md-inline-block" href="#">SharerSharee</a>
         <div class="col-sm-10"></div>
         <a id="username" class="py-2 d-none d-md-inline-block"></a>
-        <a id="logoutBtn" href="" class='py-2 d-none d-md-inline-block'>Logout</a>
+        <a id="logoutBtn" href="" class='py-2 d-none d-md-inline-block'></a>
          </div>
 </nav>
 
@@ -16,7 +21,6 @@
 
 $.getJSON('../../json/auth/loginUser', function(result) {
     if (result.status == 'fail') {
-        location.href = '../auth/loginform.html';
         $('#logoutBtn').html("Login") 
         return;
     }
