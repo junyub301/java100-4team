@@ -14,7 +14,7 @@
         <a onclick="location.href='../main/main.html'" class="py-2 d-none d-md-inline-block" href="#">SharerSharee</a>
         <div class="col-sm-10"></div>
         <a id="username" class="py-2 d-none d-md-inline-block"></a>
-        <a id="logoutBtn" href="" class='py-2 d-none d-md-inline-block'>Logout</a>
+        <a id="logoutBtn" href="" class='py-2 d-none d-md-inline-block'></a>
          </div>
 </nav>
 
@@ -23,10 +23,13 @@
 $.ajax('/json/auth/loginUser', {
     beforeSend: function(xmlHttpRequest) {
         xmlHttpRequest.setRequestHeader("AJAX", "true");
+        $('#logoutBtn').html("Login");
+        
     },
     dataType: 'json',
     success: (result) => {
         $('#username').html(result.account.name);
+        $('#logoutBtn').html("Logout");
     },
     error: function(e) {
         if (e.status == 401) {

@@ -56,6 +56,7 @@ public class ItemController {
     @RequestMapping("list")
     public Object list(
             @RequestParam(value="cr", defaultValue="0") int categoryNo,
+            @RequestParam(value="ut", defaultValue="0") int userType,
             @RequestParam(value="pn", defaultValue="1") int pageNo,
             @RequestParam(value="ps", defaultValue="6") int pageSize,
             @RequestParam(value="words", required=false) String[] words,
@@ -69,7 +70,6 @@ public class ItemController {
             pageSize = 6;
         } 
         
-        int userType = 0;
         HashMap<String,Object> options = new HashMap<>();
         options.put("words", words);
         options.put("orderColumn", orderColumn);

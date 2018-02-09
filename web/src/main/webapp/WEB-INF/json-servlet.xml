@@ -57,8 +57,9 @@
     <mvc:interceptors>
        <mvc:interceptor>
            <mvc:mapping path="/**"/>
-           <mvc:exclude-mapping path="/main/main.html"/>
+           <mvc:exclude-mapping path="/main/**"/>
            <mvc:exclude-mapping path="/auth/**"/> 
+           <mvc:exclude-mapping path="/user/**"/> 
            <bean class="java100.app.web.interceptor.JsonAuthInterceptor"/>
        </mvc:interceptor>   
     </mvc:interceptors> 
