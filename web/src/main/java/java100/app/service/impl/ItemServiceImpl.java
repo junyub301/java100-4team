@@ -52,7 +52,7 @@ public class ItemServiceImpl implements ItemService {
     }
     @Override
     public int getTotalCount(int userType) {
-        return  itemDao.countAll();
+        return  itemDao.countAll(userType);
     }
 
     @Override
