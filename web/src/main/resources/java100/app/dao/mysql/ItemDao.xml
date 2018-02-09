@@ -53,11 +53,8 @@
             i.it_no, i.ur_no, i.category, i.user_type, i.item_name, 
             i.title, i.cnt, i.start, i.end,
             i.price, i.price_day, i.status,
-            u.ur_no,
             p.pho_no as pho_no,
-            p.it_no as it_no,
-            p.ur_no as ur_no,
-            p.pho_name as pho_name
+            GROUP_CONCAT(p.pho_name) as pho_name
             from item as i
             join user as u on i.ur_no=u.ur_no
             join itemphoto as p on i.it_no=p.it_no
@@ -71,6 +68,7 @@
                 and title like '%${word}%'
              </foreach>
         </if>
+        group by it_no
         <!-- 정렬 조건에 따라 SQL문을 변경한다.-->
         order by 
         <choose>
