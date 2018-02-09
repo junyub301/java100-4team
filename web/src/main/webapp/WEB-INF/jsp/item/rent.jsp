@@ -86,7 +86,7 @@
 <div class="form-group row">
 <label class="col-sm-2 col-form-label" for="startDate">쉐어가능기간</label>
 <div class="col-sm-10">
-<input style="width:200px; display: inline-block;" readonly id='startDate' type='date' 
+<input style="width:200px; display: inline-block;" id='startDate' type='date' 
         class="form-control" placeholder="시작일" name='startDate'>
  
 <input style="width:200px; display: inline-block" id='endDate' type='date' 
@@ -112,14 +112,28 @@
 <button class="col-sm-3 btn btn-primary">등록</button>
 </div>
 
+<jsp:include page="../jslib.jsp"/>
 <script type="text/javascript">
-document.getElementById('startDate').valueAsDate = new Date();
+<%-- 날짜입력 최소값을 현재 날짜로 설정--%>
+var d = new Date();
+var curDate = leadingZeros(d.getFullYear(), 4) + '-' +
+              leadingZeros(d.getMonth() + 1, 2) + '-' +
+              leadingZeros(d.getDate(), 2);
+function leadingZeros(n, digits) {
+    var zero = '';
+    n = n.toString();
+    if (n.length < digits) {
+        for (i = 0; i < digits - n.length; i++)
+            zero += '0';
+    }
+    return zero + n;
+}
+$("#startDate").attr("min",curDate);
 </script>
 
 </form>
 </div>
 </div>
-<jsp:include page="../jslib.jsp"/>
 <script type="text/javascript">
 
 

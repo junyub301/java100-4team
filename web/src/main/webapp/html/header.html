@@ -14,14 +14,20 @@
 
 <script type="text/javascript">
 
-$.getJSON('../../json/auth/loginUser', function(result) {
-    if (result.status == 'fail') {
-        location.href = '../auth/loginform.html';
-        return;
+$.ajax('/json/auth/loginUser', {
+    beforeSend: function(xmlHttpRequest) {
+        xmlHttpRequest.setRequestHeader("AJAX", "true");
+    },
+    dataType: 'json',
+    success: (result) => {
+        $('#username').html(result.account.name);
+    },
+    error: function(e) {
+        if (e.status == 401) {
+            location.href = '../auth/loginform.html';
+        }
     }
-     
-    $('#username').html(result.account.name);
-}); 
+});     
 
 $('#logoutBtn').click(() => {
     $.getJSON('../../json/auth/logout', (result) => {
