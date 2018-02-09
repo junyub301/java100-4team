@@ -68,9 +68,9 @@
 <label class="col-sm-2 col-form-label" for="photo">사진첨부</label>
 <div class="col-sm-10">
 <input id='photo' type="file" name='photo'>
+</div>
+</div>
 
-</div>
-</div>
 <div class="form-group row">
 <label class="col-sm-2 col-form-label" for="photo">사진첨부</label>
 <div class="col-sm-10">
@@ -130,17 +130,23 @@ function leadingZeros(n, digits) {
     return zero + n;
 }
 $("#startDate").attr("min",curDate);
+
+var uploadFile = $('.fileBox .uploadBtn');
+uploadFile.on('change', function(){
+    if(window.FileReader){
+        var filename = $(this)[0].files[0].name;
+    } else {
+        var filename = $(this).val().split('/').pop().split('\\').pop();
+    }
+    $(this).siblings('.fileName').val(filename);
+});
+
+
 </script>
 
 </form>
 </div>
 </div>
-<script type="text/javascript">
-
-
-
-</script>
-
 
 </body>
 </html>

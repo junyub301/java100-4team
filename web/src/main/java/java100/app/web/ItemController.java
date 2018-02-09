@@ -193,7 +193,6 @@ public class ItemController {
                 e.printStackTrace();
             } 
         }
-        System.out.println("섬네일생성");
         return "s_"+filename;
     }
 }
