@@ -1,14 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
+<style>
+  .m_pointer{
+        cursor: pointer;
+      }
+    </style>
 <meta charset="UTF-8">
 <style type="text/css">
 </style>
 <title>리스트</title>
 </head>
 <body>
-<header>  
-    </header>
+
+<header></header>
 
         <div class='container'>
         <div class='row justify-content-md-center'>
@@ -22,9 +27,8 @@
     
 <div class="album py-5">
     <div class='container'>
-        <div class='row'>
+        <div id="list" class='row'>
         
-        <div id="list">
         <div></div>
         
         </div>
@@ -58,7 +62,7 @@ currBtn = $("#currBtn"),
 nextBtn = $("#nextBtn"),
 currPageNo = 1;
 
-$('header').load('../header.jsp');
+$('header').load('../header.html');
 
 load(1);
 
@@ -87,8 +91,7 @@ function load(pageNo, options) {
                 var date = new Date(data.startDate);
                 for (var photo of data.photos){
                     var filename = photo.photoName;
-                    console.log(filename)
-                $('<div id="im" class="col-md-4 col-sm-6 col-xs-12 m_pointer" onclick="location.href=' + data.itemNo +'">')
+                $('<div class="col-md-4 col-sm-6 col-xs-12 m_pointer" onclick="location.href=' + data.itemNo +'">')
                 .html(
                         '<div class="card mb-4 box-shadow">' +
                          '<img class="card-img-top"' + 
@@ -105,7 +108,6 @@ function load(pageNo, options) {
                             '<p class="card-text text-truncate">'+ data.content + '</p>' +
                             '<div class="d-flex justify-content-between align-items-center">' + 
                             '</div></div></div>').appendTo($('#list'));
-                            
                         }
             }
             
