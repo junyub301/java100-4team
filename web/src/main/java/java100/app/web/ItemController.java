@@ -25,7 +25,6 @@ import net.coobird.thumbnailator.Thumbnails;
 @RequestMapping("/item")
 public class ItemController {
     
-    
     @Autowired ServletContext servletContext;
     @Autowired ItemService itemService;
     @Autowired UserService userService;
@@ -55,7 +54,7 @@ public class ItemController {
             String Thumbnail = this.Thumbnail(uploadDir,filename,50,50);
             
             //포토도메인 수정해서 썸네일도 추가해야함...DB도 추가해야함
-            uploadFiles.add(new Photo(filename));
+            uploadFiles.add(new Photo(filename,Thumbnail));
         }
         itemService.add(item,uploadFiles);
         
@@ -80,14 +79,16 @@ public class ItemController {
         
         int userType = 0;
         HashMap<String,Object> options = new HashMap<>();
-        if (word != null && word.length() > 0) {
-            String[] words = word.split(" ");
-            options.put("words", words);
+        String[] words = null;
+        if (word != null) {
+        words = word.split(" ");
         }
+        options.put("words", words);
+        
         options.put("orderColumn", orderColumn);
         options.put("align", align);
         
-        int totalCount = itemService.getTotalCount(userType);
+        int totalCount = itemService.getTotalCount(userType, words);
         int lastPageNo = totalCount / pageSize;
         if ((totalCount % pageSize) > 0) {
             lastPageNo++;
@@ -107,7 +108,7 @@ public class ItemController {
             @RequestParam(value="cr", defaultValue="0") int categoryNo,
             @RequestParam(value="pn", defaultValue="1") int pageNo,
             @RequestParam(value="ps", defaultValue="6") int pageSize,
-            @RequestParam(value="words", required=false) String[] words,
+            @RequestParam(value="words", required=false) String word,
             @RequestParam(value="oc", required=false) String orderColumn,
             @RequestParam(value="al", required=false) String align,
             Model model) throws Exception {
@@ -121,13 +122,15 @@ public class ItemController {
         
         int userType = 1;
         HashMap<String,Object> options = new HashMap<>();
-        if (words != null && words[0].length() > 0) {
-            options.put("words", words);
+        String[] words = null;
+        if (word != null) {
+        words = word.split(" ");
         }
+        options.put("words", words);
         options.put("orderColumn", orderColumn);
         options.put("align", align);
         
-        int totalCount = itemService.getTotalCount(userType);
+        int totalCount = itemService.getTotalCount(userType,words);
         int lastPageNo = totalCount / pageSize;
         if ((totalCount % pageSize) > 0) {
             lastPageNo++;
@@ -146,9 +149,9 @@ public class ItemController {
     @RequestMapping("{no}")
     public String view(@PathVariable int no, Model model) throws Exception {
 
-
-        model.addAttribute("item", itemService.getItem(no));
-        model.addAttribute("user", userService.getUser(no));
+        Item item = itemService.getItem(no);
+        model.addAttribute("item", item);
+        model.addAttribute("user", userService.getUser(item.getUserNo()));
         return "item/view";
     }
     

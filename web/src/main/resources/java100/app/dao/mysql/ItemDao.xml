@@ -38,8 +38,13 @@
         
     </resultMap>
     
-    <select id="countAll" resultType="int">
+    <select id="countAll" resultType="int" parameterType="map">
         select count(*) from item where user_type=#{userType}
+        <if test="words != null">
+            <foreach collection="words" item="word">
+                and title like '%${word}%'
+             </foreach>
+        </if>
     </select>
     
     <insert id="insert" parameterType="item"
@@ -54,10 +59,10 @@
             i.title, i.cnt, i.start, i.end,
             i.price, i.price_day, i.status,
             p.pho_no as pho_no,
-            GROUP_CONCAT(p.pho_name) as pho_name
+            GROUP_CONCAT(p.pho_name order by p.pho_name) as pho_name
             from item as i
             join user as u on i.ur_no=u.ur_no
-            join itemphoto as p on i.it_no=p.it_no
+            join itemphoto as p on i.it_no=p.it_no 
             where user_type=#{userType} 
         <if test="categoryNo != 0">
             and category=#{categoryNo}
