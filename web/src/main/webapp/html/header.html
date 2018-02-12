@@ -27,6 +27,7 @@ $.ajax('/json/auth/loginUser', {
     dataType: 'json',
     success: (result) => {
         $('#username').html(result.account.name);
+        $(document.body).trigger('login', {'status': 'success'});
     },
     error: function(e) {
         if (e.status == 401) {
