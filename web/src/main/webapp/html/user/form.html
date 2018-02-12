@@ -75,10 +75,20 @@ style="margin-bottom: 0.5rem; background-color: #D8D8D8;" type="button" onclick=
 <input type="text" id="sample6_address2" class="form-control1" placeholder="상세주소" name='detailAddress'>
 </div>
 
+<!--
 <div class="file-loading">
-            <input id="file-fr" name="file-fr[]" type="file" multiple>
+    <input id="input-b3" name="photo" type="file" class="file" multiple 
+    data-show-upload="false" data-show-caption="true" data-msg-placeholder="Select {files} for upload...">
+</div> 
+-->
+
+
+
+<div class="file-loading">
+            <input id="file-fr" name="photo" type="file" multiple>
 </div>
-<!-- 
+
+<!--
 <div id="file" class="form-group1">
 <input style="margin-bottom: 0.7rem;" id='photo' class="file-input" type="file" name='photo'>
 </div>
@@ -111,6 +121,7 @@ style="margin-bottom: 0.5rem; background-color: #D8D8D8;" type="button" onclick=
 <script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
 <script src="../../node_modules/bootstrap-fileinput/js/fileinput.js" type="text/javascript"></script>
 <script src="../../node_modules/bootstrap-fileinput/themes/fa/theme.js" type="text/javascript"></script>
+<script src="../../node_modules/dropzone/dist/dropzone.js" type="text/javascript"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" type="text/javascript"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" type="text/javascript"></script>
 
@@ -233,6 +244,7 @@ addBtn.addEventListener('click', function(event) {
             }
         }).open();
     }
+    
 $('#file-fr').fileinput({
     theme: 'fa',
     language: 'fr',
@@ -240,31 +252,6 @@ $('#file-fr').fileinput({
     allowedFileExtensions: ['jpg', 'png', 'gif']
 });
 
-$(document).ready(function () {
-    $("#test-upload").fileinput({
-        'theme': 'fa',
-        'showPreview': false,
-        'allowedFileExtensions': ['jpg', 'png', 'gif'],
-        'elErrorContainer': '#errorBlock'
-    });
-    $("#kv-explorer").fileinput({
-        'theme': 'explorer-fa',
-        'uploadUrl': '#',
-        overwriteInitial: false,
-        initialPreviewAsData: true,
-        initialPreview: [
-            "http://lorempixel.com/1920/1080/nature/1",
-            "http://lorempixel.com/1920/1080/nature/2",
-            "http://lorempixel.com/1920/1080/nature/3"
-        ],
-        initialPreviewConfig: [
-            {caption: "nature-1.jpg", size: 329892, width: "120px", url: "{$url}", key: 1},
-            {caption: "nature-2.jpg", size: 872378, width: "120px", url: "{$url}", key: 2},
-            {caption: "nature-3.jpg", size: 632762, width: "120px", url: "{$url}", key: 3}
-        ]
-    });
-});
-    
 </script>
 
 </body>
