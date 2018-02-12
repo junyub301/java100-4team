@@ -37,7 +37,6 @@ $.ajax('/json/auth/loginUser', {
 
 $('#logoutBtn').click(() => {
     $.getJSON('../../json/auth/logout', (result) => {
-        console.log(result);
         location.href = '../auth/loginform.html';
     });
 })
