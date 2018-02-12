@@ -53,13 +53,13 @@
             alt="Thumbnail [300x200]" 
             style="height: 225px; width: 100%; display: block;" 
 {{#each photos}}
-            src="/download/{{photoName}}" 
+            src="/download/{{photo photoName}}" 
 {{/each}}
             data-holder-rendered="true">
     <div class="card-body"> 
         <h3 class="mb-0">
         <p class="card-text text-truncate">{{title}}</p></h3>
-        <p class="card-text mb-1 text-muted" type="date">{{startDate}} ~ {{endDate}}</p>
+        <p class="card-text mb-1 text-muted" type="date">{{formatDate startDate}} ~ {{formatDate endDate}}</p>
         <p class="card-text text-truncate">{{name}}</p>
         <p class="card-text text-truncate">{{content}}</p>
         <div class="d-flex justify-content-between align-items-center">
@@ -89,6 +89,17 @@ var prevBtn = $("#prevBtn"),
     template1Engine = Handlebars.compile(template1Src);
 
 $('header').load('../header.html');
+
+Handlebars.registerHelper('formatDate', function(date) {
+    return  moment(date).format('YYYY-MM-DD');
+});
+
+Handlebars.registerHelper('photo', function(photoName) {
+    var photos = photoName.split(",");
+    return photos[0];
+});
+
+
 
 load(1,0);
 
@@ -127,16 +138,7 @@ function load(pageNo, userType) {
         },
         dataType: 'json',
         success: (result) => {
-            var date = new Date(result.startDate);
-            
-            Handlebars.registerHelper('startDate', function(date) {
-                 return  moment(date).format('YYYY-MM-DD');
-             });
-     
-            Handlebars.registerHelper('endDate', function(date) {
-                 return  moment(date).format('YYYY-MM-DD');
-             });
-     
+            console.log(result)
             $('#list').html(template1Engine(result))
             
             currPageNo = result.pageNo;
