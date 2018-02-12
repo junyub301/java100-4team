@@ -1,11 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<style>
-  .m_pointer{
-        cursor: pointer;
-      }
-    </style>
+
 <meta charset="UTF-8">
 <style type="text/css">
 </style>
@@ -53,15 +49,13 @@
             alt="Thumbnail [300x200]" 
             style="height: 225px; width: 100%; display: block;" 
 {{#each photos}}
-            src="/download/{{photo photoName}}" 
+            src="/download/{{picSplit photoName}}" 
 {{/each}}
             data-holder-rendered="true">
     <div class="card-body"> 
         <h3 class="mb-0">
         <p class="card-text text-truncate">{{title}}</p></h3>
-        {{#check userType}}
         <p class="card-text mb-1 text-muted" type="date">{{formatDate startDate}} ~ {{formatDate endDate}}</p>
-        {{/check}}
         <p class="card-text text-truncate">{{name}}</p>
         <p class="card-text text-truncate">{{content}}</p>
         <div class="d-flex justify-content-between align-items-center">
@@ -78,7 +72,15 @@
 <script src='../../node_modules/popper.js/dist/umd/popper.min.js'></script>
 <script src='../../node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
 <script src='../../js/fileupload.js'></script>
+<script>
+    
+        console.log($(location).attr('search'));
+    
+</script>
+
+
 <script type="text/javascript">
+
 var prevBtn = $("#prevBtn"),
     currBtn = $("#currBtn"),
     nextBtn = $("#nextBtn"),
@@ -86,45 +88,46 @@ var prevBtn = $("#prevBtn"),
     lendBtn = $('#lend'),
     currPageNo = 1,
     userType = 0,
-    words = "",
+    words ='',
     template1Src = $('#t1').html(),
     template1Engine = Handlebars.compile(template1Src);
+
 $('header').load('../header.html');
+
 Handlebars.registerHelper('formatDate', function(date) {
-    return  moment(date).format('YYYY-MM-DD');
-});
-Handlebars.registerHelper('photo', function(photoName) {
-    var photos = photoName.split(",");
-    return photos[0];
-});
-Handlebars.registerHelper('check', function(userType, options) {
-    if (userType == 0){
-    return options.fn(this);
-    }
+    return  moment(new Date(date)).format('YYYY-MM-DD');
 });
 
-var searchWord = decodeURI($(location).attr('search')).split("=")[1];
-words = searchWord.split("+").join(" ");
+Handlebars.registerHelper('picSplit', function(pic) {
+    return pic.split(",")[0] ;
+});
+
+
 
 load(1,0,words);
+
 rentBtn.click(() => {
     $('#rent').removeClass('btn-secondary').addClass('btn-primary');
     $('#lend').removeClass('btn-primary').addClass('btn-secondary');
     userType = 0;
     load(1,userType)
 });
+
 lendBtn.click(() => {
     $('#rent').removeClass('btn-primary').addClass('btn-secondary');
     $('#lend').removeClass('btn-secondary').addClass('btn-primary');
     userType = 1;
-    load(1,userType);
+    load(1,userType)
 });
+
 prevBtn.click(() => {
-    load(currPageNo - 1, userType, words)
+    load(currPageNo - 1, userType,words)
 });
 nextBtn.click(() => {
-    load(currPageNo + 1, userType, words)
+    load(currPageNo + 1, userType,words)
 });
+
+
 function load(pageNo, userType, words) {
     /* 
     if (options == undefined) options = {};
@@ -163,6 +166,7 @@ function load(pageNo, userType, words) {
     });
     
 }
+
 </script>    
     
       

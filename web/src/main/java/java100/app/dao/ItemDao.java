@@ -9,7 +9,7 @@ public interface ItemDao {
     int insert(Item item);
     List<Item> findAll(Map<String,Object> params);
     Item findByNo(int no);
-    int countAll(int userType);
+    int countAll(Map<String,Object> params);
 }
 
 

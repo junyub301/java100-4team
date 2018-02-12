@@ -59,7 +59,7 @@ public class ItemController {
             @RequestParam(value="cr", defaultValue="0") int categoryNo,
             @RequestParam(value="pn", defaultValue="1") int pageNo,
             @RequestParam(value="ps", defaultValue="6") int pageSize,
-            @RequestParam(value="words", required=false) String[] words,
+            @RequestParam(value="words", required=false) String word,
             @RequestParam(value="oc", required=false) String orderColumn,
             @RequestParam(value="al", required=false) String alignColumn) throws Exception {
         
@@ -68,18 +68,16 @@ public class ItemController {
         }
         if (pageSize < 6 || pageSize > 15) {
             pageSize = 6;
-        } 
-        
+        }
         HashMap<String,Object> options = new HashMap<>();
-        options.put("words", words);
         options.put("orderColumn", orderColumn);
         options.put("alignColumn", alignColumn);
-
-        if (words != null && words[0].length() > 0) {
-            options.put("words", words);
+        String[] words = null;
+        if (word != null) {
+        words = word.split(" ");
         }
-        
-        int totalCount = itemService.getTotalCount(userType);
+        options.put("words", words);
+        int totalCount = itemService.getTotalCount(userType, words);
         int lastPageNo = totalCount / pageSize;
         if ((totalCount % pageSize) > 0) {
             lastPageNo++;

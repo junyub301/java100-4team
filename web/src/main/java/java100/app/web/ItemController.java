@@ -25,7 +25,6 @@ import net.coobird.thumbnailator.Thumbnails;
 @RequestMapping("/item")
 public class ItemController {
     
-    
     @Autowired ServletContext servletContext;
     @Autowired ItemService itemService;
     @Autowired UserService userService;
@@ -80,14 +79,13 @@ public class ItemController {
         
         int userType = 0;
         HashMap<String,Object> options = new HashMap<>();
-        if (word != null && word.length() > 0) {
-            String[] words = word.split(" ");
-            options.put("words", words);
-        }
+        String[] words = word.split(" ");
+        options.put("words", words);
+        
         options.put("orderColumn", orderColumn);
         options.put("align", align);
         
-        int totalCount = itemService.getTotalCount(userType);
+        int totalCount = itemService.getTotalCount(userType, words);
         int lastPageNo = totalCount / pageSize;
         if ((totalCount % pageSize) > 0) {
             lastPageNo++;
@@ -127,7 +125,7 @@ public class ItemController {
         options.put("orderColumn", orderColumn);
         options.put("align", align);
         
-        int totalCount = itemService.getTotalCount(userType);
+        int totalCount = itemService.getTotalCount(userType,words);
         int lastPageNo = totalCount / pageSize;
         if ((totalCount % pageSize) > 0) {
             lastPageNo++;
