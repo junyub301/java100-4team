@@ -105,7 +105,6 @@ Handlebars.registerHelper('check', function(userType, options) {
 
 var searchWord = decodeURI($(location).attr('search')).split("=")[1];
 words = searchWord.split("+").join(" ");
-
 load(1,0,words);
 rentBtn.click(() => {
     $('#rent').removeClass('btn-secondary').addClass('btn-primary');
