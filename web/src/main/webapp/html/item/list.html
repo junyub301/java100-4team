@@ -102,10 +102,14 @@ Handlebars.registerHelper('check', function(userType, options) {
     return options.fn(this);
     }
 });
-if (words == null) {
+
 var searchWord = decodeURI($(location).attr('search')).split("=")[1];
+if (searchWord != undefined) {
 words = searchWord.split("+").join(" ");
 }
+
+console.log(searchWord);
+console.log(words);
 load(1,0,words);
 rentBtn.click(() => {
     $('#rent').removeClass('btn-secondary').addClass('btn-primary');
