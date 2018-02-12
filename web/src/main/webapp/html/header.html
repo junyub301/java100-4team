@@ -1,6 +1,6 @@
-<link href="../../css/bootstrap.min.css" rel="stylesheet">
-    <link href="../../css/freelancer.min.css" rel="stylesheet">
-    <link href="../../css/test.css" rel="stylesheet" type="text/css">
+<link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/freelancer.min.css" rel="stylesheet">
+    <link href="/css/test.css" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/earlyaccess/nanumgothic.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
@@ -19,25 +19,18 @@
 </nav>
 
 <script type="text/javascript">
-
-$.ajax('/json/auth/loginUser', {
-    beforeSend: function(xmlHttpRequest) {
-        xmlHttpRequest.setRequestHeader("AJAX", "true");
-        $('#logoutBtn').html("Login");
-        
-    },
-    dataType: 'json',
-    success: (result) => {
-        $('#username').html(result.account.name);
-        $('#logoutBtn').html("Logout");
-    },
-    error: function(e) {
-        if (e.status == 401) {
-            location.href = '../auth/loginform.html';
-        }
+$.getJSON('../../json/auth/loginUser', function(result) {
+    if (result.status == 'fail') {
+         location.href = '../auth/loginform.html'; 
+    $('#logoutBtn').html("Login");
+        return;
     }
-});     
-
+     
+    $('#username').html(result.account.name);
+    $('#logoutBtn').html("Login");
+    
+    
+}); 
 $('#logoutBtn').click(() => {
     $.getJSON('../../json/auth/logout', (result) => {
         console.log(result);
