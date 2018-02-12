@@ -17,15 +17,19 @@
 
         <div class='container'>
         <div class='row justify-content-md-center'>
-            <button id="rent" class="col-sm-5 btn btn-primary">빌려드립니다</button>
+            <button class="col-sm-5 btn btn-primary"
+                onclick="location.href='list'">빌려드립니다</button>
             <div class="col-sm-2"></div>
-            <button id="lend" class="col-sm-5 btn btn-secondary">빌려주세요</button>
+            <button class="col-sm-5 btn btn-primary"
+                onclick="location.href='lendlist'">빌려주세요</button>
         </div>
         </div>
     
 <div class="album py-5">
     <div class='container'>
         <div id="list" class='row'>
+        
+        <div></div>
         
         </div>
         
@@ -44,100 +48,68 @@
         
 </div>
 </div>
-
-<script id="t1" type="text/x-handlebars-template">
-{{#each list}}
-    <div class="col-md-4 col-sm-6 col-xs-12 m_pointer" onclick="location.href='view.html?no={{itemNo}}'">
-    <div class="card mb-4 box-shadow">
-        <img class="card-img-top" 
-            alt="Thumbnail [300x200]" 
-            style="height: 225px; width: 100%; display: block;" 
-{{#each photos}}
-            src="/download/{{photoName}}" 
-{{/each}}
-            data-holder-rendered="true">
-    <div class="card-body"> 
-        <h3 class="mb-0">
-        <p class="card-text text-truncate">{{title}}</p></h3>
-        <p class="card-text mb-1 text-muted" type="date">{{startDate}} ~ {{endDate}}</p>
-        <p class="card-text text-truncate">{{name}}</p>
-        <p class="card-text text-truncate">{{content}}</p>
-        <div class="d-flex justify-content-between align-items-center">
-    </div>
-    </div>
-    </div>
 </div>
-{{/each}}
-</script>
-
-<script src='../../node_modules/handlebars/dist/handlebars.min.js'></script>
-<script src='../../node_modules/moment/moment.js'></script>
+    
 <script src='../../node_modules/jquery/dist/jquery.min.js'></script>
 <script src='../../node_modules/popper.js/dist/umd/popper.min.js'></script>
 <script src='../../node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
 <script src='../../js/fileupload.js'></script>
 <script type="text/javascript">
 
-var prevBtn = $("#prevBtn"),
-    currBtn = $("#currBtn"),
-    nextBtn = $("#nextBtn"),
-    rentBtn = $('#rent'),
-    lendBtn = $('#lend'),
-    currPageNo = 1,
-    userType = 0,
-    template1Src = $('#t1').html(),
-    template1Engine = Handlebars.compile(template1Src);
+var tbody = $('#list > div'), 
+prevBtn = $("#prevBtn"),
+currBtn = $("#currBtn"),
+nextBtn = $("#nextBtn"),
+currPageNo = 1;
 
 $('header').load('../header.html');
 
-load(1,0);
-
-rentBtn.click(() => {
-    $('#rent').removeClass('btn-secondary').addClass('btn-primary');
-    $('#lend').removeClass('btn-primary').addClass('btn-secondary');
-    userType = 0;
-    load(1,userType)
-});
-
-lendBtn.click(() => {
-    $('#rent').removeClass('btn-primary').addClass('btn-secondary');
-    $('#lend').removeClass('btn-secondary').addClass('btn-primary');
-    userType = 1;
-    load(1,userType)
-});
+load(1);
 
 prevBtn.click(() => {
-    load(currPageNo - 1, userType)
+    load(currPageNo - 1)
 });
 nextBtn.click(() => {
-    load(currPageNo + 1, userType)
+    load(currPageNo + 1)
 });
 
 
-function load(pageNo, userType) {
-    /* 
+function load(pageNo, options) {
+    
     if (options == undefined) options = {};
-    options.pn = pageNo; */
+    options.pn = pageNo;
     
     $.ajax('../../json/item/list', {
         
-        data: {
-            pn: pageNo,
-            ut: userType 
-        },
+        data: options,
         dataType: 'json',
         success: (result) => {
-            var date = new Date(result.startDate);
+        tbody.html(""); // <tbody> 콘텐츠를 지운다
             
-            Handlebars.registerHelper('startDate', function(date) {
-                 return  moment(date).format('YYYY-MM-DD');
-             });
-     
-            Handlebars.registerHelper('endDate', function(date) {
-                 return  moment(date).format('YYYY-MM-DD');
-             });
-     
-            $('#list').html(template1Engine(result))
+            for (var data of result.list) {
+                console.log(data)
+                var date = new Date(data.startDate);
+                for (var photo of data.photos){
+                    var filename = photo.photoName;
+                $('<div class="col-md-4 col-sm-6 col-xs-12 m_pointer" onclick="location.href=' + data.itemNo +'">')
+                .html(
+                        '<div class="card mb-4 box-shadow">' +
+                         '<img class="card-img-top"' + 
+                                      'data-src="holder.js/300x200?theme=thumb"' +
+                                      'alt="Thumbnail [300x200]"' +
+                                      'style="height: 225px; width: 100%; display: block;"' +
+                                      'src="/download/' + filename + '"' +
+                                      'data-holder-rendered="true">' +
+                          '<div class="card-body"> ' +
+                          '<h3 class="mb-0">'+
+                            '<p class="card-text text-truncate">' + data.title + '</p></h3>' +
+                            '<p class="card-text mb-1 text-muted" type="date">'+ date+'-' + data.endDate +'</p>' +
+                            '<p class="card-text text-truncate">'+ data.name + '</p>' +
+                            '<p class="card-text text-truncate">'+ data.content + '</p>' +
+                            '<div class="d-flex justify-content-between align-items-center">' + 
+                            '</div></div></div>').appendTo($('#list'));
+                        }
+            }
             
             currPageNo = result.pageNo;
             currBtn.html(currPageNo);
