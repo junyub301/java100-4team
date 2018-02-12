@@ -94,7 +94,6 @@ Handlebars.registerHelper('photo', function(photoName) {
     var photos = photoName.split(",");
     return photos[0];
 });
-
 load(1,0);
 rentBtn.click(() => {
     $('#rent').removeClass('btn-secondary').addClass('btn-primary');
