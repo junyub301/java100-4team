@@ -14,14 +14,124 @@
         <h5><a style="text-decoration:none;" onclick="location.href='/html/main/main.html'" class="pad_zero col-sm-1 py-2 d-md-inline-block" href="#">SharerSharee</a></h5>
         <div class="col-sm-8"></div>
         <a id="username" class="col-sm-1 py-2"></a>
-        <a id="loginBtn" onclick="href='../auth/loginform.html'" class='col-sm-1 py-2 m_pointer'>Login</a>
-        <a id="logoutBtn" class='col-sm-1 py-2 m_pointer'>Logout</a>
+        <a id="loginBtn" href="" class='col-sm-1 py-2 m_pointer' data-toggle="modal" data-target="#exampleModalCenter">Login</a>
+        <a id="logoutBtn" href="" class='col-sm-1 py-2 m_pointer'>Logout</a>
     
       </div>
     </nav>
     
+    <!-- Modal -->
+ <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+    
+         <form action="login" method='post'>
+            
+            <div align="center" class='form-group1'>        
+             <img style="width: 20%; opacity: inherit;margin-top: 100px" src="../../img/portfolio/shareicon2.png">
+            </div>
+            
+            <div class='form-group1'>
+                    <input placeholder="아이디" class='form-control1' id='accountName' type='text'
+                        name='accountName' >
+            </div>
+
+            <div class='form-group1'>
+                    <input placeholder="비밀번호" class='form-control1' id='password' type='password'
+                        name='password'>
+            </div>
+
+            <div class='form-group row'>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input"
+                            id="saveaccountName" name="saveaccountName"> <label
+                            class="form-check-label" for="saveaccountName">아이디 저장</label>
+                </div>
+            </div> 
+
+            <div class='form-group1'>
+                    <button id="btn2" type="button" hidden="0" class='form-control2 btn btn-info btn-sm'>로그인</button>
+            </div>
+            <div class='form-group1'>
+                 <div id="btn1" class="button_base b07_3d_double_roll">
+                      <div>로그인</div>
+                      <div>로그인</div>
+                      <div>로그인</div>
+                      <div>로그인</div>
+                  </div>    
+            </div>
+        </form>
+            <div class='form-group1'>
+                 <div onclick="location='../user/form.html'" class="button_base b07_3d_double_roll">
+                      <div>회원가입</div>
+                      <div>회원가입</div>
+                      <div>회원가입</div>
+                      <div>회원가입</div>
+                  </div>    
+            </div>
+
+
+      </div>
+     
+    </div>
+  </div>
+</div>
+    
+<link href="http://fonts.googleapis.com/earlyaccess/nanumgothic.css" rel="stylesheet" type="text/css">
+<script src='../../node_modules/jquery/dist/jquery.min.js'></script>
+<script src='../../node_modules/popper.js/dist/umd/popper.min.js'></script>
+<script src='../../node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
+    
 <script type="text/javascript">
-$('#logoutBtn').hide();
+
+* 
+var id = $('#accountName'),
+pwd = $('#password'),
+loginBtn = $('#btn2'),
+saveId = $('#saveaccountName');
+
+loginBtn.click(() => {
+
+console.log(id.val(), pwd.val(),saveId.is(':checked'));
+
+
+$.post('../../json/auth/login', {
+    accountName: id.val(),
+    password: pwd.val(),
+    saveaccountName: saveId.is(':checked')
+}, (result) => {
+    if (result.status == "success") {
+        location.href = "../main/main.html"
+        
+    } else {
+        alert('이메일이나 암호가 일치하는 사용자를 찾을 수 없습니다.!')
+    }
+},'json');
+
+
+});
+
+
+var btn1 = document.querySelector('#btn1')
+var btn2 = document.querySelector('#btn2')
+
+btn1.addEventListener('click', function(event) {
+var me = new MouseEvent('click')
+
+btn2.dispatchEvent(me)
+})
+
+btn2.addEventListener('click', function(event) {
+})
+
+ $('#logoutBtn').hide();
 $.ajax('/json/auth/loginUser', {
     beforeSend: function(xmlHttpRequest) {
         xmlHttpRequest.setRequestHeader("AJAX", "true");
@@ -39,10 +149,10 @@ $.ajax('/json/auth/loginUser', {
         }
     }
 });     
-
+ 
 $('#logoutBtn').click(() => {
     $.getJSON('../../json/auth/logout', (result) => {
-        location.href = '../auth/loginform.html';
+        location.href = '../main/main.html';
     });
 })
 </script>
