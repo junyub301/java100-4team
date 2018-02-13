@@ -3,29 +3,22 @@
 <html>
 <head>
 <meta charset='UTF-8'>
-<title>회원관리</title>
-<script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
+<title>아이템 상세 정보</title>
 </head>
 
 <body>
 
 <header></header>
 
-
-
-
-
-
-
-    <div class="container">
+<div class="container">
 <div class="row">
 <div class="col-sm-4"></div>
 <div class="col-md-4 col-sm-6 col-xs-12">
 <div class="card-body">
 <div class="col-sm-9">
-    <div class="card-text">
-    <a href="/download/1518049263844_0.jpg">
-    <img src="/download/1518049263844_0.jpg" class="img-responsive img-circle proimg" alt="사진이 없습니다"></a>
+    <div id='aa' class="card-text">
+    <!-- <a class="user-pic" href="/download/1518049263844_0.jpg">
+    <img src="/download/1518049263844_0.jpg" class="img-responsive img-circle proimg user-pic"></a> -->
       <h4 class="py-3 text_center" style="color:#3680C1">gm1</h4>
       <p class="text_center text-muted">Team Leader</p>
 
@@ -59,16 +52,41 @@
     <div class="col-sm-1"></div>
 </div>
 </div>
+
+<script id='t1' type="text/x-handlebars-template">
+{{#each photos}}
+<a href="/download/{{photoName}}">
+    <img src="/download/{{photoName}}" class="img-responsive img-circle proimg"></a>
+{{/each}}
+</script>
+<script src='../../node_modules/handlebars/dist/handlebars.min.js'></script>
+<script src='../../node_modules/moment/moment.js'></script>
 <script src='/node_modules/jquery/dist/jquery.min.js'></script>
 <script src='/node_modules/popper.js/dist/umd/popper.min.js'></script>
 <script src='/node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
 
 <script type="text/javascript">
 $('header').load('../header.html');
+template1Src = $('#t1').html(),
+template1Engine = Handlebars.compile(template1Src);
 
+var index = location.href.indexOf('?');
+if (index != -1) { // 기존 데이터를 조회할 경우
+    var qs = location.href.substr(index + 1);
+    var arr = qs.split('=');
+}    
+    $.ajax('/json/item/' + arr[1], {
+        dataType: 'json',
+        success: (result) => {
+            
+            console.log(result.user);
+            $('#aa').html(template1Engine(result.user));
+            
+        }
+    });
+</script>    
+    
 
-
-</script>
 
 </body>
 </html>

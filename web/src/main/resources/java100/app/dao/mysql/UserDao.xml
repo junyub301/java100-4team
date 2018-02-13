@@ -18,8 +18,8 @@
         
     <collection property="photos" ofType="photo">
             <id column="pho_no" property="no"/>
-            <result column="pho_path" property="photoPath"/>
             <result column="pho_name" property="photoName"/>
+            <result column="th_name" property="thumbnailName"/>
             <result column="ur_no" property="userNo"/>
     </collection>
     </resultMap>

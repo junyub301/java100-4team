@@ -9,7 +9,6 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,6 +29,7 @@ public class ItemController {
     @Autowired ServletContext servletContext;
     @Autowired ItemService itemService;
     @Autowired UserService userService;
+    
     @RequestMapping("add")
     public Object add(Item item,MultipartFile[] photo, HttpSession session) throws Exception {
         Account account = (Account) session.getAttribute("loginUser"); //로그인정보 받아오기
@@ -93,12 +93,13 @@ public class ItemController {
     
     
     @RequestMapping("{no}")
-    public String view(@PathVariable int no, Model model) throws Exception {
-
-        model.addAttribute("item", itemService.getItem(no));
-        model.addAttribute("user", userService.getUser(no));
-
-        return "item/view";
+    public Object view(@PathVariable int no) throws Exception {
+        HashMap<String,Object> result = new HashMap<>();
+        Item item = itemService.getItem(no);
+        result.put("item", item);
+        result.put("user", userService.getUser(item.getUserNo()));
+        result.put("account", userService.getAccount(item.getUserNo()));
+        return result;
     }
     
     long prevMillis = 0;
