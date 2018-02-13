@@ -8,7 +8,6 @@
     <resultMap type="message" id="msgMap">
         <id column="mg_no" property="messageNo"/>
         <result column="ur_no" property="userNo"/>
-        <result column="ur_id" property="userId"/>
         <result column="title" property="title"/>
         <result column="cnt" property="content"/>
         <result column="state" property="state"/>
@@ -18,18 +17,17 @@
     <select id="list" resultMap="msgMap" parameterType="map">
         select
             mg_no,
-            (select act_id from account where ur_no=act_no) as ur_id,
             title,
             cnt,
             state,
             dis_date
          from message
+         order by mg_no desc
     </select>
     
     <select id="findByNo" resultMap="msgMap" parameterType="int">
         select
             mg_no,
-            (select act_id from account where ur_no=act_no) as ur_id,
             title,
             cnt,
             state,

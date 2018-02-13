@@ -10,15 +10,15 @@
 
 </head>
 <body>
-
+<header></header>
 <div class='container' style="width:600px;">
 <h1 align="center">메세지 목록</h1>
-<a class="btn btn-success" href='form.html'>추가</a>
+<a class="btn btn-success" href='form.html'>추가(삭제예정)</a>
 
 <table id='list' style='margin-top: 10px;'class='table'>
 <thead class="thead-dark">
 <tr>
-<th>번호</th><th>제목</th><th>받는사람</th><th>날짜</th><th>수신확인</th>
+<th>번호</th><th>수신확인</th><th>제목</th><th>날짜</th>
 </tr>
 </thead>
 <tbody>
@@ -27,35 +27,80 @@
 </tbody>
 </table>
 </div>
+
+<script id="t1" type="text/x-handlebars-template">
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">메세지</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div id="modalView" class="modal-body">
+<div class="container-fluid">
+    <div class="row">
+      <div class="col-md-3 ml-auto">날짜:{{formatDate dispatchDate}}</div>
+    </div>
+    <div class="row border">
+      <div class="col-md-4">제목:{{title}}</div>
+    </div>
+    <div class="row border">
+      <div class="col-sm-9">
+        내용:{{content}}
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="modal-footer">
+        <button id='delBtn' data-no='{{messageNo}}' type="button" class="btn btn-primary">메세지 삭제</button>
+      </div>
+    </div>
+  </div>
+</div>
+</script>
+<script src='/node_modules/handlebars/dist/handlebars.min.js'></script>
+<script src='/node_modules/moment/moment.js'></script>
 <script src='/node_modules/jquery/dist/jquery.min.js'></script>
 <script src='/node_modules/popper.js/dist/umd/popper.min.js'></script>
 <script src='/node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
 
 <script type="text/javascript">
+$('header').load('../header.html');
+template1Src = $('#t1').html(),
+template1Engine = Handlebars.compile(template1Src);
+Handlebars.registerHelper('formatDate', function(date) {
+    return  moment(date).format('YYYY-MM-DD');
+});
+
 var tbody = $('#list > tbody')
 load();
 
 function load() {
    
-    $.ajax('../json/msg/list', {
-        /*method: 'GET',*/
+    $.ajax('/json/msg/list', {
         dataType: 'json',
         success: (result) => {
             
-            tbody.html(""); // <tbody> 콘텐츠를 지운다.
+            tbody.html(""); 
             
             for (var data of result.message) {
-                var disDate = new Date(data.dispatchDate); 
+                var photo;
+                if (data.state == false) {
+                    photo = 'noread.png';
+                } else {
+                    photo = 'read.png';
+                }
                 $('<tr>')
                     .html(  
                         "<td>" + data.messageNo + "</td>" + 
-                        "<td><a href='form.html?no=" + data.messageNo + "'>" + data.title + "</a></td>" + 
-                        "<td>" + data.userId + "</td>" +
-                        "<td>" + disDate.toLocaleDateString() + "</td>" +
-                        "<td>" + data.state + "</td>")
+                        "<td><img src=/images/" + photo + "></td>" +
+                        "<td><a id='m"+ data.messageNo +"' data-toggle='modal' data-target='#exampleModalCenter' class='detailView'>" + data.title + "</a></td>" + 
+                        "<td>" + moment(data.dispatchDate).format('YYYY-MM-DD') + "</td>")
                     .appendTo(tbody);
             }
-             
+            viewEvent();
         
         },
         error: () => {
@@ -63,6 +108,46 @@ function load() {
         }
     });
 }
+//이벤트 등록
+function viewEvent() {
+//뷰실행
+$('.detailView').on('click',(e) => {
+    var num = $(e.target).attr('id').split("m")[1];
+        $.ajax('/json/msg/' + num, {
+            dataType: 'json',
+            success: (result) => {
+                
+                $('#modalView').html(template1Engine(result.message));
+                delEvent();
+            },
+            error: () => {
+                window.alert('서버 실행 오류!');
+            }
+        });
+});
+
+};
+function delEvent() {
+$('#delBtn').on('click',(e) => {
+    var num = $(e.target).attr('data-no');
+  $.ajax('/json/msg/delete', {
+        data: {
+            no: num
+        },
+        dataType: 'json',
+        success: (result) => {
+            location.href = "list.html";
+        },
+        error: () => {
+            window.alert('서버 실행 오류!');
+        }
+    });
+});
+};
+
+
+
+
 </script>
 
 
