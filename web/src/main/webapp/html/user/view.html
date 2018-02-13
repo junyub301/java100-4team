@@ -332,7 +332,7 @@ updateBtn.click(() => {
                 return imd.html( '<img id="imag"  align="middle" src="/download/' + filename + '">');
                 }
             });
-            location.href = "list.html";
+            alert('수정되었습니다.')
         },
         error:function(request,status,error){
             alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
