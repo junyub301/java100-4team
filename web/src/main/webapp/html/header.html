@@ -13,7 +13,7 @@
         </a>
         <h5><a style="text-decoration:none;" onclick="location.href='/html/main/main.html'" class="pad_zero col-sm-1 py-2 d-md-inline-block" href="#">SharerSharee</a></h5>
         <div class="col-sm-8"></div>
-        <a id="username" class="col-sm-1 py-2"></a>
+        <a id="username" href=""  class="col-sm-1 py-2"></a>
         <a id="loginBtn" href="" class='col-sm-1 py-2 m_pointer' data-toggle="modal" data-target="#exampleModalCenter">Login</a>
         <a id="logoutBtn" href="" class='col-sm-1 py-2 m_pointer'>Logout</a>
     
@@ -49,7 +49,7 @@
             </div>
 
             <div class='form-group row'>
-                    <div class="form-check">
+                    <div  class="form-group1">
                         <input type="checkbox" class="form-check-input"
                             id="saveaccountName" name="saveaccountName"> <label
                             class="form-check-label" for="saveaccountName">아이디 저장</label>
@@ -90,12 +90,24 @@
 <script src='../../node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
     
 <script type="text/javascript">
-
-* 
 var id = $('#accountName'),
 pwd = $('#password'),
 loginBtn = $('#btn2'),
 saveId = $('#saveaccountName');
+
+
+$('#username').click(() => {  
+    $.ajax('../../json/auth/loginUser', {
+        dataType: 'json',
+        method: 'POST',
+        success: (result) => {
+            location.href="../user/view.html?no=" + result.account.accountsNo
+        },
+        error:function(request,status,error){
+            alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+         }
+    }
+)});
 
 loginBtn.click(() => {
 
@@ -130,6 +142,7 @@ btn2.dispatchEvent(me)
 
 btn2.addEventListener('click', function(event) {
 })
+
 
  $('#logoutBtn').hide();
 $.ajax('/json/auth/loginUser', {
