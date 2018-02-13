@@ -19,10 +19,11 @@
     <div id='aa' class="card-text">
     <!-- <a class="user-pic" href="/download/1518049263844_0.jpg">
     <img src="/download/1518049263844_0.jpg" class="img-responsive img-circle proimg user-pic"></a> -->
-      <h4 class="py-3 text_center" style="color:#3680C1">gm1</h4>
-      <p class="text_center text-muted">Team Leader</p>
-
   </div>
+    
+      <h4 id='actname' class="py-3 text_center" style="color:#3680C1"></h4>
+      <p class="text_center text-muted">Team Leader</p>
+  
 </div>
 </div>
 </div>
@@ -31,27 +32,22 @@
 <div class="row">
 <div class="col-md-2"></div>
 <div class="card-body" style="display: inline-block;">
-<h3 class="mb-0">
-<p class="card-text text_center">aaa</p></h3>
-<p class="card-text text_center">aaaa</p>
+<p id="title" class="card-text text_center"></p>
 </div>
 
 
 <div class="card-body" style="display: inline-block;">
-<p class="card-text text_right text-muted">2018-02-02-2018-02-10</p>
-<p class="card-text text_right text-muted">1111  원</p>
-<p class="card-text text_right text-muted">1111  원</p></div>
+<p id="date" class="card-text text_right text-muted"></p>
 <div class="col-md-3"></div>
+</div>
 </div>
 
 <div class="row py-5">
 <div class="col-sm-2"></div>
-  <a href="/download/1518401483865_0.png">
-        <img style="height: 225px; width: 250px; display: block; margin: 10px;"
-         src="/download/1518401483865_0.png"></a>
+    <div id="itemphoto"></div>
     <div class="col-sm-1"></div>
 </div>
-</div>
+
 
 <script id='t1' type="text/x-handlebars-template">
 {{#each photos}}
@@ -59,6 +55,34 @@
     <img src="/download/{{photoName}}" class="img-responsive img-circle proimg"></a>
 {{/each}}
 </script>
+<script id='t2' type="text/x-handlebars-template">
+{{#each this}}
+<a data-toggle="modal" data-target="#exampleModal" href="/download/{{this}}">
+    <img src="/download/{{this}}" style="height: 225px; width: 250px; display: inline-block; margin: 10px;"></a>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      <div class="modal-body">
+        <img src="/download/{{this}}"></a>
+        <div id="kartik-file-errors"></div>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>
+{{/each}}
+</script>
+
+<script id='t3' type="text/handlebars-template">
+<p class="card-text mb-1 text-muted" type="date">{{formatDate startDate}} ~ {{formatDate endDate}}</p>
+</script>
+
+
+
 <script src='../../node_modules/handlebars/dist/handlebars.min.js'></script>
 <script src='../../node_modules/moment/moment.js'></script>
 <script src='/node_modules/jquery/dist/jquery.min.js'></script>
@@ -66,11 +90,21 @@
 <script src='/node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
 
 <script type="text/javascript">
+var template1Src = $('#t1').html(),
+template2Src = $('#t2').html(),
+template3Src = $('#t3').html(),
+template1Engine = Handlebars.compile(template1Src),
+template2Engine = Handlebars.compile(template2Src),
+template3Engine = Handlebars.compile(template3Src);
+
 $('header').load('../header.html');
-template1Src = $('#t1').html(),
-template1Engine = Handlebars.compile(template1Src);
+
+Handlebars.registerHelper('formatDate', function(date) {
+    return moment(date).format('YYYY-MM-DD');
+});
 
 var index = location.href.indexOf('?');
+
 if (index != -1) { // 기존 데이터를 조회할 경우
     var qs = location.href.substr(index + 1);
     var arr = qs.split('=');
@@ -79,13 +113,24 @@ if (index != -1) { // 기존 데이터를 조회할 경우
         dataType: 'json',
         success: (result) => {
             
-            console.log(result.user);
+            console.log()
             $('#aa').html(template1Engine(result.user));
+            for (var data of result.item.photos) {
+                var photo = data.photoName.split(',');
+            }
+            $('#itemphoto').html(template2Engine(photo));
+            $('#actname').html('<div>' + result.account.accountName + '</div>');
+            $('#title').html('<h3 class="mb-0"><div>' + result.item.title + '</div></h3>');
+            $('#title').append(result.item.name);
+            $('#date').html(template3Engine(result.item));
+            $('#date').append('<div>' + result.item.price + '</div>');
+            $('#date').append('<div>' + result.item.pricePerDay + '</div>');
+            
             
         }
     });
 </script>    
-    
+
 
 
 </body>
