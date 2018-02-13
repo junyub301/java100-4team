@@ -75,15 +75,14 @@ public class ItemController {
         words = word.split(" ");
         }
         options.put("words", words);
-        int totalCount = itemService.getTotalCount(userType, words);
+        int totalCount = itemService.getTotalCount(userType, words, categoryNo);
         int lastPageNo = totalCount / pageSize;
-        if (totalCount == 0) {
-            lastPageNo = 1;
-        }
         if ((totalCount % pageSize) > 0) {
             lastPageNo++;
         }
-        
+        if (totalCount == 0) {
+            lastPageNo = 1;
+        }
         HashMap<String,Object> result = new HashMap<>();
         result.put("pageNo", pageNo);
         result.put("lastPageNo", lastPageNo);

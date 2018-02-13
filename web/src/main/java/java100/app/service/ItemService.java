@@ -11,7 +11,7 @@ public interface ItemService {
     int upload(int no, List<Photo> photoList);
     List<Item> list(int pageNo, int pageSize, Map<String, Object> options, int userType, int categoryNo);
     Item getItem(int no);
-    int getTotalCount(int userType, String[] words);
+    int getTotalCount(int userType, String[] words, int categoryNo);
 }
 
 

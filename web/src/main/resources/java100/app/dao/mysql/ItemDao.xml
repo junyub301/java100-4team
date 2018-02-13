@@ -40,6 +40,9 @@
     
     <select id="countAll" resultType="int" parameterType="map">
         select count(*) from item where user_type=#{userType}
+        <if test="categoryNo != 0">
+            and category=#{categoryNo}
+        </if>
         <if test="words != null">
             <foreach collection="words" item="word">
                 and title like '%${word}%'

@@ -88,7 +88,7 @@ public class ItemController {
         options.put("orderColumn", orderColumn);
         options.put("align", align);
         
-        int totalCount = itemService.getTotalCount(userType, words);
+        int totalCount = itemService.getTotalCount(userType, words, categoryNo);
         int lastPageNo = totalCount / pageSize;
         if ((totalCount % pageSize) > 0) {
             lastPageNo++;
@@ -130,7 +130,7 @@ public class ItemController {
         options.put("orderColumn", orderColumn);
         options.put("align", align);
         
-        int totalCount = itemService.getTotalCount(userType,words);
+        int totalCount = itemService.getTotalCount(userType, words, categoryNo);
         int lastPageNo = totalCount / pageSize;
         if ((totalCount % pageSize) > 0) {
             lastPageNo++;

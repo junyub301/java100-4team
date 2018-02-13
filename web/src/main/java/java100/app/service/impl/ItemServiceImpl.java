@@ -51,10 +51,11 @@ public class ItemServiceImpl implements ItemService {
         return item;
     }
     @Override
-    public int getTotalCount(int userType, String[] words) {
+    public int getTotalCount(int userType, String[] words, int categoryNo) {
         HashMap<String,Object> params = new HashMap<>();
         params.put("userType", userType);
         params.put("words", words);
+        params.put("categoryNo", categoryNo);
         return  itemDao.countAll(params);
     }
 
