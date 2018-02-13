@@ -13,14 +13,29 @@
         </a>
         <h5><a style="text-decoration:none;" onclick="location.href='/html/main/main.html'" class="pad_zero col-sm-1 py-2 d-md-inline-block" href="#">SharerSharee</a></h5>
         <div class="col-sm-8"></div>
-        <a id="username" class="col-sm-1 py-2"></a>
-        <a id="loginBtn" onclick="href='../auth/loginform.html'" class='col-sm-1 py-2 m_pointer'>Login</a>
-        <a id="logoutBtn" class='col-sm-1 py-2 m_pointer'>Logout</a>
+        <a id="username" href=""  class="col-sm-1 py-2"></a>
+        <a id="loginBtn" href="" onclick="href='../auth/loginform.html'" class='col-sm-1 py-2 m_pointer'>Login</a>
+        <a id="logoutBtn" href=""  class='col-sm-1 py-2 m_pointer'>Logout</a>
     
       </div>
     </nav>
     
 <script type="text/javascript">
+
+$('#username').click(() => {  
+    $.ajax('../../json/auth/loginUser', {
+        dataType: 'json',
+        method: 'POST',
+        success: (result) => {
+            location.href="../user/view.html?no=" + result.account.accountsNo
+        },
+        error:function(request,status,error){
+            alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+         }
+    }
+)});
+
+
 $('#logoutBtn').hide();
 $.ajax('/json/auth/loginUser', {
     beforeSend: function(xmlHttpRequest) {
