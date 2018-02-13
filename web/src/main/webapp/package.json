@@ -11,7 +11,9 @@
   "dependencies": {
     "bootstrap": "^4.0.0-beta.2",
     "bootstrap-fileinput": "^4.4.7",
+    "dependent-dropdown": "^1.4.7",
     "handlebars": "^4.0.11",
+    "hover.css": "^2.2.1",
     "jquery": "^3.2.1",
     "moment": "^2.20.1",
     "popper.js": "^1.12.3"

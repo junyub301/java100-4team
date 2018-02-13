@@ -10,6 +10,9 @@
 <style type="text/css">
 </style>
 <title>리스트</title>
+        <link href="../../node_modules/hover.css/css/demo-page.css" rel="stylesheet" media="all">
+        <link href="../../node_modules/hover.css/css/hover.css" rel="stylesheet" media="all">
+
 </head>
 <body>
 
@@ -20,12 +23,13 @@
             <button id="rent" class="col-sm-5 btn btn-primary">빌려드립니다</button>
             <div class="col-sm-2"></div>
             <button id="lend" class="col-sm-5 btn btn-secondary">빌려주세요</button>
+            
         </div>
         </div>
     
 <div class="album py-5">
     <div class='container'>
-        <div id="list" class='row'>
+        <div id="list" class='row' >
         
         </div>
         
@@ -38,7 +42,7 @@
     <li class="page-item"><a id="currBtn" class="page-link" href="#">1</a></li>
     
     <li class="page-item ">
-    <a id="nextBtn" class="page-link" tabindex="0">다음</a></li>
+    <a id="nextBtn" class="page-link"  tabindex="0">다음</a></li>
   </ul>
 </nav>
         
@@ -47,8 +51,9 @@
 
 <script id="t1" type="text/x-handlebars-template">
 {{#each list}}
-    <div class="col-md-4 col-sm-6 col-xs-12 m_pointer" onclick="location.href='view.html?no={{itemNo}}'">
-    <div class="card mb-4 box-shadow">
+    <div class="col-md-4 col-sm-6 col-xs-12 m_pointer"  onclick="location.href='view.html?no={{itemNo}}'">
+<div class="hvr-grow-rotate" style="background-color: white;">
+    <div class="card mb-4 box-shadow" >
         <img class="card-img-top" 
             alt="Thumbnail [300x200]" 
             style="height: 225px; width: 100%; display: block;" 
@@ -68,6 +73,7 @@
     </div>
     </div>
     </div>
+</div>
 </div>
 {{/each}}
 </script>
