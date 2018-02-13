@@ -86,6 +86,7 @@ var prevBtn = $("#prevBtn"),
     lendBtn = $('#lend'),
     currPageNo = 1,
     userType = 0,
+    categoryNo = 0,
     words = "",
     template1Src = $('#t1').html(),
     template1Engine = Handlebars.compile(template1Src);
@@ -102,15 +103,17 @@ Handlebars.registerHelper('check', function(userType, options) {
     return options.fn(this);
     }
 });
-
-var searchWord = decodeURI($(location).attr('search')).split("=")[1];
-if (searchWord != undefined) {
-words = searchWord.split("+").join(" ");
+console.log($(location).attr('search').split("=")[0]);
+if ($(location).attr('search').split("=")[0] == '?cr') {
+    categoryNo = $(location).attr('search').split("=")[1];
+} else {
+	var searchWord = decodeURI($(location).attr('search')).split("=")[1];
+	if (searchWord != undefined) {
+	words = searchWord.split("+").join(" ");
+	}
 }
 
-console.log(searchWord);
-console.log(words);
-load(1,0,words);
+load(1,0,categoryNo,words);
 rentBtn.click(() => {
     $('#rent').removeClass('btn-secondary').addClass('btn-primary');
     $('#lend').removeClass('btn-primary').addClass('btn-secondary');
@@ -124,12 +127,12 @@ lendBtn.click(() => {
     load(1,userType);
 });
 prevBtn.click(() => {
-    load(currPageNo - 1, userType, words)
+    load(currPageNo - 1, userType, categoryNo, words)
 });
 nextBtn.click(() => {
-    load(currPageNo + 1, userType, words)
+    load(currPageNo + 1, userType, categoryNo, words)
 });
-function load(pageNo, userType, words) {
+function load(pageNo, userType, categoryNo, words) {
     /* 
     if (options == undefined) options = {};
     options.pn = pageNo; */
@@ -139,7 +142,8 @@ function load(pageNo, userType, words) {
         data: {
             pn: pageNo,
             ut: userType,
-            words: words
+            words: words,
+            cr: categoryNo
         },
         dataType: 'json',
         success: (result) => {
