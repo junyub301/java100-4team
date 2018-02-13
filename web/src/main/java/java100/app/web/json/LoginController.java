@@ -1,6 +1,7 @@
 package java100.app.web.json;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.support.SessionStatus;
 
 import java100.app.domain.Account;
 import java100.app.service.AccountService;
+import java100.app.service.FacebookService;
 import java100.app.service.UserService;
 
 @RestController
@@ -25,6 +27,7 @@ public class LoginController {
     
     @Autowired AccountService accountService;
     @Autowired UserService userService;
+    @Autowired FacebookService facebookService;
    
     @RequestMapping(value="login", method=RequestMethod.POST)
     public Object login(
@@ -87,6 +90,45 @@ public class LoginController {
         return result;
     
     }
+    
+    @RequestMapping(value="facebookLogin")
+    public Object facebookLogin(
+            String accessToken, 
+            HttpSession session, /* 세션 객체가 없을 경우 미리 생성할 필요가 있다.*/
+            Model model) {
+        
+        
+        // Facebook에서 사용자 정보를 가져온다.
+        @SuppressWarnings("rawtypes")
+        Map fbResponse = facebookService.me(accessToken, Map.class);
+        
+        if (fbResponse.get("error") != null) {
+            model.addAttribute("loginUser", null);
+            HashMap<String,Object> result = new HashMap<>();
+            result.put("status", "fail"); 
+            return result;
+        }
+        
+        // 이메일로 회원 정보를 찾는다.
+        Account account = accountService.get((String)fbResponse.get("email"));
+        
+        if (account == null) {
+            // 회원 정보가 없으면 페이스북 회원 정보를 등록한다.
+            account = new Account();
+            account.setName((String)fbResponse.get("name"));
+            account.setEmail((String)fbResponse.get("email"));
+            String[] a = account.getEmail().split("@");
+            account.setAccountName(a[0]);
+            account.setPassword("1111");
+            accountService.add(account);
+        }
+        
+        model.addAttribute("loginUser", account);
+        
+        HashMap<String,Object> result = new HashMap<>();
+        result.put("status", "success");
+        return result;
+    }      
     
     
 }

@@ -21,6 +21,20 @@ public class AccountServiceImpl implements AccountService {
         
         return accountDao.findByaccountNameAndPassword(params);
     }
+    
+    @Override
+    public Account get(String email) {
+        
+        HashMap<String,Object> params = new HashMap<>();
+        params.put("email", email);
+        
+        return accountDao.findByEmail(params);
+    }
+
+    @Override
+    public int add(Account account) {
+        return accountDao.insert(account);
+    }
 
    
 

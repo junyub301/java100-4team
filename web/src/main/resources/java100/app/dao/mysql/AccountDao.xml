@@ -36,6 +36,13 @@
             ,rank
          from account where act_no=#{value}
      </select>
+     
+     <select id="findByEmail" 
+            resultMap="accountMap" parameterType="map">
+        <include refid="select"/>
+        from account
+        where email=#{email}
+    </select>
     
     <insert id="insert" parameterType="account" 
             useGeneratedKeys="true" keyColumn="act_no" keyProperty="accountsNo">

@@ -54,6 +54,14 @@
                             id="saveaccountName" name="saveaccountName"> <label
                             class="form-check-label" for="saveaccountName">아이디 저장</label>
                 </div>
+            
+            
+				<fb:login-button 
+				  scope="public_profile,email"
+				  onlogin="checkLoginState();">
+				</fb:login-button>
+                <div id="status"></div>
+                
             </div> 
 
             <div class='form-group1'>
@@ -144,28 +152,73 @@ btn2.addEventListener('click', function(event) {
 })
 
 
- $('#logoutBtn').hide();
-$.ajax('/json/auth/loginUser', {
-    beforeSend: function(xmlHttpRequest) {
-        xmlHttpRequest.setRequestHeader("AJAX", "true");
-    },
-    dataType: 'json',
-    success: (result) => {
-        $('#username').html(result.account.name);
-        $('#loginBtn').hide();
-        $('#logoutBtn').show();
-        $(document.body).trigger('login', {'status': 'success'});
-    },
-    error: function(e) {
-        if (e.status == 401) {
-            location.href = '../auth/loginform.html';
-        }
+ $.getJSON('../../json/auth/loginUser', function(result) {
+    if (result.status == 'fail') {
+        return;
     }
-});     
- 
+    
+    $('#username').html(result.account.name);
+    
+    $(document.body).trigger('login', {'status': 'success'});
+});
 $('#logoutBtn').click(() => {
     $.getJSON('../../json/auth/logout', (result) => {
-        location.href = '../main/main.html';
+        console.log(result);
+        location.href = '../auth/form.html';
     });
 })
+function statusChangeCallback(response) {
+  console.log('statusChangeCallback');
+  console.log(response);
+  if (response.status === 'connected') {
+    facebookLogin(response.authResponse.accessToken);
+    
+  } else {
+    window.alert("로그인 실패입니다!");
+  }
+}
+
+
+
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '175592719884096',
+      cookie     : true,
+      xfbml      : true,
+      version    : 'v2.8'
+    });
+      
+    FB.AppEvents.logPageView();   
+      
+  };
+  
+  
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "https://connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+  
+
+  function checkLoginState() {
+    FB.getLoginStatus(function(response) {
+      statusChangeCallback(response);
+    });
+  }
+  
+
+  function facebookLogin(accessToken) {
+      $.post('../../json/auth/facebookLogin', {
+          accessToken: accessToken
+      }, function(result) {
+          if (result.status == "success") {
+              location.href = "../main/main.html"
+          } else {
+              window.alert('페이스북 정보를 접근할 수 없습니다!')
+          }
+      }, 'json');
+  }
+  
 </script>
