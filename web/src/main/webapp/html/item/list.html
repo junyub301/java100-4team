@@ -14,20 +14,16 @@
         <link href="../../node_modules/hover.css/css/hover.css" rel="stylesheet" media="all">
 
 </head>
+
 <body>
 
 <header></header>
-
         <div class='container'>
         <div class='row justify-content-md-center'>
         
-        <div class="hvr-bob" style="width: 450px; margin-right: 120px; background-color: white;">
-            <input id="rent" type="button" value="빌려드립니닷!" class="col-sm-10 btn btn-primary"/>
-            </div>
+        <div id="rent" class="hvr-bob col-sm-4 btn btn-primary" style="height: 50px;"></div>
             <div class="col-sm-1"></div>
-             <div class="hvr-bob" style="width: 450px; background-color: white;">
-            <input id="lend" type="button" value="빌려주세욧!" class="col-sm-10 btn btn-secondary"/>
-            </div>
+        <div id="lend" class="hvr-bob col-sm-4 btn btn-secondary" style="height: 50px;"></div>
             
         </div>
         </div>
@@ -101,7 +97,9 @@ var prevBtn = $("#prevBtn"),
     words = "",
     template1Src = $('#t1').html(),
     template1Engine = Handlebars.compile(template1Src);
+
 $('header').load('../header.html');
+
 Handlebars.registerHelper('formatDate', function(date) {
     return  moment(date).format('YYYY-MM-DD');
 });
