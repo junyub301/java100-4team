@@ -31,7 +31,7 @@ public class ItemController {
     @Autowired ItemService itemService;
     @Autowired UserService userService;
     @RequestMapping("add")
-    public void add(Item item,MultipartFile[] photo, HttpSession session) throws Exception {
+    public Object add(Item item,MultipartFile[] photo, HttpSession session) throws Exception {
         Account account = (Account) session.getAttribute("loginUser"); //로그인정보 받아오기
         String uploadDir = servletContext.getRealPath("/download");
         item.setUserNo(account.getAccountsNo()); //user번호 저장하기
@@ -48,6 +48,7 @@ public class ItemController {
         }
         
         itemService.add(item, uploadFiles);
+        return "아이템 등록 성공!";
 }
     
     @RequestMapping("list")
