@@ -5,7 +5,6 @@ import java.sql.Date;
 public class Message {
     protected int messageNo;
     protected int userNo;
-    protected String userId;
     protected String title;
     protected String content;
     protected boolean state;
@@ -13,8 +12,8 @@ public class Message {
    
     @Override
     public String toString() {
-        return "Message [messageNo=" + messageNo + ", userNo=" + userNo + ", userId=" + userId + ", title=" + title
-                + ", content=" + content + ", state=" + state + ", dispatchDate=" + dispatchDate + "]";
+        return "Message [messageNo=" + messageNo + ", userNo=" + userNo + ", title=" + title + ", content=" + content
+                + ", state=" + state + ", dispatchDate=" + dispatchDate + "]";
     }
     
     public int getMessageNo() {
@@ -28,12 +27,6 @@ public class Message {
     }
     public void setUserNo(int userNo) {
         this.userNo = userNo;
-    }
-    public String getUserId() {
-        return userId;
-    }
-    public void setUserId(String userId) {
-        this.userId = userId;
     }
     public String getTitle() {
         return title;
@@ -59,6 +52,7 @@ public class Message {
     public void setDispatchDate(Date dispatchDate) {
         this.dispatchDate = dispatchDate;
     }
+   
     
     
     
