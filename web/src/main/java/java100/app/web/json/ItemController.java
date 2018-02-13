@@ -77,6 +77,9 @@ public class ItemController {
         options.put("words", words);
         int totalCount = itemService.getTotalCount(userType, words);
         int lastPageNo = totalCount / pageSize;
+        if (totalCount == 0) {
+            lastPageNo = 1;
+        }
         if ((totalCount % pageSize) > 0) {
             lastPageNo++;
         }
