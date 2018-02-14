@@ -69,7 +69,6 @@ public class UserServiceImpl implements UserService {
     public int update(Account account, User user) {
         int count;
         // 패스워드가 비었으면 패스워드를 제외한 업데이트(sql)를 실행
-        System.out.println(account);
         if (account.getPassword() == null) {
             count = accountDao.update2(account);
         } else {

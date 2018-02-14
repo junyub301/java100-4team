@@ -49,7 +49,7 @@
             u.bas_addr,
             u.det_addr,
             p.pho_name
-         from user as u join itemphoto as p on u.ur_no=p.ur_no where u.ur_no=#{value}
+         from user as u left join itemphoto as p on u.ur_no=p.ur_no where u.ur_no=#{value}
     </select>
     
     

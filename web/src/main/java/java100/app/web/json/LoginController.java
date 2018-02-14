@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import java100.app.domain.Account;
+import java100.app.domain.User;
 import java100.app.service.AccountService;
 import java100.app.service.FacebookService;
 import java100.app.service.UserService;
@@ -115,12 +116,19 @@ public class LoginController {
         if (account == null) {
             // 회원 정보가 없으면 페이스북 회원 정보를 등록한다.
             account = new Account();
+            User user = new User();
             account.setName((String)fbResponse.get("name"));
             account.setEmail((String)fbResponse.get("email"));
             String[] a = account.getEmail().split("@");
             account.setAccountName(a[0]);
             account.setPassword("1111");
-            accountService.add(account);
+            user.setAccountNo("");
+            user.setBank("");
+            user.setPhone("");
+            user.setBaseAddress("");
+            user.setDetailAddress("");
+            user.setPostNo("");
+            userService.add(account,user);
         }
         
         model.addAttribute("loginUser", account);
