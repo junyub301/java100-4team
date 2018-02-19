@@ -61,7 +61,11 @@
 				  onlogin="checkLoginState();">
 				</fb:login-button>
             </div>
-                <div id="status"></div>
+            
+            <div>
+             <a id="kakao-login-btn"></a>
+       
+            </div>
                 
             </div> 
 
@@ -94,9 +98,6 @@
 </div>
     
 <link href="http://fonts.googleapis.com/earlyaccess/nanumgothic.css" rel="stylesheet" type="text/css">
-<script src='../../node_modules/jquery/dist/jquery.min.js'></script>
-<script src='../../node_modules/popper.js/dist/umd/popper.min.js'></script>
-<script src='../../node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
     
 <script type="text/javascript">
 var id = $('#accountName'),
@@ -221,5 +222,43 @@ function statusChangeCallback(response) {
           }
       }, 'json');
   }
+ 
+  
+  function autoServerLogin(accessToken) {
+      $.getJSON(
+          '../json/auth/kakaoLogin', 
+          {'accessToken': accessToken}, 
+          function(result) {
+              console.log(result)
+            if (result.status == 'success') {
+                location.href = '../../main/main.html';
+            } else {
+                window.alert('로그인 실패입니다!');
+            }
+      });
+  }
+
+      
+      Kakao.init("63ef3befe6185210578175ae33f57f48");
+      
+      Kakao.Auth.createLoginButton({
+          container: '#kakao-login-btn',
+          success: function(authObj) {
+            // 로그인 성공시, API를 호출합니다.
+            Kakao.API.request({
+              url: '/v1/user/me',
+              success: function(res) {
+                  $("#kakao-profile").append(res.properties.nickname);
+                  $("#kakao-profile").append($("<img/>",{"src":res.properties.profile_image,"alt":res.properties.nickname+"님의 프로필 사진"}));
+              },
+              fail: function(error) {
+                  console.log(error);
+              }
+            });
+          },
+          fail: function(err) {
+              console.log(error);
+          }
+        });
   
 </script>
