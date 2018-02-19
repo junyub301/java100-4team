@@ -18,17 +18,16 @@ public class KakaoServiceImpl implements KakaoService {
                     // 요청할 URL 
                     // => URL에 들어갈 값이 있다면 중괄호{} 를 사용하여 지정하라.
                     // => {변수명} 
-                    "https://kapi.kakao.com/v1/user/me",
+                    "https://kapi.kakao.com/v1/user/me?access_token={v1}&fields={v2}",
                     
                     // 서버에서 받은 값을 어떤 타입의 값으로 리턴할 지 지정하라.
-                    type
+                    type,
                     
                     // URL에 들어갈 값 
                     // => 객체에 값을 담아서 전달하거나, 값을 순서대로 나열한다.
                     // => 객체를 전달한다면 프로퍼티명으로 값을 찾아 삽입한다.
                     // => 값을 나열한다면, 값이 나온 순서대로 삽입한다.
-                    );
-            
+                    accessToken, "kaccount_email, properties");
         } catch (Exception e) {
             throw new RuntimeException(
                     "페이스북 Graph API 실행 오류!", 

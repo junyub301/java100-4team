@@ -160,14 +160,14 @@ public class LoginController {
             }
             
             // 이메일로 회원 정보를 찾는다.
-            Account account = accountService.get((String)koResponse.get("email"));
+            Account account = accountService.get((String)koResponse.get("kaccount_email"));
             
             if (account == null) {
                 // 회원 정보가 없으면 페이스북 회원 정보를 등록한다.
                 account = new Account();
                 User user = new User();
-                account.setName((String)koResponse.get("name"));
-                account.setEmail((String)koResponse.get("email"));
+                account.setName((String)((Map)koResponse.get("properties")).get("nickname"));
+                account.setEmail((String)koResponse.get("kaccount_email"));
                 String[] a = account.getEmail().split("@");
                 account.setAccountName(a[0]);
                 account.setPassword("1111");

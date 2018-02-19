@@ -14,8 +14,7 @@
         <h5><a style="text-decoration:none;" onclick="location.href='/html/main/main.html'" class="pad_zero col-sm-1 py-2 d-md-inline-block" href="#">SharerSharee</a></h5>
         <div class="col-sm-8"></div>
         <a id="username" href=""  class="col-sm-1 py-2"></a>
-        <a id="loginBtn" href="" class='col-sm-1 py-2 m_pointer' data-toggle="modal" data-target="#exampleModalCenter">Login</a>
-        <a id="logoutBtn" href="" class='col-sm-1 py-2 m_pointer'>Logout</a>
+        <a id="loginBtn" href="" class='col-sm-1 py-2 m_pointer' data-toggle="modal" data-target="#exampleModalCenter"></a>
     
       </div>
     </nav>
@@ -106,19 +105,6 @@ loginBtn = $('#btn2'),
 saveId = $('#saveaccountName');
 
 
-$('#username').click(() => {  
-    $.ajax('../../json/auth/loginUser', {
-        dataType: 'json',
-        method: 'POST',
-        success: (result) => {
-            location.href="../user/view.html?no=" + result.account.accountsNo
-        },
-        error:function(request,status,error){
-            alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-         }
-    }
-)});
-
 loginBtn.click(() => {
 
 console.log(id.val(), pwd.val(),saveId.is(':checked'));
@@ -141,6 +127,42 @@ $.post('../../json/auth/login', {
 });
 
 
+ $.getJSON('../../json/auth/loginUser', function(result) {
+	if (result.status == 'fail') {
+    $('#loginBtn').html("Login");
+        	console.log(result)
+    return;
+    } else {
+    $('#loginBtn').html("Logout");
+    $('#loginBtn').click(() => {
+    $.getJSON('../../json/auth/logout', (result) => {
+        console.log(result);
+        location.href = '../main/main.html';
+    });
+})
+    }
+    
+    $('#username').html(result.account.name);
+    
+    $(document.body).trigger('login', {'status': 'success'});
+});
+
+ 
+$('#username').click(() => {  
+    $.ajax('../../json/auth/loginUser', {
+        dataType: 'json',
+        method: 'POST',
+        success: (result) => {
+            location.href="../user/view.html?no=" + result.account.accountsNo
+        },
+        error:function(request,status,error){
+            alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+         }
+    }
+)});
+
+
+
 var btn1 = document.querySelector('#btn1')
 var btn2 = document.querySelector('#btn2')
 
@@ -153,34 +175,38 @@ btn2.dispatchEvent(me)
 btn2.addEventListener('click', function(event) {
 })
 
+</script>
 
- $.getJSON('../../json/auth/loginUser', function(result) {
-    if (result.status == 'fail') {
-        return;
-    }
-    
-    $('#username').html(result.account.name);
-    
-    $(document.body).trigger('login', {'status': 'success'});
-});
-$('#logoutBtn').click(() => {
-    $.getJSON('../../json/auth/logout', (result) => {
-        console.log(result);
-        location.href = '../auth/form.html';
+<script type="text/javascript">
+
+function autoServerLogin(accessToken) {
+    $.getJSON(
+        '../../json/auth/facebookLogin', 
+        {'accessToken': accessToken}, 
+        function(result) {
+          if (result.status == 'success') {
+              location.href = '../main/main.html';
+          } else {
+              window.alert('로그인 실패입니다!');
+          }
     });
-})
+}
+
+
 function statusChangeCallback(response) {
-  console.log('statusChangeCallback');
   console.log(response);
   if (response.status === 'connected') {
-    facebookLogin(response.authResponse.accessToken);
-    
+	  autoServerLogin(response.authResponse.accessToken);
   } else {
     window.alert("로그인 실패입니다!");
   }
 }
 
-
+  function checkLoginState() {
+    FB.getLoginStatus(function(response) {
+      statusChangeCallback(response);
+    });
+  }
 
   window.fbAsyncInit = function() {
     FB.init({
@@ -203,62 +229,26 @@ function statusChangeCallback(response) {
      fjs.parentNode.insertBefore(js, fjs);
    }(document, 'script', 'facebook-jssdk'));
   
-
-  function checkLoginState() {
-    FB.getLoginStatus(function(response) {
-      statusChangeCallback(response);
-    });
-  }
   
-
-  function facebookLogin(accessToken) {
-      $.post('../../json/auth/facebookLogin', {
-          accessToken: accessToken
-      }, function(result) {
-          if (result.status == "success") {
-              location.href = "../main/main.html"
-          } else {
-              window.alert('페이스북 정보를 접근할 수 없습니다!')
-          }
-      }, 'json');
-  }
- 
   
-  function autoServerLogin(accessToken) {
-      $.getJSON(
-          '../json/auth/kakaoLogin', 
-          {'accessToken': accessToken}, 
-          function(result) {
-              console.log(result)
-            if (result.status == 'success') {
-                location.href = '../../main/main.html';
-            } else {
-                window.alert('로그인 실패입니다!');
-            }
-      });
-  }
-
-      
       Kakao.init("63ef3befe6185210578175ae33f57f48");
       
       Kakao.Auth.createLoginButton({
           container: '#kakao-login-btn',
           success: function(authObj) {
-            // 로그인 성공시, API를 호출합니다.
-            Kakao.API.request({
-              url: '/v1/user/me',
-              success: function(res) {
-                  $("#kakao-profile").append(res.properties.nickname);
-                  $("#kakao-profile").append($("<img/>",{"src":res.properties.profile_image,"alt":res.properties.nickname+"님의 프로필 사진"}));
-              },
-              fail: function(error) {
-                  console.log(error);
-              }
-            });
-          },
-          fail: function(err) {
-              console.log(error);
+        	    console.log(authObj.access_token)
+        	    $.getJSON(
+        	            '../../json/auth/kakaoLogin', 
+        	            {'accessToken': authObj.access_token}, 
+        	            function(result) {
+        	                console.log(result)
+        	              if (result.status == 'success') {
+        	                  location.href = '../main/main.html';
+        	              } else {
+        	                  window.alert('로그인 실패입니다!');
+        	              }
+        	        });
           }
-        });
+          });
   
 </script>
