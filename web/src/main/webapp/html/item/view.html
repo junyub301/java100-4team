@@ -57,16 +57,16 @@
 </script>
 <script id='t2' type="text/x-handlebars-template">
 {{#each this}}
-<a data-toggle="modal" data-target="#exampleModal" href="/download/{{this}}">
+<a data-toggle="modal" data-target="#exampleModal{{@index}}" href="/download/{{this}}">
     <img src="/download/{{this}}" style="height: 225px; width: 250px; display: inline-block; margin: 10px;"></a>
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModal{{@index}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-      <div class="modal-body">
-        <img src="/download/{{this}}"></a>
+      <div class="modal-body mx-auto">
+        <img class="img-fluid" src="/download/{{this}}"></a>
         <div id="kartik-file-errors"></div>
       </div>
       <div class="modal-footer">
@@ -79,11 +79,6 @@
 
 <script id='t3' type="text/handlebars-template">
 <p class="card-text mb-1 text-muted" type="date">{{formatDate startDate}} ~ {{formatDate endDate}}</p>
-</script>
-
-<script type="text/javascript">
-$('#exampleModal').on('show.bs.modal', function (event) {
-  var button = $(event.relatedTarget)
 </script>
 
 
