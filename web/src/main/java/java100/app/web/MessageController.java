@@ -1,6 +1,7 @@
 package java100.app.web;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java100.app.domain.Account;
 import java100.app.domain.Message;
 import java100.app.service.MessageService;
 
@@ -25,8 +27,9 @@ public class MessageController {
 
      
     @RequestMapping("list")
-    public String list(Model model) throws Exception {
-        model.addAttribute("message", messageService.list());
+    public String list(Model model,HttpSession session) throws Exception {
+        Account account = (Account)session.getAttribute("loginUser");
+        model.addAttribute("message", messageService.list(account.getAccountsNo()));
         
         return "message/list";
     }
