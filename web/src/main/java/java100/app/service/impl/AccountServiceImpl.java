@@ -23,7 +23,7 @@ public class AccountServiceImpl implements AccountService {
     }
     @Override
     public Account get(String email) {
-        return null;
+        return accountDao.findByEmail(email);
     }
 
    

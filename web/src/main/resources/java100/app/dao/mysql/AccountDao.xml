@@ -76,6 +76,13 @@
         SELECT COUNT(*) FROM account WHERE act_id = #{accountName}
     </select>
     
+     <select id="findByEmail" 
+            resultMap="accountMap" parameterType="string">
+        <include refid="select"/>
+        from account
+        where email=#{email}
+    </select>
+    
 </mapper>
 
 
