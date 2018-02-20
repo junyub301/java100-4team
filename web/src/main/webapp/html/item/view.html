@@ -52,7 +52,7 @@
 <script id='t1' type="text/x-handlebars-template">
 {{#each photos}}
 <a href="/download/{{photoName}}">
-    <img src="/download/{{photoName}}" class="img-responsive img-circle proimg"></a>
+    <img src="/download/{{photoName}}" class="img-responsive rounded-circle" style="width:100%"></a>
 {{/each}}
 </script>
 <script id='t2' type="text/x-handlebars-template">
@@ -80,7 +80,6 @@
 <script id='t3' type="text/handlebars-template">
 <p class="card-text mb-1 text-muted" type="date">{{formatDate startDate}} ~ {{formatDate endDate}}</p>
 </script>
-
 
 <script src='../../node_modules/handlebars/dist/handlebars.min.js'></script>
 <script src='../../node_modules/moment/moment.js'></script>

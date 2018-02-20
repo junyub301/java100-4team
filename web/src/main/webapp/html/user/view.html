@@ -24,23 +24,8 @@
 </style>
 <body>
   <header>  
-       <div class="header1 bg-secondary text-uppercase">
-        <div style="margin-top: 17px; margin-left: 20px; margin-right: 20px;">
-        <a style="color: white; text-decoration: none;" href="../main/main.html">
-        <h4 class="fontsetting">SharerSharee</h4></a>
-        <nav class="nav1">
-        <ul class="ul1">
-        
-        <li style="float: right; padding: 0; list-style: none;">
-      <a href="../auth/loginform.html" 
-           style="color: white; text-decoration: none;" class='login1'>Login</a>
-    </li>
-        </ul>
-        </nav>
-        </div>
-        </div>
+ 
     </header>
-<br><br>
 
 <div class='container' style="width:1000px;position:relative;">
 
@@ -213,6 +198,7 @@ var pwd = $('#pwd'),
 	nod = $('#nodiv'),
 	updateBtn = $('#updateBtn');
 
+$('header').load('../header.html');
 
 var index = location.href.indexOf('?');
 if (index != -1) { // 기존 데이터를 조회할 경우
@@ -239,7 +225,7 @@ if (index != -1) { // 기존 데이터를 조회할 경우
                 detailAddr.val(result.user.detailAddress);
                 for (var data of result.user.photos){
                     var filename = data.photoName
-                    imd.html( '<img id="imag"  align="middle" src="/download/' + filename + '">');
+                    imd.html( '<img class="rounded-circle" id="imag" align="middle" src="/download/' + filename + '">');
                 }
                 nod.html("<input id='no' type='hidden' name='accountsNo' value='" + result.account.accountsNo + "'>")
             },
