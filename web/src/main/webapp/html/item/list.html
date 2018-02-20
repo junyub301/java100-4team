@@ -58,7 +58,7 @@
             data-holder-rendered="true">
     <div class="card-body"> 
         <h3 class="mb-0">
-        <p class="card-text text-truncate">{{title}}</p></h3>
+        <p class="card-text text-trunca te">{{title}}</p></h3>
         {{#check userType}}
         <p class="card-text mb-1 text-muted" type="date">{{formatDate startDate}} ~ {{formatDate endDate}}</p>
         {{/check}}
@@ -141,6 +141,7 @@ function load(pageNo, userType, words) {
         },
         dataType: 'json',
         success: (result) => {
+        	console.log(result)
             $('#list').html(template1Engine(result))
             
             currPageNo = result.pageNo;
