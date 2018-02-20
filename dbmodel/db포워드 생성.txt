@@ -28,6 +28,7 @@ CREATE TABLE item (
 	item_name VARCHAR(50)  NOT NULL COMMENT '물품명', -- 물품명
 	title     VARCHAR(50)  NOT NULL COMMENT '글 제목', -- 글 제목
 	cnt       VARCHAR(255) NOT NULL COMMENT '내용', -- 내용
+	add_date  DATE         NULL     COMMENT '등록일', -- 등록일
 	start     DATE         NULL     COMMENT '대여시작일', -- 대여시작일
 	end       DATE         NULL     COMMENT '대여종료일', -- 대여종료일
 	price     INTEGER      NULL     COMMENT '대여 기본 가격', -- 대여 기본 가격
@@ -167,7 +168,7 @@ CREATE TABLE transaction (
 	ur_no    INTEGER     NOT NULL COMMENT '대여자번호', -- 대여자번호
 	it_no    INTEGER     NOT NULL COMMENT '물품번호', -- 물품번호
 	aply_dat DATE        NULL     COMMENT '신청일', -- 신청일
-	pay_way  INTEGER     NULL     COMMENT '결제수단', -- 결제수단
+	pay_way  VARCHAR(50) NULL     COMMENT '결제수단', -- 결제수단
 	pay_dat  DATE        NULL     COMMENT '결제일', -- 결제일
 	pay_type INTEGER     NULL     COMMENT '배송비결제유형', -- 배송비결제유형
 	del_no   VARCHAR(50) NULL     COMMENT '운송장번호', -- 운송장번호
