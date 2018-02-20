@@ -23,9 +23,10 @@ public class MessageController {
     
      
     @RequestMapping("list")
-    public Object list() throws Exception {
+    public Object list(HttpSession session) throws Exception {
+        Account account = (Account)session.getAttribute("loginUser");
         HashMap<String,Object> result = new HashMap<>();
-        result.put("message", messageService.list());
+        result.put("message", messageService.list(account.getAccountsNo()));
         
         return result;
     }

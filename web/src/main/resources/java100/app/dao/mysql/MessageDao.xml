@@ -14,14 +14,14 @@
         <result column="dis_date" property="dispatchDate"/>
     </resultMap>
     
-    <select id="list" resultMap="msgMap" parameterType="map">
+    <select id="list" resultMap="msgMap" parameterType="int">
         select
             mg_no,
             title,
             cnt,
             state,
             dis_date
-         from message
+         from message where ur_no=#{no}
          order by mg_no desc
     </select>
     

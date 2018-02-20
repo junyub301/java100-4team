@@ -15,8 +15,8 @@ public class MessageServiceImpl implements MessageService {
     @Autowired MessageDao messageDao;
     
     @Override
-    public List<Message> list() {
-        return messageDao.list();
+    public List<Message> list(int no) {
+        return messageDao.list(no);
     }
     
     

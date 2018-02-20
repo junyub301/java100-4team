@@ -239,6 +239,10 @@ function pay() {
         $.ajax('/json/auth/loginUser', {
             
         }).done(function(lender) {
+            if (data.item.userNo == lender.user.userNo){
+                alert('본인 아이템을 구매할 수 없습니다');
+                return false;
+        }
         IMP.request_pay({ // param
             pay_method: payMethod, // card:카드결제 trans:계좌이체 phone:휴대폰 결제
             merchant_uid: data.item.itemNo, //아이템 번호 넣으면 될듯..결제가 된 적이 있는 merchant_uid로는 재결제 불가

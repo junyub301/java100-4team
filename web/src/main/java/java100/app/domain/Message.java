@@ -9,7 +9,15 @@ public class Message {
     protected String content;
     protected boolean state;
     protected Date dispatchDate;
-   
+    
+    public Message() {}
+
+    public Message(int userNo, String title, String content) {
+        this.userNo = userNo;
+        this.title = title;
+        this.content = content;
+    }
+
     @Override
     public String toString() {
         return "Message [messageNo=" + messageNo + ", userNo=" + userNo + ", title=" + title + ", content=" + content

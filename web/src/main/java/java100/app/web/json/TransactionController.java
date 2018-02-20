@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java100.app.domain.Account;
 import java100.app.domain.Item;
+import java100.app.domain.Message;
 import java100.app.domain.Transaction;
 import java100.app.service.ItemService;
+import java100.app.service.MessageService;
 import java100.app.service.TransactionService;
 
 @RestController
@@ -24,6 +26,7 @@ public class TransactionController {
     @Autowired ServletContext servletContext;
     @Autowired TransactionService transactionService;
     @Autowired ItemService itemService;
+    @Autowired MessageService messageService;
     
     @RequestMapping("add")
     public Object add(Transaction transaction, HttpSession session) throws Exception {
@@ -33,6 +36,8 @@ public class TransactionController {
         Item item = itemService.getItem(transaction.getItemNo());
         item.setStatus(true);
         itemService.update(item);
+        Message message = new Message(account.getAccountsNo(),"결제 완료","결제가 완료 되었습니다. 배송이 곧 시작됩니다");
+        messageService.add(message);
         HashMap<String,Object> result = new HashMap<>();
         result.put("status", "success");
         return result;

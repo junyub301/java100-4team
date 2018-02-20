@@ -5,7 +5,7 @@ import java.util.List;
 import java100.app.domain.Message;
 
 public interface MessageDao {
-    List<Message> list();
+    List<Message> list(int no);
     int insert(Message message);
     Message findByNo(int no);
     int update(Message message);
