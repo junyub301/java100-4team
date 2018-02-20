@@ -60,6 +60,13 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
+    public int update(Item item) {
+        itemDao.update(item);
+        return 0;
+    }
+    
+    
+    @Override
     public int upload(int no, List<Photo> photoList) {
         if (!photoList.isEmpty()) {
             for (Photo photo : photoList) {
@@ -69,6 +76,6 @@ public class ItemServiceImpl implements ItemService {
         }
         return 0;
     }
-    
+
 
 }
