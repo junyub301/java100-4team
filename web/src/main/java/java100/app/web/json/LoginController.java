@@ -19,17 +19,19 @@ import java100.app.domain.Account;
 import java100.app.domain.User;
 import java100.app.service.AccountService;
 import java100.app.service.FacebookService;
+import java100.app.service.KakaoService;
 import java100.app.service.UserService;
 
 @RestController
 @RequestMapping("/auth")
 @SessionAttributes("loginUser")
 public class LoginController {
-    
+
     @Autowired AccountService accountService;
     @Autowired UserService userService;
     @Autowired FacebookService facebookService;
-   
+    @Autowired KakaoService kakaoService;
+
     @RequestMapping(value="login", method=RequestMethod.POST)
     public Object login(
             String accountName, 
@@ -38,9 +40,9 @@ public class LoginController {
             HttpServletResponse response,
             HttpSession session,
             Model model) {
-        
+
         Account account = accountService.get(accountName, password);
-        
+
         if (saveaccountName) {
             Cookie cookie = new Cookie("accountName", accountName);
             cookie.setMaxAge(60 * 60 * 24 * 30);
@@ -59,23 +61,23 @@ public class LoginController {
             model.addAttribute("loginUser", account);
             result.put("status", "success");
         }
-        
+
         return result;
     }
-    
+
     @RequestMapping(value="facebookLogin")
     public Object facebookLogin(
             String accessToken, 
             HttpSession session,
             Model model) {
-    
+
         try {
             @SuppressWarnings("rawtypes")
             Map userInfo = facebookService.me(accessToken, Map.class);
-            
+
             Account account = accountService.get(
-                                (String)userInfo.get("email"));
-            
+                    (String)userInfo.get("email"));
+
             if (account == null) { // 등록된 회원이 아니면,
                 // 페이스북에서 받은 정보로 회원을 자동 등록한다.
                 User user = new User();
@@ -93,14 +95,14 @@ public class LoginController {
                 user.setDetailAddress("1");
                 userService.add(account, user);
             }
-            
+
             // 회원 정보를 세션에 저장하여 자동 로그인 처리를 한다.
             model.addAttribute("loginUser", account);
-            
+
             HashMap<String,Object> result = new HashMap<>();
             result.put("status", "success");
             return result;
-            
+
         } catch (Exception e) {
             HashMap<String,Object> result = new HashMap<>();
             result.put("status", "fail");
@@ -108,41 +110,93 @@ public class LoginController {
             return result;
         }
     }
-    
-    
-    
-    @RequestMapping("logout")
-    public Object logout(HttpSession session, SessionStatus status) {
-        
-        status.setComplete();
-        session.invalidate();
-        
-        HashMap<String,Object> result = new HashMap<>();
-        result.put("status", "success");
-        return result;
-    }
-    
-    @RequestMapping("loginUser")
-    public Object userName(HttpSession session) {
-        
-        Account account = (Account)session.getAttribute("loginUser");
-        
-        HashMap<String,Object> result = new HashMap<>();
-        
-        if (account != null) {
+
+    @RequestMapping(value="kakaoLogin")
+    public Object kakaoLogin(
+            String accessToken, 
+            HttpSession session,
+            Model model) {
+
+        try {
+            // Facebook에서 사용자 정보를 가져온다.
+            @SuppressWarnings("rawtypes")
+            Map koResponse = kakaoService.me(accessToken, Map.class);
+
+            if (koResponse.get("error") != null) {
+                model.addAttribute("loginUser", null);
+                HashMap<String,Object> result = new HashMap<>();
+                result.put("status", "fail"); 
+                return result;
+            }
+
+            // 이메일로 회원 정보를 찾는다.
+            Account account = accountService.get((String)koResponse.get("kaccount_email"));
+
+            if (account == null) {
+                // 회원 정보가 없으면 페이스북 회원 정보를 등록한다.
+                account = new Account();
+                User user = new User();
+                account.setName((String)((Map)koResponse.get("properties")).get("nickname"));
+                account.setEmail((String)koResponse.get("kaccount_email"));
+                String[] a = account.getEmail().split("@");
+                account.setAccountName(a[0]);
+                account.setPassword("1111");
+                user.setAccountNo("");
+                user.setBank("");
+                user.setPhone("");
+                user.setBaseAddress("");
+                user.setDetailAddress("");
+                user.setPostNo("");
+                userService.add(account,user);
+            }
+
+            model.addAttribute("loginUser", account);
+
+            HashMap<String,Object> result = new HashMap<>();
             result.put("status", "success");
-            result.put("account", account);
-            result.put("user", userService.getUser(account.getAccountsNo()));
-        } else {
+            return result;
+        } catch (Exception e) {
+            HashMap<String,Object> result = new HashMap<>();
             result.put("status", "fail");
+            result.put("exception", e.getStackTrace());
+            return result;
         }
-            
-        return result;
-    
+    }     
+
+
+
+        @RequestMapping("logout")
+        public Object logout(HttpSession session, SessionStatus status) {
+
+            status.setComplete();
+            session.invalidate();
+
+            HashMap<String,Object> result = new HashMap<>();
+            result.put("status", "success");
+            return result;
+        }
+
+        @RequestMapping("loginUser")
+        public Object userName(HttpSession session) {
+
+            Account account = (Account)session.getAttribute("loginUser");
+
+            HashMap<String,Object> result = new HashMap<>();
+
+            if (account != null) {
+                result.put("status", "success");
+                result.put("account", account);
+                result.put("user", userService.getUser(account.getAccountsNo()));
+            } else {
+                result.put("status", "fail");
+            }
+
+            return result;
+
+        }
+
+
     }
-    
-    
-}
 
 
 

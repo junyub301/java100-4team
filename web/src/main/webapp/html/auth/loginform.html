@@ -60,12 +60,13 @@ background-size: cover; background-attachment: fixed;">
             <fb:login-button scope="public_profile,email" 
                         onlogin="checkLoginState();">
         </fb:login-button>
-            
+        <a id="kakao-login-btn"></a>    
     </div>
 <link href="http://fonts.googleapis.com/earlyaccess/nanumgothic.css" rel="stylesheet" type="text/css">
 <script src='../../node_modules/jquery/dist/jquery.min.js'></script>
 <script src='../../node_modules/popper.js/dist/umd/popper.min.js'></script>
 <script src='../../node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 
 <script type="text/javascript">
 var id = $('#accountName'),
@@ -151,6 +152,28 @@ window.fbAsyncInit = function() {
   js.src = "https://connect.facebook.net/en_US/sdk.js";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
+
+
+Kakao.init("63ef3befe6185210578175ae33f57f48");
+      
+      Kakao.Auth.createLoginButton({
+          container: '#kakao-login-btn',
+          success: function(authObj) {
+                console.log(authObj.access_token)
+                $.getJSON(
+                        '../../json/auth/kakaoLogin', 
+                        {'accessToken': authObj.access_token}, 
+                        function(result) {
+                            console.log(result)
+                          if (result.status == 'success') {
+                              location.href = '../main/main.html';
+                          } else {
+                              window.alert('로그인 실패입니다!');
+                          }
+                    });
+          }
+          });
+
 </script>
 
 
