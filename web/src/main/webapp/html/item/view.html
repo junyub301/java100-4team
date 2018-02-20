@@ -17,8 +17,6 @@
 <div class="card-body">
 <div class="col-sm-9">
     <div id='aa' class="card-text">
-    <!-- <a class="user-pic" href="/download/1518049263844_0.jpg">
-    <img src="/download/1518049263844_0.jpg" class="img-responsive img-circle proimg user-pic"></a> -->
   </div>
     
       <h4 id='actname' class="py-3 text_center" style="color:#3680C1"></h4>
@@ -42,11 +40,52 @@
 </div>
 </div>
 
+<button id='priceBtn' type="button" class="btn btn-primary float-right" 
+        data-toggle="modal" data-target="#priceModal">결제하기</button>
+    
 <div class="row py-5">
 <div class="col-sm-2"></div>
     <div id="itemphoto"></div>
     <div class="col-sm-1"></div>
 </div>
+</div>
+<!--결제창 -->
+<div class="modal fade" id="priceModal" tabindex="-1" role="dialog" aria-labelledby="priceModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="priceModalLabel">결제화면</h5>
+        <button id='closeModal' type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <div id='itempic1' class="d-inline-block" style="width:150px; height: 150px;background-size: 100% 100%">
+      </div>
+      <div id='dp' class="d-inline-block mt-5 ml-5" style="position: absolute;">
+      <span id='pr'></span>
+      </div>
+      <div class='pl-4' id='itemName'></div>
+      <div class='m-3'>
+      결제 방법: 
+       <input class="payMethod" type="radio" name="payMethod" value="card">
+       카드결제
+       <input class="payMethod" type="radio" name="payMethod" value="trans">
+       실시간 계좌 이체
+       <input class="payMethod" type="radio" name="payMethod" value="phone">
+       휴대폰 결제
+      </div>
+      <div class='m-3'>
+      배송비 유형:
+      <input id='prepaid' class='deliberypay' type="radio" name="deliveryPayType" value=1 checked>선불
+      <input id='afterpay' class='deliberypay' type="radio" name="deliveryPayType" value=0>착불
+      </div>
+      <div class="modal-footer">
+      </div>
+        <button type="button" class="btn btn-primary" onclick="pay()">결제</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script id='t1' type="text/x-handlebars-template">
@@ -83,13 +122,18 @@
 
 
 
-<script src='../../node_modules/handlebars/dist/handlebars.min.js'></script>
-<script src='../../node_modules/moment/moment.js'></script>
+<script src='/node_modules/handlebars/dist/handlebars.min.js'></script>
+<script src='/node_modules/moment/moment.js'></script>
 <script src='/node_modules/jquery/dist/jquery.min.js'></script>
 <script src='/node_modules/popper.js/dist/umd/popper.min.js'></script>
 <script src='/node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
+<script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 
 <script type="text/javascript">
+
+var IMP = window.IMP;
+IMP.init("imp92089366");
+var itemNo, price;
 var template1Src = $('#t1').html(),
 template2Src = $('#t2').html(),
 template3Src = $('#t3').html(),
@@ -118,6 +162,14 @@ if (index != -1) { // 기존 데이터를 조회할 경우
             for (var data of result.item.photos) {
                 var photo = data.photoName.split(',');
             }
+            $('#itempic1').css("background-image","url('/download/"+photo[0]+"')");
+            $('#itemName').html('물품명:'+result.item.name);
+            price = result.item.pricePerDay + 2500;
+            $('#dp').prepend('기간 : ' + moment(result.item.startDate).format('YYYY-MM-DD') + ' ~ ' +
+                    moment(result.item.endDate).format('YYYY-MM-DD') +'<br><br>' + 
+                    '가격 : ');
+            $('#pr').html(price);
+            itemNo = result.item.itemNo;
             $('#itemphoto').html(template2Engine(photo));
             $('#actname').html('<div>' + result.account.accountName + '</div>');
             $('#title').html('<h3 class="mb-0"><div>' + result.item.title + '</div></h3>');
@@ -125,11 +177,91 @@ if (index != -1) { // 기존 데이터를 조회할 경우
             $('#date').html(template3Engine(result.item));
             $('#date').append('<div>' + result.item.price + '</div>');
             $('#date').append('<div>' + result.item.pricePerDay + '</div>');
-            
+            if (result.item.status == 1)
+            $('#priceBtn').prop("disabled",'true').html("결제완료");
             
         }
     });
-</script>    
+    
+/*배송비 결제에 따른 가격변동 */
+$('.deliberypay').change(() => {
+    if ($('#prepaid').prop("checked")) {
+        price += 2500;
+        $('#pr').html(price);
+    }
+    if ($('#afterpay').prop("checked")) {
+        price -= 2500;
+        $('#pr').html(price);
+    }
+})
+
+//결제시 호출되는 함수
+function pay() {
+    $('#closeModal').trigger('click');
+    var deliveryPayType;
+    if ($('#prepaid').prop("checked")) {
+        deliveryPayType = 1;
+    } else {
+        deliveryPayType = 0;
+    }
+    var payMethod = $('.payMethod:checked').val();
+    
+    $.ajax('/json/item/' + itemNo, {
+        }
+    ).done(function(data){
+        var price;
+        if (deliveryPayType == 1) {
+            price = data.item.price + 2500;
+        } else {
+            price = data.item.price;
+        }
+        
+        $.ajax('/json/auth/loginUser', {
+            
+        }).done(function(lender) {
+        IMP.request_pay({ // param
+            pay_method: payMethod, // card:카드결제 trans:계좌이체 phone:휴대폰 결제
+            merchant_uid: data.item.itemNo, //아이템 번호 넣으면 될듯..결제가 된 적이 있는 merchant_uid로는 재결제 불가
+            name: data.item.name, //물품명
+            amount: price, //결제 가격
+            //notice_url: "",
+            buyer_email: lender.account.email, //tel빼고 나머지 아래 모두 선택요소 
+            buyer_name: lender.account.name,
+            buyer_tel: lender.user.phone, //필수
+            buyer_addr: lender.user.baseAddress +' '+ lender.user.detailAddress,
+            buyer_postcode: lender.user.postNo
+        }, function (rsp) { // callback 
+            if (rsp.success) { // 결제 성공 시: 결제 승인 또는 가상계좌 발급에 성공한 경우
+                // jQuery로 transaction add
+                $.ajax("/json/tr/add", {
+                    method: "POST",
+                    dataType: 'json',
+                    data: {
+                        //imp_uid: rsp.imp_uid, //아임포트 거래 고유 번호
+                        itemNo: rsp.merchant_uid ,
+                        payMethod: rsp.pay_method,
+                        payDate: moment(rsp.paid_at*1000).format('YYYY-MM-DD'),
+                        deliveryPayType: deliveryPayType
+                    },
+                    success: (result) => {
+                        alert('결제성공');
+                        $('#priceBtn').prop("disabled",'true').html("결제완료");
+                    },
+                    error: (request,status,error) => {
+                        alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error)}
+                });
+                
+            } else {
+                alert("결제에 실패하였습니다. 에러 내용: " +  rsp.error_msg);
+            }
+        });
+        });
+    
+    
+    });
+};
+
+</script>
 
 
 

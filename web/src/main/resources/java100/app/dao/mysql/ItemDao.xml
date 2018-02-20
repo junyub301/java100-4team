@@ -111,6 +111,12 @@
             group by it_no
     </select>
 
+    <update id="update" parameterType="item">
+        update item set 
+            status=#{status}
+        where it_no=#{itemNo}
+    </update>
+
 </mapper>
 
 

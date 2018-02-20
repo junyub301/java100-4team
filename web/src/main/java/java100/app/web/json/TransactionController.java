@@ -1,6 +1,9 @@
 package java100.app.web.json;
 
+import java.util.HashMap;
+
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -8,7 +11,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java100.app.domain.Account;
+import java100.app.domain.Item;
 import java100.app.domain.Transaction;
+import java100.app.service.ItemService;
 import java100.app.service.TransactionService;
 
 @RestController
@@ -17,17 +23,19 @@ public class TransactionController {
     
     @Autowired ServletContext servletContext;
     @Autowired TransactionService transactionService;
-    
-    @RequestMapping("form")
-    public String form() throws Exception {
-        return "tr/form";
-    }
-
+    @Autowired ItemService itemService;
     
     @RequestMapping("add")
-    public String add(Transaction transaction) throws Exception {
+    public Object add(Transaction transaction, HttpSession session) throws Exception {
+        Account account = (Account) session.getAttribute("loginUser");
+        transaction.setLenderNo(account.getAccountsNo());
         transactionService.add(transaction);
-        return "redirect:list";
+        Item item = itemService.getItem(transaction.getItemNo());
+        item.setStatus(true);
+        itemService.update(item);
+        HashMap<String,Object> result = new HashMap<>();
+        result.put("status", "success");
+        return result;
     }
     
     @RequestMapping("list")

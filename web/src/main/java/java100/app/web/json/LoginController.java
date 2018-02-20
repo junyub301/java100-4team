@@ -80,6 +80,7 @@ public class LoginController {
         if (account != null) {
             result.put("status", "success");
             result.put("account", account);
+            result.put("user", userService.getUser(account.getAccountsNo()));
         } else {
             result.put("status", "fail");
         }
