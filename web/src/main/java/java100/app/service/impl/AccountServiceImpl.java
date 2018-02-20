@@ -21,6 +21,10 @@ public class AccountServiceImpl implements AccountService {
         
         return accountDao.findByaccountNameAndPassword(params);
     }
+    @Override
+    public Account get(String email) {
+        return null;
+    }
 
    
 

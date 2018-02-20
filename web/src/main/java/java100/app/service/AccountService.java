@@ -15,6 +15,7 @@ public interface AccountService {
     
     
     Account get(String accountName, String password);
+    Account get(String email);
 
 }
 
