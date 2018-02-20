@@ -49,10 +49,11 @@
 </div>
 </div>
 
+
 <script id='t1' type="text/x-handlebars-template">
 {{#each photos}}
 <a href="/download/{{photoName}}">
-    <img src="/download/{{photoName}}" class="img-responsive rounded-circle" style="width:100%"></a>
+    <img src="/download/{{photoName}}" class="img-responsive rounded-circle scale" style="width:100%"></a>
 {{/each}}
 </script>
 <script id='t2' type="text/x-handlebars-template">
@@ -86,6 +87,26 @@
 <script src='/node_modules/jquery/dist/jquery.min.js'></script>
 <script src='/node_modules/popper.js/dist/umd/popper.min.js'></script>
 <script src='/node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
+
+
+<style>
+.scale {
+  transform: scale(1);
+  -webkit-transform: scale(1);
+  -moz-transform: scale(1);
+  -ms-transform: scale(1);
+  -o-transform: scale(1);
+  transition: all 0.3s ease-in-out;   /* 부드러운 모션을 위해 추가*/
+}
+.scale:hover {
+  transform: scale(3.2);
+  -webkit-transform: scale(3.2);
+  -moz-transform: scale(3.2);
+  -ms-transform: scale(3.2);
+  -o-transform: scale(3.2);
+}
+.img {width:325px; height:280px; overflow:hidden } /* 부모 태그에 사이즈를 지정하여 확대시 벗어나지 않도록 한다. */
+</style>
 
 <script type="text/javascript">
 var template1Src = $('#t1').html(),

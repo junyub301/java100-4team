@@ -12,7 +12,7 @@
 <table id="list" style='margin-top: 10px;'class='table'>
 <thead class="thead-dark">
 <tr>
-<th>번호</th><th>아이디</th><th>이메일</th>
+<th>번호</th><th>아이디</th><th>이메일</th><th>사진</th>
 </tr>
 </thead>
 <tbody>
@@ -25,7 +25,11 @@
   <td>{{accountsNo}}</td>
   <td><a href="view.html?no={{accountsNo}}">{{accountName}}</a></td>
   <td>{{email}}</td>
-  <td>{{aver}}</td>
+  <td><img 
+{{#each photos}}
+src="/download/{{photoName}}"
+{{/each}}
+></td>
 </tr>
 {{/each}}
 </script>
@@ -45,8 +49,7 @@ function load() {
     $.ajax('../../json/user/list', {
         dataType: 'json',
         success: (result) => {
-            tbody.html(template1Engine(result));
-            
+            tbody.html(template1Engine(result));            
         },
         error: () => {
             window.alert('서버 실행 오류!');

@@ -224,7 +224,7 @@ if (index != -1) { // 기존 데이터를 조회할 경우
                 baseAddr.val(result.user.baseAddress);
                 detailAddr.val(result.user.detailAddress);
                 for (var data of result.user.photos){
-                    var filename = data.photoName
+                    var filename = data.thumbnailName
                     imd.html( '<img class="rounded-circle" id="imag" align="middle" src="/download/' + filename + '">');
                 }
                 nod.html("<input id='no' type='hidden' name='accountsNo' value='" + result.account.accountsNo + "'>")
@@ -315,7 +315,7 @@ updateBtn.click(() => {
             for (var data of result.status) {
                 var filename = data.photoName;
                 console.log(filename)
-                return imd.html( '<img id="imag"  align="middle" src="/download/' + filename + '">');
+                return imd.html( '<img id="imag" align="middle" src="/download/' + filename + '">');
                 }
             });
             alert('수정되었습니다.')

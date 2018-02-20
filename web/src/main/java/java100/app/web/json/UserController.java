@@ -62,7 +62,7 @@ public class UserController {
             // part파일은 uploadDir경로에 저장해라.
             String filename = this.writeUploadFile(part, uploadDir);
             
-            String Thumbnail = this.Thumbnail(uploadDir,filename,50,50);
+            String Thumbnail = this.Thumbnail(uploadDir,filename,50,50) ;
 
             uploadFiles.add(new Photo(filename,Thumbnail));
         }

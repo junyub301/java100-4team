@@ -62,8 +62,7 @@ body {
 
 <script id="t1" type="text/x-handlebars-template">
 {{#each list}}
-    <div class="col-md-4 col-sm-6 col-xs-12 m_pointer"  onclick="location.href='view.html?no={{itemNo}}'">
-<div class="hvr-grow-rotate" style="background-color: white;">
+    <div class="hvr-grow-rotate col-md-4 col-sm-6 col-xs-12 m_pointer" onclick="location.href='view.html?no={{itemNo}}'">
     <div class="card mb-4 box-shadow" >
         <img class="card-img-top" 
             alt="Thumbnail [300x200]" 
@@ -84,7 +83,6 @@ body {
     </div>
     </div>
     </div>
-</div>
 </div>
 {{/each}}
 </script>
