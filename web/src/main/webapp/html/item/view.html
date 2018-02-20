@@ -91,21 +91,21 @@
 <script id='t1' type="text/x-handlebars-template">
 {{#each photos}}
 <a href="/download/{{photoName}}">
-    <img src="/download/{{photoName}}" class="img-responsive img-circle proimg"></a>
+    <img src="/download/{{photoName}}" class="img-responsive rounded-circle" style="width:100%"></a>
 {{/each}}
 </script>
 <script id='t2' type="text/x-handlebars-template">
 {{#each this}}
-<a data-toggle="modal" data-target="#exampleModal" href="/download/{{this}}">
+<a data-toggle="modal" data-target="#exampleModal{{@index}}" href="/download/{{this}}">
     <img src="/download/{{this}}" style="height: 225px; width: 250px; display: inline-block; margin: 10px;"></a>
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModal{{@index}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-      <div class="modal-body">
-        <img src="/download/{{this}}"></a>
+      <div class="modal-body mx-auto">
+        <img class="img-fluid" src="/download/{{this}}"></a>
         <div id="kartik-file-errors"></div>
       </div>
       <div class="modal-footer">
@@ -120,10 +120,9 @@
 <p class="card-text mb-1 text-muted" type="date">{{formatDate startDate}} ~ {{formatDate endDate}}</p>
 </script>
 
-
-
 <script src='/node_modules/handlebars/dist/handlebars.min.js'></script>
 <script src='/node_modules/moment/moment.js'></script>
+
 <script src='/node_modules/jquery/dist/jquery.min.js'></script>
 <script src='/node_modules/popper.js/dist/umd/popper.min.js'></script>
 <script src='/node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
