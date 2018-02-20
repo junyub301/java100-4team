@@ -79,7 +79,12 @@ body {
 {{#each photos}}
             src="/download/{{thumbnail thumbnailName}}" 
 {{/each}}
+
       >
+
+{{#shared status}}
+    <img class="card-img-top" style="height: 225px; width: 100%; position:absolute;"src="/images/shared.png">
+{{/shared}}
     <div class="card-body"> 
         <h3 class="mb-0">
         <p class="card-text text-truncate">{{title}}</p></h3>
@@ -133,14 +138,19 @@ Handlebars.registerHelper('check', function(userType, options) {
     return options.fn(this);
     }
 });
+Handlebars.registerHelper('shared', function(status, options) {
+    if (status == 1){
+    return options.fn(this);
+    }
+});
 console.log($(location).attr('search').split("=")[0]);
 if ($(location).attr('search').split("=")[0] == '?cr') {
     categoryNo = $(location).attr('search').split("=")[1];
 } else {
-	var searchWord = decodeURI($(location).attr('search')).split("=")[1];
-	if (searchWord != undefined) {
-	words = searchWord.split("+").join(" ");
-	}
+    var searchWord = decodeURI($(location).attr('search')).split("=")[1];
+    if (searchWord != undefined) {
+    words = searchWord.split("+").join(" ");
+    }
 }
 
 load(1,0,categoryNo,words);
