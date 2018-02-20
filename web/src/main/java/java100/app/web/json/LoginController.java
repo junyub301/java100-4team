@@ -1,6 +1,7 @@
 package java100.app.web.json;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
@@ -15,7 +16,9 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import java100.app.domain.Account;
+import java100.app.domain.User;
 import java100.app.service.AccountService;
+import java100.app.service.FacebookService;
 import java100.app.service.UserService;
 
 @RestController
@@ -25,6 +28,7 @@ public class LoginController {
     
     @Autowired AccountService accountService;
     @Autowired UserService userService;
+    @Autowired FacebookService facebookService;
    
     @RequestMapping(value="login", method=RequestMethod.POST)
     public Object login(
@@ -58,6 +62,54 @@ public class LoginController {
         
         return result;
     }
+    
+    @RequestMapping(value="facebookLogin")
+    public Object facebookLogin(
+            String accessToken, 
+            HttpSession session,
+            Model model) {
+    
+        try {
+            @SuppressWarnings("rawtypes")
+            Map userInfo = facebookService.me(accessToken, Map.class);
+            
+            Account account = accountService.get(
+                                (String)userInfo.get("email"));
+            
+            if (account == null) { // 등록된 회원이 아니면,
+                // 페이스북에서 받은 정보로 회원을 자동 등록한다.
+                User user = new User();
+                account = new Account();
+                account.setName((String)userInfo.get("name"));
+                account.setEmail((String)userInfo.get("email"));
+                String[] a = account.getEmail().split("@");
+                account.setAccountName(a[0]);
+                account.setPassword("1111");
+                user.setAccountNo("1");
+                user.setBank("1");
+                user.setPhone("1");
+                user.setPostNo("1");
+                user.setBaseAddress("1");
+                user.setDetailAddress("1");
+                userService.add(account, user);
+            }
+            
+            // 회원 정보를 세션에 저장하여 자동 로그인 처리를 한다.
+            model.addAttribute("loginUser", account);
+            
+            HashMap<String,Object> result = new HashMap<>();
+            result.put("status", "success");
+            return result;
+            
+        } catch (Exception e) {
+            HashMap<String,Object> result = new HashMap<>();
+            result.put("status", "fail");
+            result.put("exception", e.getStackTrace());
+            return result;
+        }
+    }
+    
+    
     
     @RequestMapping("logout")
     public Object logout(HttpSession session, SessionStatus status) {
