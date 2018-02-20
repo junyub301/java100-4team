@@ -28,7 +28,7 @@
             pay_dat,
             pay_type,
             del_no,
-            del_dat,
+            del_dat
          from transaction
     </select>
     
@@ -42,7 +42,7 @@
             pay_dat,
             pay_type,
             del_no,
-            del_dat,
+            del_dat
          from transaction
          where rent_no=#{value}
     </select>
