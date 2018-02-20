@@ -43,7 +43,7 @@ public class ItemController {
             // part파일은 uploadDir경로에 저장해라.
             String filename = this.writeUploadFile(part, uploadDir);
             //썸네일 생성 메소드 호출 = 이름리턴     ** Thumbnail(저장경로,원본파일이름,썸네일너비,썸네일높이)
-            String Thumbnail = this.Thumbnail(uploadDir,filename,150,150, "s");
+            String Thumbnail = this.Thumbnail(uploadDir,filename,250,220, "ipre");
             uploadFiles.add(new Photo(filename,Thumbnail));
         }
         
@@ -130,9 +130,9 @@ public class ItemController {
     }
 
   //썸네일 저장 코드(s_원본파일로 저장)
-    private String Thumbnail(String uploadDir, String filename, int width, int height,String pre) {
+    private String Thumbnail(String uploadDir, String filename, int width, int height,String ipre) {
         File image = new File(uploadDir+"//"+filename); 
-        File thumbnail = new File(uploadDir+"//"+pre+"_"+filename); 
+        File thumbnail = new File(uploadDir+"//"+ipre+"_"+filename); 
         if (image.exists()) { 
             try {
                 int pos = filename.lastIndexOf(".");
@@ -142,7 +142,7 @@ public class ItemController {
                 e.printStackTrace();
             } 
         }
-        return pre+"_"+filename;
+        return ipre+"_"+filename;
     }
 }
 

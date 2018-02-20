@@ -40,6 +40,7 @@ $('#username').click(() => {
         dataType: 'json',
         method: 'POST',
         success: (result) => {
+            console.log(result)
             location.href="../user/view.html?no=" + result.account.accountsNo
         },
         error:function(request,status,error){
