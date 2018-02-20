@@ -106,7 +106,8 @@
             i.price,
             i.price_day,
             i.status,
-            GROUP_CONCAT(p.pho_name order by p.pho_name) as pho_name
+            GROUP_CONCAT(p.pho_name order by p.pho_name) as pho_name,
+            GROUP_CONCAT(p.th_name order by p.th_name) as th_name
             from item as i join itemphoto as p on i.it_no=p.it_no 
             where i.it_no=#{value}
             group by it_no

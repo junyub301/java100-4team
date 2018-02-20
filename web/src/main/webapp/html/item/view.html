@@ -91,14 +91,18 @@
 
 <script id='t1' type="text/x-handlebars-template">
 {{#each photos}}
-<a href="/download/{{photoName}}">
-    <img src="/download/{{photoName}}" class="img-responsive rounded-circle scale" style="width:100%"></a>
+<a href="/download/{{thumbnailName}}">
+    <img src="/download/{{thumbnailName}}" class="img-responsive rounded-circle scale" style="width:100%"></a>
 {{/each}}
 </script>
 <script id='t2' type="text/x-handlebars-template">
 {{#each this}}
 <a data-toggle="modal" data-target="#exampleModal{{@index}}" href="/download/{{this}}">
     <img src="/download/{{this}}" style="height: 225px; width: 250px; display: inline-block; margin: 10px;"></a>
+{{/each}}
+</script>
+<script id='t4' type="text/x-handlebars-template">
+{{#each this}}
 <div class="modal fade" id="exampleModal{{@index}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
@@ -157,9 +161,11 @@ var itemNo, price;
 var template1Src = $('#t1').html(),
 template2Src = $('#t2').html(),
 template3Src = $('#t3').html(),
+template4Src = $('#t4').html(),
 template1Engine = Handlebars.compile(template1Src),
 template2Engine = Handlebars.compile(template2Src),
-template3Engine = Handlebars.compile(template3Src);
+template3Engine = Handlebars.compile(template3Src),
+template4Engine = Handlebars.compile(template4Src);
 
 $('header').load('../header.html');
 
@@ -177,12 +183,14 @@ if (index != -1) { // 기존 데이터를 조회할 경우
         dataType: 'json',
         success: (result) => {
             
-            console.log()
+            console.log(result)
             $('#aa').html(template1Engine(result.user));
             for (var data of result.item.photos) {
                 var photo = data.photoName.split(',');
+                var thumb = data.thumbnailName.split(',');
+                
             }
-            $('#itempic1').css("background-image","url('/download/"+photo[0]+"')");
+            $('#itempic1').css("background-image","url('/download/"+thumb[0]+"')");
             $('#itemName').html('물품명:'+result.item.name);
             price = result.item.pricePerDay + 2500;
             $('#dp').prepend('기간 : ' + moment(result.item.startDate).format('YYYY-MM-DD') + ' ~ ' +
@@ -190,7 +198,8 @@ if (index != -1) { // 기존 데이터를 조회할 경우
                     '가격 : ');
             $('#pr').html(price);
             itemNo = result.item.itemNo;
-            $('#itemphoto').html(template2Engine(photo));
+            $('#itemphoto').html(template2Engine(thumb));
+            $('#itemphoto').append(template4Engine(photo));
             $('#actname').html('<div>' + result.account.accountName + '</div>');
             $('#title').html('<h3 class="mb-0"><div>' + result.item.title + '</div></h3>');
             $('#title').append(result.item.name);
