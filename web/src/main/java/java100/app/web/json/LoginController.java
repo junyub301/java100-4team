@@ -3,7 +3,6 @@ package java100.app.web.json;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -19,6 +18,7 @@ import java100.app.domain.Account;
 import java100.app.domain.User;
 import java100.app.service.AccountService;
 import java100.app.service.FacebookService;
+import java100.app.service.GoogleService;
 import java100.app.service.KakaoService;
 import java100.app.service.UserService;
 
@@ -31,6 +31,7 @@ public class LoginController {
     @Autowired UserService userService;
     @Autowired FacebookService facebookService;
     @Autowired KakaoService kakaoService;
+    @Autowired GoogleService googleService;
 
     @RequestMapping(value="login", method=RequestMethod.POST)
     public Object login(
@@ -120,7 +121,7 @@ public class LoginController {
             }
 
             // 이메일로 회원 정보를 찾는다.
-            Account account = accountService.get((String)koResponse.get("kaccount_email"));
+            Account account = accountService.get((String)koResponse.get("email"));
 
             if (account == null) {
                 // 회원 정보가 없으면 페이스북 회원 정보를 등록한다.
@@ -128,6 +129,58 @@ public class LoginController {
                 User user = new User();
                 account.setName((String)((Map)koResponse.get("properties")).get("nickname"));
                 account.setEmail((String)koResponse.get("kaccount_email"));
+                String[] a = account.getEmail().split("@");
+                account.setAccountName(a[0]);
+                account.setPassword("1111");
+                user.setAccountNo("");
+                user.setBank("");
+                user.setPhone("");
+                user.setBaseAddress("");
+                user.setDetailAddress("");
+                user.setPostNo("");
+                userService.add(account,user);
+            }
+
+            model.addAttribute("loginUser", account);
+
+            HashMap<String,Object> result = new HashMap<>();
+            result.put("status", "success");
+            return result;
+        } catch (Exception e) {
+            HashMap<String,Object> result = new HashMap<>();
+            result.put("status", "fail");
+            result.put("exception", e.getStackTrace());
+            return result;
+        }
+    }
+    
+    @RequestMapping(value="googleLogin")
+    public Object GoogleLogin(
+            String accessToken, 
+            HttpSession session,
+            Model model) {
+
+        try {
+            // Facebook에서 사용자 정보를 가져온다.
+            @SuppressWarnings("rawtypes")
+            Map userInfo = googleService.me(accessToken, Map.class);
+
+            if (userInfo.get("error") != null) {
+                model.addAttribute("loginUser", null);
+                HashMap<String,Object> result = new HashMap<>();
+                result.put("status", "fail"); 
+                return result;
+            }
+
+            // 이메일로 회원 정보를 찾는다.
+            Account account = accountService.get((String)userInfo.get("email"));
+
+            if (account == null) {
+                // 회원 정보가 없으면 페이스북 회원 정보를 등록한다.
+                account = new Account();
+                User user = new User();
+                account.setName((String)((Map)userInfo.get("profile")).get("name"));
+                account.setEmail((String)userInfo.get("email"));
                 String[] a = account.getEmail().split("@");
                 account.setAccountName(a[0]);
                 account.setPassword("1111");
