@@ -7,18 +7,19 @@ public class Transaction {
     protected int no;
     protected int lenderNo; //userNo
     protected int itemNo;
-    protected Date requestDate;  // 신청일
+    protected int sellerNo;  // 신청일
     protected String payMethod;   // 결제유형
     protected Date payDate;    // 결제일
     protected int deliveryPayType;   //배송비결제유형
     protected int deliveryNo;      //운송장 번호
     protected Date deliveryDate;    //배송일
+    protected Item item;
     
     @Override
     public String toString() {
-        return "Transaction [no=" + no + ", lenderNo=" + lenderNo + ", itemNo=" + itemNo + ", requestDate="
-                + requestDate + ", payMethod=" + payMethod + ", payDate=" + payDate + ", deliveryPayType="
-                + deliveryPayType + ", deliveryNo=" + deliveryNo + ", deliveryDate=" + deliveryDate + "]";
+        return "Transaction [no=" + no + ", lenderNo=" + lenderNo + ", itemNo=" + itemNo + ", sellerNo=" + sellerNo
+                + ", payMethod=" + payMethod + ", payDate=" + payDate + ", deliveryPayType=" + deliveryPayType
+                + ", deliveryNo=" + deliveryNo + ", deliveryDate=" + deliveryDate + ", item=" + item + "]";
     }
 
     public int getNo() {
@@ -45,12 +46,12 @@ public class Transaction {
         this.itemNo = itemNo;
     }
 
-    public Date getRequestDate() {
-        return requestDate;
+    public int getSellerNo() {
+        return sellerNo;
     }
 
-    public void setRequestDate(Date requestDate) {
-        this.requestDate = requestDate;
+    public void setSellerNo(int sellerNo) {
+        this.sellerNo = sellerNo;
     }
 
     public String getPayMethod() {
@@ -92,6 +93,17 @@ public class Transaction {
     public void setDeliveryDate(Date deliveryDate) {
         this.deliveryDate = deliveryDate;
     }
+
+    public Item getItem() {
+        return item;
+    }
+
+    public void setItem(Item item) {
+        this.item = item;
+    }
+   
+    
+    
     
     
 }

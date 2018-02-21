@@ -15,7 +15,6 @@
         <result column="start" property="startDate"/>
         <result column="end" property="endDate"/>
         <result column="price" property="price"/>
-        <result column="price_day" property="pricePerDay"/>
         <result column="status" property="status"/>
         
         <collection property="photos" ofType="Photo">
@@ -41,15 +40,15 @@
     
     <insert id="insert" parameterType="item"
         useGeneratedKeys="true" keyColumn="it_no" keyProperty="itemNo">
-        insert into item(ur_no,category,user_type,title,item_name,cnt,start,end,price,price_day,status) 
+        insert into item(ur_no,category,user_type,title,item_name,cnt,start,end,price,status) 
         values(#{userNo},#{category},#{userType},#{title},#{name},#{content},#{startDate},
-                #{endDate},#{price},#{pricePerDay},#{status})
+                #{endDate},#{price},#{status})
     </insert>
     <select id="findAll" resultMap="itemMap" parameterType="map">
         select 
             i.it_no, i.ur_no, i.category, i.user_type, i.item_name, 
             i.title, i.cnt, i.start, i.end,
-            i.price, i.price_day, i.status,
+            i.price, i.status,
             p.pho_no as pho_no,
             GROUP_CONCAT(p.pho_name order by p.pho_name) as pho_name,
             GROUP_CONCAT(p.th_name order by p.th_name) as th_name
@@ -104,7 +103,6 @@
             i.start,
             i.end,
             i.price,
-            i.price_day,
             i.status,
             GROUP_CONCAT(p.pho_name order by p.pho_name) as pho_name,
             GROUP_CONCAT(p.th_name order by p.th_name) as th_name

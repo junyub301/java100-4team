@@ -1,0 +1,148 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>이용내역</title>
+
+<link rel="stylesheet" href='/node_modules/bootstrap/dist/css/bootstrap.min.css'>
+<link href="http://fonts.googleapis.com/earlyaccess/nanumgothic.css" rel="stylesheet" type="text/css">
+
+</head>
+<body>
+<header></header>
+<div class='container' style="width:1000px;position:relative;">
+<div style='width: 320px;height:400px;display:inline-block;float:left;'>
+<br>
+
+    <div class="mb-1 alert col-10 alert-success" onclick="location.href='../tr/list.html'" style="cursor: pointer;" role="alert">
+      <a style='text-decoration:none;' href='../tr/list.html'>이용내역</a>
+    </div>
+    
+    <div class="mb-1 alert col-10 alert-success" onclick="location.href='../user/view.html'" style="cursor: pointer;" role="alert">
+      <a style='text-decoration:none;' href='../user/view.html'>회원정보변경</a>
+    </div>
+    
+    <div class="alert col-10 alert-success" onclick="location.href='../msg/list.html'" style="cursor: pointer;" role="alert">
+      <a style='text-decoration:none;' href='../msg/list.html'>메시지</a>
+    </div>
+    
+
+</div>
+<div style='display:inline-block;position: absolute;width:690px; margin-left:50px;padding-top:25px; '>
+<div>
+<button id='buyBtn' type="button" class="btn btn-dark">구매자</button>
+<button id='sellBtn' type="button" class="btn btn-outline-dark">판매자</button>
+</div>
+
+<table id='list' style='margin-top: 10px;'class='table'>
+<thead >
+<tr>
+<th>결제일</th><th>상품명</th><th>금액</th><th>대여기간</th><th>현황</th>
+</tr>
+</thead>
+<tbody>
+
+
+</tbody>
+</table>
+</div>
+</div>
+
+<script src='/node_modules/handlebars/dist/handlebars.min.js'></script>
+<script src='/node_modules/moment/moment.js'></script>
+<script src='/node_modules/jquery/dist/jquery.min.js'></script>
+<script src='/node_modules/popper.js/dist/umd/popper.min.js'></script>
+<script src='/node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
+
+<script type="text/javascript">
+$('header').load('../header.html');
+
+var tbody = $('#list > tbody')
+load();
+
+$('#buyBtn').click(()=> {
+    $('#buyBtn').removeClass('btn-outline-dark').addClass('btn-dark');
+    $('#sellBtn').removeClass('btn-dark').addClass('btn-outline-dark');
+    load();
+});
+
+$('#sellBtn').click(()=> {
+    $('#buyBtn').removeClass('btn-dark').addClass('btn-outline-dark');
+    $('#sellBtn').removeClass('btn-outline-dark').addClass('btn-dark');
+    load2();
+});
+
+function load() {
+    $.ajax('/json/tr/list', {
+        dataType: 'json',
+        success: (result) => {
+            
+            tbody.html(""); 
+            for (var data of result.transaction) {
+                var status;
+                if (data.item.status == 1) {
+                    status = '결제완료'
+                    } else {
+                        status = '미결제'
+                    }
+            $('<tr>')
+            .html(  
+                "<td>" + moment(data.payDate).format('YYYY-MM-DD') + "</td>" + 
+                "<td>" + data.item.name + "</td>" +
+                "<td>"+ data.item.price +"</td>" + 
+                "<td>" + moment(data.item.startDate).format('YYYY-MM-DD') + "~"+ 
+                moment(data.item.endDate).format('YYYY-MM-DD')+ "</td>" +
+                "<td>"+ status +"</td>")
+            .appendTo(tbody);
+            }
+        },
+        error: () => {
+            window.alert('서버 실행 오류!');
+        }
+    });
+};
+
+function load2() {
+    $.ajax('/json/tr/list2', {
+        dataType: 'json',
+        success: (result) => {
+            
+            tbody.html(""); 
+            for (var data of result.transaction) {
+                $('<tr>')
+                .html(  
+                    "<td>" + moment(data.payDate).format('YYYY-MM-DD') + "</td>" + 
+                    "<td>" + data.item.name + "</td>" +
+                    "<td>"+ data.item.price +"</td>" + 
+                    "<td>" + moment(data.item.startDate).format('YYYY-MM-DD') + "~"+ 
+                    moment(data.item.endDate).format('YYYY-MM-DD')+ "</td>" +
+                    "<td>"+ data.item.status +"</td>")
+                .appendTo(tbody);
+            }
+        },
+        error: () => {
+            window.alert('서버 실행 오류!');
+        }
+    });
+};
+
+
+
+
+
+</script>
+
+
+</body>
+</html>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    

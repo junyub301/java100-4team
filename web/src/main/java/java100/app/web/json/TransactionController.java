@@ -31,10 +31,11 @@ public class TransactionController {
     @RequestMapping("add")
     public Object add(Transaction transaction, HttpSession session) throws Exception {
         Account account = (Account) session.getAttribute("loginUser");
-        transaction.setLenderNo(account.getAccountsNo());
-        transactionService.add(transaction);
         Item item = itemService.getItem(transaction.getItemNo());
-        item.setStatus(true);
+        transaction.setLenderNo(account.getAccountsNo());
+        transaction.setSellerNo(item.getUserNo());
+        transactionService.add(transaction);
+        item.setStatus(1);
         itemService.update(item);
         Message message = new Message(account.getAccountsNo(),"결제 완료","결제가 완료 되었습니다. 배송이 곧 시작됩니다");
         messageService.add(message);
@@ -44,9 +45,19 @@ public class TransactionController {
     }
     
     @RequestMapping("list")
-    public String list(Model model) throws Exception {
-        model.addAttribute("transaction", transactionService.list());
-        return "tr/list";
+    public Object list(HttpSession session) throws Exception {
+        Account account = (Account) session.getAttribute("loginUser");
+        HashMap<String,Object> result = new HashMap<>();
+        result.put("transaction", transactionService.list(account.getAccountsNo()));
+        return result;
+    }
+    
+    @RequestMapping("list2")
+    public Object sellList(HttpSession session) throws Exception {
+        Account account = (Account) session.getAttribute("loginUser");
+        HashMap<String,Object> result = new HashMap<>();
+        result.put("transaction", transactionService.sellList(account.getAccountsNo()));
+        return result;
     }
     
     @RequestMapping("{no}")

@@ -9,27 +9,66 @@
         <id column="rent_no" property="no"/>
         <result column="ur_no" property="lenderNo"/>
         <result column="it_no" property="itemNo"/>
-        <result column="aply_dat" property="requestDate"/>
+        <result column="sel_no" property="sellerNo"/>
         <result column="pay_way" property="payMethod"/>
         <result column="pay_dat" property="payDate"/>
         <result column="pay_type" property="deliveryPayType"/>
         <result column="del_no" property="deliveryNo"/>
         <result column="del_dat" property="deliveryDate"/>
+        <association property="item" javaType="Item">
+            <id column="it_no" property="itemNo"/>
+            <result column="title" property="title"/>
+            <result column="item_name" property="name"/>
+            <result column="start" property="startDate"/>
+            <result column="end" property="endDate"/>
+            <result column="price" property="price"/>
+            <result column="status" property="status"/>
+        </association>
         
     </resultMap>
     
-    <select id="list" resultMap="trMap" parameterType="map">
+    <select id="list" resultMap="trMap" parameterType="int">
         select
-            rent_no,
-            ur_no,
-            it_no,
-            aply_dat,
-            pay_way,
-            pay_dat,
-            pay_type,
-            del_no,
-            del_dat
-         from transaction
+            t.rent_no,
+            t.ur_no,
+            t.it_no,
+            t.sel_no,
+            t.pay_way,
+            t.pay_dat,
+            t.pay_type,
+            t.del_no,
+            t.del_dat,
+            i.title,
+            i.item_name,
+            i.start,
+            i.end,
+            i.price,
+            i.status
+         from transaction t
+         join item i on t.it_no=i.it_no
+         where t.ur_no=#{no}
+    </select>
+    
+    <select id="sellList" resultMap="trMap" parameterType="int">
+        select
+            t.rent_no,
+            t.ur_no,
+            t.it_no,
+            t.sel_no,
+            t.pay_way,
+            t.pay_dat,
+            t.pay_type,
+            t.del_no,
+            t.del_dat,
+            i.title,
+            i.item_name,
+            i.start,
+            i.end,
+            i.price,
+            i.status
+         from transaction t
+         join item i on t.it_no=i.it_no
+         where sel_no=#{no}
     </select>
     
     <select id="findByNo" resultMap="trMap" parameterType="int">
@@ -37,7 +76,7 @@
             rent_no,
             ur_no,
             it_no,
-            aply_dat,
+            sel_no,
             pay_way,
             pay_dat,
             pay_type,
@@ -50,13 +89,12 @@
     
     <insert id="insert" parameterType="transaction" 
         useGeneratedKeys="true" keyColumn="rent_no" keyProperty="no">
-        insert into transaction(ur_no,it_no,pay_way,pay_dat,pay_type) 
-        values(#{lenderNo},#{itemNo},#{payMethod},#{payDate},#{deliveryPayType})
+        insert into transaction(ur_no,it_no,sel_no,pay_way,pay_dat,pay_type) 
+        values(#{lenderNo},#{itemNo},#{sellerNo},#{payMethod},#{payDate},#{deliveryPayType})
     </insert>
 
     <update id="update" parameterType="transaction">
         update transaction set 
-           aply_dat=#{requestDate},
            pay_way=#{payMethod},
            pay_dat=#{payDate},
            pay_type=#{deliveryPayType},
