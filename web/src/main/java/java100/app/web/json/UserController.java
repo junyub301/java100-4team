@@ -7,6 +7,7 @@ import java.util.HashMap;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -48,6 +49,17 @@ public class UserController {
         result.put("account", userService.getAccount(no));
         result.put("user", userService.getUser(no));
 
+        return result;
+    }
+    
+    @RequestMapping("view")
+    public Object view2(HttpSession session) throws Exception {
+        Account account = (Account)session.getAttribute("loginUser");
+        HashMap<String,Object> result = new HashMap<>();
+        
+        result.put("account", userService.getAccount(account.getAccountsNo()));
+        result.put("user", userService.getUser(account.getAccountsNo()));
+        
         return result;
     }
     

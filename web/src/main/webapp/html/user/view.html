@@ -204,14 +204,11 @@ var index = location.href.indexOf('?');
 if (index != -1) { // 기존 데이터를 조회할 경우
     var qs = location.href.substr(index + 1);
     var arr = qs.split('=');
-    var el = $('.my-new').css('display', 'none');
-    // 딱한번만 호출하려면 밑에와 같이 $()안에 함수를 넣는다.
-    // $() 파라미터로 함수 주소를 주면 그 함수를 호출해준다.
+    var el = $('.my-new').css('display', 'none'); //이거 모지??? 필요없음 지우기
     $(() => {
         $.ajax('../../json/user/' + arr[1], {
             dataType: 'json',
             success: (result) => {
-                console.log(result)
                 id.val(result.account.accountName);
                 pwd.val(result.account.password)
                 nameItem.val(result.account.name);
@@ -235,6 +232,33 @@ if (index != -1) { // 기존 데이터를 조회할 경우
         });
     });
     
+} else {
+    $(() => {
+        $.ajax('../../json/user/view' , {
+            dataType: 'json',
+            success: (result) => {
+                id.val(result.account.accountName);
+                pwd.val(result.account.password)
+                nameItem.val(result.account.name);
+                email.val(result.account.email);
+                bank.val(result.user.bank);
+                accNo.val(result.user.accountNo);
+                cnt.val(result.user.comment);
+                phone.val(result.user.phone);
+                postNo.val(result.user.postNo);
+                baseAddr.val(result.user.baseAddress);
+                detailAddr.val(result.user.detailAddress);
+                for (var data of result.user.photos){
+                    var filename = data.thumbnailName
+                    imd.html( '<img class="rounded-circle" id="imag" align="middle" src="/download/' + filename + '">');
+                }
+                nod.html("<input id='no' type='hidden' name='accountsNo' value='" + result.account.accountsNo + "'>")
+            },
+            error: () => {
+                window.alert('서버 실행 오류!');
+            }
+        });
+    });
 }
 
     function sample6_execDaumPostcode() {
