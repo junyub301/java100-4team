@@ -35,21 +35,6 @@
     
 <script type="text/javascript">
 
-$('#username').click(() => {  
-    $.ajax('../../json/auth/loginUser', {
-        dataType: 'json',
-        method: 'POST',
-        success: (result) => {
-            console.log(result)
-            location.href="../user/view.html?no=" + result.account.accountsNo
-        },
-        error:function(request,status,error){
-            alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-         }
-    }
-)});
-
-
 $('#logoutBtn').hide();
 $.ajax('/json/auth/loginUser', {
     beforeSend: function(xmlHttpRequest) {
@@ -74,4 +59,11 @@ $('#logoutBtn').click(() => {
         location.href = '../auth/loginform.html';
     });
 })
+
+$('#username').click(() => {  
+    $.getJSON('../../json/auth/loginUser', function(result){
+        if (result.status != "fail")        
+            location.href="../user/view.html?no=" + result.account.accountsNo
+    }
+)});
 </script>
