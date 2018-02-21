@@ -12,8 +12,7 @@ public class Item {
     protected Date startDate;
     protected Date endDate;
     protected int price;
-    protected int pricePerDay;
-    protected boolean status;
+    protected int status;
     protected int category;
     protected int userType;
     protected List<Photo> photos;
@@ -21,9 +20,8 @@ public class Item {
     @Override
     public String toString() {
         return "Item [itemNo=" + itemNo + ", userNo=" + userNo + ", title=" + title + ", name=" + name + ", content="
-                + content + ", startDate=" + startDate + ", endDate=" + endDate + ", price=" + price + ", pricePerDay="
-                + pricePerDay + ", status=" + status + ", category=" + category + ", userType=" + userType + ", photos="
-                + photos + "]";
+                + content + ", startDate=" + startDate + ", endDate=" + endDate + ", price=" + price + ", status="
+                + status + ", category=" + category + ", userType=" + userType + ", photos=" + photos + "]";
     }
 
     public int getItemNo() {
@@ -90,19 +88,11 @@ public class Item {
         this.price = price;
     }
 
-    public int getPricePerDay() {
-        return pricePerDay;
-    }
-
-    public void setPricePerDay(int pricePerDay) {
-        this.pricePerDay = pricePerDay;
-    }
-
-    public boolean isStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 
@@ -129,7 +119,6 @@ public class Item {
     public void setPhotos(List<Photo> photos) {
         this.photos = photos;
     }
-    
     
     
 }

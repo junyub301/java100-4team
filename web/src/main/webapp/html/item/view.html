@@ -20,7 +20,7 @@
   </div>
     
       <h4 id='actname' class="py-3 text_center" style="color:#3680C1"></h4>
-      <p class="text_center text-muted">Team Leader</p>
+      <p class="text_center text-muted"></p>
   
 </div>
 </div>
@@ -192,7 +192,7 @@ if (index != -1) { // 기존 데이터를 조회할 경우
             }
             $('#itempic1').css("background-image","url('/download/"+thumb[0]+"')");
             $('#itemName').html('물품명:'+result.item.name);
-            price = result.item.pricePerDay + 2500;
+            price = result.item.price + 2500;
             $('#dp').prepend('기간 : ' + moment(result.item.startDate).format('YYYY-MM-DD') + ' ~ ' +
                     moment(result.item.endDate).format('YYYY-MM-DD') +'<br><br>' + 
                     '가격 : ');
@@ -206,7 +206,6 @@ if (index != -1) { // 기존 데이터를 조회할 경우
             $('#title').append(result.item.content);
             $('#date').html(template3Engine(result.item));
             $('#date').append('<div>' + result.item.price + '</div>');
-            $('#date').append('<div>' + result.item.pricePerDay + '</div>');
             if (result.item.status == 1)
             $('#priceBtn').prop("disabled",'true').html("결제완료");
             

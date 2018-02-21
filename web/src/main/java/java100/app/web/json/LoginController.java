@@ -20,6 +20,7 @@ import java100.app.service.AccountService;
 import java100.app.service.FacebookService;
 import java100.app.service.GoogleService;
 import java100.app.service.KakaoService;
+import java100.app.service.NaverService;
 import java100.app.service.UserService;
 
 @RestController
@@ -32,6 +33,7 @@ public class LoginController {
     @Autowired FacebookService facebookService;
     @Autowired KakaoService kakaoService;
     @Autowired GoogleService googleService;
+    @Autowired NaverService naverService;
 
     @RequestMapping(value="login", method=RequestMethod.POST)
     public Object login(
@@ -195,6 +197,60 @@ public class LoginController {
 
             model.addAttribute("loginUser", account);
 
+            HashMap<String,Object> result = new HashMap<>();
+            result.put("status", "success");
+            return result;
+        } catch (Exception e) {
+            HashMap<String,Object> result = new HashMap<>();
+            result.put("status", "fail");
+            result.put("exception", e.getStackTrace());
+            return result;
+        }
+    }     
+    @RequestMapping(value="naverLogin")
+    public Object naverLogin(
+            String accessToken, 
+            HttpSession session,
+            Model model) {
+        System.out.println(accessToken);
+        try {
+            // Facebook에서 사용자 정보를 가져온다.
+            @SuppressWarnings("rawtypes")
+            Map naResponse = naverService.me(accessToken, Map.class);
+            System.out.println(naResponse.get("resultcode"));
+            System.out.println(naResponse.get("message"));
+            System.out.println(naResponse.get("response"));
+            if (!naResponse.get("message").equals("success")) {
+                model.addAttribute("loginUser", null);
+                HashMap<String,Object> result = new HashMap<>();
+                result.put("status", "fail"); 
+                return result;
+            }
+            
+            // 이메일로 회원 정보를 찾는다.
+            Map response = (Map) naResponse.get("response");
+            System.out.println(response.get("name"));
+            Account account = accountService.get((String)response.get("email"));
+            if (account == null) {
+                // 회원 정보가 없으면 페이스북 회원 정보를 등록한다.
+                account = new Account();
+                User user = new User();
+                account.setName((String)response.get("name"));
+                account.setEmail((String)response.get("email"));
+                String[] a = account.getEmail().split("@");
+                account.setAccountName(a[0]);
+                account.setPassword("1111");
+                user.setAccountNo("");
+                user.setBank("");
+                user.setPhone("");
+                user.setBaseAddress("");
+                user.setDetailAddress("");
+                user.setPostNo("");
+                userService.add(account,user);
+            }
+            
+            model.addAttribute("loginUser", account);
+            
             HashMap<String,Object> result = new HashMap<>();
             result.put("status", "success");
             return result;

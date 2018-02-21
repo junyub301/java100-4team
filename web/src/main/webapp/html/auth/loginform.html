@@ -88,6 +88,10 @@ background-size: cover; background-attachment: fixed;">
       };
     </script>
             </div>
+
+            </div>   
+            <a id="naverIdLogin_loginButton" style="margin-left: 135px;" href="#" role="button"><img src="https://static.nid.naver.com/oauth/big_g.PNG" width="222" height="49"></a>
+
     </div>
     
 <link href="http://fonts.googleapis.com/earlyaccess/nanumgothic.css" rel="stylesheet" type="text/css">
@@ -96,6 +100,7 @@ background-size: cover; background-attachment: fixed;">
 <script src='../../node_modules/popper.js/dist/umd/popper.min.js'></script>
 <script src='../../node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+<script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>>
 <script type="text/javascript">
 //쿠키관련
 function setCookie(cname, cvalue, exdays) {
@@ -126,15 +131,19 @@ var id = $('#accountName'),
     pwd = $('#password'),
     loginBtn = $('#btn2'),
     saveId = $('#saveaccountName');
-    
+    if (getCookie('check') == 'ok') {
+        saveId.prop("checked", true);
+    }
     id.val(getCookie('id'));
-  
+    
 loginBtn.click(() => {
     
     console.log(id.val(), pwd.val(),saveId.is(':checked'));
     if (saveId.is(':checked')) {
+        setCookie('check','ok',7);
         setCookie('id', id.val(), 7);
     } else {
+        setCookie('check',"",0);
         setCookie('id',"", 0);
     }
     
@@ -234,6 +243,19 @@ Kakao.init("63ef3befe6185210578175ae33f57f48");
       
       
 </script>
+<script>
+        var naverLogin = new naver.LoginWithNaverId(
+            {
+                clientId: "ci2uARbrUgEbOCNv2VE7",
+                callbackUrl: "http://" + window.location.hostname + ((location.port==""||location.port==undefined)?"":":" + location.port) + "/html/auth/callback.html",
+                isPopup: false,
+                callbackHandle: true,
+            }
+        );
+        /* (4) 네아로 로그인 정보를 초기화하기 위하여 init을 호출 */
+        naverLogin.init();
+        
+    </script>
 
 
 </body>

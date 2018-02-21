@@ -5,7 +5,8 @@ import java.util.List;
 import java100.app.domain.Transaction;
 
 public interface TransactionDao {
-    List<Transaction> list();
+    List<Transaction> list(int no);
+    List<Transaction> sellList(int no);
     int insert(Transaction transaction);
     Transaction findByNo(int no);
     int update(Transaction transaction);

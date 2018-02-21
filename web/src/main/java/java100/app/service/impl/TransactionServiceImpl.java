@@ -15,8 +15,12 @@ public class TransactionServiceImpl implements TransactionService {
     @Autowired TransactionDao transactionDao;
     
     @Override
-    public List<Transaction> list() {
-        return transactionDao.list();
+    public List<Transaction> list(int no) {
+        return transactionDao.list(no);
+    }
+    @Override
+    public List<Transaction> sellList(int no) {
+        return transactionDao.sellList(no);
     }
 
     @Override
