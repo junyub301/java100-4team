@@ -36,22 +36,12 @@ public class LoginController {
     public Object login(
             String accountName, 
             String password,
-            boolean saveaccountName,
             HttpServletResponse response,
             HttpSession session,
             Model model) {
 
         Account account = accountService.get(accountName, password);
 
-        if (saveaccountName) {
-            Cookie cookie = new Cookie("accountName", accountName);
-            cookie.setMaxAge(60 * 60 * 24 * 30);
-            response.addCookie(cookie);
-        } else {
-            Cookie cookie = new Cookie("accountName", "");
-            cookie.setMaxAge(0);
-            response.addCookie(cookie);
-        }
         HashMap<String,Object> result = new HashMap<>();
 
         if (account == null) {

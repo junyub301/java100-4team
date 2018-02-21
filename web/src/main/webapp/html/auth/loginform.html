@@ -71,7 +71,30 @@ background-size: cover; background-attachment: fixed;">
 <script src='../../node_modules/popper.js/dist/umd/popper.min.js'></script>
 <script src='../../node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+<script type="text/javascript">
+//쿠키관련
+function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    var expires = "expires="+d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
 
+function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+</script>
 
 <script type="text/javascript">
 var id = $('#accountName'),
@@ -79,16 +102,21 @@ var id = $('#accountName'),
     loginBtn = $('#btn2'),
     saveId = $('#saveaccountName');
     
+    id.val(getCookie('id'));
   
 loginBtn.click(() => {
     
     console.log(id.val(), pwd.val(),saveId.is(':checked'));
-    
+    if (saveId.is(':checked')) {
+        setCookie('id', id.val(), 7);
+    } else {
+        setCookie('id',"", 0);
+    }
     
     $.post('../../json/auth/login', {
         accountName: id.val(),
-        password: pwd.val(),
-        saveaccountName: saveId.is(':checked')
+        password: pwd.val()
+        
     }, (result) => {
         if (result.status == "success") {
             location.href = "../main/main.html"
