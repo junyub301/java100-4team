@@ -202,7 +202,8 @@ if (index != -1) { // 기존 데이터를 조회할 경우
             $('#itemphoto').append(template4Engine(photo));
             $('#actname').html('<div>' + result.account.accountName + '</div>');
             $('#title').html('<h3 class="mb-0"><div>' + result.item.title + '</div></h3>');
-            $('#title').append(result.item.name);
+            $('#title').append(result.item.name + '<br>');
+            $('#title').append(result.item.content);
             $('#date').html(template3Engine(result.item));
             $('#date').append('<div>' + result.item.price + '</div>');
             $('#date').append('<div>' + result.item.pricePerDay + '</div>');
