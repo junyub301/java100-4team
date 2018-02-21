@@ -31,25 +31,25 @@ background-size: cover; background-attachment: fixed;">
 
 
 <div class="form-group1" >
-<input id='act_id' class="form-control1" type='text' placeholder="아이디" name='accountName' style="margin-bottom: 0.3rem;">
+<input id='act_id' class="form-control1" type='text' placeholder="아이디" required name='accountName' style="margin-bottom: 0.3rem;">
 <p align="center" id="checkMsg" >
 </div>
 
 <div class="form-group1">
-<input id='email' class="form-control1" type="email" placeholder="이메일" name='email'>
+<input id='email' class="form-control1" type="email" placeholder="이메일" required name='email'>
 </div>
 
 <div class="form-group1">
-<input id='pwd' type='password' class="form-control1" placeholder="비밀번호" name='password'>
+<input id='pwd' type='password' class="form-control1" placeholder="비밀번호" required name='password'>
 </div>
 
 <div class="form-group1">
-<input id="PwCheck" type="password" class="form-control1" style="margin-bottom: 0.3rem;" placeholder="비밀번호 재입력" >
+<input id="PwCheck" type="password" class="form-control1" style="margin-bottom: 0.3rem;" required placeholder="비밀번호 재입력" >
 <p align="center" id="pwsame">
 </div>
 
 <div class="form-group1">
-<input id='name' type='text' class="form-control1" placeholder="이름"  name='name'>
+<input id='name' type='text' class="form-control1" placeholder="이름" required name='name'>
 </div>
 
 <div class="form-group1">
@@ -95,7 +95,6 @@ style='display:inline-block;width:250px;margin-left: 75px;'
             <input id='photo'  name="photo" type="file">
         </div>
        
-
 <div class='form-group1'>
     <button id="addBtn" type="button" hidden="0" class='form-control2 btn btn-info btn-sm'>회원가입</button>
 </div>
@@ -179,10 +178,19 @@ $('#PwCheck').keyup(() => {
         $('#pwsame').html("<p style='color:red;'>비밀번호가 틀렸습니다. 다시 입력해 주세요</p>");
     }
 });
-
-
+function checknull() {
+    $(':required').each(function() {
+        if ($(this).val() == "") {
+            alert("빈칸을 채워주세요");
+            return false;
+        };
+    });
+}
 
 addBtn.click(() => {
+    if (!checknull()) {
+        return false;
+    }
     var formData = new FormData($("#form")[0]);
     $.ajax('../../json/user/add', {
         data : formData,
@@ -191,7 +199,7 @@ addBtn.click(() => {
         processData : false,
         contentType : false,
         success: (result) => {
-            location.href = "../main/main.html";
+            location.href = "../auth/loginform.html";
         },
         error:function(request,status,error){
             alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
