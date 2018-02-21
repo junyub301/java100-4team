@@ -64,7 +64,7 @@ background-size: cover; background-attachment: fixed;">
             <div class='form-group1' style="margin-left: 138px;">
                 <a id="kakao-login-btn"></a>
             </div>   
-            <div id="naverIdLogin"><a id="naverIdLogin_loginButton" href="#" role="button"><img src="https://static.nid.naver.com/oauth/big_g.PNG" width=320></a></div> 
+            <a id="naverIdLogin_loginButton" style="margin-left: 135px;" href="#" role="button"><img src="https://static.nid.naver.com/oauth/big_g.PNG" width="222" height="49"></a>
     </div>
     
 <link href="http://fonts.googleapis.com/earlyaccess/nanumgothic.css" rel="stylesheet" type="text/css">
@@ -217,7 +217,6 @@ Kakao.init("63ef3befe6185210578175ae33f57f48");
                 callbackUrl: "http://" + window.location.hostname + ((location.port==""||location.port==undefined)?"":":" + location.port) + "/html/auth/callback.html",
                 isPopup: false,
                 callbackHandle: true,
-                loginButton: {color: "green", type: 3, height: 60}
             }
         );
         /* (4) 네아로 로그인 정보를 초기화하기 위하여 init을 호출 */
