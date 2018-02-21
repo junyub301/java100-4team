@@ -29,7 +29,7 @@ background-size: cover; background-attachment: fixed;">
                         name='password'>
             </div>
 
-            <div class='form-group row'>
+            <div class='form-group row' style="margin-left: 75px;">
                     <div class="form-check">
                         <input type="checkbox" class="form-check-input"
                             id="saveaccountName" name="saveaccountName"> <label
@@ -57,16 +57,21 @@ background-size: cover; background-attachment: fixed;">
                       <div>회원가입</div>
                   </div>    
             </div>
-            <fb:login-button scope="public_profile,email" 
-                        onlogin="checkLoginState();">
-        </fb:login-button>
-        <a id="kakao-login-btn"></a>    
+            <div class='form-group1' style="margin-left: 75px; margin-top: 30px;">
+                <!-- <fb:login-button size="xlarge" scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button> -->
+                <div class="fb-login-button" data-width="222" data-max-rows="1" data-size="large" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false" data-scope="public_profile,email" data-onlogin="checkLoginState()"></div>
+            </div>
+            <div class='form-group1' style="margin-left: 75px;">
+                <a id="kakao-login-btn"></a>
+            </div>    
     </div>
+    
 <link href="http://fonts.googleapis.com/earlyaccess/nanumgothic.css" rel="stylesheet" type="text/css">
 <script src='../../node_modules/jquery/dist/jquery.min.js'></script>
 <script src='../../node_modules/popper.js/dist/umd/popper.min.js'></script>
 <script src='../../node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+
 
 <script type="text/javascript">
 var id = $('#accountName'),
@@ -74,6 +79,7 @@ var id = $('#accountName'),
     loginBtn = $('#btn2'),
     saveId = $('#saveaccountName');
     
+  
 loginBtn.click(() => {
     
     console.log(id.val(), pwd.val(),saveId.is(':checked'));
@@ -152,7 +158,6 @@ window.fbAsyncInit = function() {
   js.src = "https://connect.facebook.net/en_US/sdk.js";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
-
 
 Kakao.init("63ef3befe6185210578175ae33f57f48");
       
