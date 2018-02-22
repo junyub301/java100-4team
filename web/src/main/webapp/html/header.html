@@ -157,8 +157,10 @@ loginBtn.click(() => {
     
 });
 
-
-
+var logined = false;
+window.onbeforeunload = function(e){
+	  gapi.auth2.getAuthInstance().signOut();
+	};
 $('#logoutBtn').hide();
 $.ajax('/json/auth/loginUser', {
     beforeSend: function(xmlHttpRequest) {
@@ -169,6 +171,7 @@ $.ajax('/json/auth/loginUser', {
         $('#username').html(result.account.name);
         $('#loginBtn').hide();
         $('#logoutBtn').show();
+        logined = true;
         $(document.body).trigger('login', {'status': 'success'});
     },
     error: function(e) {
@@ -191,6 +194,25 @@ $('#username').click(() => {
             location.href="../user/view.html?no=" + result.account.accountsNo
     }
 )}); */
+
+function onSignIn(googleUser) {
+    // The ID token you need to pass to your backend:
+    if(!logined) {
+	    var id_token = googleUser.getAuthResponse().id_token;
+	    $.getJSON(
+	            '../../json/auth/googleLogin', 
+	            {'accessToken': id_token}, 
+	            function(result) {
+	              if (result.status == 'success') {
+	            	  
+	                  location.href = '../main/main.html';
+	              } else {
+	                  window.alert('로그인 실패입니다!');
+	              }
+	        });
+    }
+  };
+
 
 function autoServerLogin(accessToken) {
     $.getJSON(

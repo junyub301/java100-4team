@@ -161,11 +161,12 @@ public class LoginController {
             String accessToken, 
             HttpSession session,
             Model model) {
-
+    	@SuppressWarnings("rawtypes")
+        Map userInfo = null;
         try {
             // Facebook에서 사용자 정보를 가져온다.
-            @SuppressWarnings("rawtypes")
-            Map userInfo = googleService.me(accessToken, Map.class);
+            
+            userInfo = googleService.me(accessToken, Map.class);
 
             if (userInfo.get("error") != null) {
                 model.addAttribute("loginUser", null);
@@ -181,10 +182,10 @@ public class LoginController {
                 // 회원 정보가 없으면 페이스북 회원 정보를 등록한다.
                 account = new Account();
                 User user = new User();
-                account.setName((String)((Map)userInfo.get("profile")).get("name"));
+                account.setName((String)userInfo.get("name"));
                 account.setEmail((String)userInfo.get("email"));
                 String[] a = account.getEmail().split("@");
-                account.setAccountName(a[0]);
+                account.setAccountName(a[0] + "_google");
                 account.setPassword("1111");
                 user.setAccountNo("");
                 user.setBank("");
@@ -203,7 +204,6 @@ public class LoginController {
         } catch (Exception e) {
             HashMap<String,Object> result = new HashMap<>();
             result.put("status", "fail");
-            result.put("exception", e.getStackTrace());
             return result;
         }
     }     
