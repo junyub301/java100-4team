@@ -16,7 +16,7 @@ public class GoogleServiceImpl implements GoogleService {
         try {
             return restTemplate.getForObject(
                     /*"https://graph.fackbook.com/v2.12/me?access_token={v1}&fields={v2}",*/
-                    "https://graph.facebook.com/v2.12/me?access_token={v1}&fields={v2}",
+                    "https://www.googleapis.com/oauth2/v3/tokeninfo?id_token={v1}&email={v2}",
                     type, accessToken, "email");
         } catch (Exception e) {
             throw new RuntimeException("페이스북 Graph API 실행 오류", e);
