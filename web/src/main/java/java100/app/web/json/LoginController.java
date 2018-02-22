@@ -78,12 +78,12 @@ public class LoginController {
                 String[] a = account.getEmail().split("@");
                 account.setAccountName(a[0]);
                 account.setPassword("1111");
-                user.setAccountNo("1");
-                user.setBank("1");
-                user.setPhone("1");
-                user.setPostNo("1");
-                user.setBaseAddress("1");
-                user.setDetailAddress("1");
+                user.setAccountNo("");
+                user.setBank("");
+                user.setPhone("");
+                user.setPostNo("");
+                user.setBaseAddress("");
+                user.setDetailAddress("");
                 userService.add(account, user);
             }
 
