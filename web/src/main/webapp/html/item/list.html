@@ -30,8 +30,6 @@ body {
 }
 
 </style>
-        <link href="../../node_modules/hover.css/css/demo-page.css" rel="stylesheet" media="all">
-        <link href="../../node_modules/hover.css/css/hover.css" rel="stylesheet" media="all">
 
 </head>
 
@@ -41,9 +39,9 @@ body {
         <div class='container'>
         <div class='row justify-content-md-center'>
         
-        <button type="button" id="rent" class="hvr-bob col-sm-4 btn btn-primary" style="height: 50px;">빌려드립니다</button>
+        <button type="button" id="rent" class="col-sm-4 btn btn-primary" style="height: 50px;">빌려드립니다</button>
             <div class="col-sm-1"></div>
-        <button type="button" id="lend" class="hvr-bob col-sm-4 btn btn-secondary" style="height: 50px;">빌려주세요</button>
+        <button type="button" id="lend" class="col-sm-4 btn btn-secondary" style="height: 50px;">빌려주세요</button>
             
         </div>
         </div>
@@ -72,7 +70,7 @@ body {
 
 <script id="t1" type="text/x-handlebars-template">
 {{#each list}}
-    <div style="color: #000 !important; background: #fff0 !important;" class="hvr-grow-rotate col-md-4 col-sm-6 col-xs-12 m_pointer" onclick="location.href='view.html?no={{itemNo}}'">
+    <div style="color: #000 !important; background: #fff0 !important;" class="col-md-4 col-sm-6 col-xs-12 m_pointer" onclick="location.href='view.html?no={{itemNo}}'">
     <div class="card mb-4 box-shadow" >
         <img class="card-img-top" 
             style="height: 225px; width: 100%; display: block;" 
