@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css); 
+body, div {
+    font-family: 'Noto Sans KR', sans-serif; 
+}
+
+</style>
+
+<link href="../../css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- Button to Open the Modal -->
+<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+  Open modal
+</button> -->
+
+<a href="" data-toggle="modal" data-target="#myModal">Login</a>
+
+<!-- The Modal -->
+<div class="modal fade" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title"></h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        
+        <form action="login" method='post'>
+            
+            <div align="center" class='form-group'>        
+             <img src="../../img/portfolio/shareicon2.png">
+            </div>
+            
+            <div class='form-group'>
+                    <input placeholder="아이디" class='form-control' id='accountName' type='text'
+                        name='accountName' >
+            </div>
+
+            <div class='form-group'>
+                    <input placeholder="비밀번호" class='form-control' id='password' type='password'
+                        name='password'>
+            </div>
+
+            <div class='form-group'>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input"
+                            id="saveaccountName" name="saveaccountName"> <label
+                            class="form-check-label" for="saveaccountName">아이디 저장</label>
+                </div>
+            </div> 
+              <button id="btn2" type="button" class='form-control form-group btn btn-primary'>로그인</button>
+        </form>
+              <button type="button" onclick="location='../user/form.html'" class="form-control form-group btn btn-primary">회원가입</button>       
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script src='../../node_modules/jquery/dist/jquery.min.js'></script>
+<script src='../../node_modules/popper.js/dist/umd/popper.min.js'></script>
+<script src='../../node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
+<script type="text/javascript">
+//쿠키관련
+function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    var expires = "expires="+d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+</script>
+
+<script type="text/javascript">
+var id = $('#accountName'),
+    pwd = $('#password'),
+    loginBtn = $('#btn2'),
+    saveId = $('#saveaccountName');
+    if (getCookie('check') == 'ok') {
+        saveId.prop("checked", true);
+    }
+    id.val(getCookie('id'));
+    
+loginBtn.click(() => {
+    
+    console.log(id.val(), pwd.val(),saveId.is(':checked'));
+    if (saveId.is(':checked')) {
+        setCookie('check','ok',7);
+        setCookie('id', id.val(), 7);
+    } else {
+        setCookie('check',"",0);
+        setCookie('id',"", 0);
+    }
+    
+    $.post('../../json/auth/login', {
+        accountName: id.val(),
+        password: pwd.val()
+        
+    }, (result) => {
+        if (result.status == "success") {
+            location.href = "../main/main.html"
+            
+        } else {
+            alert('이메일이나 암호가 일치하는 사용자를 찾을 수 없습니다.!')
+        }
+    },'json');
+  
+    
+});
+</script>
+
+
+
+</body>
+</html>

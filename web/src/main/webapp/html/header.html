@@ -1,7 +1,16 @@
+<style>
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css); 
+body, div {
+    font-family: 'Noto Sans KR', sans-serif; 
+}
+</style>
+
+<meta name="google-signin-scope" content="profile email">
+<meta name="google-signin-client_id" content="1044303474679-rpsg3ved114h5p6dpdg0tsp6joo2l2la.apps.googleusercontent.com">
+
 <link href="../../css/bootstrap.min.css" rel="stylesheet">
     <link href="../../css/freelancer.min.css" rel="stylesheet">
     <link href="../../css/test.css" rel="stylesheet" type="text/css">
-    <link href="http://fonts.googleapis.com/earlyaccess/nanumgothic.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
 
@@ -14,26 +23,141 @@
         <h5><a style="text-decoration:none;" onclick="location.href='/html/main/main.html'" class="pad_zero col-sm-1 col-md-1 py-2 d-md-inline-block" href="#">SharerSharee</a></h5>
         <div class="col-sm-4 col-md-6 col-lg-8"></div>
         <a id="username" href="" onclick="href='../user/view.html'" class="col-sm-1 col-md-1 py-2"></a>
-        <a id="loginBtn" href="" onclick="href='../auth/loginform.html'" class='col-sm-1 col-md-1 py-2 m_pointer'>Login</a>
+        <!-- <a id="loginBtn" href="" onclick="href='../auth/loginform.html'" class='col-sm-1 col-md-1 py-2 m_pointer'>Login</a> -->
+        <a class="col-sm-1 col-md-1 py-2" id="loginBtn" href="" data-toggle="modal" data-target="#myModal">Login</a>
         <a id="logoutBtn" href=""  class='col-sm-1 col-md-1 py-2 m_pointer'>Logout</a>
-    
       </div>
     </nav> 
-    
- <!--    <nav class="site-header sticky-top py-1">
-      <div class="container d-flex flex-column flex-md-row justify-content-between">
-        <a class="py-2" href="#">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="d-block mx-auto"><circle cx="12" cy="12" r="10"></circle><line x1="14.31" y1="8" x2="20.05" y2="17.94"></line><line x1="9.69" y1="8" x2="21.17" y2="8"></line><line x1="7.38" y1="12" x2="13.12" y2="2.06"></line><line x1="9.69" y1="16" x2="3.95" y2="6.06"></line><line x1="14.31" y1="16" x2="2.83" y2="16"></line><line x1="16.62" y1="12" x2="10.88" y2="21.94"></line></svg>
-        </a>
-        <a class="py-2 d-none d-md-inline-block" href="#">SharerSharee</a>
-        <a id="username" href="" class="py-2 d-none d-md-inline-block"></a>
-        <a id="loginBtn" onclick="href='../auth/loginform.html'" class="py-2 d-none d-md-inline-block" href="#">Login</a>
-        <a id="logoutBtn" class="py-2 d-none d-md-inline-block" href="#">Logout</a>
+
+<div class="modal fade" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title"></h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
-    </nav> -->
-    
-    
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        
+        <form action="login" method='post'>
+            
+            <div align="center" class='form-group'>        
+             <img src="../../img/portfolio/shareicon2.png">
+            </div>
+            
+            <div class='form-group'>
+                    <input placeholder="아이디" class='form-control' id='accountName' type='text'
+                        name='accountName' >
+            </div>
+
+            <div class='form-group'>
+                    <input placeholder="비밀번호" class='form-control' id='password' type='password'
+                        name='password'>
+            </div>
+
+            <div class='form-group'>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input"
+                            id="saveaccountName" name="saveaccountName"> <label
+                            class="form-check-label" for="saveaccountName">아이디 저장</label>
+                </div>
+            </div> 
+              <button id="btn2" type="button" class='form-control form-group btn btn-primary'>로그인</button>
+        </form>
+              <button type="button" onclick="location='../user/form.html'" class="form-control form-group btn btn-primary">회원가입</button>       
+      </div>
+      <div align="center" class="fb-login-button" data-width="222" data-max-rows="1" 
+                data-size="large" data-button-type="login_with" data-show-faces="false" 
+                data-auto-logout-link="false" data-use-continue-as="false" 
+                data-scope="public_profile,email" data-onlogin="checkLoginState()"></div>
+      <div align="center" class='form-group'>
+                <a id="kakao-login-btn"></a>
+            </div>
+       <div align="center" class='form-group'>         
+        <a id="naverIdLogin_loginButton" href="#" role="button"><img src="https://static.nid.naver.com/oauth/big_g.PNG" width="222" height="49"></a>
+       </div>
+      <div align="center" class="form-group g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>    
+<script src='../../node_modules/jquery/dist/jquery.min.js'></script>
+<script src='../../node_modules/popper.js/dist/umd/popper.min.js'></script>
+<script src='../../node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
+<script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>    
 <script type="text/javascript">
+
+function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    var expires = "expires="+d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+</script>
+
+<script type="text/javascript">
+var id = $('#accountName'),
+    pwd = $('#password'),
+    loginBtn = $('#btn2'),
+    saveId = $('#saveaccountName');
+    if (getCookie('check') == 'ok') {
+        saveId.prop("checked", true);
+    }
+    id.val(getCookie('id'));
+    
+loginBtn.click(() => {
+    
+    console.log(id.val(), pwd.val(),saveId.is(':checked'));
+    if (saveId.is(':checked')) {
+        setCookie('check','ok',7);
+        setCookie('id', id.val(), 7);
+    } else {
+        setCookie('check',"",0);
+        setCookie('id',"", 0);
+    }
+    
+    $.post('../../json/auth/login', {
+        accountName: id.val(),
+        password: pwd.val()
+        
+    }, (result) => {
+        if (result.status == "success") {
+            location.href = "../main/main.html"
+            
+        } else {
+            alert('이메일이나 암호가 일치하는 사용자를 찾을 수 없습니다.!')
+        }
+    },'json');
+  
+    
+});
+
+
 
 $('#logoutBtn').hide();
 $.ajax('/json/auth/loginUser', {
@@ -59,6 +183,7 @@ $('#logoutBtn').click(() => {
         location.href = '../auth/loginform.html';
     });
 })
+
 /* 
 $('#username').click(() => {  
     $.getJSON('../../json/auth/loginUser', function(result){
@@ -66,4 +191,84 @@ $('#username').click(() => {
             location.href="../user/view.html?no=" + result.account.accountsNo
     }
 )}); */
+
+function autoServerLogin(accessToken) {
+    $.getJSON(
+        '../../json/auth/facebookLogin', 
+        {'accessToken': accessToken}, 
+        function(result) {
+          if (result.status == 'success') {
+              location.href = '../main/main.html';
+          } else {
+              window.alert('로그인 실패입니다!');
+          }
+    });
+}
+
+function statusChangeCallback(response) {
+  console.log(response);
+
+  if (response.status === 'connected') { // 로그인이 정상적으로 되었을 때,
+      autoServerLogin(response.authResponse.accessToken);
+  
+  } else { // 로그인이 되지 않았을 때,
+      console.log("로그인 되지 않았음");
+  }
+}
+  
+function checkLoginState() {
+    FB.getLoginStatus(function(response) { 
+      statusChangeCallback(response);
+    });
+}
+
+window.fbAsyncInit = function() {
+  FB.init({
+    appId      : '1658829817493258', // 개발자가 등록한 앱 ID
+    cookie     : true,  
+    xfbml      : true,  
+    version    : 'v2.12' 
+  });
+};
+
+(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "https://connect.facebook.net/en_US/sdk.js";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+
+
+Kakao.init("63ef3befe6185210578175ae33f57f48");
+Kakao.Auth.createLoginButton({
+    container: '#kakao-login-btn',
+    success: function(authObj) {
+          console.log(authObj.access_token)
+          $.getJSON(
+                  '../../json/auth/kakaoLogin', 
+                  {'accessToken': authObj.access_token}, 
+                  function(result) {
+                      console.log(result)
+                    if (result.status == 'success') {
+                        location.href = '../main/main.html';
+                    } else {
+                        window.alert('로그인 실패입니다!');
+                    }
+              });
+    }
+    });
+
+var naverLogin = new naver.LoginWithNaverId(
+        {
+            clientId: "ci2uARbrUgEbOCNv2VE7",
+            callbackUrl: "http://" + window.location.hostname + ((location.port==""||location.port==undefined)?"":":" + location.port) + "auth/callback.html",
+            isPopup: false,
+            callbackHandle: true,
+        }
+    );
+    /* (4) 네아로 로그인 정보를 초기화하기 위하여 init을 호출 */
+naverLogin.init();
+
+
 </script>
