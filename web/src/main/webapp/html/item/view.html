@@ -246,7 +246,13 @@ function pay() {
         }
         
         $.ajax('/json/auth/loginUser', {
-            
+            success: (result) => {
+                if (result.user.baseAddress == "") {
+                    alert("회원정보를 추가해주세요!!");
+                    location.href = '../user/view.html';
+                    return false;
+                }
+            }
         }).done(function(lender) {
             if (data.item.userNo == lender.user.userNo){
                 alert('본인 아이템을 구매할 수 없습니다');
