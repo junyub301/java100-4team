@@ -56,19 +56,19 @@
 </div> 
 <br>
 <div style='display:inline-block;width:400px;'> 
-<label for='accountName' class='col-form-label' style='width:120px;'>아이디</label> 
-<input class='form-control' style='display:inline-block;width:250px;' readonly id='accountName' type='text' name='accountName' >
+<label for='userid' class='col-form-label' style='width:120px;'>아이디</label> 
+<input class='form-control' style='display:inline-block;width:250px;' readonly id='userid' type='text' name='accountName' >
 </div> 
 <br><br>
 
 <div style='display:inline-block;width:400px;'> 
 <label for='password' class='col-form-label' style='width:120px;'>패스워드</label> 
-<input class='form-control' style='display:inline-block;width:250px;' id='password' type='password' >
+<input class='form-control' style='display:inline-block;width:250px;' id='pwd' type='password' name=password >
 </div>
 <br><br>
 <div style='display:inline-block;width:400px;'> 
 <label for='checkpwd' class='col-form-label' style='width:120px;'>패스워드 확인</label> 
-<input class='form-control' style='display:inline-block;width:250px;' id='checkpwd' >
+<input class='form-control' style='display:inline-block;width:250px;' id='checkpwd' type='password' >
 </div>
 <br><br>
 <div class="form-group row">
@@ -171,13 +171,12 @@
 <script src='/node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
 
 <script>
-var pwd = $('#pwd'),
-	pwd2 = $('#PwCheck'),
-	id = $('#accountName'),
+var password = $('#pwd'),
+	pwdcheck = $('#checkpwd'),
+	userid = $('#userid'),
 	email = $('#email'),
 	nameItem = $('#name'),
 	accNo = $('#accountNo'),
-	no = $('#no'),
 	bank = $('#bank'),
 	cnt = $('#comment'),
 	phone = $('#phone'),
@@ -197,13 +196,12 @@ var index = location.href.indexOf('?');
 if (index != -1) { // 기존 데이터를 조회할 경우
     var qs = location.href.substr(index + 1);
     var arr = qs.split('=');
-    var el = $('.my-new').css('display', 'none'); //이거 모지??? 필요없음 지우기
     $(() => {
         $.ajax('../../json/user/' + arr[1], {
             dataType: 'json',
             success: (result) => {
-                id.val(result.account.accountName);
-                pwd.val(result.account.password)
+                console.log(result);
+                userid.val(result.account.accountName);
                 nameItem.val(result.account.name);
                 email.val(result.account.email);
                 bank.val(result.user.bank);
@@ -230,8 +228,7 @@ if (index != -1) { // 기존 데이터를 조회할 경우
         $.ajax('../../json/user/view' , {
             dataType: 'json',
             success: (result) => {
-                id.val(result.account.accountName);
-                pwd.val(result.account.password)
+                userid.val(result.account.accountName);
                 nameItem.val(result.account.name);
                 email.val(result.account.email);
                 bank.val(result.user.bank);
@@ -317,9 +314,13 @@ $(() => {
     
 
 updateBtn.click(() => {
+
+    if (password.val() != pwdcheck.val()) {
+        alert('비밀번호가 틀렸습니다. 다시 입력해 주세요');
+        return false;
+    }
     
     var formData = new FormData($("#form")[0]);
-    
     $.ajax('../../json/user/update', {
         data : formData,
         dataType: 'json',
@@ -336,6 +337,7 @@ updateBtn.click(() => {
                 }
             });
             alert('수정되었습니다.')
+            location.reload();
         },
         error:function(request,status,error){
             alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
@@ -345,7 +347,7 @@ updateBtn.click(() => {
 });
 
 deleteBtn.click(() => {
-    
+    console.log($('#no').val());
     $.ajax('../../json/user/delete', {
         data : {
             no: $('#no').val()
@@ -359,21 +361,6 @@ deleteBtn.click(() => {
         }
     });
 });
-
-
 </script>
-
-<script type="text/javascript">
-    function tocheckpw1() {
-        var pw = document.getElementById("password").value;
-        var pwck = document.getElementById("checkpwd").value;
- 
-        if (pw != pwck) {
-            alert('비밀번호가 틀렸습니다. 다시 입력해 주세요');
-            return false;
-        }
-    }
-</script>
-
 </body>
 </html>

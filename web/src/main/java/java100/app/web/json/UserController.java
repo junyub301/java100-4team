@@ -118,7 +118,6 @@ public class UserController {
 
     @RequestMapping("delete")
     public Object delete(int no) throws Exception  {
-        
         userService.delete(no);
         
         HashMap<String,Object> result = new HashMap<>();
