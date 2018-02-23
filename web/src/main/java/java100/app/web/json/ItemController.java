@@ -56,7 +56,7 @@ public class ItemController {
             @RequestParam(value="ut", defaultValue="0") int userType,
             @RequestParam(value="cr", defaultValue="0") int categoryNo,
             @RequestParam(value="pn", defaultValue="1") int pageNo,
-            @RequestParam(value="ps", defaultValue="6") int pageSize,
+            @RequestParam(value="ps", defaultValue="8") int pageSize,
             @RequestParam(value="words", required=false) String word,
             @RequestParam(value="oc", required=false) String orderColumn,
             @RequestParam(value="al", required=false) String alignColumn) throws Exception {
@@ -64,8 +64,8 @@ public class ItemController {
         if (pageNo < 1) {
             pageNo = 1;
         }
-        if (pageSize < 6 || pageSize > 15) {
-            pageSize = 6;
+        if (pageSize < 8 || pageSize > 15) {
+            pageSize = 8;
         }
         HashMap<String,Object> options = new HashMap<>();
         options.put("orderColumn", orderColumn);

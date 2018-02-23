@@ -3,31 +3,54 @@
 body, div {
     font-family: 'Noto Sans KR', sans-serif; 
 }
+
+.ddd {
+    border-color: #a8a8a8;
+}
+
+#words {
+    font-family: FontAwesome;
+}
 </style>
 
 <meta name="google-signin-scope" content="profile email">
 <meta name="google-signin-client_id" content="1044303474679-rpsg3ved114h5p6dpdg0tsp6joo2l2la.apps.googleusercontent.com">
 
 <link href="../../css/bootstrap.min.css" rel="stylesheet">
-    <link href="../../css/freelancer.min.css" rel="stylesheet">
-    <link href="../../css/test.css" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
- <nav class="site-header sticky-top py-1">
-      <div class="container-flude d-flex flex-column flex-md-row justify-content-between">
-    
-        <a class="pad_zero py-2 col-sm-1 col-md-1" href="#">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="d-block mx-auto"><circle cx="12" cy="12" r="10"></circle><line x1="14.31" y1="8" x2="20.05" y2="17.94"></line><line x1="9.69" y1="8" x2="21.17" y2="8"></line><line x1="7.38" y1="12" x2="13.12" y2="2.06"></line><line x1="9.69" y1="16" x2="3.95" y2="6.06"></line><line x1="14.31" y1="16" x2="2.83" y2="16"></line><line x1="16.62" y1="12" x2="10.88" y2="21.94"></line></svg>
-        </a>
-        <h5><a style="text-decoration:none;" onclick="location.href='/html/main/main.html'" class="pad_zero col-sm-1 col-md-1 py-2 d-md-inline-block" href="#">SharerSharee</a></h5>
-        <div class="col-sm-4 col-md-6 col-lg-8"></div>
-        <a id="username" href="" onclick="href='../user/view.html'" class="col-sm-1 col-md-1 py-2"></a>
-        <!-- <a id="loginBtn" href="" onclick="href='../auth/loginform.html'" class='col-sm-1 col-md-1 py-2 m_pointer'>Login</a> -->
-        <a class="col-sm-1 col-md-1 py-2" id="loginBtn" href="" data-toggle="modal" data-target="#myModal">Login</a>
-        <a id="logoutBtn" href=""  class='col-sm-1 col-md-1 py-2 m_pointer'>Logout</a>
-      </div>
-    </nav> 
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+<div class="container">
+    <i class="fa fa-handshake-o" style="font-size:24px;color:white"></i>
+    <h5><a onclick="location.href='/html/item/list.html'" class="" href="#">SharerSharee</a></h5>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="col-auto"></div>
+    <div class="collapse navbar-collapse" id="navbarColor02">
+      <form action=../item/list.html class="form-inline">
+        <input id="words" class="form-control col-sm-6" type="search" name='words' placeholder="&#xf002" aria-label="Search">
+        </form>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item active">
+          <a id="username" href="" onclick="href='../user/view.html'" class="nav-link"></a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" id="loginBtn" href="" data-toggle="modal" data-target="#myModal">Login</a>
+        <a class="nav-link" id="logoutBtn" href=""  class='m_pointer'>Logout</a>
+        </li>
+      </ul>
+    </div>
+    </div>
+  </nav>
+  
+  <nav class="site-header sticky-top border ddd">
+  <div class="container">
+    <div onclick="location.href='../item/form.html'" class="p-2 bd-highlight m_pointer"><i class="fa fa-plus-square" style="color:#007BFF"></i>Add</div>
+  </div>
+    </nav>
+  
+
 
 <div class="modal fade" id="myModal">
   <div class="modal-dialog">
@@ -147,7 +170,7 @@ loginBtn.click(() => {
         
     }, (result) => {
         if (result.status == "success") {
-            location.href = "../main/main.html"
+            location.href = "../item/list.html"
             
         } else {
             alert('이메일이나 암호가 일치하는 사용자를 찾을 수 없습니다.!')
@@ -183,7 +206,7 @@ $.ajax('/json/auth/loginUser', {
 
 $('#logoutBtn').click(() => {
     $.getJSON('../../json/auth/logout', (result) => {
-        location.href = '../auth/loginform.html';
+        location.href = '../item/list.html';
     });
 })
 
@@ -205,7 +228,7 @@ function onSignIn(googleUser) {
 	            function(result) {
 	              if (result.status == 'success') {
 	            	  
-	                  location.href = '../main/main.html';
+	                  location.href = '../item/list.html';
 	              } else {
 	                  window.alert('로그인 실패입니다!');
 	              }
@@ -220,7 +243,7 @@ function autoServerLogin(accessToken) {
         {'accessToken': accessToken}, 
         function(result) {
           if (result.status == 'success') {
-              location.href = '../main/main.html';
+              location.href = '../item/list.html';
           } else {
               window.alert('로그인 실패입니다!');
           }
@@ -273,7 +296,7 @@ Kakao.Auth.createLoginButton({
                   function(result) {
                       console.log(result)
                     if (result.status == 'success') {
-                        location.href = '../main/main.html';
+                        location.href = '../item/list.html';
                     } else {
                         window.alert('로그인 실패입니다!');
                     }
