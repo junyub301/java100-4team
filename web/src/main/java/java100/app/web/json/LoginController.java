@@ -114,17 +114,14 @@ public class LoginController {
             // Facebook에서 사용자 정보를 가져온다.
             @SuppressWarnings("rawtypes")
             Map koResponse = kakaoService.me(accessToken, Map.class);
-
             if (koResponse.get("error") != null) {
                 model.addAttribute("loginUser", null);
                 HashMap<String,Object> result = new HashMap<>();
                 result.put("status", "fail"); 
                 return result;
             }
-
             // 이메일로 회원 정보를 찾는다.
-            Account account = accountService.get((String)koResponse.get("email"));
-
+            Account account = accountService.get((String)koResponse.get("kaccount_email"));
             if (account == null) {
                 // 회원 정보가 없으면 페이스북 회원 정보를 등록한다.
                 account = new Account();
