@@ -26,15 +26,14 @@
        
     </header>
 
+<div class="album py-5">
 <div class='container'>
-<div class='row justify-content-md-center'>
-<button id='rentView' class="col-sm-5 btn btn-secondary">빌려드립니다</button>
-<div class="col-sm-2"></div>
-<button id='lendView' class="col-sm-5 btn btn-primary">빌려주세요</button>
-</div>
+<div class="d-flex justify-content-start bd-highlight mb-1">
+    <div class="p-2 bd-highlight m_pointer" id="rentView"><i id="rticon" class="fa fa-sign-out" style="color:#007BFF;"></i>Rent</div>
+    <div class="p-2 bd-highlight m_pointer" id="lendView"><i id="ldicon" class="fa fa-sign-in" style="color:grey"></i>Lend</div>
+    </div>
 </div>
 
-<div class="album py-5">
 <div class="container">
 <form id='formData' method="post" enctype="multipart/form-data">
 <input id='userType' type="hidden" name='userType' value=0> <!-- userType 0은 빌려드립니다 카테고리 -->
@@ -157,6 +156,8 @@ var addBtn = $('#addBtn'),
     content = $('#content'),
     startDate = $('#startDate'),
     endDate = $('#endDate'),
+    rtIcon = $('#rticon'),
+    ldIcon = $('#ldicon'),
     price = $('#price');
     
 $('header').load('../header.html');
@@ -178,8 +179,8 @@ endDate.attr("min",curDate);
 //빌려드립니다 클릭이벤트
 $('#rentView').click(() => {
     $('.my-view').css('display',"");
-    $('#rentView').removeClass('btn-secondary').addClass('btn-primary');
-    $('#lendView').removeClass('btn-primary').addClass('btn-secondary');
+    $('#rticon').css('color', '#007BFF');
+    $('#ldicon').css('color', 'grey');
     $('form')[0].reset();
     $('#status').val(0); 
     userType.val(0);
@@ -187,8 +188,8 @@ $('#rentView').click(() => {
 //빌려주세요 클릭이벤트
 $('#lendView').click(() => {
     $('.my-view').css('display', 'none'); 
-    $('#rentView').removeClass('btn-primary').addClass('btn-secondary');
-    $('#lendView').removeClass('btn-secondary').addClass('btn-primary');
+    $('#rticon').css('color', 'grey');
+    $('#ldicon').css('color', '#007BFF');
     $('form')[0].reset();
     $('#status').val(0); 
     userType.val(1);

@@ -11,6 +11,22 @@ body, div {
 #words {
     font-family: FontAwesome;
 }
+.m_pointer{
+        cursor: pointer;
+      }
+#rent:hover {
+	color: #808080;
+}
+#lend:hover {
+    color: #808080;
+}   
+#rentView:hover {
+    color: #808080;
+}
+#lendView:hover {
+    color: #808080;
+}   
+   
 </style>
 
 <meta name="google-signin-scope" content="profile email">
@@ -33,7 +49,8 @@ body, div {
         </form>
       <ul class="navbar-nav ml-auto">
         <li class="nav-item active">
-          <a id="username" href="" onclick="href='../user/view.html'" class="nav-link"></a>
+        <i id="usericon" class="fa fa-user" style="font-size:24px; color:white"></i>
+          <a id="username" href="" onclick="href='../user/view.html'" style="display: inline-block;" class="nav-link"></a>
         </li>
         <li class="nav-item active">
           <a class="nav-link" id="loginBtn" href="" data-toggle="modal" data-target="#myModal">Login</a>
@@ -46,7 +63,7 @@ body, div {
   
   <nav class="site-header sticky-top border ddd">
   <div class="container">
-    <div onclick="location.href='../item/form.html'" class="p-2 bd-highlight m_pointer"><i class="fa fa-plus-square" style="color:#007BFF"></i>Add</div>
+    <div style="display: inline-block;" onclick="location.href='../item/form.html'" class="p-2 bd-highlight m_pointer"><i class="fa fa-plus-square" style="color:#007BFF"></i>Add</div>
   </div>
     </nav>
   
@@ -185,6 +202,7 @@ window.onbeforeunload = function(e){
 	  gapi.auth2.getAuthInstance().signOut();
 	};
 $('#logoutBtn').hide();
+$('#usericon').hide();
 $.ajax('/json/auth/loginUser', {
     beforeSend: function(xmlHttpRequest) {
         xmlHttpRequest.setRequestHeader("AJAX", "true");
@@ -194,6 +212,7 @@ $.ajax('/json/auth/loginUser', {
         $('#username').html(result.account.name);
         $('#loginBtn').hide();
         $('#logoutBtn').show();
+        $('#usericon').show();
         logined = true;
         $(document.body).trigger('login', {'status': 'success'});
     },
