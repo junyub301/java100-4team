@@ -8,11 +8,12 @@ public class Review {
     protected int star;
     protected int itemNo;
     protected Date createdDate;
+    protected String userPic;
     
     @Override
     public String toString() {
         return "Review [rentNo=" + rentNo + ", contents=" + contents + ", star=" + star + ", itemNo=" + itemNo
-                + ", createdDate=" + createdDate + "]";
+                + ", createdDate=" + createdDate + ", userPic=" + userPic + "]";
     }
 
     public int getRentNo() {
@@ -54,6 +55,16 @@ public class Review {
     public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
     }
+
+    public String getUserPic() {
+        return userPic;
+    }
+
+    public void setUserPic(String userPic) {
+        this.userPic = userPic;
+    }
+    
+    
     
     
     
