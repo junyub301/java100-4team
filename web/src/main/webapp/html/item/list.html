@@ -14,11 +14,15 @@
 <header></header>
 
             
-<div class="album py-5">
+<div class="album py-3">
     <div class='container'>
-<div class="d-flex justify-content-start bd-highlight mb-1">
-    <div class="p-2 bd-highlight m_pointer" id="rent"><i id="renticon" class="fa fa-sign-out" style="color:#007BFF;"></i>Rent</div>
-    <div class="p-2 bd-highlight m_pointer" id="lend"><i id="lendicon" class="fa fa-sign-in" style="color:grey"></i>Lend</div>
+<div class="d-flex justify-content-start bd-highlight mb-3">
+    <div class="p-2 bd-highlight m_pointer mx-auto" id="rent">
+    <i id="renticon" class="fa fa-sign-out" style="color:#007BFF;font-size:36px;"></i>
+    <h3 style="display: inline-block;"><span>Rent</span></h3></div>
+    <div class="p-2 bd-highlight m_pointer mx-auto" id="lend">
+    <i id="lendicon" class="fa fa-sign-in" style="color:grey;font-size:36px;"></i>
+    <h3 style="display: inline-block;"><span>Lend</span></h3></div>
     </div>
         <div id="list" class='row' >
         
@@ -56,13 +60,13 @@
     <img class="card-img-top" style="height: 225px; width: 100%; position:absolute;"src="/images/shared.png">
 {{/shared}}
     <div class="card-body"> 
-        <h3 class="mb-2">
+        <h3 class="mb-2 mx-3">
         <p class="card-text text-truncate" style="text-align: center;">{{title}}</p></h3>
         {{#check userType}}
-        <p class="card-text mb-0 text-muted" type="date" style="text-align: right;">{{formatDate startDate}} ~ {{formatDate endDate}}</p>
+        <p class="card-text mb-0 mx-3 text-truncate text-muted" style="text-align: right;">{{name}}</p>
+        <p class="card-text mb-0 mx-3 text-muted" type="date" style="text-align: right;">{{formatDate startDate}} ~ {{formatDate endDate}}</p>
         {{/check}}
-        <p class="card-text mb-0 text-truncate" style="text-align: right;">{{name}}</p>
-        <p class="card-text mb-0 text-truncate" style="text-align: right;">{{price}}<i class="fa fa-krw"></i></p>
+        <p class="card-text mb-0 mx-3 text-truncate text-muted" style="text-align: right;">{{fb price}}<i class="fa fa-krw"></i></p>
         <div class="mb-2">
     </div>
     </div>
@@ -93,6 +97,23 @@ var prevBtn = $("#prevBtn"),
     template1Engine = Handlebars.compile(template1Src);
 
 $('header').load('../header.html');
+
+Handlebars.registerHelper('fb', function(price) {
+    var len, point, str, price;
+
+    price = price + "";
+    point = price.length % 3 ;
+    len = price.length;
+
+    str = price.substring(0, point);
+    while (point < len) {
+       if (str != "") str += ",";
+       str += price.substring(point, point + 3);
+       point += 3;
+    }
+
+    return str;
+});
 
 Handlebars.registerHelper('formatDate', function(date) {
     return  moment(date).format('YYYY-MM-DD');

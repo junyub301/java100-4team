@@ -32,12 +32,14 @@ background-size: cover; background-attachment: fixed;">
 
 <div class="form-group1" >
 <input id='act_id' class="form-control1" type='text' placeholder="아이디" required name='accountName' style="margin-bottom: 0.3rem;">
-<p align="center" id="checkMsg" >
+<p align="center" id="checkId" >
 </div>
 
 <div class="form-group1">
-<input id='email' class="form-control1" type="email" placeholder="이메일" required name='email'>
+<input id='email' class="form-control1" type="email" placeholder="이메일" required name='email' style="margin-bottom: 0.3rem;">
+<p align="center" id="checkEmail" >
 </div>
+
 
 <div class="form-group1">
 <input id='pwd' type='password' class="form-control1" placeholder="비밀번호" required name='password'>
@@ -115,7 +117,8 @@ style='display:inline-block;width:250px;margin-left: 75px;'
                       <div>로그인</div>
                   </div>    
             </div>
-</div> -->
+-->
+</div> 
 
 <script src='../../node_modules/jquery/dist/jquery.min.js'></script>
   <!--file input  -->
@@ -153,20 +156,41 @@ $(document).ready(function(){
     id.keyup(() => {
         $.ajax({
             type: 'POST',
-            url: '  ../../json/user/checkSignup',
+            url: '  ../../json/user/checkId',
             data: {
                 "accountName" : id.val()
             },
             success: function(data){
+                console.log(data)
                 if($.trim(data) == 0){
-                    $('#checkMsg').html('<p style="color:blue">사용가능</p>');
+                    $('#checkId').html('<p style="color:blue">사용가능</p>');
                 } 
                 else{
-                    $('#checkMsg').html('<p style="color:red">사용불가능</p>');
+                    $('#checkId').html('<p style="color:red">사용불가능</p>');
                 }
             }
         });    //end ajax    
-    });    //end on    
+    });    //end on  
+    
+    email.keyup(() => {
+        $.ajax({
+            type: 'POST',
+            url: '  ../../json/user/checkEmail',
+            data: {
+                "email" : email.val()
+            },
+            success: function(data){
+                console.log(data)
+                if($.trim(data) == 0){
+                    $('#checkEmail').html('<p style="color:blue">사용가능</p>');
+                } 
+                else{
+                    $('#checkEmail').html('<p style="color:red">사용불가능</p>');
+                }
+            }
+        });    //end ajax    
+    }); 
+    
 });
 
 $('#PwCheck').keyup(() => {

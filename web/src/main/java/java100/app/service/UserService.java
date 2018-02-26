@@ -24,7 +24,8 @@ public interface UserService {
     int update(Account account, User user);
     int delete(int no);
     void addFiles(List<Photo>photos, int userNo);
-    int checkSignup(String id);
+    int checkId(String id);
+    int checkEmail(String email);
 }
 
 
