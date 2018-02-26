@@ -151,13 +151,13 @@ rentBtn.click(() => {
     $('#renticon').css('color', '#007BFF');
     $('#lendicon').css('color', 'grey');
     userType = 0;
-    load(1,userType)
+    load(1,userType,categoryNo)
 });
 lendBtn.click(() => {
     $('#renticon').css('color', 'grey');
     $('#lendicon').css('color', '#007BFF'); 
     userType = 1;
-    load(1,userType);
+    load(1,userType,categoryNo);
 });
 
 prevBtn.click(() => {
