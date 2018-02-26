@@ -188,7 +188,7 @@ function checknull() {
 }
 
 addBtn.click(() => {
-    if (!checknull()) {
+    if (checknull() == false) {
         return false;
     }
     var formData = new FormData($("#form")[0]);
