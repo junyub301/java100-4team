@@ -72,8 +72,12 @@
     </select>
     
     
-    <select id = "check" parameterType = "String" resultType = "int">
+    <select id = "checkId" parameterType = "String" resultType = "int">
         SELECT COUNT(*) FROM account WHERE act_id = #{accountName}
+    </select>
+
+    <select id = "checkEmail" parameterType = "String" resultType = "int">
+        SELECT COUNT(*) FROM account WHERE email = #{email}
     </select>
     
      <select id="findByEmail" 

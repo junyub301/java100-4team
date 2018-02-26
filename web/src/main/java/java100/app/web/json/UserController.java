@@ -129,10 +129,19 @@ public class UserController {
 
 
     @ResponseBody
-    @RequestMapping(value = "/checkSignup", method = RequestMethod.POST)
-    public String checkSignup(HttpServletRequest request, Model model) {
+    @RequestMapping(value = "/checkId", method = RequestMethod.POST)
+    public String checkId(HttpServletRequest request, Model model) {
         String id = request.getParameter("accountName");
-        int rowcount = userService.checkSignup(id);
+        int rowcount = userService.checkId(id);
+        
+        return String.valueOf(rowcount);
+    }
+    
+    @ResponseBody
+    @RequestMapping(value = "/checkEmail", method = RequestMethod.POST)
+    public String checkEmail(HttpServletRequest request, Model model) {
+        String email = request.getParameter("email");
+        int rowcount = userService.checkEmail(email);
         
         return String.valueOf(rowcount);
     }

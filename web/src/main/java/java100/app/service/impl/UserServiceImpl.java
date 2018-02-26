@@ -105,8 +105,13 @@ public class UserServiceImpl implements UserService {
     }
     
     @Override
-    public int checkSignup(String id) {
-        return accountDao.check(id);
+    public int checkId(String id) {
+        return accountDao.checkId(id);
+    }
+
+    @Override
+    public int checkEmail(String email) {
+        return accountDao.checkEmail(email);
     }
 
 
