@@ -113,7 +113,7 @@ public class UserController {
     @RequestMapping(value = "/checkSignup", method = RequestMethod.POST)
     public String checkSignup(HttpServletRequest request, Model model) {
         String id = request.getParameter("id");
-        int rowcount = userService.checkSignup(id);
+        int rowcount = userService.checkId(id);
         
         return String.valueOf(rowcount);
     }
