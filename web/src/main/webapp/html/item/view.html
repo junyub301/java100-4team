@@ -56,8 +56,11 @@
 <div class="mx-auto">
 <button id='priceBtn' type="button" class="btn btn-primary float-right" 
         data-toggle="modal" data-target="#priceModal">결제하기</button>
+<button id='addItemBtn' type="button" class="btn btn-primary float-right" 
+    onclick='location.href="/html/item/form.html"'>등록하기</button>
     </div>
 </div>
+
 <hr style="border-color: #bababa;" class="mt-5 col-6"> 
     
 <div class="row py-2">
@@ -205,7 +208,8 @@ var index = location.href.indexOf('?');
 if (index != -1) { // 기존 데이터를 조회할 경우
     var qs = location.href.substr(index + 1);
     var arr = qs.split('=');
-}    
+}   
+$('#addItemBtn').hide();
     $.ajax('/json/item/' + arr[1], {
         dataType: 'json',
         success: (result) => {
@@ -213,6 +217,10 @@ if (index != -1) { // 기존 데이터를 조회할 경우
             for (var data of result.item.photos) {
                 var photo = data.photoName.split(',');
                 var thumb = data.thumbnailName.split(',');
+            }
+            if (result.item.userType == 1) {
+                $('#addItemBtn').show();
+                $('#priceBtn').hide();
             }
             $('#itempic1').css("background-image","url('/download/"+thumb[0]+"')");
             $('#itemName').html('물품명:'+result.item.name);
