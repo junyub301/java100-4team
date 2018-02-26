@@ -121,13 +121,10 @@
 
 <script id='t3' type="text/handlebars-template">
 <table class="table table-bordered">
-<tbody><tr><th style="background-color: #f3f3f3;" class="text-center align-middle" rowspan="2">대여</th>
-<td class="card-text mb-1 text-muted" type="date">기간&nbsp;{{formatDate startDate}} ~ {{formatDate endDate}}</td>
-</tr>
-<tr><td class="">가격&nbsp;{{price}}<i class="fa fa-krw"></i></td>
-</tr>
-<tr class="">
-</tr>
+<tbody><tr><th style="background-color: #f3f3f3;" class="text-center align-middle" rowspan="4">대여</th></tr>
+<tr><td><span>물품</span><span style="float: right;">{{name}}</span></td></tr>
+<tr><td class="text-muted" type="date"><span>기간</span><span style="float: right;">{{formatDate startDate}} ~ {{formatDate endDate}}</span></td></tr>
+<tr><td><span>가격</span><span style="float: right;">{{fb price}}<i class="fa fa-krw"></i></span></td></tr>
 </tbody>
 </table> 
 </div>
@@ -177,6 +174,23 @@ template4Engine = Handlebars.compile(template4Src);
 
 $('header').load('../header.html');
 
+Handlebars.registerHelper('fb', function(price) {
+    var len, point, str, price;
+
+    price = price + "";
+    point = price.length % 3 ;
+    len = price.length;
+
+    str = price.substring(0, point);
+    while (point < len) {
+       if (str != "") str += ",";
+       str += price.substring(point, point + 3);
+       point += 3;
+    }
+
+    return str;
+});
+
 Handlebars.registerHelper('formatDate', function(date) {
     return moment(date).format('YYYY-MM-DD');
 });
@@ -210,7 +224,7 @@ if (index != -1) { // 기존 데이터를 조회할 경우
             $('#itemphoto').append(template4Engine(photo));
             $('#actname').html('<div style="text-align: center;">' + result.account.accountName + '</div>');
             $('#title').html('<h3 class="mb-0"><div>' + result.item.title + '</div></h3>');
-            $('#title').append('<div style="padding-top: 20px !important;">' + result.item.name + '</div>');
+            //$('#title').append('<div style="padding-top: 20px !important;">' + result.item.name + '</div>');
             $('#title').append('<div style="padding-top: 10px !important;">' + result.item.content + '</div>');
             $('#date').html(template3Engine(result.item));
             if (result.item.status == 1)
