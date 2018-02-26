@@ -48,13 +48,13 @@ public class TransactionController {
     
     
     
-    @RequestMapping("update")
+    /*@RequestMapping("update")
     public String update(Transaction transaction) throws Exception  {
         System.out.println(transaction);
         transactionService.update(transaction);
         
         return "redirect:list";
-    }
+    }*/
 
     @RequestMapping("delete")
     public String delete(int no) throws Exception  {

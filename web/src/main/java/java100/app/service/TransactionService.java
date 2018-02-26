@@ -9,7 +9,7 @@ public interface TransactionService {
     List<Transaction> sellList(int no);
     int add(Transaction transaction);
     Transaction get(int no);
-    int update(Transaction transaction);
+    int update(int no);
     int delete(int no);
 }
 

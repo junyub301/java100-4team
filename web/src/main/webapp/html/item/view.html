@@ -276,6 +276,7 @@ function pay() {
         }).done(function(lender) {
             if (data.item.userNo == lender.user.userNo){
                 alert('본인 아이템을 구매할 수 없습니다');
+                location.reload();
                 return false;
         }
         IMP.request_pay({ // param
@@ -305,13 +306,18 @@ function pay() {
                     success: (result) => {
                         alert('결제성공');
                         $('#priceBtn').prop("disabled",'true').html("결제완료");
+                        location.reload();
                     },
                     error: (request,status,error) => {
-                        alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error)}
+                        alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+                        location.reload();
+                        }
+                    
                 });
                 
             } else {
                 alert("결제에 실패하였습니다. 에러 내용: " +  rsp.error_msg);
+                location.reload();
             }
         });
         });

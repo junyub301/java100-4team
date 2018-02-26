@@ -8,6 +8,8 @@
     <resultMap type="review" id="rvMap">
         <id column="rent_no" property="rentNo"/>
         <result column="cnt" property="contents"/>
+        <result column="star" property="star"/>
+        <result column="it_no" property="itemNo"/>
         <result column="cre_date" property="createdDate"/>
     </resultMap>
     
@@ -15,6 +17,8 @@
         select
             rent_no,
             cnt,
+            star,
+            it_no,
             cre_date
          from review
     </select>
@@ -23,16 +27,17 @@
         select
             rent_no,
             cnt,
+            star,
+            it_no,
             cre_date
          from review where rent_no=#{value}
     </select>
     
     
-    <insert id="insert" parameterType="review" 
-        useGeneratedKeys="true" keyColumn="rent_no" keyProperty="rentNo">
+    <insert id="insert" parameterType="review">
         
-        insert into review(rent_no,cnt,cre_date) 
-            values(#{rentNo},#{contents},now())
+        insert into review(rent_no,cnt,star,it_no,cre_date) 
+            values(#{rentNo},#{contents},#{star},#{itemNo},now())
     </insert>
 
     <update id="update" parameterType="review">

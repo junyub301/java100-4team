@@ -8,6 +8,34 @@
 <link rel="stylesheet" href='/node_modules/bootstrap/dist/css/bootstrap.min.css'>
 <link href="http://fonts.googleapis.com/earlyaccess/nanumgothic.css" rel="stylesheet" type="text/css">
 
+<style type="text/css">
+body {
+-webkit-transform: 'rotate(30deg)'
+}
+</style>
+<!-- 별점 스타일-->
+<style>
+.star-input>.input,
+.star-input>.input>label:hover,
+.star-input>.input>input:focus+label,
+.star-input>.input>input:checked+label{display: inline-block;vertical-align:middle;background:url('/images/star.png') no-repeat;}
+.star-input{display:inline-block; white-space:nowrap;width:225px;height:40px;line-height:30px;}
+.star-input>.input{display:inline-block;width:100px;background-size:100px;height:19px;white-space:nowrap;overflow:hidden;position: relative;}
+.star-input>.input>input{position:absolute;width:1px;height:1px;opacity:0;}
+star-input>.input.focus{outline:1px dotted #ddd;}
+.star-input>.input>label{width:30px;height:0;padding:19px 0 0 0;overflow: hidden;float:left;cursor: pointer;position: absolute;top: 0;left: 0;}
+.star-input>.input>label:hover,
+.star-input>.input>input:focus+label,
+.star-input>.input>input:checked+label{background-size: 100px;background-position: 0 bottom;}
+.star-input>.input>label:hover~label{background-image: none;}
+.star-input>.input>label[for="p1"]{width:20px;z-index:5;}
+.star-input>.input>label[for="p2"]{width:40px;z-index:4;}
+.star-input>.input>label[for="p3"]{width:60px;z-index:3;}
+.star-input>.input>label[for="p4"]{width:80px;z-index:2;}
+.star-input>.input>label[for="p5"]{width:100px;z-index:1;}
+.star-input>output{display:inline-block; font-size:18px;text-align:right; vertical-align:middle;}
+</style>
+
 </head>
 <body>
 <header></header>
@@ -38,7 +66,7 @@
 <table id='list' style='margin-top: 10px;'class='table'>
 <thead >
 <tr>
-<th>결제일</th><th>상품명</th><th>금액</th><th>대여기간</th><th>현황</th>
+<th>결제일</th><th>상품명</th><th>금액</th><th>대여기간</th><th>현황</th><th id='review'>리뷰등록</th>
 </tr>
 </thead>
 <tbody>
@@ -47,6 +75,53 @@
 </tbody>
 </table>
 </div>
+</div>
+
+<div class="modal fade" id="reviewModal" tabindex="-1" role="dialog" aria-labelledby="reviewModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="reviewModalLabel">리뷰등록</h5>
+        <button id='closeModal' type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <div id='itemPic' class="d-inline-block" style="width:150px; height: 150px;background-size: 100% 100%">
+      </div>
+      <div id='itemName' class="d-inline-block mt-5 ml-5" style="position: absolute;">
+      </div>
+      <div class='pl-4' id='itemName'></div>
+      <div class='m-3'>
+      별점주기
+       <span class="star-input">
+    <span class="input">
+        <input type="radio" name="star-input" value="1" id="p1">
+        <label for="p1">1</label>
+        <input type="radio" name="star-input" value="2" id="p2">
+        <label for="p2">2</label>
+        <input type="radio" name="star-input" value="3" id="p3">
+        <label for="p3">3</label>
+        <input type="radio" name="star-input" value="4" id="p4">
+        <label for="p4">4</label>
+        <input type="radio" name="star-input" value="5" id="p5">
+        <label for="p5">5</label>
+    </span>
+    <output id="output"for="star-input"><b>0</b></output>                     
+</span>
+    <input id='rentNo' type="hidden">
+    <input id='itemNo' type="hidden">
+      </div>
+      <div class='m-3'>
+      comment: <br>
+      <textarea id='comment' style='width:300px;'></textarea>
+      </div>
+      <div class="modal-footer">
+      </div>
+        <button type="button" class="btn btn-primary" onclick="reviewAdd()">등록</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script src='/node_modules/handlebars/dist/handlebars.min.js'></script>
@@ -77,8 +152,8 @@ function load() {
     $.ajax('/json/tr/list', {
         dataType: 'json',
         success: (result) => {
-            
-            tbody.html(""); 
+            tbody.html("");
+            $('#review').html("리뷰등록");
             for (var data of result.transaction) {
                 var status;
                 if (data.item.status == 1) {
@@ -93,9 +168,13 @@ function load() {
                 "<td>"+ data.item.price +"</td>" + 
                 "<td>" + moment(data.item.startDate).format('YYYY-MM-DD') + "~"+ 
                 moment(data.item.endDate).format('YYYY-MM-DD')+ "</td>" +
-                "<td>"+ status +"</td>")
+                "<td>"+ status +"</td>"+
+                "<td>" +"<button data-rentNo='"+data.no+"' data-itemNo='"+data.item.itemNo+"' class='border btn btn-light' data-toggle='modal' data-target='#reviewModal'>리뷰등록</button>" + "</td>")
             .appendTo(tbody);
-            }
+            if (data.reviewState) {
+                $('.btn-light').last().prop("disabled",'true').html("등록완료");
+            } 
+            };
         },
         error: () => {
             window.alert('서버 실행 오류!');
@@ -105,11 +184,23 @@ function load() {
 
 function load2() {
     $.ajax('/json/tr/list2', {
+        type:"POST",
+        data: {
+            
+        },
         dataType: 'json',
         success: (result) => {
             
             tbody.html(""); 
+            $('#review').html("");
+            
             for (var data of result.transaction) {
+                var status;
+                if (data.item.status == 1) {
+                    status = '결제완료'
+                    } else {
+                        status = '미결제'
+                    }
                 $('<tr>')
                 .html(  
                     "<td>" + moment(data.payDate).format('YYYY-MM-DD') + "</td>" + 
@@ -117,7 +208,7 @@ function load2() {
                     "<td>"+ data.item.price +"</td>" + 
                     "<td>" + moment(data.item.startDate).format('YYYY-MM-DD') + "~"+ 
                     moment(data.item.endDate).format('YYYY-MM-DD')+ "</td>" +
-                    "<td>"+ data.item.status +"</td>")
+                    "<td>"+ status +"</td>")
                 .appendTo(tbody);
             }
         },
@@ -127,11 +218,88 @@ function load2() {
     });
 };
 
+$(tbody).on("click","button",function(e) {
+    $('#rentNo').val($(e.target).attr('data-rentNo'));
+    $('#itemNo').val($(e.target).attr('data-itemNo'));
+    $.ajax('/json/item/'+ $(e.target).attr('data-itemNo'), {
+    }
+).done(function(result){
+    for (var data of result.item.photos) {
+        var thumb = data.thumbnailName.split(',');
+    $('#itemPic').css("background-image","url('/download/"+thumb[0]+"')");
+    $('#itemName').html('물품명:'+result.item.name);
+    }
+})
+});
 
+function reviewAdd() {
+     $.ajax('/json/rv/add', {
+        dataType: 'json',
+        data:{
+            rentNo: $('#rentNo').val(),
+            contents: $('#comment').val(),
+            star: $('#output').val(),
+            itemNo: $('#itemNo').val(),
+            state: 1
+        },
+        success: (result) => {
+          alert("리뷰등록성공");
+        },
+        error: () => {
+            alert('리뷰 등록 실패!');
+        }
+    }); 
+}
+
+/* jQuery.Tween.propHooks["transform"] = {
+get: function(tween) {
+  return $(tween.elem).css("transform");
+},
+set: function(tween) {
+  $(tween.elem).css("transform", "rotateY(" + (tween.pos * 360) + "deg)");
+}
+};
+$('body').animate({opacity: 0},0);
+
+$('body').animate({opacity: 1,transform:'rotateY(360deg)'},1000);
+*/
+//star rating
+var starRating = function(){
+var $star = $(".star-input"),
+$result = $star.find("output>b");
+$(document)
+.on("focusin", ".star-input>.input", function(){
+$(this).addClass("focus");
+})
+.on("focusout", ".star-input>.input", function(){
+var $this = $(this);
+setTimeout(function(){
+if($this.find(":focus").length === 0){
+ $this.removeClass("focus");
+}
+}, 100);
+})
+.on("change", ".star-input :radio", function(){
+$result.text($(this).next().text());
+})
+.on("mouseover", ".star-input label", function(){
+$result.text($(this).text());
+})
+.on("mouseleave", ".star-input>.input", function(){
+var $checked = $star.find(":checked");
+if($checked.length === 0){
+$result.text("0");
+} else {
+$result.text($checked.next().text());
+}
+});
+};
+starRating();
 
 
 
 </script>
+
 
 
 </body>

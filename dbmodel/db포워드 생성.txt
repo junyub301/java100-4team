@@ -2,7 +2,9 @@
 CREATE TABLE review (
 	rent_no  INTEGER      NOT NULL COMMENT '대여번호', -- 대여번호
 	cnt      VARCHAR(255) NULL     COMMENT '내용', -- 내용
-	cre_date DATE         NULL     COMMENT '작성일' -- 작성일
+	cre_date DATE         NULL     COMMENT '작성일', -- 작성일
+	star     INTEGER      NULL     COMMENT '별점', -- 별점
+	it_no    INTEGER      NOT NULL COMMENT '아이템번호' -- 아이템번호
 )
 COMMENT '후기';
 
@@ -12,12 +14,6 @@ ALTER TABLE review
 		PRIMARY KEY (
 			rent_no -- 대여번호
 		);
-
--- 후기 인덱스
-CREATE INDEX IX_review
-	ON review( -- 후기
-		cre_date ASC -- 작성일
-	);
 
 -- 물품
 CREATE TABLE item (
@@ -172,7 +168,8 @@ CREATE TABLE transaction (
 	pay_dat  DATE        NULL     COMMENT '결제일', -- 결제일
 	pay_type INTEGER     NULL     COMMENT '배송비결제유형', -- 배송비결제유형
 	del_no   VARCHAR(50) NULL     COMMENT '운송장번호', -- 운송장번호
-	del_dat  DATE        NULL     COMMENT '배송일' -- 배송일
+	del_dat  DATE        NULL     COMMENT '배송일', -- 배송일
+	state    BOOLEAN     NULL     COMMENT '리뷰등록여부' -- 리뷰등록여부
 )
 COMMENT '대여';
 
