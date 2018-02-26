@@ -126,7 +126,7 @@
 <tr><td class="text-muted" type="date"><span>기간</span><span style="float: right;">{{formatDate startDate}} ~ {{formatDate endDate}}</span></td></tr>
 <tr><td><span>가격</span><span style="float: right;">{{fb price}}<i class="fa fa-krw"></i></span></td></tr>
 </tbody>
-</table> 
+</table>
 </div>
 </script>
 
@@ -210,7 +210,6 @@ if (index != -1) { // 기존 데이터를 조회할 경우
             for (var data of result.item.photos) {
                 var photo = data.photoName.split(',');
                 var thumb = data.thumbnailName.split(',');
-                
             }
             $('#itempic1').css("background-image","url('/download/"+thumb[0]+"')");
             $('#itemName').html('물품명:'+result.item.name);
