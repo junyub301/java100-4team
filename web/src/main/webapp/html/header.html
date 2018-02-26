@@ -61,13 +61,15 @@ body, div {
 					name='words' placeholder="&#xf002" aria-label="Search">
 			</form>
 			<ul class="navbar-nav ml-auto">
-				<li class="nav-item active"><i id="usericon" class="fa fa-user"
+				<li class="nav-item active"><i id="usericon" class="fa fa-user align-middle"
 					style="font-size: 24px; color: white"></i> <a id="username" href=""
 					onclick="href='../user/view.html'" style="display: inline-block;"
 					class="nav-link"></a></li>
-				<li class="nav-item active"><a class="nav-link" id="loginBtn"
-					href="" data-toggle="modal" data-target="#myModal">Login</a> <a
-					class="nav-link" id="logoutBtn" href="" class='m_pointer'>Logout</a>
+					<div class="col-1"></div>
+				<li class="nav-item active"><i id="keyicon" style="font-size:24px;color:white;display: inline-block;" class="fa fa-key align-middle"></i>
+				<a class="nav-link" id="loginBtn"
+					href="" style="display: inline-block;" data-toggle="modal" data-target="#myModal">Login</a>
+					<a class="nav-link" id="logoutBtn" href="" style="display: inline-block;">Logout</a> 
 				</li>
 			</ul>
 		</div>
@@ -250,6 +252,7 @@ $.ajax('/json/auth/loginUser', {
         $('#loginBtn').hide();
         $('#logoutBtn').show();
         $('#usericon').show();
+        $('#keyicon').removeClass('fa fa-key').addClass('fa fa-unlock-alt');
         logined = true;
         $(document.body).trigger('login', {'status': 'success'});
     },
