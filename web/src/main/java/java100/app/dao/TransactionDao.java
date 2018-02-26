@@ -9,7 +9,7 @@ public interface TransactionDao {
     List<Transaction> sellList(int no);
     int insert(Transaction transaction);
     Transaction findByNo(int no);
-    int update(Transaction transaction);
+    int updateState(int no);
     int delete(int no);
 }
 

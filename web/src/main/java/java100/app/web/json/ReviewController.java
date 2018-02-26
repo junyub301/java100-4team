@@ -1,5 +1,7 @@
 package java100.app.web.json;
 
+import java.util.HashMap;
+
 import javax.servlet.ServletContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java100.app.domain.Review;
 import java100.app.service.ReviewService;
+import java100.app.service.TransactionService;
 
 @RestController
 @RequestMapping("/rv")
@@ -17,14 +20,8 @@ public class ReviewController {
     
     @Autowired ServletContext servletContext;
     @Autowired ReviewService reviewService;
+    @Autowired TransactionService transactionService;
     
-    @RequestMapping("form")
-    public String form(int no, Model model) throws Exception {
-        model.addAttribute("no", no);
-        return "rv/form";
-    }
-
-     
     @RequestMapping("list")
     public String list(Model model) throws Exception {
         model.addAttribute("review", reviewService.list());
@@ -40,9 +37,12 @@ public class ReviewController {
     }
     
     @RequestMapping("add")
-    public String add(Review review) throws Exception {
+    public Object add(Review review) throws Exception {
         reviewService.add(review);
-        return "redirect:list";
+        transactionService.update(review.getRentNo());
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("stauts", "success");
+        return result;
     }
     
     @RequestMapping("update")

@@ -15,6 +15,7 @@
         <result column="pay_type" property="deliveryPayType"/>
         <result column="del_no" property="deliveryNo"/>
         <result column="del_dat" property="deliveryDate"/>
+        <result column="state" property="reviewState"/>
         <association property="item" javaType="Item">
             <id column="it_no" property="itemNo"/>
             <result column="title" property="title"/>
@@ -38,6 +39,7 @@
             t.pay_type,
             t.del_no,
             t.del_dat,
+            t.state,
             i.title,
             i.item_name,
             i.start,
@@ -60,6 +62,7 @@
             t.pay_type,
             t.del_no,
             t.del_dat,
+            t.state,
             i.title,
             i.item_name,
             i.start,
@@ -81,7 +84,8 @@
             pay_dat,
             pay_type,
             del_no,
-            del_dat
+            del_dat,
+            state
          from transaction
          where rent_no=#{value}
     </select>
@@ -89,17 +93,13 @@
     
     <insert id="insert" parameterType="transaction" 
         useGeneratedKeys="true" keyColumn="rent_no" keyProperty="no">
-        insert into transaction(ur_no,it_no,sel_no,pay_way,pay_dat,pay_type) 
-        values(#{lenderNo},#{itemNo},#{sellerNo},#{payMethod},#{payDate},#{deliveryPayType})
+        insert into transaction(ur_no,it_no,sel_no,pay_way,pay_dat,pay_type,state) 
+        values(#{lenderNo},#{itemNo},#{sellerNo},#{payMethod},#{payDate},#{deliveryPayType},0)
     </insert>
 
-    <update id="update" parameterType="transaction">
+    <update id="updateState" parameterType="int">
         update transaction set 
-           pay_way=#{payMethod},
-           pay_dat=#{payDate},
-           pay_type=#{deliveryPayType},
-           del_no=#{deliveryNo},
-           del_dat=#{deliveryDate}
+           state=1
         where rent_no=#{no}
     </update>
     

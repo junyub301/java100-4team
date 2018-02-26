@@ -5,39 +5,56 @@ import java.sql.Date;
 public class Review {
     protected int rentNo;
     protected String contents;
+    protected int star;
+    protected int itemNo;
     protected Date createdDate;
-    
-    public Review() {}
-
-    public Review(int rentNo, String contents, Date createdDate) {
-        this.rentNo = rentNo;
-        this.contents = contents;
-        this.createdDate = createdDate;
-    }
     
     @Override
     public String toString() {
-        return "Review [rentNo=" + rentNo + ", contents=" + contents + ", createdDate=" + createdDate + "]";
+        return "Review [rentNo=" + rentNo + ", contents=" + contents + ", star=" + star + ", itemNo=" + itemNo
+                + ", createdDate=" + createdDate + "]";
     }
-    
+
     public int getRentNo() {
         return rentNo;
     }
+
     public void setRentNo(int rentNo) {
         this.rentNo = rentNo;
     }
+
     public String getContents() {
         return contents;
     }
+
     public void setContents(String contents) {
         this.contents = contents;
     }
+
+    public int getStar() {
+        return star;
+    }
+
+    public void setStar(int star) {
+        this.star = star;
+    }
+
+    public int getItemNo() {
+        return itemNo;
+    }
+
+    public void setItemNo(int itemNo) {
+        this.itemNo = itemNo;
+    }
+
     public Date getCreatedDate() {
         return createdDate;
     }
+
     public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
     }
+    
     
     
 }
