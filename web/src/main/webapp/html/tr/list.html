@@ -233,6 +233,7 @@ $(tbody).on("click","button",function(e) {
 });
 
 function reviewAdd() {
+    $('#closeModal').trigger("click");
      $.ajax('/json/rv/add', {
         dataType: 'json',
         data:{
