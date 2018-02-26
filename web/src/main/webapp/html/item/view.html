@@ -3,6 +3,24 @@
 <html>
 <head>
 <meta charset='UTF-8'>
+<style>
+.scale {
+  transform: scale(1);
+  -webkit-transform: scale(1);
+  -moz-transform: scale(1);
+  -ms-transform: scale(1);
+  -o-transform: scale(1);
+  transition: all 0.3s ease-in-out;   /* 부드러운 모션을 위해 추가*/
+}
+.scale:hover {
+  transform: scale(3.2);
+  -webkit-transform: scale(3.2);
+  -moz-transform: scale(3.2);
+  -ms-transform: scale(3.2);
+  -o-transform: scale(3.2);
+}
+.img {width:325px; height:280px; overflow:hidden } /* 부모 태그에 사이즈를 지정하여 확대시 벗어나지 않도록 한다. */
+</style>
 <title>아이템 상세 정보</title>
 </head>
 
@@ -68,7 +86,11 @@
     <div id="itemphoto"></div>
     </div>
 </div>
+<div id='review' style="width:400px;margin:auto;">
 </div>
+</div>
+<br><br><br><br><br><br><br><br><br>
+
 <!--결제창 -->
 <div class="modal fade" id="priceModal" tabindex="-1" role="dialog" aria-labelledby="priceModalLabel" aria-hidden="true" style="display: none;">
   <div class="modal-dialog" role="document">
@@ -161,24 +183,6 @@
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 
 
-<style>
-.scale {
-  transform: scale(1);
-  -webkit-transform: scale(1);
-  -moz-transform: scale(1);
-  -ms-transform: scale(1);
-  -o-transform: scale(1);
-  transition: all 0.3s ease-in-out;   /* 부드러운 모션을 위해 추가*/
-}
-.scale:hover {
-  transform: scale(3.2);
-  -webkit-transform: scale(3.2);
-  -moz-transform: scale(3.2);
-  -ms-transform: scale(3.2);
-  -o-transform: scale(3.2);
-}
-.img {width:325px; height:280px; overflow:hidden } /* 부모 태그에 사이즈를 지정하여 확대시 벗어나지 않도록 한다. */
-</style>
 
 <script type="text/javascript">
 
@@ -226,8 +230,6 @@ if (index != -1) { // 기존 데이터를 조회할 경우
     $.ajax('/json/item/' + arr[1], {
         dataType: 'json',
         success: (result) => {
-            
-            console.log(result)
             $('#aa').html(template1Engine(result.user));
             for (var data of result.item.photos) {
                 var photo = data.photoName.split(',');
@@ -252,6 +254,40 @@ if (index != -1) { // 기존 데이터를 조회할 경우
             $('#priceBtn').prop("disabled",'true').html("결제완료");
             
         }
+    });
+    
+    $.ajax('/json/rv/' + arr[1], {
+        dataType: 'json',
+        success: (result) => {
+            if (result.review == null) {
+                return false;
+            }
+            $('#review').html("구매자사진:<div id='userpic' class='d-inline-block' style='width:50px; height: 50px;background-size: 100% 100%'></div>"
+            +"별점:<div id='starpic' class='d-inline-block' style='width:100px; height: 19px;background-size: 100% 100%'></div>"
+            +"코멘트:"+result.review.contents)
+            var starpic;
+            switch (result.review.star) {
+            case 1: 
+                starpic="star1.png"; 
+                break;
+            case 2: 
+                starpic="star2.png"; 
+                break;
+            case 3: 
+                starpic="star3.png"; 
+                break;
+            case 4: 
+                starpic="star4.png";
+                break;
+            case 5: 
+                starpic="star5.png";
+            }
+            $("#userpic").css("background-image","url('/download/"+result.review.userPic+"')");
+            $("#starpic").css("background-image","url('/images/"+starpic+"')");
+        },
+        error: (request,status,error) => {
+            alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+            }
     });
     
 /*배송비 결제에 따른 가격변동 */
@@ -298,7 +334,6 @@ function pay() {
         }).done(function(lender) {
             if (data.item.userNo == lender.user.userNo){
                 alert('본인 아이템을 구매할 수 없습니다');
-                location.reload();
                 return false;
         }
         IMP.request_pay({ // param
@@ -328,18 +363,15 @@ function pay() {
                     success: (result) => {
                         alert('결제성공');
                         $('#priceBtn').prop("disabled",'true').html("결제완료");
-                        location.reload();
                     },
                     error: (request,status,error) => {
                         alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-                        location.reload();
                         }
                     
                 });
                 
             } else {
                 alert("결제에 실패하였습니다. 에러 내용: " +  rsp.error_msg);
-                location.reload();
             }
         });
         });

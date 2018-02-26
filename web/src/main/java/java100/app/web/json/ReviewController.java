@@ -30,10 +30,10 @@ public class ReviewController {
     }
     
     @RequestMapping("{no}")
-    public String view(@PathVariable int no, Model model) throws Exception {
-        model.addAttribute("review", reviewService.get(no));
-
-        return "rv/view";
+    public Object view(@PathVariable int no) throws Exception {
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("review", reviewService.get(no));
+        return result;
     }
     
     @RequestMapping("add")
