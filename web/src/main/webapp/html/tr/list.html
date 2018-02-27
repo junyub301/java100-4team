@@ -298,7 +298,6 @@ $(tbody).on("click","#deliveryBtn",function(e) {
     $('#deliveryDate').val("");
     $.ajax('/json/tr/'+ $(e.target).attr('data-rentNo'), {}).done(
             function(result) {
-                console.log(result);
                 if (result.transaction.deliveryNo != 0) {
                     $('#deliveryNo').val(result.transaction.deliveryNo);
                     $('#deliveryDate').val(moment(result.transaction.deliveryDate).format("YYYY-MM-DD"));

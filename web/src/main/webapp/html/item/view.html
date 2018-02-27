@@ -202,22 +202,7 @@ template4Engine = Handlebars.compile(template4Src);
 
 $('header').load('../header.html');
 
-Handlebars.registerHelper('fb', function(price) {
-    var len, point, str, price;
-
-    price = price + "";
-    point = price.length % 3 ;
-    len = price.length;
-
-    str = price.substring(0, point);
-    while (point < len) {
-       if (str != "") str += ",";
-       str += price.substring(point, point + 3);
-       point += 3;
-    }
-
-    return str;
-});
+Handlebars.registerHelper('fb', transPrice);
 
 Handlebars.registerHelper('formatDate', function(date) {
     return moment(date).format('YYYY-MM-DD');
@@ -248,7 +233,7 @@ $('#addItemBtn').hide();
             $('#dp').prepend('기간 : ' + moment(result.item.startDate).format('YYYY-MM-DD') + ' ~ ' +
                     moment(result.item.endDate).format('YYYY-MM-DD') +'<br><br>' + 
                     '가격 : ');
-            $('#pr').html(price);
+            $('#pr').html(transPrice(price)+" 원");
             itemNo = result.item.itemNo;
             $('#itemphoto').html(template2Engine(thumb));
             $('#itemphoto').append(template4Engine(photo));
@@ -304,11 +289,11 @@ $('#addItemBtn').hide();
 $('.deliberypay').change(() => {
     if ($('#prepaid').prop("checked")) {
         price += 2500;
-        $('#pr').html(price);
+        $('#pr').html(transPrice(price)+" 원");
     }
     if ($('#afterpay').prop("checked")) {
         price -= 2500;
-        $('#pr').html(price);
+        $('#pr').html(transPrice(price)+" 원");
     }
 })
 
@@ -348,7 +333,7 @@ function pay() {
         }
         IMP.request_pay({ // param
             pay_method: payMethod, // card:카드결제 trans:계좌이체 phone:휴대폰 결제
-            merchant_uid: data.item.itemNo, //아이템 번호 넣으면 될듯..결제가 된 적이 있는 merchant_uid로는 재결제 불가
+            merchant_uid: data.item.itemNo+data.item.name, //아이템 번호 넣으면 될듯..결제가 된 적이 있는 merchant_uid로는 재결제 불가
             name: data.item.name, //물품명
             amount: price, //결제 가격
             //notice_url: "",
@@ -390,6 +375,22 @@ function pay() {
     });
 };
 
+function transPrice(price) {
+    var len, point, str, price;
+
+    price = price + "";
+    point = price.length % 3 ;
+    len = price.length;
+
+    str = price.substring(0, point);
+    while (point < len) {
+       if (str != "") str += ",";
+       str += price.substring(point, point + 3);
+       point += 3;
+    }
+
+    return str;
+}
 </script>
 
 
