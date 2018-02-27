@@ -186,7 +186,6 @@ function load() {
             $('<th id="review">').html("리뷰등록").appendTo('thead tr');
             for (var data of result.transaction) {
                 var status;
-                console.log(data.item.status);
                 switch (data.item.status) {
                 case 0: status="미결제";
                 break;
@@ -231,7 +230,6 @@ function load2() {
             $('<th id="delivery">').html("배송등록").appendTo('thead tr');
             for (var data of result.transaction) {
                 var status;
-                console.log(data.item.status);
                 switch (data.item.status) {
                 case 0: status="미결제";
                 break;
