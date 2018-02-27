@@ -196,7 +196,7 @@ function load() {
             $('<tr>')
             .html(  
                 "<td>" + moment(data.payDate).format('YYYY-MM-DD') + "</td>" + 
-                "<td>" + data.item.name + "</td>" +
+                "<td><a href='/html/item/view.html?no="+data.itemNo+"'>"+ data.item.name + "</a></td>" +
                 "<td>"+ data.item.price +"</td>" + 
                 "<td>" + moment(data.item.startDate).format('YYYY-MM-DD') + "~"+ 
                 moment(data.item.endDate).format('YYYY-MM-DD')+ "</td>" +
@@ -240,7 +240,7 @@ function load2() {
                 $('<tr>')
                 .html(  
                     "<td>" + moment(data.payDate).format('YYYY-MM-DD') + "</td>" + 
-                    "<td>" + data.item.name + "</td>" +
+                    "<td><a href='/html/item/view.html?no="+data.itemNo+"'>"+ data.item.name + "</a></td>" +
                     "<td>"+ data.item.price +"</td>" + 
                     "<td>" + moment(data.item.startDate).format('YYYY-MM-DD') + "~"+ 
                     moment(data.item.endDate).format('YYYY-MM-DD')+ "</td>" +
