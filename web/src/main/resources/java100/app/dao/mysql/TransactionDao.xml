@@ -103,6 +103,13 @@
         where rent_no=#{no}
     </update>
     
+    <update id="update" parameterType="transaction">
+        update transaction set 
+           del_no=#{deliveryNo},
+           del_dat=#{deliveryDate}
+        where rent_no=#{no}
+    </update>
+     
     <delete id="delete" parameterType="int">
         delete from transaction 
         where rent_no=#{value}

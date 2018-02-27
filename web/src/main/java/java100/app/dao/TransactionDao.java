@@ -10,6 +10,7 @@ public interface TransactionDao {
     int insert(Transaction transaction);
     Transaction findByNo(int no);
     int updateState(int no);
+    int update(Transaction transaction);
     int delete(int no);
 }
 

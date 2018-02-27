@@ -34,8 +34,13 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
-    public int update(int no) {
+    public int updateState(int no) {
         return transactionDao.updateState(no);
+    }
+    
+    @Override
+    public int update(Transaction transaction) {
+        return transactionDao.update(transaction);
     }
 
     @Override
