@@ -172,6 +172,7 @@
 <script src='/node_modules/jquery/dist/jquery.min.js'></script>
 <script src='/node_modules/popper.js/dist/umd/popper.min.js'></script>
 <script src='/node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
+<script src='/node_modules/sweetalert/dist/sweetalert.min.js'></script>
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 
 
@@ -274,7 +275,7 @@ $('#addItemBtn').hide();
             $("#starpic").css("background-image","url('/images/"+starpic+"')");
         },
         error: (request,status,error) => {
-            alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+            swal("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
             }
     });
     
@@ -314,14 +315,14 @@ function pay() {
         $.ajax('/json/auth/loginUser', {
             success: (result) => {
                 if (result.user.baseAddress == "") {
-                    alert("회원정보를 추가해주세요!!");
+                    swal("회원정보를 추가해주세요!!");
                     location.href = '../user/view.html';
                     return false;
                 }
             }
         }).done(function(lender) {
             if (data.item.userNo == lender.user.userNo){
-                alert('본인 아이템을 구매할 수 없습니다');
+                swal('본인 아이템을 구매할 수 없습니다');
                 return false;
         }
         IMP.request_pay({ // param
@@ -351,17 +352,17 @@ function pay() {
                         deliveryPayType: deliveryPayType
                     },
                     success: (result) => {
-                        alert('결제성공');
+                        swal('결제성공');
                         $('#priceBtn').prop("disabled",'true').html("결제완료");
                     },
                     error: (request,status,error) => {
-                        alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+                        swal("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
                         }
                     
                 });
                 
             } else {
-                alert("결제에 실패하였습니다. 에러 내용: " +  rsp.error_msg);
+                swal("결제에 실패하였습니다. 에러 내용: " +  rsp.error_msg);
             }
         });
         });
