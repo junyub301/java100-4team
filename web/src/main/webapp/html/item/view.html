@@ -71,7 +71,7 @@
     </div>
 </div>
 
-<div class="hr-sect my-5 col-8 mx-auto"><h4 class="hr-sect mb-0">리뷰</h4></div>
+<div id="rivewBar" class="hr-sect my-5 col-8 mx-auto"><h4 class="hr-sect mb-0">리뷰</h4></div>
 
 <div class="row py-2">
 <div id='review' class="mx-auto">
@@ -243,6 +243,7 @@ $('#addItemBtn').hide();
         dataType: 'json',
         success: (result) => {
             if (result.review == null) {
+                $('#rivewBar').hide();
                 return false;
             }
             $('#review').html("<div class='d-inline-flex align-items-stretch'>"
