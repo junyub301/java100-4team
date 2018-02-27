@@ -8,7 +8,7 @@
 </head>
 <body>
 <script type="text/javascript">
-  var naver_id_login = new naver_id_login("ci2uARbrUgEbOCNv2VE7", "http://127.0.0.1:9999/html/auth/callback.html");
+  var naver_id_login = new naver_id_login("ci2uARbrUgEbOCNv2VE7", "http://t4.java100.com:9999/html/auth/callback.html");
   // 접근 토큰 값 출력
   console.log(naver_id_login.oauthParams.access_token);
   // 네이버 사용자 프로필 조회
@@ -16,24 +16,24 @@
   // 네이버 사용자 프로필 조회 이후 프로필 정보를 처리할 callback function
   var accessToken = naver_id_login.oauthParams.access_token;
   function naverSignInCallback() {
-    autoServerLogin(accessToken);
-    console.log(naver_id_login.getProfileData('email'));
-    console.log(naver_id_login.getProfileData('nickname'));
-    console.log(naver_id_login.getProfileData('age'));
+    var request = $.ajax({
+        url:"../../json/auth/naverLogin",
+        type:"POST",
+        data:{
+            name: naver_id_login.getProfileData('name'),
+            email: naver_id_login.getProfileData('email')
+        }, // {“user_id”:”입력값”, “user_password”:”입력값”} 형식으로 전달 됨
+        dataType:"json"
+       });
+       request.done(function(result){ // 전송 후, 결과 값 받아오는 부분
+           if (result.status == 'success') {
+               console.log("success!!");
+               location.href = '../main/main.html';
+           } else {
+               window.alert('로그인 실패입니다!');
+           }
+  })
   }
-  function autoServerLogin(accessToken) {
-      $.getJSON(
-          '../../json/auth/naverLogin', 
-          {'accessToken': accessToken}, 
-          function(result) {
-            if (result.status == 'success') {
-                location.href = '../main/main.html';
-            } else {
-                window.alert('로그인 실패입니다!');
-            }
-      });
-  }
-
 </script>
 </body>
 </html>
