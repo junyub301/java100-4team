@@ -107,7 +107,7 @@ star-input>.input.focus{outline:1px dotted #ddd;}
         <input type="radio" name="star-input" value="5" id="p5">
         <label for="p5">5</label>
     </span>
-    <output id="output"for="star-input"><b>0</b></output>                     
+    <output id="output"for="star-input"><b>3</b></output>                     
 </span>
     <input id='rentNo' type="hidden">
     <input id='itemNo' type="hidden">
@@ -148,6 +148,9 @@ $('#sellBtn').click(()=> {
     load2();
 });
 
+//별점 기본값 3으로..
+$('#p3').prop("checked",true);
+
 function load() {
     $.ajax('/json/tr/list', {
         dataType: 'json',
@@ -172,7 +175,7 @@ function load() {
                 "<td>" +"<button data-rentNo='"+data.no+"' data-itemNo='"+data.item.itemNo+"' class='border btn btn-light' data-toggle='modal' data-target='#reviewModal'>리뷰등록</button>" + "</td>")
             .appendTo(tbody);
             if (data.reviewState) {
-                $('.btn-light').last().prop("disabled",'true').html("등록완료");
+                //$('.btn-light').last().prop("disabled",'true').html("등록완료");
             } 
             };
         },
