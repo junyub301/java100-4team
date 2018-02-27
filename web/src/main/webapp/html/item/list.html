@@ -190,7 +190,7 @@ Handlebars.registerHelper('check', function(userType, options) {
     }
 });
 Handlebars.registerHelper('shared', function(status, options) {
-    if (status == 1){
+    if (status >= 1){
     return options.fn(this);
     }
 });
