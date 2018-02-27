@@ -136,6 +136,7 @@ style='display:inline-block;width:250px;margin-left: 75px;'
 <script src='../../node_modules/popper.js/dist/umd/popper.min.js'></script>
 <script src='../../node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
 <script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
+<script src='/node_modules/sweetalert/dist/sweetalert.min.js'></script>
 
 <script type="text/javascript">
 var pwd = $('#pwd'),
@@ -206,7 +207,7 @@ $('#PwCheck').keyup(() => {
 function checknull() {
     $(':required').each(function() {
         if ($(this).val() == "") {
-            alert("빈칸을 채워주세요");
+            swal("빈칸을 채워주세요");
             return false;
         };
     });
@@ -227,7 +228,7 @@ addBtn.click(() => {
             location.href = "../auth/loginform.html";
         },
         error:function(request,status,error){
-            alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+            swal("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
          }
 
     });

@@ -210,9 +210,6 @@ public class LoginController {
             HttpServletRequest request,
             Model model) {
         try {
-            System.out.println(naccount.getEmail());
-            System.out.println(naccount.getName());
-            
             Account account = accountService.get(naccount.getEmail());
 
             if (account == null) { // 등록된 회원이 아니면,

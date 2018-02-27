@@ -172,6 +172,7 @@
 <script src='/node_modules/jquery/dist/jquery.min.js'></script>
 <script src='/node_modules/popper.js/dist/umd/popper.min.js'></script>
 <script src='/node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
+<script src='/node_modules/sweetalert/dist/sweetalert.min.js'></script>
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 
 
@@ -274,7 +275,7 @@ $('#addItemBtn').hide();
             $("#starpic").css("background-image","url('/images/"+starpic+"')");
         },
         error: (request,status,error) => {
-            alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+            swal("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
             }
     });
     
@@ -314,19 +315,19 @@ function pay() {
         $.ajax('/json/auth/loginUser', {
             success: (result) => {
                 if (result.user.baseAddress == "") {
-                    alert("회원정보를 추가해주세요!!");
+                    swal("회원정보를 추가해주세요!!");
                     location.href = '../user/view.html';
                     return false;
                 }
             }
         }).done(function(lender) {
             if (data.item.userNo == lender.user.userNo){
-                alert('본인 아이템을 구매할 수 없습니다');
+                swal('본인 아이템을 구매할 수 없습니다');
                 return false;
         }
         IMP.request_pay({ // param
             pay_method: payMethod, // card:카드결제 trans:계좌이체 phone:휴대폰 결제
-            merchant_uid: data.item.itemNo+data.item.name, //아이템 번호 넣으면 될듯..결제가 된 적이 있는 merchant_uid로는 재결제 불가
+            merchant_uid: lender.account.accountName+"/"+data.item.name+"?"+data.item.itemNo, //아이템 번호 넣으면 될듯..결제가 된 적이 있는 merchant_uid로는 재결제 불가
             name: data.item.name, //물품명
             amount: price, //결제 가격
             //notice_url: "",
@@ -338,28 +339,30 @@ function pay() {
         }, function (rsp) { // callback 
             if (rsp.success) { // 결제 성공 시: 결제 승인 또는 가상계좌 발급에 성공한 경우
                 // jQuery로 transaction add
+                var item_no = (rsp.merchant_uid).split("?")[1];
+                console.log(item_no);
                 $.ajax("/json/tr/add", {
                     method: "POST",
                     dataType: 'json',
                     data: {
                         //imp_uid: rsp.imp_uid, //아임포트 거래 고유 번호
-                        itemNo: rsp.merchant_uid ,
+                        itemNo: item_no ,
                         payMethod: rsp.pay_method,
                         payDate: moment(rsp.paid_at*1000).format('YYYY-MM-DD'),
                         deliveryPayType: deliveryPayType
                     },
                     success: (result) => {
-                        alert('결제성공');
+                        swal('결제성공');
                         $('#priceBtn').prop("disabled",'true').html("결제완료");
                     },
                     error: (request,status,error) => {
-                        alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+                        swal("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
                         }
                     
                 });
                 
             } else {
-                alert("결제에 실패하였습니다. 에러 내용: " +  rsp.error_msg);
+                swal("결제에 실패하였습니다. 에러 내용: " +  rsp.error_msg);
             }
         });
         });

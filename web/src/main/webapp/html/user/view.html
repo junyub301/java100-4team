@@ -115,6 +115,7 @@
 <script src='/node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
+<script src='/node_modules/sweetalert/dist/sweetalert.min.js'></script>
 <script>
 var password = $('#pwd'),
 	pwdcheck = $('#checkpwd'),
@@ -173,7 +174,7 @@ if (index != -1) { // 기존 데이터를 조회할 경우
                 nod.html("<input id='no' type='hidden' name='accountsNo' value='" + result.account.accountsNo + "'>")
             },
             error: () => {
-                window.alert('서버 실행 오류!');
+                swal('서버 실행 오류!');
             }
         });
     });
@@ -200,7 +201,7 @@ if (index != -1) { // 기존 데이터를 조회할 경우
                 nod.html("<input id='no' type='hidden' name='accountsNo' value='" + result.account.accountsNo + "'>")
             },
             error: () => {
-                window.alert('서버 실행 오류!');
+                swal('서버 실행 오류!');
             }
         });
     });
@@ -271,7 +272,7 @@ $(() => {
 updateBtn.click(() => {
 
     if (password.val() != pwdcheck.val()) {
-        alert('비밀번호가 틀렸습니다. 다시 입력해 주세요');
+        swal('비밀번호가 틀렸습니다. 다시 입력해 주세요');
         return false;
     }
     
@@ -291,11 +292,11 @@ updateBtn.click(() => {
                 return imd.html( '<img id="imag" align="middle" src="/download/' + filename + '">');
                 }
             });
-            alert('수정되었습니다.')
+            swal('수정되었습니다.')
             location.reload();
         },
         error:function(request,status,error){
-            alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+            swal("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
          }
 
     });
@@ -312,7 +313,7 @@ deleteBtn.click(() => {
             location.href = "list.html";
         },
         error: () => {
-            window.alert('서버 실행 오류!');
+            swal('서버 실행 오류!');
         }
     });
 });
