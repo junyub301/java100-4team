@@ -9,12 +9,27 @@ public class Review {
     protected int itemNo;
     protected Date createdDate;
     protected String userPic;
+    protected String actname;
     
     @Override
     public String toString() {
         return "Review [rentNo=" + rentNo + ", contents=" + contents + ", star=" + star + ", itemNo=" + itemNo
                 + ", createdDate=" + createdDate + ", userPic=" + userPic + "]";
     }
+
+   
+
+    public String getActname() {
+        return actname;
+    }
+
+
+
+    public void setActname(String actname) {
+        this.actname = actname;
+    }
+
+
 
     public int getRentNo() {
         return rentNo;
