@@ -76,7 +76,6 @@
 <label for='accountNo'class='col-sm-2 col-form-label'>통장번호</label> 
 <input class='form-control col-10' id='accountNo' type='text' name='accountNo' >
 
-
 <label for='comment' class='col-sm-2 col-form-label'>한마디</label> 
 <input class='form-control col-10' id='comment' type='text' name='comment' >
 
@@ -180,6 +179,7 @@ if (index != -1) { // 기존 데이터를 조회할 경우
         $.ajax('../../json/user/view' , {
             dataType: 'json',
             success: (result) => {
+                console.log(result)
                 userid.val(result.account.accountName);
                 nameItem.val(result.account.name);
                 email.val(result.account.email);

@@ -5,6 +5,10 @@ body, div {
 	font-family: 'Noto Sans KR', sans-serif;
 }
 
+body {
+    padding-top: 110px !important;
+}
+
 .ddd {
 	border-color: #a8a8a8;
 }
@@ -42,6 +46,7 @@ body, div {
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="../../css/main.css">
+<nav class="fixed-top">
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
 	<div class="container">
 		<i class="fa fa-handshake-o" style="font-size: 24px; color: white"></i>
@@ -76,7 +81,7 @@ body, div {
 	</div>
 </nav>
 
-<nav class="site-header sticky-top border ddd">
+<nav class="site-header sticky-top border ddd" style="background-color: white;">
 	<div class="container">
 		<!-- <div style="display: inline-block;"
 			onclick="location.href='../item/form.html'"
@@ -97,7 +102,7 @@ body, div {
         </div>
 	</div>
 </nav>
-
+</nav>
 
 
 <div class="modal fade" id="myModal" style="display: none;">
@@ -199,6 +204,19 @@ function getCookie(cname) {
     return "";
 }
  
+$('#add').click(() => {
+    $.getJSON('/json/auth/loginUser', function(result) {
+            if (result.status == "fail"){
+                swal("로그인이 필요한 페이지 입니다.").then((value) => {
+                    $('#loginBtn').click()
+                })
+                return;
+            }
+            location.href="/html/item/form.html"
+        })
+        
+})
+
 </script>
 
 <script type="text/javascript">
@@ -210,6 +228,8 @@ var id = $('#accountName'),
         saveId.prop("checked", true);
     }
     id.val(getCookie('id'));
+    
+
     
 loginBtn.click(() => {
     
@@ -377,19 +397,6 @@ var naverLogin = new naver.LoginWithNaverId(
 naverLogin.init();
 
 
-$('#add').click(() => {
-    
-    
-    $.getJSON('/json/auth/loginUser', function(result) {
-        if (result.status == "fail"){
-            swal("로그인이 필요한 페이지 입니다.").then((value) => {
-                $('#loginBtn').click()
-            })
-            return;
-        }
-        location.href="/html/item/form.html"
-    })
-    
-})
+
 
 </script>
