@@ -40,7 +40,7 @@
 </thead>
 <tbody>
 
-
+<!-- <input style='align-content: flex-start;' -->
 </tbody>
 </table>
 </div>
@@ -54,31 +54,36 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div id="modalView" class="modal-body">
+    <div id="modalView" class="modal-body">
+      
     </div>
-  </div>
-</div>
-<script id="t1" type="text/x-handlebars-template">
-
-<div class="container-fluid">
-    <div class="row">
-      <div class="col-md-3 ml-auto">날짜:{{formatDate dispatchDate}}</div>
-    </div>
-    <div class="row border">
-      <div class="col-md-4" >제목:{{title}}</div>
-    </div>
-    <div class="row border">
-      <div class="col-sm-9">
-        내용:{{content}}
-      </div>
-    </div>
-  </div>
-</div>
       <div class="modal-footer">
-        <button id='delBtn' data-no='{{messageNo}}' type="button" class="btn btn-primary">메세지 삭제</button>
+        
       </div>
+    </div>
+  </div>
+</div>
 
+<script id="t1" type="text/x-handlebars-template">
+<div style="width:450px;margin:auto;">    
+    <div style="display:inline-block;margin-bottom:20px;">
+      제목 : {{title}}
+    </div>
+    <div style="display:inline-block;float:right">
+      보낸 날짜 : {{formatDate dispatchDate}}
+    </div>
+    <div>
+        <span>내용</span>
+      <div style="width:380px;height:200px;border:solid 1px #b5b5b5;display:inline-block;padding:2px 10px;margin-left:10px;">{{content}}
+      </div>
+    </div>
+</div>
 </script>
+
+<script id="t2" type="text/x-handlebars-template">
+<button id='delBtn' data-no='{{messageNo}}' type="button" class="btn btn-primary">메세지 삭제</button>
+</script>
+
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
 <script src='/node_modules/handlebars/dist/handlebars.min.js'></script>
@@ -92,6 +97,8 @@
 $('header').load('../header.html');
 template1Src = $('#t1').html(),
 template1Engine = Handlebars.compile(template1Src);
+template2Src = $('#t2').html(),
+template2Engine = Handlebars.compile(template2Src);
 Handlebars.registerHelper('formatDate', function(date) {
     return  moment(date).format('YYYY-MM-DD');
 });
@@ -138,8 +145,8 @@ $('.detailView').on('click',(e) => {
         $.ajax('/json/msg/' + num, {
             dataType: 'json',
             success: (result) => {
-                
-                $('#modalView').html(template1Engine(result.message));
+                $('.modal-body').html(template1Engine(result.message));
+                $('.modal-footer').html(template2Engine(result.message));
                 delEvent();
             },
             error: () => {
