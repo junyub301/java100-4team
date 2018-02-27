@@ -61,8 +61,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public int update(Item item) {
-        itemDao.update(item);
-        return 0;
+        return itemDao.update(item);
     }
     
     

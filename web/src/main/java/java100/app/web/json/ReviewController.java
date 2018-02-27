@@ -5,7 +5,6 @@ import java.util.HashMap;
 import javax.servlet.ServletContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,12 +21,12 @@ public class ReviewController {
     @Autowired ReviewService reviewService;
     @Autowired TransactionService transactionService;
     
-    @RequestMapping("list")
+    /*@RequestMapping("list")
     public String list(Model model) throws Exception {
         model.addAttribute("review", reviewService.list());
         
         return "rv/list";
-    }
+    }*/
     
     @RequestMapping("{no}")
     public Object view(@PathVariable int no) throws Exception {
@@ -39,13 +38,13 @@ public class ReviewController {
     @RequestMapping("add")
     public Object add(Review review) throws Exception {
         reviewService.add(review);
-        transactionService.update(review.getRentNo());
+        transactionService.updateState(review.getRentNo());
         HashMap<String, Object> result = new HashMap<>();
         result.put("stauts", "success");
         return result;
     }
     
-    @RequestMapping("update")
+    /*@RequestMapping("update")
     public String update(Review review) throws Exception  {
         
         reviewService.update(review);
@@ -59,7 +58,7 @@ public class ReviewController {
         reviewService.delete(no);
 
         return "redirect:list";
-    }
+    }*/
     
     
 }
