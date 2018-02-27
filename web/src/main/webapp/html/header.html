@@ -199,6 +199,19 @@ function getCookie(cname) {
     return "";
 }
  
+$('#add').click(() => {
+    $.getJSON('/json/auth/loginUser', function(result) {
+            if (result.status == "fail"){
+                swal("로그인이 필요한 페이지 입니다.").then((value) => {
+                    $('#loginBtn').click()
+                })
+                return;
+            }
+            location.href="/html/item/form.html"
+        })
+        
+})
+
 </script>
 
 <script type="text/javascript">
@@ -210,6 +223,8 @@ var id = $('#accountName'),
         saveId.prop("checked", true);
     }
     id.val(getCookie('id'));
+    
+
     
 loginBtn.click(() => {
     
@@ -377,19 +392,6 @@ var naverLogin = new naver.LoginWithNaverId(
 naverLogin.init();
 
 
-$('#add').click(() => {
-    
-    
-    $.getJSON('/json/auth/loginUser', function(result) {
-        if (result.status == "fail"){
-            swal("로그인이 필요한 페이지 입니다.").then((value) => {
-                $('#loginBtn').click()
-            })
-            return;
-        }
-        location.href="/html/item/form.html"
-    })
-    
-})
+
 
 </script>
