@@ -315,8 +315,9 @@ function pay() {
         $.ajax('/json/auth/loginUser', {
             success: (result) => {
                 if (result.user.baseAddress == "") {
-                    swal("회원정보를 추가해주세요!!");
+                    swal("회원정보를 추가해주세요!!").then((value) => {
                     location.href = '../user/view.html';
+                    })
                     return false;
                 }
             }

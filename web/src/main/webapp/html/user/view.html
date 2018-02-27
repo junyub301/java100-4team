@@ -338,8 +338,9 @@ updateBtn.click(() => {
                 return imd.html( '<img id="imag" align="middle" src="/download/' + filename + '">');
                 }
             });
-            swal('수정되었습니다.')
+            swal('수정되었습니다.').then((value) => {
             location.reload();
+            });
         },
         error:function(request,status,error){
             swal("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
