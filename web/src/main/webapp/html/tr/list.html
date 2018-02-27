@@ -155,6 +155,9 @@ star-input>.input.focus{outline:1px dotted #ddd;}
 <script src='/node_modules/jquery/dist/jquery.min.js'></script>
 <script src='/node_modules/popper.js/dist/umd/popper.min.js'></script>
 <script src='/node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+<script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
+<script src='/node_modules/sweetalert/dist/sweetalert.min.js'></script>
 
 <script type="text/javascript">
 $('header').load('../header.html');
@@ -211,7 +214,7 @@ function load() {
             };
         },
         error: () => {
-            window.alert('서버 실행 오류!');
+            swal('서버 실행 오류!');
         }
     });
 };
@@ -252,7 +255,7 @@ function load2() {
             }
         },
         error: () => {
-            window.alert('서버 실행 오류!');
+            swal('서버 실행 오류!');
         }
     });
 };
@@ -283,10 +286,10 @@ function reviewAdd() {
             state: 1
         },
         success: (result) => {
-          alert("리뷰등록성공");
+          swal("리뷰등록성공");
         },
         error: () => {
-            alert('리뷰 등록 실패!');
+            swal('리뷰 등록 실패!');
         }
     }); 
 }
@@ -316,10 +319,10 @@ function deliveryAdd() {
             deliveryDate: $('#deliveryDate').val()
         },
         success: (result) => {
-          alert("배송등록성공");
+          swal("배송등록성공");
         },
         error: () => {
-            alert('배송 등록 실패!');
+            swal('배송 등록 실패!');
         }
     
     })

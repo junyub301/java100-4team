@@ -85,7 +85,7 @@ body, div {
 		</div> -->
 		<div class="filter">
             <ul class="filter__list mb-0">
-                <li><a href="../item/form.html"><i class="fa fa-plus-square" style="color: #007BFF">
+                <li><a id="add" href="#"><i class="fa fa-plus-square" style="color: #007BFF">
                 </i>Add</a></li>
                 <li><a href="../item/list.html">All</a></li>
                 <li><a href="../item/list.html?cr=1">전자제품</a></li>
@@ -171,6 +171,7 @@ body, div {
 
 <!-- <script src='../../node_modules/jquery/dist/jquery.min.js'></script> -->
 <script src='../../node_modules/popper.js/dist/umd/popper.min.js'></script>
+<script src='../../node_modules/sweetalert/dist/sweetalert.min.js'></script>
 <script src='../../node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
 <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
 
@@ -197,6 +198,7 @@ function getCookie(cname) {
     }
     return "";
 }
+ 
 </script>
 
 <script type="text/javascript">
@@ -366,7 +368,7 @@ Kakao.Auth.createLoginButton({
 var naverLogin = new naver.LoginWithNaverId(
         {
             clientId: "ci2uARbrUgEbOCNv2VE7",
-            callbackUrl: "http://" + window.location.hostname + ((location.port==""||location.port==undefined)?"":":" + location.port) + "auth/callback.html",
+            callbackUrl: "http://t4.java100.com:9999/html/auth/callback.html",
             isPopup: false,
             callbackHandle: true,
         }
@@ -374,5 +376,20 @@ var naverLogin = new naver.LoginWithNaverId(
     /* (4) 네아로 로그인 정보를 초기화하기 위하여 init을 호출 */
 naverLogin.init();
 
+
+$('#add').click(() => {
+    
+    
+    $.getJSON('/json/auth/loginUser', function(result) {
+        if (result.status == "fail"){
+            swal("로그인이 필요한 페이지 입니다.").then((value) => {
+                $('#loginBtn').click()
+            })
+            return;
+        }
+        location.href="/html/item/form.html"
+    })
+    
+})
 
 </script>

@@ -74,14 +74,14 @@ height: 100%;
 {{#shared status}}
     <img class="card-img-top" style="height: 225px; width: 100%; position:absolute;"src="/images/shared.png">
 {{/shared}}
-    <div class="card-body"> 
+    <div class="card-body px-0 py-0"> 
         <h3 class="mb-2 mx-3">
         <p class="card-text text-truncate" style="text-align: center;">{{title}}</p></h3>
         {{#check userType}}
         <p class="card-text mb-0 mx-3 text-truncate text-muted" style="text-align: right;">{{name}}</p>
         <p class="card-text mb-0 mx-3 text-muted" type="date" style="text-align: right;">{{formatDate startDate}} ~ {{formatDate endDate}}</p>
         {{/check}}
-        <p class="card-text mb-0 mx-3 text-truncate text-muted" style="text-align: right;">{{fb price}}<i class="fa fa-krw"></i></p>
+        <p class="card-text mb-0 mx-3 text-truncate text-muted" style="text-align: right;">{{fb price}} 원</p>
         <div class="mb-2">
     </div>
     </div>
@@ -89,12 +89,13 @@ height: 100%;
 </div>
 {{/each}}
 </script>
-
 <script src='../../node_modules/handlebars/dist/handlebars.min.js'></script>
 <script src='../../node_modules/moment/moment.js'></script>
 <script src='../../node_modules/jquery/dist/jquery.min.js'></script>
 <script src='../../node_modules/popper.js/dist/umd/popper.min.js'></script>
 <script src='../../node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+<script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
 <script src='../../js/fileupload.js'></script>
 <script> 
 var slideShowSpeed = 3000 

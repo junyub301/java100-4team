@@ -133,10 +133,13 @@
 
 </div>
 </div>
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+<script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
 <script src='../../node_modules/moment/moment.js'></script>
 <script src='../../node_modules/jquery/dist/jquery.min.js'></script>
 <script src='../../node_modules/popper.js/dist/umd/popper.min.js'></script>
 <script src='../../node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
+<script src='/node_modules/sweetalert/dist/sweetalert.min.js'></script>
 <script src='/js/fileupload.js'></script>
 <!-- file input -->
  <script src="../../node_modules/bootstrap-fileinput/js/plugins/sortable.js" type="text/javascript"></script>
@@ -200,7 +203,7 @@ $('#lendView').click(() => {
 addBtn.click(() => {
     
     if (category.val() == 0) {
-        return alert('카테고리 선택하세요');
+        return swal('카테고리 선택하세요');
     }
     if (userType.val() == 1) {
         deleteName();
@@ -217,7 +220,7 @@ addBtn.click(() => {
             location.href='list.html';
             },
         error: (request,status,error) => {
-            alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+            swal("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
         }
     }); 
     
