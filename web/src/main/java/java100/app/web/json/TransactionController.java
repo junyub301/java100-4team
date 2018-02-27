@@ -6,7 +6,6 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -61,29 +60,33 @@ public class TransactionController {
     }
     
     @RequestMapping("{no}")
-    public String view(@PathVariable int no, Model model) throws Exception {
-        model.addAttribute("transaction", transactionService.get(no));
-        
-        return "tr/view";
+    public Object view(@PathVariable int no) throws Exception {
+        HashMap<String,Object> result = new HashMap<>();
+        result.put("transaction", transactionService.get(no));
+        return result;
     }
     
     
     
-    /*@RequestMapping("update")
-    public String update(Transaction transaction) throws Exception  {
-        System.out.println(transaction);
+    @RequestMapping("update")
+    public Object update(Transaction transaction) throws Exception  {
+        HashMap<String,Object> result = new HashMap<>();
         transactionService.update(transaction);
-        
-        return "redirect:list";
-    }*/
+        Item item = new Item();
+        item.setItemNo(transaction.getItemNo());
+        item.setStatus(2);
+        itemService.update(item);
+        result.put("status", "success");
+        return result;
+    }
 
-    @RequestMapping("delete")
+    /*@RequestMapping("delete")
     public String delete(int no) throws Exception  {
 
         transactionService.delete(no);
 
         return "redirect:list";
-    }
+    }*/
     
     
 }
