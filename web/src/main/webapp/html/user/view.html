@@ -40,13 +40,13 @@
     <div class="alert col-10 alert-primary" onclick="location.href='../msg/list.html'" style="cursor: pointer;" role="alert">
       <a style='text-decoration:none;' href='../msg/list.html'>메시지</a>
     </div>
-<input id="btn2" type="file" class="form-control-file col-1" id="photo" name="photo" style='opacity: 0;'>
 </div>
 
 
 <form id="form" method='POST' onsubmit="return" enctype="multipart/form-data"> 
 <div id="nodiv"></div>
 
+<input id="btn2" type="file" class="form-control-file col-1" name="photo" style='opacity: 0;'>
 <div class="row">
 <div id="imdiv" class="mx-auto my-2"></div>
 </div>
@@ -139,7 +139,8 @@ btn1.addEventListener('click', function(event) {
   var me = new MouseEvent('click')
   btn2.dispatchEvent(me)
 })
-btn2.addEventListener('click', function(event) {
+btn2.addEventListener('change', function(event) {
+    readURL(this);
 })
 
 
@@ -246,12 +247,6 @@ if (index != -1) { // 기존 데이터를 조회할 경우
         }).open();
     }
     
-    
-$(() => {
-    $("#photo").on('change', function(){
-        readURL(this);
-    });
-});
 
     function readURL(input) {
         if (input.files && input.files[0]) {
