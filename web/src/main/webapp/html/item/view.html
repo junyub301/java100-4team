@@ -48,7 +48,7 @@
 
 <div class="row">
 <div class="col-sm-6 mx-auto">
-<div class="card-body" style="display: block;">
+<div id="trinfo" class="card-body" style="display: block;">
 <p id="date" class="card-text text_right text-muted"></p>
 </div>
 </div>
@@ -215,8 +215,9 @@ $('#addItemBtn').hide();
                 var thumb = data.thumbnailName.split(',');
             }
             if (result.item.userType == 1) {
-                $('#addItemBtn').show();
+                $('#addItemBtn').hide();
                 $('#priceBtn').hide();
+                $('#trinfo').hide();
             }
             $('#itempic1').css("background-image","url('/download/"+thumb[0]+"')");
             $('#itemName').html('물품명:'+result.item.name);
