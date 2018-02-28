@@ -320,13 +320,13 @@ function pay() {
                     swal("회원정보를 추가해주세요!!").then((value) => {
                     location.href = '../user/view.html';
                     })
-                    return false;
+                    throw stop;
                 }
             }
         }).done(function(lender) {
             if (data.item.userNo == lender.user.userNo){
                 swal('본인 아이템을 구매할 수 없습니다');
-                return false;
+                throw stop;
         }
         IMP.request_pay({ // param
             pay_method: payMethod, // card:카드결제 trans:계좌이체 phone:휴대폰 결제

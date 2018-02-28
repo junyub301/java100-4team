@@ -55,8 +55,14 @@
     
     
     <insert id="insert" parameterType="user">
+        <if test="bank == ''" >
+            insert into user(ur_no,cnt,phone,pst_no,bas_addr,det_addr) 
+        values(#{userNo},#{comment},#{phone},#{postNo},#{baseAddress},#{detailAddress})
+        </if>
+        <if test="bank != ''">
         insert into user(ur_no,acc_no,bank,cnt,phone,pst_no,bas_addr,det_addr) 
         values(#{userNo},#{accountNo},#{bank},#{comment},#{phone},#{postNo},#{baseAddress},#{detailAddress})
+        </if>
     </insert>
 
     <update id="update" parameterType="user">
