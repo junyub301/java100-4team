@@ -1,10 +1,13 @@
 <!DOCTYPE html>
-<html>
+<html class="no-js">
 <head>
 <meta charset="UTF-8">
 <title>회원관리</title>
 <link rel="stylesheet" href='../../node_modules/bootstrap/dist/css/bootstrap.min.css'>
 </head>
+<style>
+.no-js {display:none;}
+</style>
 <body>
 <div class='container' style="width:600px;">
 <h1 align="center">회원 목록</h1>
@@ -58,6 +61,10 @@ function load() {
         }
     })
 }
+
+$(function(){
+    $('html').removeClass("no-js");
+})
 </script>
 </body>
 </html>

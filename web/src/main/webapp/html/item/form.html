@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="no-js">
 <head>
 <title>물품 등록</title>
 <meta charset='UTF-8'>
@@ -16,7 +16,7 @@
 <link href="../../node_modules/bootstrap-fileinput/themes/explorer-fa/theme.css" media="all" rel="stylesheet" type="text/css"/>
 
 <style type="text/css">
-
+.no-js {display:none;}
 </style>
 
 <link href="../../css/fileupload.css" rel="stylesheet" type="text/css">
@@ -258,6 +258,10 @@ $('#file4').fileinput({
     theme: 'fa',
     
 });
+
+$(function(){
+    $('html').removeClass("no-js");
+})
 
 </script>
 

@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html>
+<html class="no-js">
 <head>
 <meta charset="UTF-8">
 <title>이용내역</title>
@@ -12,6 +12,8 @@
 <link href="http://fonts.googleapis.com/earlyaccess/nanumgothic.css" rel="stylesheet" type="text/css">
 
 <style type="text/css">
+.no-js {display:none;}
+
 body {
 -webkit-transform: 'rotate(30deg)'
 }
@@ -387,7 +389,9 @@ $result.text($checked.next().text());
 };
 starRating();
 
-
+$(function(){
+    $('html').removeClass("no-js");
+})
 
 </script>
 

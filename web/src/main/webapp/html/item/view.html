@@ -1,6 +1,5 @@
-
 <!DOCTYPE html>
-<html>
+<html class="no-js">
 <head>
 <link href="../../css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet"
@@ -8,6 +7,9 @@
 <link rel="stylesheet" type="text/css" href="../../css/main.css">
 <meta charset='UTF-8'>
 <style>
+
+.no-js {display:none;}
+
 .hr-sect {
     display: flex;
     flex-basis: 100%;
@@ -394,6 +396,10 @@ function transPrice(price) {
 
     return str;
 }
+
+$(function(){
+    $('html').removeClass("no-js");
+})
 </script>
 
 

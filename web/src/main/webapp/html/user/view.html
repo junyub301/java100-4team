@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html>
+<html class="no-js">
 <head>
 <meta charset="UTF-8">
 <title>회원관리</title>
@@ -20,6 +20,8 @@
 <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css"> -->
 </head>
 <style>
+.no-js {display:none;}
+
   img {
     max-width: 100%;
     max-height: 100%;
@@ -338,6 +340,11 @@ deleteBtn.click(() => {
     
 
 });
+
+$(function(){
+    $('html').removeClass("no-js");
+})
+
 </script>
 </body>
 </html>

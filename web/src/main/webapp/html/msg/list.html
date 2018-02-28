@@ -1,6 +1,5 @@
-
 <!DOCTYPE html>
-<html>
+<html class="no-js">
 <head>
 <meta charset="UTF-8">
 <title>메세지관리</title>
@@ -11,6 +10,9 @@
 <link rel="stylesheet" href='/node_modules/bootstrap/dist/css/bootstrap.min.css'>
 <link href="http://fonts.googleapis.com/earlyaccess/nanumgothic.css" rel="stylesheet" type="text/css">
 
+<style>
+.no-js {display:none;}
+</style>
 </head>
 <body>
 <header></header>
@@ -176,7 +178,9 @@ $('#delBtn').on('click',(e) => {
 });
 };
 
-
+$(function(){
+    $('html').removeClass("no-js");
+})
 
 
 </script>
