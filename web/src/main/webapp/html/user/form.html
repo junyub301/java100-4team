@@ -218,7 +218,15 @@ addBtn.click(() => {
         processData : false,
         contentType : false,
         success: (result) => {
-            location.href = "../item/list.html";
+            $.post('../../json/auth/login', {
+                accountName: id.val(),
+                password: pwd.val()
+                
+            }, (result) => {
+                if (result.status == "success") {
+                    location.href = "../item/list.html"
+                }
+            },'json');
         },
         error:function(request,status,error){
             swal("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
