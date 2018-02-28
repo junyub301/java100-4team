@@ -186,9 +186,13 @@ function load() {
     $.ajax('/json/tr/list', {
         dataType: 'json',
         success: (result) => {
+            console.log(result.transaction == "");
             tbody.html("");
             $('#delivery').remove();
             $('<th id="review">').html("리뷰등록").appendTo('thead tr');
+            if (result.transaction == "") {
+                $('<tr>').html("<td colspan='6'>거래 내용이 없습니다</td>").appendTo(tbody);
+            } else {
             for (var data of result.transaction) {
                 var status;
                 switch (data.item.status) {
@@ -214,6 +218,7 @@ function load() {
                 //$('.btn-light').last().prop("disabled",'true').html("등록완료");
             } 
             };
+            };
         },
         error: () => {
             swal('서버 실행 오류!');
@@ -233,6 +238,9 @@ function load2() {
             tbody.html(""); 
             $('#review').remove();
             $('<th id="delivery">').html("배송등록").appendTo('thead tr');
+            if (result.transaction == "") {
+                $('<tr>').html("<td colspan='6'>거래 내용이 없습니다</td>").appendTo(tbody);
+            } else {
             for (var data of result.transaction) {
                 var status;
                 switch (data.item.status) {
@@ -254,7 +262,8 @@ function load2() {
                     +"' class='border btn btn-light' data-toggle='modal' " 
                     +"data-target='#deliveryModal'>배송등록</button></td>")
                 .appendTo(tbody);
-            }
+            };
+            };
         },
         error: () => {
             swal('서버 실행 오류!');
