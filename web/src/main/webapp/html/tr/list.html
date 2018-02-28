@@ -63,7 +63,7 @@ star-input>.input.focus{outline:1px dotted #ddd;}
 <table id='list' style='margin-top: 10px;'class='table text-center'>
 <thead>
 <tr>
-<th>결제일</th><th>상품명</th><th>금액</th><th>대여기간</th><th>현황</th>
+<th>결제일</th><th>상품명</th><th>금액</th><th>대여기간</th><th>현황</th><th id="thAdd"></th>
 </tr>
 </thead>
 <tbody>
@@ -186,8 +186,10 @@ function load() {
         dataType: 'json',
         success: (result) => {
             tbody.html("");
-            $('#delivery').remove();
-            $('<th id="review">').html("리뷰등록").appendTo('thead tr');
+            $('#thAdd').html("리뷰등록")
+            if (result.transaction == "") {
+                $('<tr>').html("<td colspan='6'>거래 내용이 없습니다</td>").appendTo(tbody);
+            } else {
             for (var data of result.transaction) {
                 var status;
                 switch (data.item.status) {
@@ -210,8 +212,9 @@ function load() {
                 +"data-toggle='modal' data-target='#reviewModal'>리뷰등록</button></td>")
             .appendTo(tbody);
             if (data.reviewState) {
-                //$('.btn-light').last().prop("disabled",'true').html("등록완료");
+                $('.btn-light').last().prop("disabled",'true').html("등록완료");
             } 
+            };
             };
         },
         error: () => {
@@ -230,8 +233,10 @@ function load2() {
         success: (result) => {
             
             tbody.html(""); 
-            $('#review').remove();
-            $('<th id="delivery">').html("배송등록").appendTo('thead tr');
+            $('#thAdd').html("배송등록");
+            if (result.transaction == "") {
+                $('<tr>').html("<td colspan='6'>거래 내용이 없습니다</td>").appendTo(tbody);
+            } else {
             for (var data of result.transaction) {
                 var status;
                 switch (data.item.status) {
@@ -253,7 +258,8 @@ function load2() {
                     +"' class='border btn btn-light' data-toggle='modal' " 
                     +"data-target='#deliveryModal'>배송등록</button></td>")
                 .appendTo(tbody);
-            }
+            };
+            };
         },
         error: () => {
             swal('서버 실행 오류!');
