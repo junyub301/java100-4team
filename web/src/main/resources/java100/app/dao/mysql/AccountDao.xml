@@ -80,6 +80,10 @@
         SELECT COUNT(*) FROM account WHERE email = #{email}
     </select>
     
+    <select id = "checkPassword" parameterType = "map" resultType = "int">
+        SELECT COUNT(*) FROM account WHERE act_id = #{id} and pwd=password(#{password})
+    </select>
+    
      <select id="findByEmail" 
             resultMap="accountMap" parameterType="string">
         <include refid="select"/>
