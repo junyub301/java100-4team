@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java100.app.domain.Account;
 import java100.app.domain.Photo;
 import java100.app.domain.User;
+import java100.app.service.AccountService;
 import java100.app.service.UserService;
 import net.coobird.thumbnailator.Thumbnails;
 
@@ -30,6 +31,7 @@ public class UserController {
     
     @Autowired ServletContext servletContext;
     @Autowired UserService userService;
+    @Autowired AccountService accountService;
     
     @RequestMapping("list")
     public Object list() throws Exception {
@@ -144,6 +146,12 @@ public class UserController {
         int rowcount = userService.checkEmail(email);
         
         return String.valueOf(rowcount);
+    }
+    
+    @RequestMapping("checkPwd")
+    public int checkPwd(HttpSession session,String password) {
+        String accountName = ((Account)session.getAttribute("loginUser")).getAccountName();
+        return accountService.checkPassword(accountName, password);
     }
     
     

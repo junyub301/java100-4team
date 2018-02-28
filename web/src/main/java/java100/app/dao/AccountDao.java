@@ -16,6 +16,7 @@ public interface AccountDao {
     Account findByaccountNameAndPassword(Map<String,Object> params);
     int checkId(String id);
     int checkEmail(String email);
+    int checkPassword(Map<String,Object> params);
 }
 
 

@@ -40,13 +40,13 @@
     <div class="alert col-10 alert-primary" onclick="location.href='../msg/list.html'" style="cursor: pointer;" role="alert">
       <a style='text-decoration:none;' href='../msg/list.html'>메시지</a>
     </div>
-<input id="btn2" type="file" class="form-control-file col-1" id="photo" name="photo" style='opacity: 0;'>
 </div>
 
 
 <form id="form" method='POST' onsubmit="return" enctype="multipart/form-data"> 
 <div id="nodiv"></div>
 
+<input id="btn2" type="file" class="form-control-file col-1" name="photo" style='opacity: 0;'>
 <div class="row">
 <div id="imdiv" class="mx-auto my-2"></div>
 </div>
@@ -96,7 +96,7 @@
 <input class='form-control col-10' id='sample6_address2' type='text' name='detailAddress'>
 <div class="mx-auto">
 <button id="updateBtn" type="button" class="btn btn-primary">수정</button> 
-<button type="button" id="deleteBtn" class= "btn btn-danger ">삭제</button>
+<button type="button" id="deleteBtn" class= "btn btn-danger" style="background-color:red;">회원탈퇴</button>
 </div>
 </div> 
 
@@ -139,7 +139,8 @@ btn1.addEventListener('click', function(event) {
   var me = new MouseEvent('click')
   btn2.dispatchEvent(me)
 })
-btn2.addEventListener('click', function(event) {
+btn2.addEventListener('change', function(event) {
+    readURL(this);
 })
 
 
@@ -179,9 +180,9 @@ if (index != -1) { // 기존 데이터를 조회할 경우
         $.ajax('../../json/user/view' , {
             dataType: 'json',
             success: (result) => {
-                console.log(result)
                 userid.val(result.account.accountName);
                 nameItem.val(result.account.name);
+                try {
                 email.val(result.account.email);
                 bank.val(result.user.bank);
                 accNo.val(result.user.accountNo);
@@ -194,6 +195,7 @@ if (index != -1) { // 기존 데이터를 조회할 경우
                     var filename = data.thumbnailName
                     imd.html( '<img class="rounded-circle" id="imag" align="middle" src="/download/' + filename + '">');
                 }
+                } catch (e) {console.log(e)};
                 nod.html("<input id='no' type='hidden' name='accountsNo' value='" + result.account.accountsNo + "'>")
             },
             error: () => {
@@ -245,12 +247,6 @@ if (index != -1) { // 기존 데이터를 조회할 경우
         }).open();
     }
     
-    
-$(() => {
-    $("#photo").on('change', function(){
-        readURL(this);
-    });
-});
 
     function readURL(input) {
         if (input.files && input.files[0]) {
@@ -300,19 +296,43 @@ updateBtn.click(() => {
 });
 
 deleteBtn.click(() => {
-    console.log($('#no').val());
-    $.ajax('../../json/user/delete', {
+    swal("password를 입력하세요", {content: "input",}).then((pwd) => {
+        
+    $.ajax('/json/user/checkPwd', {
+        
         data : {
-            no: $('#no').val()
+            password: pwd
         },
-        dataType: 'json',
-        success: (result) => {
-            location.href = "list.html";
+        success: (count) => {
+            console.log("no:"+$('#no').val())
+            if (count == 1) {
+                $.ajax('/json/user/delete', {
+                    data : {
+                        no: $('#no').val()
+                    },
+                    dataType: 'json',
+                    success: (result) => {
+                        swal("회원탈퇴가 완료되었습니다.!").then((value) => {
+                        $.getJSON('../../json/auth/logout', (result) => {
+                            location.href = '../item/list.html';
+                        });
+                            })
+                    },
+                    error: () => {
+                        swal('서버 실행 오류!');
+                    }
+                });
+            } else {
+                swal('password입력이 틀렸습니다!!')
+            }
         },
         error: () => {
             swal('서버 실행 오류!');
         }
-    });
+    })
+    })
+    
+
 });
 </script>
 </body>
