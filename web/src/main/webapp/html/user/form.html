@@ -204,17 +204,14 @@ $('#PwCheck').keyup(() => {
         $('#pwsame').html("<p style='color:red;'>비밀번호가 틀렸습니다. 다시 입력해 주세요</p>");
     }
 });
-function checknull() {
+
+addBtn.click(() => {
     $(':required').each(function() {
         if ($(this).val() == "") {
             swal("빈칸을 채워주세요");
             throw stop;
         };
     });
-}
-
-addBtn.click(() => {
-    checknull();
     var formData = new FormData($("#form")[0]);
     $.ajax('../../json/user/add', {
         data : formData,
