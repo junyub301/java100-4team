@@ -1,9 +1,13 @@
 <!DOCTYPE html>
-<html>
+<html class="no-js">
 <head>
-
+<link href="../../css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="../../css/main.css">
 <meta charset="UTF-8">
 <style type="text/css">
+.no-js {display:none;}
 </style>
 <title>리스트</title>
 
@@ -139,7 +143,6 @@ function runSlideShow(){
 
 </script> 
 <script type="text/javascript">
-
 var prevBtn = $("#prevBtn"),
     currBtn = $("#currBtn"),
     nextBtn = $("#nextBtn"),
@@ -154,7 +157,8 @@ var prevBtn = $("#prevBtn"),
     template1Src = $('#t1').html(),
     template1Engine = Handlebars.compile(template1Src);
 
-$('header').load('../header.html');
+load(1,0,categoryNo,words);
+$('header').load('../header.html')
 
 
 Handlebars.registerHelper('fb', function(price) {
@@ -216,7 +220,7 @@ if ($(location).attr('search').split("=")[0] == '?cr') {
     }
 }
 
-load(1,0,categoryNo,words);
+
 rentBtn.click(() => {
     $('#renticon').css('color', '#007BFF');
     $('#lendicon').css('color', 'grey');
@@ -236,6 +240,7 @@ prevBtn.click(() => {
 nextBtn.click(() => {
     load(currPageNo + 1, userType, categoryNo, words)
 });
+
 function load(pageNo, userType, categoryNo, words) {
     /* 
     if (options == undefined) options = {};
@@ -277,7 +282,11 @@ function load(pageNo, userType, categoryNo, words) {
     
 }
 
-/* $('#banner').load('../main/banner.html'); */
+$(function(){
+    $('html').removeClass("no-js");
+})
+
+$('#banner').load('../main/banner.html');
 </script>    
     
       
