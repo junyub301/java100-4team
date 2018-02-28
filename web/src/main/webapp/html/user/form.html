@@ -26,9 +26,7 @@ background-size: cover; background-attachment: fixed;">
 
 <div style="margin-top: 100px" class='container1'>
 
-<form id="form" method="post" onsubmit="return" enctype="multipart/form-data" name="user">
-
-
+<form id="form" method="post" enctype="multipart/form-data" >
 
 <div class="form-group1" >
 <input id='act_id' class="form-control1" type='text' placeholder="아이디" required name='accountName' style="margin-bottom: 0.3rem;">
@@ -223,7 +221,7 @@ addBtn.click(() => {
         processData : false,
         contentType : false,
         success: (result) => {
-            location.href = "../auth/loginform.html";
+            location.href = "../item/list.html";
         },
         error:function(request,status,error){
             swal("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
