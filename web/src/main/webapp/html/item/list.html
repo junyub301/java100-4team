@@ -82,6 +82,7 @@ height: 100%;
         <p class="card-text mb-0 mx-3 text-muted" type="date" style="text-align: right;">{{formatDate startDate}} ~ {{formatDate endDate}}</p>
         {{/check}}
         <p class="card-text mb-0 mx-3 text-truncate text-muted" style="text-align: right;">{{fb price}} 원</p>
+        <p class="card-text mb-0 mx-3 text-truncate text-muted" style="text-align: right;">{{cty category}}</p>
         <div class="mb-2">
     </div>
     </div>
@@ -194,6 +195,17 @@ Handlebars.registerHelper('shared', function(status, options) {
     return options.fn(this);
     }
 });
+Handlebars.registerHelper("cty", function(category) {
+    if(category == 1){ return "전자";}
+    if(category == 2){ return "뷰티";}
+    if(category == 3){ return "의류";}
+    if(category == 4){ return "공구";}
+    if(category == 5){ return "ETC";}
+});
+
+
+
+
 console.log($(location).attr('search').split("=")[0]);
 if ($(location).attr('search').split("=")[0] == '?cr') {
     categoryNo = $(location).attr('search').split("=")[1];
@@ -232,14 +244,14 @@ function load(pageNo, userType, categoryNo, words) {
     $.ajax('../../json/item/list', {
         
         data: {
-            pn: pageNo,
+            pn: pageNo, 
             ut: userType,
             words: words,
             cr: categoryNo
         },
         dataType: 'json',
         success: (result) => {
-            console.log(result)
+                        
             $('#list').html(template1Engine(result))
             
             currPageNo = result.pageNo;
@@ -265,7 +277,7 @@ function load(pageNo, userType, categoryNo, words) {
     
 }
 
-$('#banner').load('../main/banner.html');
+/* $('#banner').load('../main/banner.html'); */
 </script>    
     
       
