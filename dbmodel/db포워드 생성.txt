@@ -130,8 +130,8 @@ ALTER TABLE message
 -- 사용자
 CREATE TABLE user (
 	ur_no    INTEGER      NOT NULL COMMENT '사용자번호', -- 사용자번호
-	acc_no   VARCHAR(100) NOT NULL COMMENT '통장번호', -- 통장번호
-	bank     VARCHAR(30)  NOT NULL COMMENT '은행명', -- 은행명
+	acc_no   VARCHAR(100) NULL     COMMENT '통장번호', -- 통장번호
+	bank     VARCHAR(30)  NULL     COMMENT '은행명', -- 은행명
 	cnt      VARCHAR(50)  NULL     COMMENT '한마디', -- 한마디
 	phone    VARCHAR(30)  NOT NULL COMMENT '전화번호', -- 전화번호
 	pst_no   VARCHAR(30)  NOT NULL COMMENT '우편번호', -- 우편번호

@@ -208,15 +208,13 @@ function checknull() {
     $(':required').each(function() {
         if ($(this).val() == "") {
             swal("빈칸을 채워주세요");
-            return false;
+            throw stop;
         };
     });
 }
 
 addBtn.click(() => {
-    if (checknull() == false) {
-        return false;
-    }
+    checknull();
     var formData = new FormData($("#form")[0]);
     $.ajax('../../json/user/add', {
         data : formData,
