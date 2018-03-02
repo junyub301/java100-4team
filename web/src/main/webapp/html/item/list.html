@@ -252,7 +252,7 @@ function load(pageNo, userType, categoryNo, words) {
         },
         dataType: 'json',
         success: (result) => {
-                        
+            
             $('#list').html(template1Engine(result))
             
             currPageNo = result.pageNo;

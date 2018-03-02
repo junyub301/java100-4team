@@ -106,7 +106,7 @@
       </div>
       <div class='m-3'>
       결제 방법: 
-       <input class="payMethod" type="radio" name="payMethod" value="card">
+       <input class="payMethod" type="radio" checked name="payMethod" value="card">
        카드결제
        <input class="payMethod" type="radio" name="payMethod" value="trans">
        실시간 계좌 이체
@@ -254,8 +254,9 @@ $('#addItemBtn').hide();
             $('#title').append('<div style="padding-top: 10px !important;">' + result.item.content + '</div>');
             $('#date').html(template3Engine(result.item));
             if (result.item.status == 1)
-            $('#priceBtn').prop("disabled",'true').html("결제완료");
-            
+            $('#openprice').prop("disabled",'true').html("결제완료");
+            $('#priceBtn').css("background-color", "white");
+            $('#priceBtn').css("border", "0");
         }
     });
     
@@ -375,7 +376,7 @@ function pay() {
                     },
                     success: (result) => {
                         swal('결제성공');
-                        $('#priceBtn').prop("disabled",'true').html("결제완료");
+                        $('#openprice').prop("disabled",'true').html("결제완료");
                     },
                     error: (request,status,error) => {
                         swal("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
