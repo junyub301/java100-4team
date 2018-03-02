@@ -302,7 +302,7 @@ updateBtn.click(() => {
 });
 
 deleteBtn.click(() => {
-    swal("password를 입력하세요", {content: "input",}).then((pwd) => {
+    swal("password를 입력하세요", {content: {element: "input",attributes: { type:"password"}}}).then((pwd) => {
         
     $.ajax('/json/user/checkPwd', {
         
