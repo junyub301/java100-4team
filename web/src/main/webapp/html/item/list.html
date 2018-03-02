@@ -153,6 +153,14 @@ var prevBtn = $("#prevBtn"),
     template1Src = $('#t1').html(),
     template1Engine = Handlebars.compile(template1Src);
 
+if ($(location).attr('search').split("=")[0] == '?cr') {
+    categoryNo = $(location).attr('search').split("=")[1];
+} else {
+    var searchWord = decodeURI($(location).attr('search')).split("=")[1];
+    if (searchWord != undefined) {
+    words = searchWord.split("+").join(" ");
+    }
+}
 load(1,0,categoryNo,words);
 $('header').load('../header.html')
 
@@ -206,15 +214,6 @@ Handlebars.registerHelper("cty", function(category) {
 
 
 
-console.log($(location).attr('search').split("=")[0]);
-if ($(location).attr('search').split("=")[0] == '?cr') {
-    categoryNo = $(location).attr('search').split("=")[1];
-} else {
-    var searchWord = decodeURI($(location).attr('search')).split("=")[1];
-    if (searchWord != undefined) {
-    words = searchWord.split("+").join(" ");
-    }
-}
 
 
 rentBtn.click(() => {
@@ -241,7 +240,7 @@ function load(pageNo, userType, categoryNo, words) {
     /* 
     if (options == undefined) options = {};
     options.pn = pageNo; */
-    
+    console.log(categoryNo)
     $.ajax('../../json/item/list', {
         
         data: {
