@@ -204,21 +204,27 @@ $('#lendView').click(() => {
 addBtn.click(() => {
     
     if (category.val() == 0) {
-        return swal('카테고리를 선택하세요');
+        return swal('카테고리를 선택하세요.');
     }
     if (itemName.val() == 0) {
-        return swal('물품정보를 입력하세요');
+        return swal('물품정보를 입력하세요.');
     }
     if (title.val() == 0) {
-        return swal('제목을 입력하세요');
+        return swal('제목을 입력하세요.');
     }
     if (content.val() == 0) {
-        return swal('내용을 입력하세요');
+        return swal('내용을 입력하세요.');
     }
     if (userType.val() == 1) {
         deleteName();
         };
-    
+    if (startDate.val() > endDate.val()) {
+        return swal('대여기간을 확인해 주세요.')
+    } 
+    if (price.val() == 0) {
+        return swal('쉐어비용을 입력하세요.')
+    }
+        
     var formData = new FormData($('#formData')[0]);
     $.ajax('../../json/item/add', {
         data: formData,

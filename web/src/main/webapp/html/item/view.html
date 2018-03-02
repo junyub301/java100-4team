@@ -62,9 +62,8 @@
 <div class="row">
 <div class="mx-auto">
 <button id='priceBtn' type="button" class="btn btn-primary float-right" 
-        data-toggle="modal" data-target="#priceModal">결제하기</button>
-<button id='addItemBtn' type="button" class="btn btn-primary float-right" 
-    onclick='location.href="/html/item/form.html"'>등록하기</button>
+        data-toggle="modal" data-target="#priceModal" style="z-index: 5;">결제하기</button>
+<button id='openprice' type="button" class="btn btn-primary float-right" style="z-index: 1;position: absolute;">결제하기</button>
     </div>
 </div>
 
@@ -205,6 +204,19 @@ Handlebars.registerHelper('formatDate', function(date) {
     return moment(date).format('YYYY-MM-DD');
 });
 
+$('#openprice').click(() => {
+    $.getJSON('/json/auth/loginUser', function(result) {
+            if (result.status == "fail"){
+                swal("로그인이 필요한 페이지 입니다.").then((value) => {
+                    $('#loginBtn').click()     
+                })
+                return;
+            } else {
+                $('#priceBtn').click()
+            } 
+        })
+})
+
 var index = location.href.indexOf('?');
 
 if (index != -1) { // 기존 데이터를 조회할 경우
@@ -223,6 +235,7 @@ $('#addItemBtn').hide();
             if (result.item.userType == 1) {
                 $('#addItemBtn').hide();
                 $('#priceBtn').hide();
+                $('#openprice').hide();
                 $('#trinfo').hide();
             }
             $('#itempic1').css("background-image","url('/download/"+thumb[0]+"')");
