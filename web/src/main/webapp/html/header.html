@@ -36,23 +36,6 @@ body {
 #lendView:hover {
 	color: #808080;
 } 
-function onSuccess(googleUser) {
-      console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
-    }
-    function onFailure(error) {
-      console.log(error);
-    }
-    function renderButton() {
-      gapi.signin2.render('my-signin2', {
-        'scope': 'profile email',
-        'width': 240,
-        'height': 50,
-        'longtitle': true,
-        'theme': 'dark',
-        'onsuccess': onSuccess,
-        'onfailure': onFailure
-      });
-    }
 
 </style>
 
@@ -159,7 +142,7 @@ function onSuccess(googleUser) {
 					<button id="btn2" type="button"
 						class='form-control form-group btn btn-primary'>로그인</button>
 				</form>
-				<button type="button" onclick="location='../user/form.html'"
+				<button id="signup" type="button" onclick="location='../user/form.html'"
 					class="form-control form-group btn btn-primary">회원가입</button>
 			</div>
 			<div id="fb" align="center" class="fb-login-button" data-width="222"

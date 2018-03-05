@@ -1,132 +1,140 @@
-
 <!DOCTYPE html>
 <html>
 <head>
 <title>회원가입</title>
 <meta charset="UTF-8">
-<link rel="stylesheet" href='../../node_modules/bootstrap/dist/css/bootstrap.min.css'>
-<link rel='stylesheet' href='../../css/test.css'>
-
+<link href="../../css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="../../css/main.css">
 <link href="http://fonts.googleapis.com/earlyaccess/nanumgothic.css" rel="stylesheet" type="text/css">
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+<!--file input  -->
 <link href="../../node_modules/bootstrap-fileinput/css/fileinput.css" media="all" rel="stylesheet" type="text/css"/>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" media="all" rel="stylesheet" type="text/css"/>
 <link href="../../node_modules/bootstrap-fileinput/themes/explorer-fa/theme.css" media="all" rel="stylesheet" type="text/css"/>
+<link href="../../css/fileupload.css" rel="stylesheet" type="text/css">
+ 
+<style>
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+
+strong {
+    margin-left: 15%;
+    font-size: 15px;
+}
+ 
+
+body, div {
+    font-family: 'Noto Sans KR', sans-serif;
+
+}
  
  
- <style type="text/css">
- strong {
- margin-left: 15%;
- font-size: 15px;
- }
- 
- 
- </style> 
+</style> 
 </head>
-<body><!-- style="background-image:url('../../img/portfolio/group.jpg'); 
-background-repeat: no-repeat; background-position: center; 
-background-size: cover; background-attachment: fixed;" -->
-<!-- <h1 align="center">회원가입</h1>
-<br><br> -->
+<body>
 
-<br><h1 style="margin-left: 9%; text-align: ">회원가입</h1><hr>
-
-
-<div style="margin-top: 50px; width: 60%;" >
-
-<form id="form" method="post" enctype="multipart/form-data" >
-
-<div class="form-group1" >
-<strong>아이디</strong>
-<input id='act_id' class="form-control1" type='text' placeholder="아이디를입력하시오." required name='accountName' style="margin-bottom: 0.3rem;">
-<p align="center" id="checkId" >
+<div class="container">
+<div class="form-group row" >
+<h1 class="ml-3">회원가입</h1>
+</div>
+<hr>
 </div>
 
-<div class="form-group1">
-<strong>이메일</strong>
-<input id='email' class="form-control1" type="email" placeholder="이메일를입력하시오." required name='email' style="margin-bottom: 0.3rem;">
-<p align="center" id="checkEmail" >
+<div class="container">
+<form id="form" method="post" enctype="multipart/form-data" autocomplete="off">
+<div class="form-group row" >
+<div class="col-sm-10">
+<input id='act_id' class="form-control" type='text' placeholder="아이디를입력하시오." required name='accountName' >
+<p class="mb-0" id="checkId" >
+</div>
+</div>
+
+<div class="form-group row">
+<div class="col-sm-10">
+<input id='email' class="form-control" type="email" placeholder="이메일를입력하시오." required name='email'>
+<p class="mb-0" id="checkEmail" >
+</div>
 </div>
 
 
-<div class="form-group1">
-<strong>비밀번호</strong>
-<input id='pwd' type='password' class="form-control1" placeholder="비밀번호를입력하시오." required name='password'>
+<div class="form-group row mb-0">
+<div class="col-sm-10">
+<input id='pwd' type='password' class="form-control mb-0" placeholder="비밀번호를입력하시오." required name='password'>
+</div>
 </div>
 
-<div class="form-group1">
-<strong>비밀번호 재입력</strong>
-<input id="PwCheck" type="password" class="form-control1" style="margin-bottom: 0.3rem;" required placeholder="비밀번호 재입력를입력하시오." >
-<p align="center" id="pwsame">
+<div class="form-group row">
+<div class="col-sm-10">
+<input id="PwCheck" type="password" class="form-control"  required placeholder="비밀번호 재입력." >
+<p class="mb-0" id="pwsame">
+</div>
 </div>
 
-<div class="form-group1">
-<strong>이름</strong>
-<input id='name' type='text' class="form-control1" placeholder="이름를입력하시오." required name='name'>
+<div class="form-group row">
+<div class="col-sm-10">
+<input id='name' type='text' class="form-control" placeholder="이름를입력하시오." required name='name'>
+</div>
 </div>
 
-<div class="form-group1">
-<strong>계좌번호</strong><input id='acc_no' type='text' class="form-control1" placeholder="계좌번호를입력하시오." name='accountNo'>
+<div class="form-group row">
+<div class="col-sm-10">
+<input id='acc_no' type='text' class="form-control" placeholder="계좌번호를입력하시오." name='accountNo'>
+</div>
 </div>
 
-<div class="form-group1">
-<strong>은행</strong><input id='bank' type='text' class="form-control1" placeholder="은행명을입력하시오" name='bank'>
+<div class="form-group row">
+<div class="col-sm-10">
+<input id='bank' type='text' class="form-control" placeholder="은행명을입력하시오" name='bank'>
+</div>
 </div>
 
-<div class="form-group1">
-<strong>한마디</strong><input id='cnt' type='text' class="form-control1" placeholder="한마디를 적어주세요" name='comment'>
+<div class="form-group row">
+<div class="col-sm-10">
+<input id='cnt' type='text' class="form-control" placeholder="한마디를 적어주세요" name='comment'>
+</div>
 </div>
 
-<div class="form-group1">
-<strong>전화번호</strong><input id='phone' type='text' class="form-control1"  style="margin-bottom: 0.3rem;" placeholder="전화번호를입력하시오." name='phone'>
+<div class="form-group row">
+<div class="col-sm-10">
+<input id='phone' type='text' class="form-control" placeholder="전화번호를입력하시오." name='phone'>
+</div>
 </div>
 
- <div class="form-group1">
-<strong>우편번호</strong><br><input  style="position: relative; display:inline-block;width:50%;margin-left: 15%;" type="text" id="sample6_postcode" class="form-control1" placeholder="우편번호" name='postNo'>
+ <div class="form-group row">
+<div class="col-sm-6">
+<input type="text" id="sample6_postcode" class="form-control1" placeholder="우편번호" name='postNo'>
 </div>
-<input class="btn btn-primary" type="button" style='display:inline-block;width:20%; height:35px; top: 83.8%; position: absolute; margin-left: 31%;' 
-onclick="sample6_execDaumPostcode()" value="우편번호"><br>
+<div class="col-sm-4">
+<input class="btn btn-primary col-12" type="button" onclick="sample6_execDaumPostcode()" value="우편번호">
+</div>
+</div>
 
-<!--  <div style='width:185px;height:40px;display:inline-block; margin-left: 20px'>
-<input style='display:inline-block;width:96px;' 
-style="margin-bottom: 0.5rem; background-color: #D8D8D8;" type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기">
-</div> 
-</div>
-style='display:inline-block;width:250px;margin-left: 75px;'
-  -->
  
-<div class="form-group1">
-<strong>주소</strong><input type="text" id="sample6_address" class="form-control1" placeholder="주소를입력하시오."name='baseAddress'>
+<div class="form-group row">
+<div class="col-sm-10">
+<input type="text" id="sample6_address" class="form-control" placeholder="주소를입력하시오."name='baseAddress'>
 </div>
-<div class="form-group1">
-<strong>상세주소</strong><input type="text" id="sample6_address2" class="form-control1" placeholder="상세주소를입력하시오." name='detailAddress'>
 </div>
 
-<!-- <div id="file" class="form-group1">
-<input style="margin-bottom: 0.7rem;" id='photo' class="file-input" type="file" name='photo'>
-</div> -->
-     <div id="file" class="form-group1">
-            <strong>프로필사진</strong><input id='photo'  name="photo" type="file">
-        </div>
+<div class="form-group row">
+<div class="col-sm-10">
+<input type="text" id="sample6_address2" class="form-control" placeholder="상세주소를입력하시오." name='detailAddress'>
+</div>
+</div>
+
+
+<div id="file" class="form-group row">
+<div class="col-sm-10">
+<input id='file4' name="photo" type="file">
+</div>
+</div>
        
-<div class='form-group1'>
-    <button id="addBtn" type="button" class='btn btn-primary' style="width: 70%; margin-left: 15%; height: 30%;" >회원가입</button>
+<div class='form-group row'>
+    <button id="addBtn" type="button" class='btn btn-primary mx-auto col-4'>회원가입</button>
 </div>
-<div class='form-group1'>
-    <div id="loginBtn" class="'form-control1'">
-    </div>    
-</div>
+
 </form>
-<!-- <div class='form-group1'>
-                 <div onclick="location='../../auth/login.jsp'" id="loginBtn" class="button_base b07_3d_double_roll">
-                      <div>로그인</div>
-                      <div>로그인</div>
-                      <div>로그인</div>
-                      <div>로그인</div>
-                  </div>    
-            </div>
--->
+
 </div> 
 
 <script src='../../node_modules/jquery/dist/jquery.min.js'></script>
@@ -163,6 +171,13 @@ var pwd = $('#pwd'),
     photos = $('#photo'),
     addBtn = $('#addBtn');
 
+$('input').on("blur",function(e) {
+    if(e.target.value == "") {
+        $(this).addClass('mb-0');
+        $(this).siblings().html('<i class="fa fa-exclamation-circle" style="color:red"></i>빈칸을 채워주세요').css('color', 'red');
+    }
+})
+
 $(document).ready(function(){
     id.keyup(() => {
         $.ajax({
@@ -173,13 +188,15 @@ $(document).ready(function(){
             },
             success: function(data){
                 console.log(data)
+                                
                 if($.trim(data) == 0){
-                    $('#checkId').html('<p style="color:blue">사용가능</p>');
-                } 
-                else{
-                    $('#checkId').html('<p style="color:red">사용불가능</p>');
+                    $('#act_id').addClass('mb-0');
+                    $('#checkId').html('<i class="fa fa-check" style="color:#21ff00"></i>사용가능').css('color', '#007BFF');
+                } else {
+                    $('#act_id').addClass('mb-0');
+                    $('#checkId').html('<i class="fa fa-exclamation-circle" style="color:red"></i>사용불가').css('color', 'red');
                 }
-            }
+            }   
         });    //end ajax    
     });    //end on  
     
@@ -193,10 +210,12 @@ $(document).ready(function(){
             success: function(data){
                 console.log(data)
                 if($.trim(data) == 0){
-                    $('#checkEmail').html('<p style="color:blue">사용가능</p>');
+                    $('#email').addClass('mb-0');
+                    $('#checkEmail').html('<i class="fa fa-check" style="color:#21ff00"></i>사용가능').css('color', '#007BFF');
                 } 
                 else{
-                    $('#checkEmail').html('<p style="color:red">사용불가능</p>');
+                    $('#email').addClass('mb-0');
+                    $('#checkEmail').html('<i class="fa fa-exclamation-circle" style="color:red"></i>사용불가능').css('color', 'red');
                 }
             }
         });    //end ajax    
@@ -205,12 +224,12 @@ $(document).ready(function(){
 });
 
 $('#PwCheck').keyup(() => {
-    
-    
     if (pwd.val() == pwd2.val()) {
-        $('#pwsame').html("<p style='color:blue;'>일치합니다.</p>");
+        $('#PwCheck').addClass('mb-0');
+        $('#pwsame').html('<i class="fa fa-check" style="color:#21ff00"></i>일치합니다.').css('color', '#007BFF');
     } else {
-        $('#pwsame').html("<p style='color:red;'>비밀번호가 틀렸습니다. 다시 입력해 주세요</p>");
+        $('#PwCheck').addClass('mb-0');
+        $('#pwsame').html('<i class="fa fa-exclamation-circle" style="color:red"></i>비밀번호가 일치하지 않습니다.').css('color', 'red');
     }
 });
 
@@ -245,19 +264,6 @@ addBtn.click(() => {
 
     });
 });
-
-
-var loginBtn = document.querySelector('#loginBtn')
-var addBtn = document.querySelector('#addBtn')
-
- loginBtn.addEventListener('click', function(event) {
-  var me = new MouseEvent('click')
-
-  addBtn.dispatchEvent(me)
-}) 
-
-addBtn.addEventListener('click', function(event) {
-}) 
 
 
     function sample6_execDaumPostcode() {
@@ -303,7 +309,7 @@ addBtn.addEventListener('click', function(event) {
     }
 </script>
 <script>
-$('#photo').fileinput({
+$('#file4').fileinput({
     theme: 'fa',
 });
 
