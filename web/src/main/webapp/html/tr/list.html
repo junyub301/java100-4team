@@ -208,7 +208,7 @@ function load() {
             .html(  
                 "<td>" + moment(data.payDate).format('YYYY-MM-DD') + "</td>" + 
                 "<td><a href='/html/item/view.html?no="+data.itemNo+"'>"+ data.item.name + "</a></td>" +
-                "<td>"+ data.item.price +"</td>" + 
+                "<td>"+ transPrice(data.item.price) +"</td>" + 
                 "<td>" + moment(data.item.startDate).format('YYYY-MM-DD') + "~"+ 
                 moment(data.item.endDate).format('YYYY-MM-DD')+ "</td>" +
                 "<td>"+ status +"</td>"+
@@ -255,7 +255,7 @@ function load2() {
                 .html(  
                     "<td>" + moment(data.payDate).format('YYYY-MM-DD') + "</td>" + 
                     "<td><a href='/html/item/view.html?no="+data.itemNo+"'>"+ data.item.name + "</a></td>" +
-                    "<td>"+ data.item.price +"</td>" + 
+                    "<td>"+ transPrice(data.item.price) +"</td>" + 
                     "<td>" + moment(data.item.startDate).format('YYYY-MM-DD') + "~"+ 
                     moment(data.item.endDate).format('YYYY-MM-DD')+ "</td>" +
                     "<td>"+ status +"</td>"
@@ -282,7 +282,7 @@ $(tbody).on("click","#reviewBtn",function(e) {
         var thumb = data.thumbnailName.split(',');
     $('#itemPic').css("background-image","url('/download/"+thumb[0]+"')");
     $('#itemName').html('<b>'+result.item.name+'</b>');
-    $('#price').html(result.item.price+' 원');
+    $('#price').html(transPrice(result.item.price)+' 원');
     }
 })
 });
@@ -299,11 +299,14 @@ function reviewAdd() {
             state: 1
         },
         success: (result) => {
-          swal("리뷰등록성공");
+          swal("리뷰등록성공").then((value) => {
+	          location.reload();
+          });
         },
         error: () => {
             swal('리뷰 등록 실패!');
         }
+        
     }); 
 }
 
@@ -392,6 +395,23 @@ starRating();
 $(function(){
     $('html').removeClass("no-js");
 })
+
+function transPrice(price) {
+    var len, point, str, price;
+
+    price = price + "";
+    point = price.length % 3 ;
+    len = price.length;
+
+    str = price.substring(0, point);
+    while (point < len) {
+       if (str != "") str += ",";
+       str += price.substring(point, point + 3);
+       point += 3;
+    }
+
+    return str;
+}
 
 </script>
 
