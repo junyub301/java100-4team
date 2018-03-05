@@ -80,7 +80,7 @@ top: 70%;
                     
 
 
-                    
+ <script src='../../node_modules/jquery/dist/jquery.min.js'></script>                   
 <script type="text/javascript">
 $( document ).ready( function() {
   $("#t1")
@@ -114,13 +114,65 @@ $( document ).ready( function() {
       .mouseout( function() {
         $(this).css( 'opacity', '0.5' );
       } );
-  
+     
   } );
   
   
-
-  
-  
+	$(".c1")
+	.mouseover( function() { 
+	    $(".c1").css( 'opacity', '0.5' );
+	    go();
+	} )
+    function show() {
+      
+      setTimeout( function() { 
+          $("#t1").css('opacity', '1');
+      },10)
+    setTimeout( function() { 
+          $("#t1").css('opacity', '0.5');
+      },3000)
+    setTimeout( function() { 
+          $("#t2").css('opacity', '1');
+      },3000)
+    setTimeout( function() { 
+          $("#t2").css('opacity', '0.5');
+      },6000)
+    setTimeout( function() { 
+          $("#t3").css('opacity', '1');
+      },6000)
+    setTimeout( function() { 
+          $("#t3").css('opacity', '0.5');
+      },9000)
+    setTimeout( function() { 
+          $("#t4").css('opacity', '1');
+      },9000)
+    setTimeout( function() { 
+          $("#t4").css('opacity', '0.5');
+      },12000)
+    setTimeout( function() { 
+          $("#t5").css('opacity', '1');
+      },12000)
+    setTimeout( function() { 
+          $("#t5").css('opacity', '0.5');
+      },15000)
+    setTimeout( function() { 
+          $("#t6").css('opacity', '1');
+      },15000)
+    setTimeout( function() { 
+          $("#t6").css('opacity', '0.5');
+      },18000) 
+    } 
+	function go() {
+	    setTimeout( function() { 
+	      show();
+	      },10000000000)
+	}
+    setTimeout(function () {
+        show();
+     }, 1);
+    setInterval(function () {
+        show();
+     }, 18000);
 </script>
 
 
