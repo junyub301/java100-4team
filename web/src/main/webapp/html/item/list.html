@@ -5,6 +5,7 @@
 <link rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="../../css/main.css">
+<link rel="stylesheet" type="text/css" href="../../css/bttn.css">
 <meta charset="UTF-8">
 <style type="text/css">
 .no-js {display:none;}
@@ -12,6 +13,9 @@
 <title>리스트</title>
 
 <style type="text/css">
+
+
+
 #banner {
 overflow: hidden;
 height: 100%;
@@ -67,7 +71,9 @@ height: 100%;
    <nav aria-label="Page navigation">
   <ul class="pagination justify-content-center">
     <li class="page-item">
-    <a id="prevBtn" class="page-link" tabindex="-1"><i class="fa fa-chevron-left"></i></a></li>
+    <a id="prevBtn" class="page-link" tabindex="-1">
+    <i class="fa fa-chevron-left"></i>
+    </a></li>
         
     <li class="page-item"><a id="currBtn" class="page-link" href="#">1</a></li>
     
@@ -78,7 +84,6 @@ height: 100%;
         
 </div>
 </div>
-
 <script id="t1" type="text/x-handlebars-template">
 {{#each list}}
     <div style="color: #000 !important; background: #fff0 !important;" class="col-md-3 col-sm-6 col-xs-12 m_pointer" onclick="location.href='view.html?no={{itemNo}}'">
@@ -120,6 +125,7 @@ height: 100%;
 <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
 <script src='../../js/fileupload.js'></script>
 <script> 
+var slideShowSpeed = 3000 
 var crossFadeDuration = 2 
 var Pic = new Array() 
     Pic[0] = '../../images/main01.jpg' 
@@ -151,7 +157,7 @@ function runSlideShow(){
   } 
   j = j + 1 
   if (j > (p-1)) j=0 
-  t = setTimeout('runSlideShow()', 2700) 
+  t = setTimeout('runSlideShow()', slideShowSpeed) 
 } 
 
 
