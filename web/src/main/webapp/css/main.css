@@ -243,7 +243,7 @@ a:focus {
     padding: 13px 25px;
     font-size: 14px;
     line-height: 1.42857;
-    border-radius: 0;
+    border-radius: 1;
 }
 
 .btn:focus, .btn.focus, .btn:active:focus, .btn:active.focus, .btn.active:focus,
@@ -798,17 +798,17 @@ input[type="search"], input[type="tel"], input[type="color"] {
     box-shadow: none;
     outline: none;
     margin: 0;
-    border-radius: 0;
+    border-radius: 1;
     padding: 0 15px;
     line-height: 44px;
-    border: 1px solid #ebebeb;
+    border: 1px solid #ddd;
     color: #000;
     font-size: 14px;
     vertical-align: middle;
     height: 46px;
     width: 100%;
     margin-bottom: 20px;
-    background-color: #f7f7f7;
+    background-color: #fff;
 }
 
 .form-control::-webkit-input-placeholder, select::-webkit-input-placeholder,
