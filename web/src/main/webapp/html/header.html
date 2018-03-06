@@ -186,6 +186,7 @@ body {
             </div>
             <!-- <div align="center" class="form-group g-signin2"
                 data-onsuccess="onSignIn"></div>-->
+            
             <div id="my-signin2" class="form-group"></div>
             </div>
             </div>
@@ -607,6 +608,9 @@ var pwd = $('#pwd'),
         $(this).siblings().html('<i class="fa fa-exclamation-circle" style="color:red"></i>빈칸을 채워주세요').css('color', 'red');
     }
 }) */
+$('.modal').on('shown.bs.modal', function (e) {
+    $('.abcRioButton').addClass('mx-auto');
+});
 
 $('.modal').on('hidden.bs.modal', function (e) {
   $(this).find('form')[0].reset()
