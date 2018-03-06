@@ -156,6 +156,7 @@ star-input>.input.focus{outline:1px dotted #ddd;}
   </div>
 </div>
 
+<script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
 <script src='/node_modules/handlebars/dist/handlebars.min.js'></script>
 <script src='/node_modules/moment/moment.js'></script>
 <script src='/node_modules/jquery/dist/jquery.min.js'></script>
@@ -306,7 +307,6 @@ function reviewAdd() {
         error: () => {
             swal('리뷰 등록 실패!');
         }
-        
     }); 
 }
 

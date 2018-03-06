@@ -2,7 +2,7 @@
 @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
 
 body, div {
-	font-family: 'Noto Sans KR', sans-serif;
+    font-family: 'Noto Sans KR', sans-serif;
 }
 
 body {
@@ -10,100 +10,112 @@ body {
 }
 
 .ddd {
-	border-color: #a8a8a8;
+    border-color: #a8a8a8;
 }
 
 #words {
-	font-family: FontAwesome;
+    font-family: FontAwesome;
 }
 
 .m_pointer {
-	cursor: pointer;
+    cursor: pointer;
 }
 
 #rent:hover {
-	color: #808080;
+    color: #808080;
 }
 
 #lend:hover {
-	color: #808080;
+    color: #808080;
 }
 
 #rentView:hover {
-	color: #808080;
+    color: #808080;
 }
 
 #lendView:hover {
-	color: #808080;
+    color: #808080;
 } 
-function onSuccess(googleUser) {
-      console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
-    }
-    function onFailure(error) {
-      console.log(error);
-    }
-    function renderButton() {
-      gapi.signin2.render('my-signin2', {
-        'scope': 'profile email',
-        'width': 240,
-        'height': 50,
-        'longtitle': true,
-        'theme': 'dark',
-        'onsuccess': onSuccess,
-        'onfailure': onFailure
-      });
-    }
+
+.fb-custom-btn
+{
+    background-color: #4267B2;
+    padding: 10px 0 11px 0;
+}
+
+.authloginBtn{
+    padding: 0 138px 0 138px;
+}
+
+.modal-header{
+    border-bottom: 1px solid #ddd;
+    background-color: #E6F3FF;
+}
+.modal-body{
+    background-color: #E6F3FF;
+}
+.modal-footer{
+    border-top: 1px solid #ddd;
+    background-color: #E6F3FF;
+}
 
 </style>
 
 <meta name="google-signin-scope" content="profile email">
 <meta name="google-signin-client_id"
-	content="1044303474679-rpsg3ved114h5p6dpdg0tsp6joo2l2la.apps.googleusercontent.com">
-
+    content="1044303474679-rpsg3ved114h5p6dpdg0tsp6joo2l2la.apps.googleusercontent.com">
+    <!--file input  -->
+<link href="../../node_modules/bootstrap-fileinput/css/fileinput.css" media="all" rel="stylesheet" type="text/css"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" media="all" rel="stylesheet" type="text/css"/>
+<link href="../../node_modules/bootstrap-fileinput/themes/explorer-fa/theme.css" media="all" rel="stylesheet" type="text/css"/>
+<link href="../../css/fileupload.css" rel="stylesheet" type="text/css">
 
 <nav class="fixed-top">
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-	<div class="container">
-		<i class="fa fa-handshake-o" style="font-size: 24px; color: white"></i>
-		<h4 class="mb-0">
-			<a onclick="location.href='/html/item/list.html'"
-				style="color: white;" class="" href="#">SharerSharee</a>
-		</h4>
-		<button class="navbar-toggler" type="button" data-toggle="collapse"
-			data-target="#navbarColor02" aria-controls="navbarColor02"
-			aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-		<div class="col-auto"></div>
-		<div class="collapse navbar-collapse" id="navbarColor02">
-			<form action=../item/list.html class="form-inline">
-				<input id="words" class="form-control col-sm-10 mb-0" type="search"
-					name='words' placeholder="&#xf002" aria-label="Search">
-			</form>
-			<ul class="navbar-nav ml-auto">
-				<li class="nav-item active"><i id="usericon" class="fa fa-user align-middle"
-					style="font-size: 24px; color: white"></i> <a id="username" href=""
-					onclick="href='../user/view.html'" style="display: inline-block;"
-					class="nav-link"></a></li>
-					<div class="col-1"></div>
-				<li class="nav-item active"><i id="keyicon" style="font-size:24px;color:white;display: inline-block;" class="fa fa-key align-middle"></i>
-				<a class="nav-link" id="loginBtn"
-					href="" style="display: inline-block;" data-toggle="modal" data-target="#myModal">Login</a>
-					<a class="nav-link" id="logoutBtn" href="" style="display: inline-block;">Logout</a> 
-				</li>
-			</ul>
-		</div>
-	</div>
+    <div class="container">
+        <h4 class="mb-0">
+            <a onclick="location.href='/html/item/list.html'"
+                style="color: white;" class="" href="#">Sharer<i class="fa fa-handshake-o" style="font-size: 24px; color: white"></i>Sharee</a></h4>
+                
+        <button class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarColor02" aria-controls="navbarColor02"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="col-auto"></div>
+        <div class="collapse navbar-collapse" id="navbarColor02">
+            <form action=../item/list.html class="form-inline">
+                <input id="words" class="form-control col-sm-10 mb-0" type="search"
+                    name='words' placeholder="&#xf002" aria-label="Search">
+            </form>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active"><a id="username" href=""
+                    onclick="href='../user/view.html'" style="display: inline-block;"
+                    class="nav-link"></a></li>
+                    <div class="col-1"></div>
+                <li class="nav-item active"><i id="keyicon" style="font-size:24px;color:white;display: inline-block;" class="fa fa-key"></i>
+                <a class="nav-link px-0" id="loginBtn"
+                    href="" style="display: inline-block;" data-toggle="modal" data-target="#myModal">로그인</a>
+                    <a class="nav-link px-0" id="logoutBtn" href="" style="display: inline-block;">로그아웃</a> 
+                </li>
+                <div id="signupcol" class="col-1"></div>
+                <li class="nav-item active"><i id="signupicon" style="font-size:24px;color:white;display: inline-block;" class="fa fa-user-plus"></i>
+                <a class="nav-link px-0" id="signupBtn"
+                    href="" style="display: inline-block;" data-toggle="modal" data-target="#spModal">회원가입</a>
+            </ul>
+        </div>
+    </div>
 </nav>
 
 <nav class="site-header sticky-top border ddd" style="background-color: white;">
-	<div class="container">
-		<!-- <div style="display: inline-block;"
-			onclick="location.href='../item/form.html'"
-			class="p-2 bd-highlight m_pointer">
-			<i class="fa fa-plus-square" style="color: #007BFF"></i>Add
-		</div> -->
-		<div class="filter">
+    <div class="container">
+        <!-- <div style="display: inline-block;"
+            onclick="location.href='../item/form.html'"
+            class="p-2 bd-highlight m_pointer">
+            <i class="fa fa-plus-square" style="color: #007BFF"></i>Add
+        </div> -->
+        <div class="filter">
             <ul class="filter__list mb-0">
                 <li><a id="add" href="#"><i class="fa fa-plus-square" style="color: #007BFF">
                 </i>Add</a></li>
@@ -115,81 +127,255 @@ function onSuccess(googleUser) {
                 <li><a href="../item/list.html?cr=5">ETC</a></li>
             </ul>
         </div>
-	</div>
+    </div>
 </nav>
 </nav>
 
 
 <div class="modal fade" id="myModal" style="display: none;">
-	<div class="modal-dialog">
-		<div class="modal-content">
+    <div class="modal-dialog">
+        <div class="modal-content">
 
-			<!-- Modal Header -->
-			<div class="modal-header">
-				<h4 class="modal-title"></h4>
-				<button type="button" class="close" data-dismiss="modal">&times;</button>
-			</div>
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <div class="mx-auto">
+                <h4 class="modal-title">
+                <a onclick="location.href='/html/item/list.html'"
+                style="color: #0160c5;" class="" href="#">Sharer<i class="fa fa-handshake-o" style="font-size: 24px; color: #0160c5"></i>Sharee</a></h4>
+                </div>
+            </div>
 
-			<!-- Modal body -->
-			<div class="modal-body">
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div class="mx-auto" style="text-align: center;">
+                <form action="login" method='post'>
+                    <div class='form-group'>
+                        <input placeholder="아이디" class='form-control' id='accountName'
+                            type='text' name='accountName'>
+                    </div>
 
-				<form action="login" method='post'>
+                    <div class='form-group'>
+                        <input placeholder="비밀번호" class='form-control' id='password'
+                            type='password' name='password'>
+                    </div>
 
-					<div align="center" class='form-group'>
-						<img src="../../img/portfolio/shareicon2.png">
-					</div>
+                    <div class='form-group'>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input"
+                                id="saveaccountName" name="saveaccountName"> <label
+                                class="form-check-label" for="saveaccountName">아이디 저장</label>
+                        </div>
+                    </div>
+                    <button id="btn2" type="button"
+                        class='col-12 btn btn-primary'>로그인</button>
+                </form>
+                <hr>
+            <div id="fb"class="rounded fb-login-button form-group fb-custom-btn" data-width="222"
+                data-max-rows="1" data-size="medium" data-button-type="login_with"
+                data-show-faces="false" data-auto-logout-link="false"
+                data-use-continue-as="false" data-scope="public_profile,email"
+                data-onlogin="checkLoginState()"></div>
+                
+            <div class='form-group'>
+                <a id="kakao-login-btn"></a>
+            </div>
+            <div class='form-group'>
+                <a id="naverIdLogin_loginButton" href="#" role="button"><img
+                    src="https://static.nid.naver.com/oauth/big_g.PNG" width="222"
+                    height="49"></a>
+            </div>
+            <!-- <div align="center" class="form-group g-signin2"
+                data-onsuccess="onSignIn"></div>-->
+            <div id="my-signin2" class="form-group"></div>
+            </div>
+            </div>
+            
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button id="signinclose" type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
 
-					<div class='form-group'>
-						<input placeholder="아이디" class='form-control' id='accountName'
-							type='text' name='accountName'>
-					</div>
-
-					<div class='form-group'>
-						<input placeholder="비밀번호" class='form-control' id='password'
-							type='password' name='password'>
-					</div>
-
-					<div class='form-group'>
-						<div class="form-check">
-							<input type="checkbox" class="form-check-input"
-								id="saveaccountName" name="saveaccountName"> <label
-								class="form-check-label" for="saveaccountName">아이디 저장</label>
-						</div>
-					</div>
-					<button id="btn2" type="button"
-						class='form-control form-group btn btn-primary'>로그인</button>
-				</form>
-				<button type="button" onclick="location='../user/form.html'"
-					class="form-control form-group btn btn-primary">회원가입</button>
-			</div>
-			<div id="fb" align="center" class="fb-login-button" data-width="222"
-				data-max-rows="1" data-size="large" data-button-type="login_with"
-				data-show-faces="false" data-auto-logout-link="false"
-				data-use-continue-as="false" data-scope="public_profile,email"
-				data-onlogin="checkLoginState()"></div>
-				
-			<div align="center" class='form-group'>
-				<a id="kakao-login-btn"></a>
-			</div>
-			<div align="center" class='form-group'>
-				<a id="naverIdLogin_loginButton" href="#" role="button"><img
-					src="https://static.nid.naver.com/oauth/big_g.PNG" width="222"
-					height="49"></a>
-			</div>
-			<div align="center" class="form-group g-signin2"
-				data-onsuccess="onSignIn"></div>
-		    <div id="my-signin2"></div>
-				
-			<!-- Modal footer -->
-			<div class="modal-footer">
-				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-			</div>
-
-		</div>
-	</div>
+        </div>
+    </div>
 </div>
+
+ <!-- 회원가입 -->
+<div class="modal fade" id="spModal" style="display: none;" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+      <div class="mx-auto">
+        <h4 class="modal-title" id="exampleModalLongTitle">
+        <a onclick="location.href='/html/item/list.html'"
+                style="color: #0160c5;" class="" href="#">Sharer<i class="fa fa-handshake-o" style="font-size: 24px; color: #0160c5"></i>Sharee</a></h4>
+                </div>
+      </div>
+      <div class="modal-body">
+            <div class="container">
+                    <form id="form" method="post" enctype="multipart/form-data"
+                        autocomplete="off">
+                        <div class="form-group row">
+                            <div class="col-sm-10 mx-auto">
+                                <input id='act_id' class="mb-0 form-control" type='text'
+                                    placeholder="아이디를입력하시오." required name='accountName'>
+                                <p class="mb-0" id="checkId">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group row">
+                            <div class="col-sm-10 mx-auto">
+                                <input id='email' class="mb-0 form-control" type="email"
+                                    placeholder="이메일를입력하시오." required name='email'>
+                                <p class="mb-0" id="checkEmail">
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row mb-0">
+                            <div class="col-sm-10 mx-auto">
+                                <input id='pwd' type='password' class="form-control mb-0"
+                                    placeholder="비밀번호를입력하시오." required name='password'>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-sm-10 mx-auto">
+                                <input id="PwCheck" type="password" class="mb-0 form-control"
+                                    required placeholder="비밀번호 재입력.">
+                                <p class="mb-0" id="pwsame">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-sm-10 mx-auto">
+                                <input id='name' type='text' class="mb-0 form-control"
+                                    placeholder="이름를입력하시오." required name='name'>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-sm-10 mx-auto">
+                                <input id='acc_no' type='text' class="mb-0 form-control"
+                                    placeholder="계좌번호를입력하시오." name='accountNo'>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-sm-10 mx-auto">
+                                <input id='bank' type='text' class="mb-0 form-control"
+                                    placeholder="은행명을입력하시오" name='bank'>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-sm-10 mx-auto">
+                                <input id='cnt' type='text' class="mb-0 form-control"
+                                    placeholder="한마디를 적어주세요" name='comment'>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-sm-10 mx-auto">
+                                <input id='phone' type='text' class="mb-0 form-control"
+                                    placeholder="전화번호를입력하시오." name='phone'>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-sm-6 mx-auto">
+                                <input type="text" id="sample6_postcode" class="mb-0 form-control"
+                                    placeholder="우편번호" name='postNo'>
+                            </div>
+                            <div class="col-sm-4">
+                                <input class="btn btn-primary col-8" type="button"
+                                    onclick="sample6_execDaumPostcode()" value="우편번호">
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                            <div class="col-sm-10 mx-auto">
+                                <input type="text" id="sample6_address" class="mb-0 form-control"
+                                    placeholder="주소를입력하시오." name='baseAddress'>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-sm-10 mx-auto">
+                                <input type="text" id="sample6_address2" class="mb-0 form-control"
+                                    placeholder="상세주소를입력하시오." name='detailAddress'>
+                            </div>
+                        </div>
+
+
+                        <div id="file" class="form-group row">
+                            <div class="col-sm-10 mx-auto">
+                                <input id='file4' name="photo" type="file">
+                            </div>
+                        </div>
+
+                        <div class='form-group row'>
+                            <button id="addBtn" type="button"
+                                class='btn btn-primary mx-auto mt-4 col-4'>회원가입</button>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--file input  -->
+<script src="../../node_modules/bootstrap-fileinput/js/plugins/sortable.js" type="text/javascript"></script>
+<script src="../../node_modules/bootstrap-fileinput/js/fileinput.js" type="text/javascript"></script>
+<script src="../../node_modules/bootstrap-fileinput/js/locales/fr.js" type="text/javascript"></script>
+<script src="../../node_modules/bootstrap-fileinput/js/locales/es.js" type="text/javascript"></script>
+<script src="../../node_modules/bootstrap-fileinput/themes/explorer-fa/theme.js" type="text/javascript"></script>
+<script src="../../node_modules/bootstrap-fileinput/themes/fa/theme.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" type="text/javascript"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" type="text/javascript"></script>
+
+
 <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
 <script src='/node_modules/sweetalert/dist/sweetalert.min.js'></script>
+<script type="text/javascript">
+function onSignIn(googleUser) {
+    // The ID token you need to pass to your backend:
+    if(!logined) {
+        var id_token = googleUser.getAuthResponse().id_token;
+        $.getJSON(
+                '../../json/auth/googleLogin',
+                {'accessToken': id_token},
+                function(result) {
+                  if (result.status == 'success') {
+                      
+                      location.href = '../item/list.html';
+                  } else {
+                      window.alert('로그인 실패입니다!');
+                  }
+            });
+    }
+  };
+  function onFailure(error) {
+    console.log(error);
+    }
+  function renderButton() {
+    gapi.signin2.render('my-signin2', {
+      'scope': 'profile email',
+      'width': 222,
+      'height': 49,
+      'longtitle': true,
+      'theme': 'dark',
+      'onsuccess': onSignIn,
+      'onfailure': onFailure
+    });
+  }
+ 
+</script>
 <script type="text/javascript">
 
 function setCookie(cname, cvalue, exdays) {
@@ -226,35 +412,32 @@ $('#add').click(() => {
         })
         
 })
-
 </script>
 
 <script type="text/javascript">
-var id = $('#accountName'),
-    pwd = $('#password'),
+var id2 = $('#accountName'),
+    pwd1 = $('#password'),
     loginBtn = $('#btn2'),
     saveId = $('#saveaccountName');
     if (getCookie('check') == 'ok') {
         saveId.prop("checked", true);
     }
-    id.val(getCookie('id'));
-    
-
+    id2.val(getCookie('id'));
     
 loginBtn.click(() => {
     
-    console.log(id.val(), pwd.val(),saveId.is(':checked'));
+    console.log(id2.val(), pwd1.val(),saveId.is(':checked'));
     if (saveId.is(':checked')) {
         setCookie('check','ok',7);
-        setCookie('id', id.val(), 7);
+        setCookie('id', id2.val(), 7);
     } else {
         setCookie('check',"",0);
         setCookie('id',"", 0);
     }
     
     $.post('../../json/auth/login', {
-        accountName: id.val(),
-        password: pwd.val()
+        accountName: id2.val(),
+        password: pwd1.val()
         
     }, (result) => {
         if (result.status == "success") {
@@ -270,20 +453,22 @@ loginBtn.click(() => {
 
 var logined = false;
 window.onbeforeunload = function(e){
-	  gapi.auth2.getAuthInstance().signOut();
-	};
+      gapi.auth2.getAuthInstance().signOut();
+    };
 $('#logoutBtn').hide();
-$('#usericon').hide();
+
 $.ajax('/json/auth/loginUser', {
     beforeSend: function(xmlHttpRequest) {
         xmlHttpRequest.setRequestHeader("AJAX", "true");
     },
     dataType: 'json',
     success: (result) => {
-        $('#username').html(result.account.name);
+        $('#username').html("<i id='usericon' class='fa fa-user mx-1' style='font-size: 24px; color: white'></i>" + result.account.name);
         $('#loginBtn').hide();
+        $('#signupBtn').hide();
+        $('#signupicon').hide();
         $('#logoutBtn').show();
-        $('#usericon').show();
+        $('#signupcol').removeClass('col-1');
         $('#keyicon').removeClass('fa fa-key').addClass('fa fa-unlock-alt');
         logined = true;
         $(document.body).trigger('login', {'status': 'success'});
@@ -319,25 +504,6 @@ $('#username').click(() => {
             location.href="../user/view.html?no=" + result.account.accountsNo
     }
 )}); */
-
-function onSignIn(googleUser) {
-    // The ID token you need to pass to your backend:
-    if(!logined) {
-	    var id_token = googleUser.getAuthResponse().id_token;
-	    $.getJSON(
-	            '../../json/auth/googleLogin', 
-	            {'accessToken': id_token}, 
-	            function(result) {
-	              if (result.status == 'success') {
-	            	  
-	                  location.href = '../item/list.html';
-	              } else {
-	                  window.alert('로그인 실패입니다!');
-	              }
-	        });
-    }
-  };
-
 
 function autoServerLogin(accessToken) {
     $.getJSON(
@@ -416,8 +582,181 @@ var naverLogin = new naver.LoginWithNaverId(
     );
     /* (4) 네아로 로그인 정보를 초기화하기 위하여 init을 호출 */
 naverLogin.init();
+</script>
+
+<!-- 회원가입 -->
+<script type="text/javascript">
+var pwd = $('#pwd'),
+    pwd2 = $('#PwCheck'),
+    id = $('#act_id'),
+    email = $('#email'),
+    nameItem = $('#name'),
+    accNo = $('#acc_no'),
+    bank = $('#bank'),
+    cnt = $('#cnt'),
+    phone = $('#phone'),
+    postNo = $('#sample6_postcode'),
+    baseAddr = $('#sample6_address'),
+    detailAddr = $('#sample6_address2'),
+    photos = $('#photo'),
+    addBtn = $('#addBtn');
+
+/* $('input').on("blur",function(e) {
+    if(e.target.value == "") {
+        $(this).addClass('mb-0');
+        $(this).siblings().html('<i class="fa fa-exclamation-circle" style="color:red"></i>빈칸을 채워주세요').css('color', 'red');
+    }
+}) */
+
+$('.modal').on('hidden.bs.modal', function (e) {
+  $(this).find('form')[0].reset()
+  $('#checkId').html(' ');
+  $('#checkEmail').html(' ');
+  $('#pwsame').html(' ');
+});
+
+$(document).ready(function(){
+    id.keyup(() => {
+        var value = id.val();
+        if(value && $.trim(value))
+           {
+            $.ajax({
+                type: 'POST',
+                url: '  ../../json/user/checkId',
+                data: {
+                    "accountName" : value
+                },
+                success: function(data){
+                    if($.trim(data) == 0){
+                    $('#checkId').html('<i class="fa fa-check" style="color:#21ff00"></i>사용가능').css('color', '#007BFF');
+                } else {
+                    $('#checkId').html('<i class="fa fa-exclamation-circle" style="color:red"></i>이미 사용중인 아이디입니다.').css('color', 'red');
+                }
+                }
+            });    //end ajax
+           }
+        else
+           {
+            $('#checkId').html('<i class="fa fa-exclamation-circle" style="color:red"></i>ID를 입력해주세요').css('color', 'red');
+           }
+    }); 
+    
+    email.keyup(() => {
+        var value = email.val();
+        if(value && $.trim(value))
+           {
+                $.ajax({
+                    type: 'POST',
+                    url: '  ../../json/user/checkEmail',
+                    data: {
+                        "email" : value
+                    },
+                    success: function(data){
+                        console.log(data)
+                        if($.trim(data) == 0){
+                            $('#checkEmail').html('<i class="fa fa-check" style="color:#21ff00"></i>사용가능').css('color', '#007BFF');
+                        } 
+                        else{
+                            $('#checkEmail').html('<i class="fa fa-exclamation-circle" style="color:red"></i>이미 사용중인 이메일입니다').css('color', 'red');
+                        }
+                    }
+                });    //end ajax
+           }
+        else
+        {
+         $('#checkEmail').html('<i class="fa fa-exclamation-circle" style="color:red"></i>email을 입력해 주세요').css('color', 'red');
+        }
+    }); 
+    
+});
+
+$('#PwCheck').keyup(() => {
+    if (pwd.val() == pwd2.val()) {
+        $('#pwsame').html('<i class="fa fa-check" style="color:#21ff00"></i>일치합니다.').css('color', '#007BFF');
+    } else {
+        $('#pwsame').html('<i class="fa fa-exclamation-circle" style="color:red"></i>비밀번호가 일치하지 않습니다.').css('color', 'red');
+    }
+});
+
+addBtn.click(() => {
+    $(':required').each(function() {
+        if ($(this).val() == "") {
+            swal("빈칸을 채워주세요");
+            throw stop;
+        };
+    });
+    var formData = new FormData($("#form")[0]);
+    $.ajax('../../json/user/add', {
+        data : formData,
+        dataType: 'json',
+        method: 'POST',
+        processData : false,
+        contentType : false,
+        success: (result) => {
+            $.post('../../json/auth/login', {
+                accountName: id.val(),
+                password: pwd.val()
+                
+            }, (result) => {
+                if (result.status == "success") {
+                    location.href = "../item/list.html"
+                }
+            },'json');
+        },
+        error:function(request,status,error){
+            swal("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+         }
+
+    });
+});
 
 
+function sample6_execDaumPostcode() {
+    new daum.Postcode({
+        oncomplete: function(data) {
+            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
 
+            // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+            // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+            var fullAddr = ''; // 최종 주소 변수
+            var extraAddr = ''; // 조합형 주소 변수
+
+            // 사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+            if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                fullAddr = data.roadAddress;
+
+            } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                fullAddr = data.jibunAddress;
+            }
+
+            // 사용자가 선택한 주소가 도로명 타입일때 조합한다.
+            if(data.userSelectedType === 'R'){
+                //법정동명이 있을 경우 추가한다.
+                if(data.bname !== ''){
+                    extraAddr += data.bname;
+                }
+                // 건물명이 있을 경우 추가한다.
+                if(data.buildingName !== ''){
+                    extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                }
+                // 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
+                fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
+            }
+
+            // 우편번호와 주소 정보를 해당 필드에 넣는다.
+            document.getElementById('sample6_postcode').value = data.zonecode; //5자리 새우편번호 사용
+            document.getElementById('sample6_address').value = fullAddr;
+
+            // 커서를 상세주소 필드로 이동한다.
+            document.getElementById('sample6_address2').focus();
+        }
+    }).open();
+}
+</script>
+<script>
+$('#file4').fileinput({
+    theme: 'fa',
+});
 
 </script>
+
