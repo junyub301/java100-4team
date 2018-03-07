@@ -58,6 +58,20 @@ body {
     border-top: 1px solid #ddd;
     background-color: #E6F3FF;
 }
+.disinline {
+    display: inline-block;
+}
+.textcenter{
+    text-align: center;
+}
+
+ul{
+   list-style:none;
+   }
+
+.thwidth{
+    width: 130px;
+}
 
 </style>
 
@@ -91,13 +105,13 @@ body {
             </form>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item active"><a id="username" href=""
-                    onclick="href='../user/view.html'" style="display: inline-block;"
+                    onclick="href='../tr/list.html'" style="display: inline-block;"
                     class="nav-link"></a></li>
                     <div class="col-1"></div>
                 <li class="nav-item active"><i id="keyicon" style="font-size:24px;color:white;display: inline-block;" class="fa fa-key"></i>
-                <a class="nav-link px-0" id="loginBtn"
-                    href="" style="display: inline-block;" data-toggle="modal" data-target="#myModal">로그인</a>
-                    <a class="nav-link px-0" id="logoutBtn" href="" style="display: inline-block;">로그아웃</a> 
+                <a class="nav-link px-0 disinline" id="loginBtn"
+                    href="" data-toggle="modal" data-target="#myModal">로그인</a>
+                    <a class="nav-link px-0 disinline" id="logoutBtn" href="" >로그아웃</a> 
                 </li>
                 <div id="signupcol" class="col-1"></div>
                 <li class="nav-item active"><i id="signupicon" style="font-size:24px;color:white;display: inline-block;" class="fa fa-user-plus"></i>
@@ -147,7 +161,7 @@ body {
 
             <!-- Modal body -->
             <div class="modal-body">
-                <div class="mx-auto" style="text-align: center;">
+                <div class="textcenter">
                 <form action="login" method='post'>
                     <div class='form-group'>
                         <input placeholder="아이디" class='form-control' id='accountName'
@@ -590,15 +604,15 @@ naverLogin.init();
 var pwd = $('#pwd'),
     pwd2 = $('#PwCheck'),
     id = $('#act_id'),
-    email = $('#email'),
-    nameItem = $('#name'),
-    accNo = $('#acc_no'),
-    bank = $('#bank'),
-    cnt = $('#cnt'),
-    phone = $('#phone'),
-    postNo = $('#sample6_postcode'),
-    baseAddr = $('#sample6_address'),
-    detailAddr = $('#sample6_address2'),
+    email1 = $('#email'),
+    nameItem1 = $('#name'),
+    accNo1 = $('#acc_no'),
+    bank1 = $('#bank'),
+    cnt1 = $('#cnt'),
+    phone1 = $('#phone'),
+    postNo1 = $('#sample6_postcode'),
+    baseAddr1 = $('#sample6_address'),
+    detailAddr1 = $('#sample6_address2'),
     photos = $('#photo'),
     addBtn = $('#addBtn');
 
@@ -645,8 +659,8 @@ $(document).ready(function(){
            }
     }); 
     
-    email.keyup(() => {
-        var value = email.val();
+    email1.keyup(() => {
+        var value = email1.val();
         if(value && $.trim(value))
            {
                 $.ajax({

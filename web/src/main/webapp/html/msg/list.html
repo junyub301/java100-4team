@@ -7,8 +7,6 @@
 <link rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="../../css/main.css">
-<link rel="stylesheet" href='/node_modules/bootstrap/dist/css/bootstrap.min.css'>
-<link href="http://fonts.googleapis.com/earlyaccess/nanumgothic.css" rel="stylesheet" type="text/css">
 
 <style>
 .no-js {display:none;}
@@ -16,26 +14,30 @@
 </head>
 <body>
 <header></header>
-<div class='container'>
-<div class="row col-3 mt-3" style="float: left;">
-    <div class="mb-1 alert col-10 alert-primary" onclick="location.href='../tr/list.html'" style="cursor: pointer;" role="alert">
-      <a style='text-decoration:none;' href='../tr/list.html'>이용내역</a>
-    </div>
-    
-    <div class="mb-1 alert col-10 alert-primary" onclick="location.href='../user/view.html'" style="cursor: pointer;" role="alert">
-      <a style='text-decoration:none;' href='../user/view.html'>회원정보변경</a>
-    </div>
-    
-    <div class="alert col-10 alert-primary" onclick="location.href='../msg/list.html'" style="cursor: pointer;" role="alert">
-      <a style='text-decoration:none;' href='../msg/list.html'>메시지</a>
-    </div>
-<input id="btn2" type="file" class="form-control-file col-1" id="photo" name="photo" style='opacity: 0;'>
-</div>
-<div style='display:inline-block;position: absolute;width:690px; margin-left:50px; padding-top:25px;'>
-<a class="btn btn-success" href='form.html'>추가(삭제예정)</a>
 
-<table id='list' style='margin-top: 10px;'class='table'>
-<thead class="thead-dark">
+<div class='container'>
+<div class="row">
+<div class="col-3 mt-3 d-inline-block" >
+    <h4 class="">마이쉐어</h4>
+        <h5 class="text-muted"><a style='text-decoration:none;' href='../tr/list.html'>
+        <i class="fa fa-home pr-3" style="font-size:24px"></i>마이쉐어 홈</a></h5>
+    <hr>
+    <h5 class="text-muted"><i class="fa fa-id-badge pr-3" style="font-size:24px"></i>개인</h5>
+    <ul>
+      <li><h6 class="text-muted">
+      <a class="" style='text-decoration:none;' href='../user/view.html'>회원정보변경</a></h6></li>
+      <li><h6 class="text-muted">
+      <a class="" style='text-decoration:none;' href='../msg/list.html'>메시지</a></h6></li>
+    </ul>
+    <hr>
+</div>
+
+<div class="d-inline-block col-9">
+<div class="row col-12 mx-auto">
+<!-- <a class="btn btn-success" href='form.html'>추가(삭제예정)</a> -->
+
+<table id='list' style='margin-top: 10px;'class='table text-center'>
+<thead class="thead-light">
 <tr>
 <th>번호</th><th>수신확인</th><th>제목</th><th>날짜</th>
 </tr>
@@ -48,15 +50,19 @@
 </div>
 </div>
 
+</div>
+</div>
+
 
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">메세지</h5>
-        <button type="button" class="close" data-dismiss="modal" onclick='load()' aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+      <div class="mx-auto">
+        <h4 class="modal-title" id="exampleModalLongTitle">
+        <a onclick="location.href='/html/item/list.html'"
+                style="color: #0160c5;" class="" href="#">결제<i class="fa fa-handshake-o" style="font-size: 24px; color: #0160c5"></i>정보</a></h4>
+                </div>
       </div>
     <div id="modalView" class="modal-body">
       
@@ -69,18 +75,23 @@
 </div>
 
 <script id="t1" type="text/x-handlebars-template">
-<div style="width:450px;margin:auto;">    
-    <div style="display:inline-block;margin-bottom:20px;">
-      제목 : {{title}}
+    <div class="col-9 mx-auto">
+    <table class="table table-bordered">
+        <tbody>
+                <tr>
+                    <th style="background-color: #fff;"
+                        class="text-center align-middle" rowspan="3">{{title}}</th>
+                </tr>
+                <tr>
+                    <th style="background-color: #fff;"
+                        class="text-center align-middle" rowspan="3">{{formatDate dispatchDate}}</th>
+                </tr>
+            </tbody>
+        </table>
+    <div class="textcenter pt-2">
+      <h5 class="text-muted">{{content}}</h5>
     </div>
-    <div style="display:inline-block;float:right;margin-right:25px;">
-      보낸 날짜 : {{formatDate dispatchDate}}
-    </div>
-    <div>
-        <span>내용</span>
-      <div style="width:380px;height:200px;border:solid 1px #b5b5b5;display:inline-block;padding:2px 10px;margin-left:10px;">{{content}}
-      </div>
-    </div>
+</div>
 </div>
 </script>
 
