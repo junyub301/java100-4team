@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+<meta charset="UTF-8">
+<title>회원관리</title>
+<link rel="stylesheet" href='../../node_modules/bootstrap/dist/css/bootstrap.min.css'>
+<link href="../../css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="../../css/main.css">
+</head>
+<style>
+.no-js {
+	display: none;
+}
+    .menu a{cursor:pointer;}
+    .hide{display:none;}
+
+
+
+</style>
+<body>
+<div class='container' style="width:600px;">
+<a href='form.html' class="btn btn-success">추가</a>
+<table id="list" style='margin-top: 10px;'class='table'>
+<tbody>
+</tbody>
+</table>
+</div>
+<script id="template1" type="text/x-handlebars-template">
+{{#each requestItem}}
+<tr>
+  <td>{{requestNo}}</td>
+  <td class="menu"><a>{{title}}</a></td>
+  <td>{{userId}}</a></td>
+  <td>{{Date regDate}}</td>
+</tr>
+<tr class="hide">
+  <td colspan="3">{{content}}</td>
+</tr>
+{{/each}}
+</script>
+<link href="http://fonts.googleapis.com/earlyaccess/nanumgothic.css" rel="stylesheet" type="text/css">
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+<script src='../../node_modules/moment/moment.js'></script>
+<script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
+<script src='../../node_modules/handlebars/dist/handlebars.min.js'></script>
+<script src='../../node_modules/popper.js/dist/umd/popper.min.js'></script>
+<script src='../../node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
+<script src='../../node_modules/jquery/dist/jquery.min.js'></script>
+
+<script type="text/javascript">
+
+var tbody = $('#list > tbody'),
+template1Src = $('#template1').html(),
+template1Engine = Handlebars.compile(template1Src);
+load();
+
+Handlebars.registerHelper('Date', function(date) {
+    return  moment(date).format('YYYY-MM-DD');
+});
+
+
+function load() { 
+    $.ajax('/json/lend/list', {
+        dataType: 'json',
+        success: (result) => {
+            console.log(result)
+            tbody.html(template1Engine(result));
+            
+
+        },
+        error: () => {
+            window.alert('서버 실행 오류!');
+        }
+    })
+}
+
+$(document).ready(function(){
+    // menu 클래스 바로 하위에 있는 a 태그를 클릭했을때
+    $(".menu>a").click(function(){
+        var submenu = $(this).parent().parent().next("tr");
+
+        // submenu 가 화면상에 보일때는 위로 보드랍게 접고 아니면 아래로 보드랍게 펼치기
+        if( submenu.is(":visible") ){
+            submenu.slideUp();
+        }else{
+            submenu.slideDown();
+        }
+    });
+}); 
+
+
+
+
+$(function(){
+    $('html').removeClass("no-js");
+})
+</script>
+</body>
+</html>
+    

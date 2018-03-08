@@ -11,7 +11,6 @@
         <result column="ur_no" property="userNo"/>
         <result column="title" property="title"/>
         <result column="cnt" property="content"/>
-        <result column="item_name" property="itemName"/>
         <result column="reg_date" property="regDate"/>
     </resultMap>
     
@@ -21,7 +20,6 @@
             ur_no,
             title,
             cnt,
-            item_name,
             reg_date
          from request
          order by rq_no desc
@@ -33,7 +31,6 @@
             ur_no,
             title,
             cnt,
-            item_name,
             reg_date
          from request where rq_no=#{value}
     </select>
@@ -41,15 +38,14 @@
     
     <insert id="insert" parameterType="requestItem" 
         useGeneratedKeys="true" keyColumn="rq_no" keyProperty="requestNo">
-        insert into request(ur_no,title,cnt,item_name,reg_date) 
-        values(#{userNo},#{title},#{content},#{itemName},now())
+        insert into request(ur_no,title,cnt,reg_date) 
+        values(#{userNo},#{title},#{content},now())
     </insert>
 
     <update id="update" parameterType="message">
         update message set 
             title=#{title},
             cnt=#{content},
-            item_name=#{itemName},
             reg_date=now()
         where rq_no=#{requestNo}
     </update>

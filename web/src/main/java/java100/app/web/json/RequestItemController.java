@@ -27,6 +27,7 @@ public class RequestItemController {
         User user = (User)session.getAttribute("loginUser");
         HashMap<String,Object> result = new HashMap<>();
         result.put("requestItem", requestItemService.list(user.getUserNo()));
+        result.put("userId", user.getUserId());
         
         return result;
     }
