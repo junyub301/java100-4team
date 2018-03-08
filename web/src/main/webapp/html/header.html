@@ -232,6 +232,11 @@ ul{
             <div class="container">
                     <form id="form1" method="post" enctype="multipart/form-data"
                         autocomplete="off">
+                        
+                        <input id='address1' type="hidden" name='address'>
+                        <input id='lat1' type="hidden" name='latitude'>
+                        <input id='lng1' type="hidden" name='longitude'>
+                        
                         <div class="form-group row">
                             <div class="col-sm-10 mx-auto">
                                 <input id='act_id' class="mb-0 form-control" type='text'
@@ -356,7 +361,7 @@ ul{
 <script src="../../node_modules/bootstrap-fileinput/themes/fa/theme.js" type="text/javascript"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" type="text/javascript"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" type="text/javascript"></script>
-
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=41a90b1059ade44d7db374c4db586dfb&libraries=services"></script>
 
 <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
 <script src='/node_modules/sweetalert/dist/sweetalert.min.js'></script>
@@ -392,7 +397,18 @@ function onSignIn(googleUser) {
       'onfailure': onFailure
     });
   }
- 
+  
+//주소 검색 완료시 위도경도 받아오기
+$('#sample6_address2').focus(()=> {
+      var geocoder = new daum.maps.services.Geocoder();
+      geocoder.addressSearch($('#sample6_address').val(),function(result, status) {
+      console.log(result)
+      $('#address1').val(result[0].address_name);
+      $('#lat1').val(result[0].y);
+      $('#lng1').val(result[0].x);
+      })
+})
+
 </script>
 <script type="text/javascript">
 
@@ -476,7 +492,7 @@ window.onbeforeunload = function(e){
 $('#logoutBtn').hide();
 $('#add').hide();
 
-$.ajax('/json/auth/loginUser', {
+ $.ajax('/json/auth/loginUser', {
     beforeSend: function(xmlHttpRequest) {
         xmlHttpRequest.setRequestHeader("AJAX", "true");
     },
