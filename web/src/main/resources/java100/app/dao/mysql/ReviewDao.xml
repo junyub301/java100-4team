@@ -12,6 +12,7 @@
         <result column="it_no" property="itemNo"/>
         <result column="cre_date" property="createdDate"/>
         <result column="thumb_pic" property="userPic"/>
+        <result column="actname" property="userName"/>
     </resultMap>
     
     <select id="list" resultMap="rvMap" parameterType="map">

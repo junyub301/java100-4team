@@ -12,7 +12,7 @@ public class Transaction {
     protected Date payDate;    
     protected int deliveryPayType;   
     protected String parcel;   
-    protected int deliveryNo;      
+    protected String deliveryNo;      
     protected Boolean reviewState;
     protected Item item;
     
@@ -88,11 +88,11 @@ public class Transaction {
         this.parcel = parcel;
     }
 
-    public int getDeliveryNo() {
+    public String getDeliveryNo() {
         return deliveryNo;
     }
 
-    public void setDeliveryNo(int deliveryNo) {
+    public void setDeliveryNo(String deliveryNo) {
         this.deliveryNo = deliveryNo;
     }
 
@@ -111,6 +111,8 @@ public class Transaction {
     public void setItem(Item item) {
         this.item = item;
     }
+    
+    
     
     
     

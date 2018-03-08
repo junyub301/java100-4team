@@ -15,7 +15,6 @@
         <result column="pay_type" property="deliveryPayType"/>
         <result column="parcel" property="parcel"/>
         <result column="del_no" property="deliveryNo"/>
-        <result column="del_dat" property="deliveryDate"/>
         <result column="state" property="reviewState"/>
         <association property="item" javaType="Item">
             <id column="it_no" property="itemNo"/>
@@ -107,8 +106,7 @@
     <update id="update" parameterType="transaction">
         update transaction set 
            parcel=#{parcel},
-           del_no=#{deliveryNo},
-           del_dat=#{deliveryDate}
+           del_no=#{deliveryNo}
         where rent_no=#{no}
     </update>
      

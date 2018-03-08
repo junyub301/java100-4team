@@ -5,7 +5,8 @@
 
 <mapper namespace="java100.app.dao.RequestItemDao">
     
-    <resultMap type="requestItem" id="requestMap">
+
+    <resultMap type="RequestItem" id="requestMap">
         <id column="rq_no" property="requestNo"/>
         <result column="ur_no" property="userNo"/>
         <result column="title" property="title"/>
