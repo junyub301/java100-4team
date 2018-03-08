@@ -52,7 +52,7 @@
 </div>
 
 <div class="d-inline-block col-9">
-<form id="form" method='POST' onsubmit="return" enctype="multipart/form-data"> 
+<form id="form1" method='POST' onsubmit="return" enctype="multipart/form-data"> 
 <div id="nodiv"></div>
 
 <input id="btn2" type="file" class="form-control-file col-1" name="photo" style='opacity: 0;'>
@@ -78,7 +78,7 @@
 		<tr>
 			<td style="background-color: white;" class="pl-3 text-dark"><!-- <input
 				class='borderzero mb-0 form-control col-10' id='userid' type='text'
-				name='accountName'> --> <span id="userid"></span>
+				name='accountName'> --> <span id="userid" ></span>
 				<button style="float: right;" type="button" id="deleteBtn" class= "btn btn-outline-secondary btn-sm">회원탈퇴</button></td>
 		</tr>
 
@@ -110,7 +110,7 @@
 		<tr>
 			<td style="background-color: white;" class="pl-3 text-dark"><!-- <input
 				class='mb-0 form-control col-10' readonly id='name' type='text'
-				name='name'> --><span id="name"></span></td>
+				name='name'> --><span id="name" ></span></td>
 		</tr>
 
 		<tr>
@@ -357,7 +357,7 @@ updateBtn.click(() => {
         return false;
     }
     
-    var formData = new FormData($("#form")[0]);
+    var formData = new FormData($("#form1")[0]);
     $.ajax('../../json/user/update', {
         data : formData,
         dataType: 'json',
