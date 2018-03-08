@@ -5,11 +5,12 @@
 <meta charset="UTF-8">
 <title>회원관리</title>
 
-<link rel="stylesheet" href='../../node_modules/bootstrap/dist/css/bootstrap.min.css'>
+<link rel="stylesheet"
+	href='../../node_modules/bootstrap/dist/css/bootstrap.min.css'>
 <script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
 <link href="../../css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="../../css/main.css">
 <!-- <link href="../../css/freelancer.min.css" rel="stylesheet">
 <link href="../../css/bootstrap.min.css" rel="stylesheet">
@@ -20,196 +21,226 @@
 <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css"> -->
 </head>
 <style>
-.no-js {display:none;}
-
-  img {
-    max-width: 100%;
-    max-height: 100%;
-    
+.no-js {
+	display: none;
 }
 
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
 </style>
 <body>
-  <header>  
- 
-    </header>
+	<header> </header>
 
-<div class='container'>
-<div class="row">
-<div class="col-3 mt-3 d-inline-block" >
-    <h4 class="">마이쉐어</h4>
-        <h5 class="text-muted"><a style='text-decoration:none;' href='../tr/list.html'>
-        <i class="fa fa-home pr-3" style="font-size:24px"></i>마이쉐어 홈</a></h5>
-    <hr>
-    <h5 class="text-muted"><i class="fa fa-id-badge pr-3" style="font-size:24px"></i>개인</h5>
-    <ul>
-      <li><h6 class="text-muted">
-      <a class="" style='text-decoration:none;' href='../user/view.html'>회원정보변경</a></h6></li>
-      <li><h6 class="text-muted">
-      <a class="" style='text-decoration:none;' href='../msg/list.html'>메시지</a></h6></li>
-    </ul>
-    <hr>
-</div>
+	<div class='container'>
+		<div class="row">
+			<div class="col-3 mt-3 d-inline-block">
+				<h4 class="">마이쉐어</h4>
+				<h5 class="text-muted">
+					<a style='text-decoration: none;' href='../tr/list.html'> <i
+						class="fa fa-home pr-3" style="font-size: 24px"></i>마이쉐어 홈
+					</a>
+				</h5>
+				<hr>
+				<h5 class="text-muted">
+					<i class="fa fa-id-badge pr-3" style="font-size: 24px"></i>개인
+				</h5>
+				<ul>
+					<li><h6 class="text-muted">
+							<a class="" style='text-decoration: none;'
+								href='../user/view.html'>회원정보변경</a>
+						</h6></li>
+					<li><h6 class="text-muted">
+							<a class="" style='text-decoration: none;'
+								href='../msg/list.html'>메시지</a>
+						</h6></li>
+				</ul>
+				<hr>
+			</div>
 
-<div class="d-inline-block col-9">
-<form id="form" method='POST' onsubmit="return" enctype="multipart/form-data"> 
-<div id="nodiv"></div>
+			<div class="d-inline-block col-9">
+				<form id="form" method='POST' onsubmit="return"
+					enctype="multipart/form-data">
+					<div id="nodiv"></div>
 
-<input id="btn2" type="file" class="form-control-file col-1" name="photo" style='opacity: 0;'>
-<div class="row">
-<div id="imdiv" class="mx-auto my-2"></div>
-</div>
+					<input id="btn2" type="file" class="form-control-file col-1"
+						name="photo" style='opacity: 0;'>
+					<div class="row">
+						<div id="imdiv" class="mx-auto my-2"></div>
+					</div>
 
-<div class="row">
-<div class="my-2 mx-auto">
-<i id="btn1" class="fa fa-camera" style="cursor:pointer;font-size:36px;color:#007BFF"></i>
-</div>
-</div>
+					<div class="row">
+						<div class="my-2 mx-auto">
+							<i id="btn1" class="fa fa-camera"
+								style="cursor: pointer; font-size: 36px; color: #007BFF"></i>
+						</div>
+					</div>
 
-<div class="row"> 
-<div class="row col-12 mx-auto">
+					<div class="row">
+						<div class="row col-12 mx-auto">
 
-<table class="table table-bordered">
-	<tbody>
-		<tr>
-			<th style="background-color: #f3f3f3;"
-				class="thwidth text-center" rowspan="2">아이디</th>
-		</tr>
-		<tr>
-			<td style="background-color: white;" class="pl-3 text-dark"><!-- <input
+							<table class="table table-bordered">
+								<tbody>
+									<tr>
+										<th style="background-color: #f3f3f3;"
+											class="thwidth text-center" rowspan="2">아이디</th>
+									</tr>
+									<tr>
+										<td style="background-color: white;" class="pl-3 text-dark">
+											<!-- <input
 				class='borderzero mb-0 form-control col-10' id='userid' type='text'
-				name='accountName'> --> <span id="userid" ></span>
-				<button style="float: right;" type="button" id="deleteBtn" class= "btn btn-outline-secondary btn-sm">회원탈퇴</button></td>
-		</tr>
+				name='accountName'> --> <span id="userid"></span>
+											<button style="float: right;" type="button" id="deleteBtn"
+												class="btn btn-outline-secondary btn-sm">회원탈퇴</button>
+										</td>
+									</tr>
 
-		<tr>
-			<th style="background-color: #f3f3f3;"
-				class="text-center" rowspan="2">비밀번호</th>
-		</tr>
-		<tr>
-			<td style="background-color: white;" class="text-muted">
-			<input class='form-control form-control-sm mb-0 col-6' placeholder="새 비밀번호" id='pwd' type='password'
-				name=password> 
-		    <input class='form-control form-control-sm mb-0 col-6' placeholder="새 비밀번호 확인" id='checkpwd' type='password'></td>
-		</tr>
+									<tr>
+										<th style="background-color: #f3f3f3;" class="text-center"
+											rowspan="2">비밀번호</th>
+									</tr>
+									<tr>
+										<td style="background-color: white;" class="text-muted">
+											<input class='form-control form-control-sm mb-0 col-6'
+											placeholder="새 비밀번호" id='pwd' type='password' name=password>
+											<input class='form-control form-control-sm mb-0 col-6'
+											placeholder="새 비밀번호 확인" id='checkpwd' type='password'>
+										</td>
+									</tr>
 
-		<tr>
-			<th style="background-color: #f3f3f3;"
-				class="text-center" rowspan="2">이메일</th>
-		</tr>
-		<tr>
-			<td style="background-color: white;" class="text-muted"><input
-				class='form-control form-control-sm mb-0 col-6' id='email' type='email'
-				name='email'>
-		</tr>
+									<tr>
+										<th style="background-color: #f3f3f3;" class="text-center"
+											rowspan="2">이메일</th>
+									</tr>
+									<tr>
+										<td style="background-color: white;" class="text-muted"><input
+											class='form-control form-control-sm mb-0 col-6' id='email'
+											type='email' name='email'></td>
+									</tr>
 
 
-		<tr>
-			<th style="background-color: #f3f3f3;"
-				class="text-center" rowspan="2">이름</th>
-		</tr>
-		<tr>
-			<td style="background-color: white;" class="pl-3 text-dark"><!-- <input
+									<tr>
+										<th style="background-color: #f3f3f3;" class="text-center"
+											rowspan="2">이름</th>
+									</tr>
+									<tr>
+										<td style="background-color: white;" class="pl-3 text-dark">
+											<!-- <input
 				class='mb-0 form-control col-10' readonly id='name' type='text'
-				name='name'> --><span id="name" ></span></td>
-		</tr>
+				name='name'> --> <span id="name"></span>
+										</td>
+									</tr>
 
-		<tr>
-			<th style="background-color: #f3f3f3;"
-				class="text-center" rowspan="2">은행</th>
-		</tr>
-		<tr>
-			<td style="background-color: white;" class="text-muted"><input
-				class='form-control form-control-sm mb-0 col-6' id='bank' type='text' name='bank'>
-		</tr>
+									<tr>
+										<th style="background-color: #f3f3f3;" class="text-center"
+											rowspan="2">은행</th>
+									</tr>
+									<tr>
+										<td style="background-color: white;" class="text-muted"><input
+											class='form-control form-control-sm mb-0 col-6' id='bank'
+											type='text' name='bank'></td>
+									</tr>
 
-		<tr>
-			<th style="background-color: #f3f3f3;"
-				class="text-center" rowspan="2">통장번호</th>
-		</tr>
-		<tr>
-			<td style="background-color: white;" class="text-muted"><input
-				class='form-control form-control-sm mb-0 col-6' id='accountNo' type='text'
-				name='accountNo'>
-		</tr>
+									<tr>
+										<th style="background-color: #f3f3f3;" class="text-center"
+											rowspan="2">통장번호</th>
+									</tr>
+									<tr>
+										<td style="background-color: white;" class="text-muted"><input
+											class='form-control form-control-sm mb-0 col-6'
+											id='accountNo' type='text' name='accountNo'></td>
+									</tr>
 
-		<tr>
-			<th style="background-color: #f3f3f3;"
-				class="text-center" rowspan="2">한마디</th>
-		</tr>
-		<tr>
-			<td style="background-color: white;" class="text-muted"><input
-				class='form-control form-control-sm mb-0 col-6' id='comment' type='text'
-				name='comment'>
-		</tr>
+									<tr>
+										<th style="background-color: #f3f3f3;" class="text-center"
+											rowspan="2">한마디</th>
+									</tr>
+									<tr>
+										<td style="background-color: white;" class="text-muted"><input
+											class='form-control form-control-sm mb-0 col-6' id='comment'
+											type='text' name='comment'></td>
+									</tr>
 
-		<tr>
-			<th style="background-color: #f3f3f3;"
-				class="text-center" rowspan="2">전화번호</th>
-		</tr>
-		<tr>
-			<td style="background-color: white;" class="text-muted"><input
-				class='form-control form-control-sm mb-0 col-6' id='phone' type='text' name='phone'>
-		</tr>
+									<tr>
+										<th style="background-color: #f3f3f3;" class="text-center"
+											rowspan="2">전화번호</th>
+									</tr>
+									<tr>
+										<td style="background-color: white;" class="text-muted"><input
+											class='form-control form-control-sm mb-0 col-6' id='phone'
+											type='text' name='phone'></td>
+									</tr>
 
-		<tr>
-			<th style="background-color: #f3f3f3;"
-				class="text-center" rowspan="2">우편번호</th>
-		</tr>
-		<tr>
-			<td style="background-color: white;" class="text-muted"><input
-				class='form-control form-control-sm mb-0 disinline col-6' readonly="readonly" id='sample6_postcode' type='text'
-				name='postNo'>
-		    <input class="disinline btn btn-primary btn-sm col-4" type="button"  onclick="sample6_execDaumPostcode()" value="우편번호 찾기">
-		</tr>
-		<tr>
-			<th style="background-color: #f3f3f3;"
-				class="text-center" rowspan="2">기본주소</th>
-		</tr>
-		<tr>
-			<td style="background-color: white;" class="text-muted"><input
-				class='form-control form-control-sm mb-0 col-6' readonly="readonly" id='sample6_address' type='text'
-				name='baseAddress'>
-		</tr>
+									<tr>
+										<th style="background-color: #f3f3f3;" class="text-center"
+											rowspan="2">우편번호</th>
+									</tr>
+									<tr>
+										<td style="background-color: white;" class="text-muted"><input
+											class='form-control form-control-sm mb-0 disinline col-6'
+											readonly="readonly" id='sample6_postcode' type='text'
+											name='postNo'> <input
+											class="disinline btn btn-primary btn-sm col-4" type="button"
+											onclick="sample6_execDaumPostcode()" value="우편번호 찾기"></td>
+									</tr>
+									<tr>
+										<th style="background-color: #f3f3f3;" class="text-center"
+											rowspan="2">기본주소</th>
+									</tr>
+									<tr>
+										<td style="background-color: white;" class="text-muted"><input
+											class='form-control form-control-sm mb-0 col-6'
+											readonly="readonly" id='sample6_address' type='text'
+											name='baseAddress'></td>
+									</tr>
 
-		<tr>
-			<th style="background-color: #f3f3f3;"
-				class="text-center" rowspan="2">상세주소</th>
-		</tr>
-		<tr>
-			<td style="background-color: white;" class="text-muted"><input
-				class='form-control form-control-sm mb-0 col-6' id='sample6_address2' type='text'
-				name='detailAddress'>
-		</tr>
-	</tbody>
-</table>
-<div class="mx-auto">
-<button id="updateBtn" type="button" class="btn btn-primary">변경완료</button> 
-</div>
-</div>
-</div> 
+									<tr>
+										<th style="background-color: #f3f3f3;" class="text-center"
+											rowspan="2">상세주소</th>
+									</tr>
+									<tr>
+										<td style="background-color: white;" class="text-muted"><input
+											class='form-control form-control-sm mb-0 col-6'
+											id='sample6_address2' type='text' name='detailAddress'></td>
+									</tr>
+								</tbody>
+							</table>
+							<div class="mx-auto">
+								<button id="updateBtn" type="button" class="btn btn-primary">변경완료</button>
+							</div>
+						</div>
+					</div>
+			<input id='address' type="hidden" name='address' value=""> <input
+				id='lat' type="hidden" name='latitude' value=0> <input
+				id='lng' type="hidden" name='longitude' value=0>
+			
+			</form>
+			</div>
+		</div>
+	</div>
 
-</div>
-<input id='address' type="hidden" name='address' value="">
-<input id='lat' type="hidden" name='latitude' value=0>
-<input id='lng' type="hidden" name='longitude' value=0>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
 
-</form>
-</div>
-</div>
-</div>
-
-<br><br><br><br><br><br><br><br>
-
-<script src='/node_modules/jquery/dist/jquery.min.js'></script>
-<script src='/node_modules/popper.js/dist/umd/popper.min.js'></script>
-<script src='/node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
-<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
-<script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
-<script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
-<script src='/node_modules/sweetalert/dist/sweetalert.min.js'></script>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=41a90b1059ade44d7db374c4db586dfb&libraries=services"></script>
-<script>
+	<script src='/node_modules/jquery/dist/jquery.min.js'></script>
+	<script src='/node_modules/popper.js/dist/umd/popper.min.js'></script>
+	<script src='/node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
+	<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+	<script
+		src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js"
+		charset="utf-8"></script>
+	<script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
+	<script src='/node_modules/sweetalert/dist/sweetalert.min.js'></script>
+	<script type="text/javascript"
+		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=41a90b1059ade44d7db374c4db586dfb&libraries=services"></script>
+	<script>
 var password = $('#pwd'),
 	pwdcheck = $('#checkpwd'),
 	userid = $('#userid'),
