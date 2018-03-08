@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java100.app.domain.RequestItem;
 import java100.app.domain.User;
 import java100.app.service.RequestItemService;
 
@@ -27,4 +28,15 @@ public class RequestItemController {
         
         return result;
     }
+    
+    @RequestMapping("add")
+    public Object add(RequestItem requestItem, HttpSession session) throws Exception {
+        User user = (User) session.getAttribute("loginUser");
+        requestItem.setUserNo(user.getUserNo());
+        requestItemService.add(requestItem);
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("stauts", "success");
+        return result;
+    }
+    
 }
