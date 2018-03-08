@@ -351,16 +351,16 @@ if (index != -1) { // 기존 데이터를 조회할 경우
                 var photo = data.photoName.split(',');
                 var thumb = data.thumbnailName.split(',');
             }
-            $('#itempic1').css("background-image","url('/download/"+thumb[0]+"')");
-            $('#itemName').html('<h5><div style="color: black;">'+result.item.itemName+'</h5></div>');
-            $('#dp').prepend('<div style="color: #fe8600;"><i class="fa fa-history pr-1"></i>대여기간 : ' + moment(result.item.startDate).format('YYYY-MM-DD') + ' ~ ' +
-                    moment(result.item.endDate).format('YYYY-MM-DD')+ '</div>');
-            $('#pr').html('<h5 class="mb-0"><div class="text-muted disinline">총 결제 금액 ' + transPrice(price)+" 원" + '</h5></div>');
             price = result.item.price + 2500;
             userNo = result.item.userNo
             itemNo = result.item.itemNo;
             elat = result.maps.latitude;
             elng = result.maps.longitude;
+            $('#itempic1').css("background-image","url('/download/"+thumb[0]+"')");
+            $('#itemName').html('<h5><div style="color: black;">'+result.item.itemName+'</h5></div>');
+            $('#dp').prepend('<div style="color: #fe8600;"><i class="fa fa-history pr-1"></i>대여기간 : ' + moment(result.item.startDate).format('YYYY-MM-DD') + ' ~ ' +
+                    moment(result.item.endDate).format('YYYY-MM-DD')+ '</div>');
+            $('#pr').html('<h5 class="mb-0"><div class="text-muted disinline">총 결제 금액 ' + transPrice(price)+" 원" + '</h5></div>');
             //지도표시
             var loc = new daum.maps.LatLng(result.maps.latitude, result.maps.longitude);
             var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
