@@ -179,10 +179,10 @@ img {
 									<tr>
 										<td style="background-color: white;" class="text-muted"><input
 											class='form-control form-control-sm mb-0 disinline col-6'
-											readonly="readonly" id='sample6_postcode' type='text'
+											 id='sample5_postcode' type='text'
 											name='postNo'> <input
 											class="disinline btn btn-primary btn-sm col-4" type="button"
-											onclick="sample6_execDaumPostcode()" value="우편번호 찾기"></td>
+											onclick="sample5_execDaumPostcode()" value="우편번호 찾기"></td>
 									</tr>
 									<tr>
 										<th style="background-color: #f3f3f3;" class="text-center"
@@ -191,7 +191,7 @@ img {
 									<tr>
 										<td style="background-color: white;" class="text-muted"><input
 											class='form-control form-control-sm mb-0 col-6'
-											readonly="readonly" id='sample6_address' type='text'
+											 id='sample5_address' type='text'
 											name='baseAddress'></td>
 									</tr>
 
@@ -202,7 +202,7 @@ img {
 									<tr>
 										<td style="background-color: white;" class="text-muted"><input
 											class='form-control form-control-sm mb-0 col-6'
-											id='sample6_address2' type='text' name='detailAddress'></td>
+											id='sample5_address2' type='text' name='detailAddress'></td>
 									</tr>
 								</tbody>
 							</table>
@@ -250,9 +250,9 @@ var password = $('#pwd'),
 	bank = $('#bank'),
 	cnt = $('#comment'),
 	phone = $('#phone'),
-	postNo = $('#sample6_postcode'),
-	baseAddr = $('#sample6_address'),
-	detailAddr = $('#sample6_address2'),
+	postNo = $('#sample5_postcode'),
+	baseAddr = $('#sample5_address'),
+	detailAddr = $('#sample5_address2'),
 	photos = $('#photo'),
 	addBtn = $('#addBtn'),
 	deleteBtn = $('#deleteBtn'),
@@ -344,7 +344,7 @@ if (index != -1) { // 기존 데이터를 조회할 경우
     });
 }
 
-    function sample6_execDaumPostcode() {
+    function sample5_execDaumPostcode() {
         new daum.Postcode({
             oncomplete: function(data) {
                 // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
@@ -377,11 +377,11 @@ if (index != -1) { // 기존 데이터를 조회할 경우
                 }
 
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                document.getElementById('sample6_postcode').value = data.zonecode; //5자리 새우편번호 사용
-                document.getElementById('sample6_address').value = fullAddr;
+                document.getElementById('sample5_postcode').value = data.zonecode; //5자리 새우편번호 사용
+                document.getElementById('sample5_address').value = fullAddr;
 
                 // 커서를 상세주소 필드로 이동한다.
-                document.getElementById('sample6_address2').focus();
+                document.getElementById('sample5_address2').focus();
             }
         }).open();
     }
