@@ -250,7 +250,6 @@ $('#PwCheck').keyup(() => {
 detailAddr.focus(()=> {
     var geocoder = new daum.maps.services.Geocoder();
     geocoder.addressSearch(baseAddr.val(),function(result, status) {
-        console.log(result)
     $('#address').val(result[0].address_name);
     $('#lat').val(result[0].y);
     $('#lng').val(result[0].x);
