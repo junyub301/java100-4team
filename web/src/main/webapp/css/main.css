@@ -47,14 +47,14 @@
 /* 1. base
 --------------------------------------------------------------------------------*/
 
-a[disabled], input[disabled], button[disabled], textarea[disabled] {
+/* a[disabled], input[disabled], button[disabled], textarea[disabled] {
     cursor: not-allowed !important;
     opacity: .5 !important;
-}
+} */
 
-a:focus, input:focus, button:focus, textarea:focus {
+/* a:focus, input:focus, button:focus, textarea:focus {
     outline: none;
-}
+} */
 
 p {
     margin-top: 0;
@@ -228,7 +228,7 @@ a:focus {
     }
 }
 
-.btn {
+/* .btn {
     display: inline-block;
     margin-bottom: 0;
     font-weight: normal;
@@ -782,7 +782,7 @@ input[type="button"].btn-block {
 .btn-w180 {
     min-width: 180px;
 }
-
+ */
 
 
 
@@ -790,7 +790,7 @@ input[type="button"].btn-block {
 /* 2. form-item
 --------------------------------------------------------------------------------*/
 
-.form-control, select, textarea, input[type="text"], input[type="password"],
+/* .form-control, select, textarea, input[type="text"], input[type="password"],
 input[type="datetime"], input[type="datetime-local"], input[type="date"],
 input[type="month"], input[type="time"], input[type="week"],
 input[type="number"], input[type="email"], input[type="url"],
@@ -967,22 +967,22 @@ input[type="url"][disabled], input[type="search"][disabled],
 input[type="tel"][disabled], input[type="color"][disabled] {
     opacity: .65;
     cursor: not-allowed;
-}
+} */
 
-input:not([type="button"]):not([type="submit"]):not([type="radio"]):not([type="checkbox"]):not([type="color"]),
+/* input:not([type="button"]):not([type="submit"]):not([type="radio"]):not([type="checkbox"]):not([type="color"]),
 textarea {
     -webkit-appearance: none;
        -moz-appearance: none;
             appearance: none;
-}
+} */
 
 input[type="checkbox"], input[type="radio"] {
     width: auto !important;
 }
 
-textarea {
+/* textarea {
     height: auto !important;
-}
+} */
 
  {
     /* no-gutters Class Rules */
@@ -1045,9 +1045,9 @@ a {
     transition: all .3s ease;
 }
 
-a, input, textarea, select {
+/* a, input, textarea, select {
     outline: none;
-}
+} */
 
 h1, h2, h3, h4, h5, h6 {
     font-weight: 700;
@@ -1781,14 +1781,14 @@ mark, .mark {
     display: table;
 }
 
-.form-sub__form .form-control {
+/* .form-sub__form .form-control {
     margin-bottom: 0;
     border-right: none;
 }
 
 .form-sub__form .form-control:focus {
     border-color: transparent;
-}
+} */
 
 .form-sub__form .form-button {
     color: #007bff;
@@ -1819,9 +1819,9 @@ mark, .mark {
     width: 1%;
 }
 
-.form-sub__form .form-submit .btn {
+/* .form-sub__form .form-submit .btn {
     min-width: 150px;
-}
+} */
 
 .form-sub__title {
     font-size: 16px;
