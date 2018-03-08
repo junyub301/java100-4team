@@ -227,7 +227,7 @@ ul{
       </div>
       <div class="modal-body">
             <div class="container">
-                    <form id="form" method="post" enctype="multipart/form-data"
+                    <form id="form1" method="post" enctype="multipart/form-data"
                         autocomplete="off">
                         <div class="form-group row">
                             <div class="col-sm-10 mx-auto">
@@ -430,30 +430,30 @@ $('#add').click(() => {
 </script>
 
 <script type="text/javascript">
-var id = $('#userId'),
-    pwd = $('#password'),
+var id1 = $('#userId'),
+    pwd1 = $('#password'),
     loginBtn = $('#btn2'),
     saveId = $('#saveaccountName');
     
     if (getCookie('check') == 'ok') {
         saveId.prop("checked", true);
     }
-    id.val(getCookie('id'));
+    id1.val(getCookie('id'));
     
 loginBtn.click(() => {
     
-    console.log(id.val(), pwd.val(),saveId.is(':checked'));
+    console.log(id1.val(), pwd1.val(),saveId.is(':checked'));
     if (saveId.is(':checked')) {
         setCookie('check','ok',7);
-        setCookie('id', id.val(), 7);
+        setCookie('id', id1.val(), 7);
     } else {
         setCookie('check',"",0);
         setCookie('id',"", 0);
     }
     
     $.post('../../json/auth/login', {
-        id: id.val(),
-        password: pwd.val()
+        id: id1.val(),
+        password: pwd1.val()
         
     }, (result) => {
         if (result.status == "success") {
@@ -478,7 +478,6 @@ $.ajax('/json/auth/loginUser', {
     },
     dataType: 'json',
     success: (result) => {
-        console.log(result)
         $('#username').html("<i id='usericon' class='fa fa-user mx-1' style='font-size: 24px; color: white'></i>" 
         + result.user.userName);
         $('#loginBtn').hide();
@@ -644,7 +643,7 @@ $(document).ready(function(){
                 type: 'POST',
                 url: '  ../../json/user/checkId',
                 data: {
-                    "accountName" : value
+                    id : value
                 },
                 success: function(data){
                     if($.trim(data) == 0){
@@ -705,7 +704,7 @@ addBtn.click(() => {
             throw stop;
         };
     });
-    var formData = new FormData($("#form")[0]);
+    var formData = new FormData($("#form1")[0]);
     $.ajax('../../json/user/add', {
         data : formData,
         dataType: 'json',
@@ -714,7 +713,7 @@ addBtn.click(() => {
         contentType : false,
         success: (result) => {
             $.post('../../json/auth/login', {
-                accountName: id.val(),
+                id : id.val(),
                 password: pwd.val()
                 
             }, (result) => {
