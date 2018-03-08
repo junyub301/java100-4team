@@ -105,7 +105,9 @@
         <h4 class="modal-title" id="exampleModalLongTitle">
         <a onclick="location.href='/html/item/list.html'"
                 style="color: #0160c5;" class="" href="#">결제<i class="fa fa-handshake-o" style="font-size: 24px; color: #0160c5"></i>정보</a></h4>
-                </div>
+         <button id='closeModal' type="button" class="close" data-dismiss="modal" aria-label="Close">
+        </button>
+      </div>
       </div>
       <div class="modal-body">
       <div class="textcenter">
@@ -524,7 +526,8 @@ function pay() {
                         itemNo: item_no ,
                         payMethod: rsp.pay_method,
                         payDate: moment(rsp.paid_at*1000).format('YYYY-MM-DD'),
-                        deliveryPayType: deliveryPayType
+                        deliveryPayType: deliveryPayType,
+                        selectAdd: 1
                     },
                     success: (result) => {
                         swal('결제성공');

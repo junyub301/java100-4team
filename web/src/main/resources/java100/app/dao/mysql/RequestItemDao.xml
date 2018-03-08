@@ -3,9 +3,9 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="java100.app.dao.RequestDao">
+<mapper namespace="java100.app.dao.RequestItemDao">
     
-    <resultMap type="request" id="requestMap">
+    <resultMap type="RequestItem" id="requestMap">
         <id column="rq_no" property="requestNo"/>
         <result column="ur_no" property="userNo"/>
         <result column="title" property="title"/>
@@ -38,7 +38,7 @@
     </select>
     
     
-    <insert id="insert" parameterType="request" 
+    <insert id="insert" parameterType="requestItem" 
         useGeneratedKeys="true" keyColumn="rq_no" keyProperty="requestNo">
         insert into request(ur_no,title,cnt,item_name,reg_date) 
         values(#{userNo},#{title},#{content},#{itemName},now())
