@@ -104,6 +104,11 @@ ul{
                     name='words' placeholder="&#xf002" aria-label="Search">
             </form>
             <ul class="navbar-nav ml-auto">
+            <li id="add" class="nav-item active"><i id="" style="font-size:24px;color:white;display: inline-block;" class="fa fa-plus-square"></i>
+                <a class="nav-link px-0 disinline" id=""
+                    href="../item/form.html">물품등록</a>
+                    </li>
+                    <div class="col-1"></div>
                 <li class="nav-item active"><a id="username" href=""
                     onclick="href='../tr/list.html'" style="display: inline-block;"
                     class="nav-link"></a></li>
@@ -131,8 +136,6 @@ ul{
         </div> -->
         <div class="filter">
             <ul class="filter__list mb-0">
-                <li><a id="add" href="#"><i class="fa fa-plus-square" style="color: #007BFF">
-                </i>Add</a></li>
                 <li><a href="../item/list.html">All</a></li>
                 <li><a href="../item/list.html?cr=1">전자제품</a></li>
                 <li><a href="../item/list.html?cr=2">뷰티</a></li>
@@ -487,6 +490,7 @@ window.onbeforeunload = function(e){
     };
     
 $('#logoutBtn').hide();
+$('#add').hide();
 
  $.ajax('/json/auth/loginUser', {
     beforeSend: function(xmlHttpRequest) {
@@ -500,6 +504,7 @@ $('#logoutBtn').hide();
         $('#signupBtn').hide();
         $('#signupicon').hide();
         $('#logoutBtn').show();
+        $('#add').show();
         $('#signupcol').removeClass('col-1');
         $('#keyicon').removeClass('fa fa-key').addClass('fa fa-unlock-alt');
         logined = true;
