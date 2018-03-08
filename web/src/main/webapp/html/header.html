@@ -77,7 +77,7 @@ ul{
 
 <meta name="google-signin-scope" content="profile email">
 <!-- <meta name="google-signin-client_id"
-    content="1044303474679-rpsg3ved114h5p6dpdg0tsp6joo2l2la.apps.googleusercontent.com"> -->
+    content="1044303474679-rpsg3ved114h5p6dpdg0tsp6joo2l2la.apps.googleusercontent.com">
     <!--file input  -->
 <link href="../../node_modules/bootstrap-fileinput/css/fileinput.css" media="all" rel="stylesheet" type="text/css"/>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" media="all" rel="stylesheet" type="text/css"/>
@@ -164,8 +164,8 @@ ul{
                 <div class="textcenter">
                 <form action="login" method='post'>
                     <div class='form-group'>
-                        <input placeholder="아이디" class='form-control' id='accountName'
-                            type='text' name='accountName'>
+                        <input placeholder="아이디" class='form-control' id='userId'
+                            type='text' name='userId'>
                     </div>
 
                     <div class='form-group'>
@@ -232,7 +232,7 @@ ul{
                         <div class="form-group row">
                             <div class="col-sm-10 mx-auto">
                                 <input id='act_id' class="mb-0 form-control" type='text'
-                                    placeholder="아이디를입력하시오." required name='accountName'>
+                                    placeholder="아이디를입력하시오." required name='userId'>
                                 <p class="mb-0" id="checkId">
                             </div>
                         </div>
@@ -264,7 +264,7 @@ ul{
                         <div class="form-group row">
                             <div class="col-sm-10 mx-auto">
                                 <input id='name' type='text' class="mb-0 form-control"
-                                    placeholder="이름를입력하시오." required name='name'>
+                                    placeholder="이름를입력하시오." required name='userName'>
                             </div>
                         </div>
 
@@ -430,29 +430,29 @@ $('#add').click(() => {
 </script>
 
 <script type="text/javascript">
-var id2 = $('#accountName'),
-    pwd1 = $('#password'),
+var id = $('#userId'),
+    pwd = $('#password'),
     loginBtn = $('#btn2'),
     saveId = $('#saveaccountName');
     if (getCookie('check') == 'ok') {
         saveId.prop("checked", true);
     }
-    id2.val(getCookie('id'));
+    id.val(getCookie('id'));
     
 loginBtn.click(() => {
     
-    console.log(id2.val(), pwd1.val(),saveId.is(':checked'));
+    console.log(id.val(), pwd.val(),saveId.is(':checked'));
     if (saveId.is(':checked')) {
         setCookie('check','ok',7);
-        setCookie('id', id2.val(), 7);
+        setCookie('id', id.val(), 7);
     } else {
         setCookie('check',"",0);
         setCookie('id',"", 0);
     }
     
     $.post('../../json/auth/login', {
-        accountName: id2.val(),
-        password: pwd1.val()
+        id: id.val(),
+        password: pwd.val()
         
     }, (result) => {
         if (result.status == "success") {
@@ -470,6 +470,7 @@ var logined = false;
 window.onbeforeunload = function(e){
       gapi.auth2.getAuthInstance().signOut();
     };
+    
 $('#logoutBtn').hide();
 
 $.ajax('/json/auth/loginUser', {
@@ -597,184 +598,5 @@ var naverLogin = new naver.LoginWithNaverId(
     );
     /* (4) 네아로 로그인 정보를 초기화하기 위하여 init을 호출 */
 naverLogin.init();
-</script>
-
-<!-- 회원가입 -->
-<script type="text/javascript">
-var pwd = $('#pwd'),
-    pwd2 = $('#PwCheck'),
-    id = $('#act_id'),
-    email1 = $('#email'),
-    nameItem1 = $('#name'),
-    accNo1 = $('#acc_no'),
-    bank1 = $('#bank'),
-    cnt1 = $('#cnt'),
-    phone1 = $('#phone'),
-    postNo1 = $('#sample6_postcode'),
-    baseAddr1 = $('#sample6_address'),
-    detailAddr1 = $('#sample6_address2'),
-    photos = $('#photo'),
-    addBtn = $('#addBtn');
-
-/* $('input').on("blur",function(e) {
-    if(e.target.value == "") {
-        $(this).addClass('mb-0');
-        $(this).siblings().html('<i class="fa fa-exclamation-circle" style="color:red"></i>빈칸을 채워주세요').css('color', 'red');
-    }
-}) */
-$('.modal').on('shown.bs.modal', function (e) {
-    $('.abcRioButton').addClass('mx-auto');
-});
-
-$('.modal').on('hidden.bs.modal', function (e) {
-  $(this).find('form')[0].reset()
-  $('#checkId').html(' ');
-  $('#checkEmail').html(' ');
-  $('#pwsame').html(' ');
-});
-
-$(document).ready(function(){
-    id.keyup(() => {
-        var value = id.val();
-        if(value && $.trim(value))
-           {
-            $.ajax({
-                type: 'POST',
-                url: '  ../../json/user/checkId',
-                data: {
-                    "accountName" : value
-                },
-                success: function(data){
-                    if($.trim(data) == 0){
-                    $('#checkId').html('<i class="fa fa-check" style="color:#21ff00"></i>사용가능').css('color', '#007BFF');
-                } else {
-                    $('#checkId').html('<i class="fa fa-exclamation-circle" style="color:red"></i>이미 사용중인 아이디입니다.').css('color', 'red');
-                }
-                }
-            });    //end ajax
-           }
-        else
-           {
-            $('#checkId').html('<i class="fa fa-exclamation-circle" style="color:red"></i>ID를 입력해주세요').css('color', 'red');
-           }
-    }); 
-    
-    email1.keyup(() => {
-        var value = email1.val();
-        if(value && $.trim(value))
-           {
-                $.ajax({
-                    type: 'POST',
-                    url: '  ../../json/user/checkEmail',
-                    data: {
-                        "email" : value
-                    },
-                    success: function(data){
-                        console.log(data)
-                        if($.trim(data) == 0){
-                            $('#checkEmail').html('<i class="fa fa-check" style="color:#21ff00"></i>사용가능').css('color', '#007BFF');
-                        } 
-                        else{
-                            $('#checkEmail').html('<i class="fa fa-exclamation-circle" style="color:red"></i>이미 사용중인 이메일입니다').css('color', 'red');
-                        }
-                    }
-                });    //end ajax
-           }
-        else
-        {
-         $('#checkEmail').html('<i class="fa fa-exclamation-circle" style="color:red"></i>email을 입력해 주세요').css('color', 'red');
-        }
-    }); 
-    
-});
-
-$('#PwCheck').keyup(() => {
-    if (pwd.val() == pwd2.val()) {
-        $('#pwsame').html('<i class="fa fa-check" style="color:#21ff00"></i>일치합니다.').css('color', '#007BFF');
-    } else {
-        $('#pwsame').html('<i class="fa fa-exclamation-circle" style="color:red"></i>비밀번호가 일치하지 않습니다.').css('color', 'red');
-    }
-});
-
-addBtn.click(() => {
-    $(':required').each(function() {
-        if ($(this).val() == "") {
-            swal("빈칸을 채워주세요");
-            throw stop;
-        };
-    });
-    var formData = new FormData($("#form")[0]);
-    $.ajax('../../json/user/add', {
-        data : formData,
-        dataType: 'json',
-        method: 'POST',
-        processData : false,
-        contentType : false,
-        success: (result) => {
-            $.post('../../json/auth/login', {
-                accountName: id.val(),
-                password: pwd.val()
-                
-            }, (result) => {
-                if (result.status == "success") {
-                    location.href = "../item/list.html"
-                }
-            },'json');
-        },
-        error:function(request,status,error){
-            swal("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-         }
-
-    });
-});
-
-
-function sample6_execDaumPostcode() {
-    new daum.Postcode({
-        oncomplete: function(data) {
-            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-
-            // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-            // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-            var fullAddr = ''; // 최종 주소 변수
-            var extraAddr = ''; // 조합형 주소 변수
-
-            // 사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-            if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-                fullAddr = data.roadAddress;
-
-            } else { // 사용자가 지번 주소를 선택했을 경우(J)
-                fullAddr = data.jibunAddress;
-            }
-
-            // 사용자가 선택한 주소가 도로명 타입일때 조합한다.
-            if(data.userSelectedType === 'R'){
-                //법정동명이 있을 경우 추가한다.
-                if(data.bname !== ''){
-                    extraAddr += data.bname;
-                }
-                // 건물명이 있을 경우 추가한다.
-                if(data.buildingName !== ''){
-                    extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-                }
-                // 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
-                fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
-            }
-
-            // 우편번호와 주소 정보를 해당 필드에 넣는다.
-            document.getElementById('sample6_postcode').value = data.zonecode; //5자리 새우편번호 사용
-            document.getElementById('sample6_address').value = fullAddr;
-
-            // 커서를 상세주소 필드로 이동한다.
-            document.getElementById('sample6_address2').focus();
-        }
-    }).open();
-}
-</script>
-<script>
-$('#file4').fileinput({
-    theme: 'fa',
-});
-
 </script>
 
