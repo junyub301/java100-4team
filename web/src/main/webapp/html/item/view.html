@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="no-js">
+<html>
 <head>
 <link href="../../css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet"
@@ -8,7 +8,6 @@
 <meta charset='UTF-8'>
 <style>
 
-.no-js {display:none;}
 #map {  
         display:inline-block;
         margin:10px auto;
@@ -105,8 +104,6 @@
         <h4 class="modal-title" id="exampleModalLongTitle">
         <a onclick="location.href='/html/item/list.html'"
                 style="color: #0160c5;" class="" href="#">결제<i class="fa fa-handshake-o" style="font-size: 24px; color: #0160c5"></i>정보</a></h4>
-         <button id='closeModal' type="button" class="close" data-dismiss="modal" aria-label="Close">
-        </button>
       </div>
       </div>
       <div class="modal-body">
@@ -406,7 +403,7 @@ if (index != -1) { // 기존 데이터를 조회할 경우
             +"<div id='userpic' class='d-inline-block rounded-circle' style='width:50px; height: 50px;background-size: 100% 100%'></div></div>"
             +"<div class='d-inline-flex align-items-stretch flex-column-reverse align-top ml-3'>"
             +"<div id='starpic' class='d-inline-block' style='width:100px; height: 19px;background-size: 100% 100%;'></div>"
-            +"<div class='d-inline-block mb-2' style='text-align: left;width:100px; height: 19px;background-size: 100% 100%;'>"+result.review.actname+"</div></div>"
+            +"<div class='d-inline-block mb-2' style='text-align: left;width:100px; height: 19px;background-size: 100% 100%;'>"+result.review.userName+"</div></div>"
             +"<div class='mt-2'>"+result.review.contents+"</div>")
             var starpic;
             switch (result.review.star) {
@@ -469,7 +466,7 @@ $('.deliberypay').change(() => {
 
 //결제시 호출되는 함수
 function pay() {
-    $('#closeModal').trigger('click');
+    $('#priceModal').modal('hide');
     var deliveryPayType;
     if ($('#prepaid').prop("checked")) {
         deliveryPayType = 1;
@@ -567,9 +564,7 @@ function transPrice(price) {
     return str;
 }
 
-$(function(){
-    $('html').removeClass("no-js");
-})
+
 </script>
 
 </body>

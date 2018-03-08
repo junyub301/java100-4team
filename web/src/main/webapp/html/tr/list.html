@@ -167,9 +167,6 @@ star-input>.input.focus{outline:1px dotted #ddd;}
       <div>
       운송장번호:<input class="form-control" id="deliveryNo" type="number" name="deliveryNo">
       </div>
-      <div>
-      배송날짜:<input class="form-control" id="deliveryDate" type="date" name="deliveryDate">
-      </div>
       <input id='rentNo2' type="hidden">
       <input id='itemNo2' type="hidden">
       </div>
@@ -456,6 +453,7 @@ function reviewAdd() {
             state: 1
         },
         success: (result) => {
+          $('#reviewModal').modal('hide');
           swal("리뷰등록성공");
         },
         error: () => {
@@ -470,7 +468,6 @@ $(tbody).on("click","#deliveryBtn",function(e) {
     $('#itemNo2').val($(e.target).attr('data-itemNo'));
     $('#deliveryNo').val("");
     $('#parcel').val("");
-    $('#deliveryDate').val("");
     $.ajax("/json/user/"+$(e.target).attr('data-userNo'),{
         success: (result)=> {
             $('#lenderName').html("구매자 이름: "+result.user.userName);
@@ -483,7 +480,6 @@ $(tbody).on("click","#deliveryBtn",function(e) {
                 if (result.transaction.deliveryNo != 0) {
                     $('#deliveryNo').val(result.transaction.deliveryNo);
                     $('#parcel').val(result.transaction.parcel);
-                    $('#deliveryDate').val(moment(result.transaction.deliveryDate).format("YYYY-MM-DD"));
                 }
             });
 });
@@ -498,9 +494,10 @@ function deliveryAdd() {
             itemNo: $('#itemNo2').val(),
             parcel: $('#parcel').val(),
             deliveryNo: $('#deliveryNo').val(),
-            deliveryDate: $('#deliveryDate').val()
         },
         success: (result) => {
+          
+          $('#deliveryModal').modal('hide');
           swal("배송등록성공");
           load2();
         },
