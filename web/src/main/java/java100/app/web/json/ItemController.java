@@ -66,7 +66,6 @@ public class ItemController {
             @RequestParam(value="al", required=false) String alignColumn,
             HttpSession session) throws Exception {
         User user = (User)session.getAttribute("loginUser");
-        
         if (pageNo < 1) {
             pageNo = 1;
         }
@@ -80,6 +79,7 @@ public class ItemController {
         if (word != null) {
         words = word.split(" ");
         }
+        
         options.put("words", words);
         if (user != null) {
         options.put("user",user.getUserNo());

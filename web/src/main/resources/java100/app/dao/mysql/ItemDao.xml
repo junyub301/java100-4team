@@ -30,14 +30,14 @@
     
     <select id="countAll" resultType="int" parameterType="map">
         select count(*) from item
-        <!-- <if test="categoryNo != 0">
+        <if test="categoryNo != 0">
             where category=#{categoryNo}
-        </if>
         <if test="words != null">
             <foreach collection="words" item="word">
                 and title like '%${word}%'
              </foreach>
-        </if> -->
+        </if>
+        </if>
     </select>
     
     <insert id="insert" parameterType="item"
@@ -72,13 +72,12 @@
             join photo as p on i.it_no=p.it_no 
         <if test="categoryNo != 0">
             where category=#{categoryNo}
-        </if>
-        
-        <!-- <if test="words != null">
+        <if test="words != null">
             <foreach collection="words" item="word">
                 and title like '%${word}%'
              </foreach>
-        </if> -->
+        </if>
+        </if>
         group by it_no
         <!-- 정렬 조건에 따라 SQL문을 변경한다.-->
         order by 

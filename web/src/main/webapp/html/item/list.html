@@ -107,6 +107,7 @@ height: 100%;
         <p class="card-text mb-0 mx-3 text-muted" type="date" style="text-align: right;">{{formatDate startDate}} ~ {{formatDate endDate}}</p>
         <p class="card-text mb-0 mx-3 text-truncate text-muted" style="text-align: right;">{{fb price}} 원</p>
         <p class="card-text mb-0 mx-3 text-truncate text-muted" style="text-align: right;">{{cty category}}</p>
+        <p class="card-text mb-0 mx-3 text-truncate text-muted" style="text-align: right;">{{distance}}Km</p>
         <div class="mb-2">
     </div>
     </div>
@@ -179,15 +180,9 @@ var prevBtn = $("#prevBtn"),
     template1Src = $('#t1').html(),
     template1Engine = Handlebars.compile(template1Src);
 
-if ($(location).attr('search').split("=")[0] == '?cr') {
-    categoryNo = $(location).attr('search').split("=")[1];
-} else {
-    var searchWord = decodeURI($(location).attr('search')).split("=")[1];
-    if (searchWord != undefined) {
-    words = searchWord.split("+").join(" ");
-    }
-}
-load(1,0,categoryNo,words);
+console.log(categoryNo)
+console.log(words)
+load(1,categoryNo,words);
 $('header').load('../header.html')
 
 $("#shared_img").mouseover(function(){ 
@@ -243,11 +238,6 @@ Handlebars.registerHelper("cty", function(category) {
     if(category == 5){ return "ETC";}
 });
 
-
-
-
-
-
 rentBtn.click(() => {
     $('#renticon').css('color', '#007BFF');
     $('#lendicon').css('color', 'grey');
@@ -262,11 +252,7 @@ nextBtn.click(() => {
 });
 
 function load(pageNo, categoryNo, words) {
-    /* 
-    if (options == undefined) options = {};
-    options.pn = pageNo; */
     $.ajax('../../json/item/list', {
-        
         data: {
             pn: pageNo, 
             words: words,
