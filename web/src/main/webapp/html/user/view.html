@@ -66,7 +66,7 @@
 <div class="row"> 
 <div class="form-group row col-10 mx-auto">
 <label for='userid' class='col-sm-2 col-form-label'>아이디</label> 
-<input class='form-control col-10' readonly id='userid' type='text' name='accountName'>
+<input class='form-control col-10' readonly id='userid' type='text' name='urerId'>
 
 <label for='password' class='col-sm-2  col-form-label'>패스워드</label> 
 <input class='form-control col-10' id='pwd' type='password' name=password>
@@ -78,7 +78,7 @@
 <input class='form-control col-10' id='email' type='email' name='email' >
 
 <label for='name' class='col-sm-2 col-form-label'>이름</label> 
-<input class='form-control col-10' readonly id='name' type='text' name='name'>
+<input class='form-control col-10' readonly id='name' type='text' name='userName'>
 
 <label for='bank' class='col-sm-2 col-form-label'>은행</label> 
 <input class='form-control col-10' id='bank' type='text' name='bank' >
@@ -110,7 +110,9 @@
 </div>
 </div> 
 </div>
-
+<input id='address' type="hidden" name='address' value="">
+<input id='lat' type="hidden" name='latitude' value=0>
+<input id='lng' type="hidden" name='longitude' value=0>
 </form>
 
 <br><br><br><br><br><br><br><br>
@@ -121,12 +123,15 @@
 <script src='/node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
+<script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
+<script src='/node_modules/sweetalert/dist/sweetalert.min.js'></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=41a90b1059ade44d7db374c4db586dfb&libraries=services"></script>
 <script>
 var password = $('#pwd'),
 	pwdcheck = $('#checkpwd'),
 	userid = $('#userid'),
 	email = $('#email'),
-	nameItem = $('#name'),
+	userName = $('#name'),
 	accNo = $('#accountNo'),
 	bank = $('#bank'),
 	cnt = $('#comment'),
@@ -141,7 +146,7 @@ var password = $('#pwd'),
 	nod = $('#nodiv'),
 	updateBtn = $('#updateBtn');
 
-$('header').load('../header.html');
+//$('header').load('../header.html');
 
 var btn1 = document.querySelector('#btn1')
 var btn2 = document.querySelector('#btn2')
@@ -153,19 +158,30 @@ btn2.addEventListener('change', function(event) {
     readURL(this);
 })
 
+//위도 경도 받기
+detailAddr.focus(()=> {
+    var geocoder = new daum.maps.services.Geocoder();
+    geocoder.addressSearch(baseAddr.val(),function(result, status) {
+        console.log(result)
+    $('#address').val(result[0].address_name);
+    $('#lat').val(result[0].y);
+    $('#lng').val(result[0].x);
+    })
+
+})
 
 var index = location.href.indexOf('?');
 if (index != -1) { // 기존 데이터를 조회할 경우
     var qs = location.href.substr(index + 1);
     var arr = qs.split('=');
     $(() => {
-        $.ajax('../../json/user/' + arr[1], {
+        $.ajax('/json/user/' + arr[1], {
             dataType: 'json',
             success: (result) => {
                 console.log(result);
-                userid.val(result.account.accountName);
-                nameItem.val(result.account.name);
-                email.val(result.account.email);
+                userid.val(result.user.userId);
+                userName.val(result.user.userName);
+                email.val(result.user.email);
                 bank.val(result.user.bank);
                 accNo.val(result.user.accountNo);
                 cnt.val(result.user.comment);
@@ -177,7 +193,7 @@ if (index != -1) { // 기존 데이터를 조회할 경우
                     var filename = data.thumbnailName
                     imd.html( '<img class="rounded-circle" id="imag" align="middle" src="/download/' + filename + '">');
                 }
-                nod.html("<input id='no' type='hidden' name='accountsNo' value='" + result.account.accountsNo + "'>")
+                nod.html("<input id='no' type='hidden' name='userNo' value='" + result.user.userNo + "'>")
             },
             error: () => {
                 swal('서버 실행 오류!');
@@ -187,13 +203,13 @@ if (index != -1) { // 기존 데이터를 조회할 경우
     
 } else {
     $(() => {
-        $.ajax('../../json/user/view' , {
+        $.ajax('/json/user/view' , {
             dataType: 'json',
             success: (result) => {
-                userid.val(result.account.accountName);
-                nameItem.val(result.account.name);
+                userid.val(result.user.userId);
+                userName.val(result.user.userName);
+                email.val(result.user.email);
                 try {
-                email.val(result.account.email);
                 bank.val(result.user.bank);
                 accNo.val(result.user.accountNo);
                 cnt.val(result.user.comment);
@@ -206,7 +222,7 @@ if (index != -1) { // 기존 데이터를 조회할 경우
                     imd.html( '<img class="rounded-circle" id="imag" align="middle" src="/download/' + filename + '">');
                 }
                 } catch (e) {console.log(e)};
-                nod.html("<input id='no' type='hidden' name='accountsNo' value='" + result.account.accountsNo + "'>")
+                nod.html("<input id='no' type='hidden' name='userNo' value='" + result.user.userNo + "'>")
             },
             error: () => {
                 swal('서버 실행 오류!');
@@ -279,7 +295,7 @@ updateBtn.click(() => {
     }
     
     var formData = new FormData($("#form")[0]);
-    $.ajax('../../json/user/update', {
+    $.ajax('/json/user/update', {
         data : formData,
         dataType: 'json',
         method: 'POST',
@@ -323,7 +339,7 @@ deleteBtn.click(() => {
                     dataType: 'json',
                     success: (result) => {
                         swal("회원탈퇴가 완료되었습니다.!").then((value) => {
-                        $.getJSON('../../json/auth/logout', (result) => {
+                        $.getJSON('/json/auth/logout', (result) => {
                             location.href = '../item/list.html';
                         });
                             })

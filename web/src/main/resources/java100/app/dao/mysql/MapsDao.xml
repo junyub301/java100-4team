@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="java100.app.dao.MapsDao">
+    
+    <resultMap type="maps" id="mapsMap">
+        <id column="m_no" property="mapNo"/>
+        <result column="address" property="address"/>
+        <result column="lat" property="latitude"/>
+        <result column="lng" property="longitude"/>
+        <result column="ur_no" property="userNo"/>
+        <result column="it_no" property="itemNo"/>
+    </resultMap>
+    
+    <select id="list" resultMap="mapsMap" parameterType="map">
+        select
+            m_no,
+            address,
+            lat,
+            lng,
+            ur_no,
+            it_no
+         from map
+    </select>
+    
+    <select id="findByUserNo" resultMap="mapsMap" parameterType="int">
+        select
+            m_no,
+            address,
+            lat,
+            lng,
+            ur_no
+         from map where ur_no=#{value}
+    </select>
+    
+    <select id="findByItemNo" resultMap="mapsMap" parameterType="int">
+        select
+            m_no,
+            address,
+            lat,
+            lng,
+            it_no
+         from map where it_no=#{value}
+    </select>
+    
+    <insert id="insert" parameterType="maps">
+        <if test="userNo != 0">
+        insert into map(address,lat,lng,ur_no)
+            values(#{address},#{latitude},#{longitude},#{userNo})
+        </if>
+        <if test="itemNo != 0">
+        insert into map(address,lat,lng,it_no)
+            values(#{address},#{latitude},#{longitude},#{itemNo})
+        </if>
+    </insert>
+
+    <update id="update" parameterType="maps">
+        update map set 
+            address=#{address},
+            lat=#{latitude},
+            lng=#{longitude}
+        where ur_no=#{userNo}
+    </update>
+    
+    <!-- 
+    <delete id="delete" parameterType="int">
+        delete from map 
+        where m_no=#{value}
+    </delete> -->
+
+</mapper>  
+
+
+
+
+
+
+
+
+

@@ -13,7 +13,7 @@ import java100.app.domain.Account;
 import java100.app.domain.Message;
 import java100.app.service.MessageService;
 
-@Controller
+//@Controller
 @RequestMapping("/msg")
 public class MessageController {
     

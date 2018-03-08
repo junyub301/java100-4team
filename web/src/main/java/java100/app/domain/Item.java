@@ -7,21 +7,25 @@ public class Item {
     protected int itemNo;
     protected int userNo;
     protected String title;
-    protected String name;
+    protected String itemName;
     protected String content;
+    protected Date regDate;
     protected Date startDate;
     protected Date endDate;
     protected int price;
+    protected String dealAddress;
+    protected float distance;
     protected int status;
     protected int category;
-    protected int userType;
+    protected int directOrPay;
     protected List<Photo> photos;
     
     @Override
     public String toString() {
-        return "Item [itemNo=" + itemNo + ", userNo=" + userNo + ", title=" + title + ", name=" + name + ", content="
-                + content + ", startDate=" + startDate + ", endDate=" + endDate + ", price=" + price + ", status="
-                + status + ", category=" + category + ", userType=" + userType + ", photos=" + photos + "]";
+        return "Item [itemNo=" + itemNo + ", userNo=" + userNo + ", title=" + title + ", itemName=" + itemName
+                + ", content=" + content + ", regDate=" + regDate + ", startDate=" + startDate + ", endDate=" + endDate
+                + ", price=" + price + ", dealAddress=" + dealAddress + ", distance=" + distance + ", status=" + status
+                + ", category=" + category + ", directOrPay=" + directOrPay + ", photos=" + photos + "]";
     }
 
     public int getItemNo() {
@@ -48,12 +52,12 @@ public class Item {
         this.title = title;
     }
 
-    public String getName() {
-        return name;
+    public String getItemName() {
+        return itemName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
     }
 
     public String getContent() {
@@ -62,6 +66,14 @@ public class Item {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public Date getRegDate() {
+        return regDate;
+    }
+
+    public void setRegDate(Date regDate) {
+        this.regDate = regDate;
     }
 
     public Date getStartDate() {
@@ -88,6 +100,22 @@ public class Item {
         this.price = price;
     }
 
+    public String getDealAddress() {
+        return dealAddress;
+    }
+
+    public void setDealAddress(String dealAddress) {
+        this.dealAddress = dealAddress;
+    }
+
+    public float getDistance() {
+        return distance;
+    }
+
+    public void setDistance(float distance) {
+        this.distance = distance;
+    }
+
     public int getStatus() {
         return status;
     }
@@ -104,12 +132,12 @@ public class Item {
         this.category = category;
     }
 
-    public int getUserType() {
-        return userType;
+    public int getDirectOrPay() {
+        return directOrPay;
     }
 
-    public void setUserType(int userType) {
-        this.userType = userType;
+    public void setDirectOrPay(int directOrPay) {
+        this.directOrPay = directOrPay;
     }
 
     public List<Photo> getPhotos() {
@@ -119,6 +147,9 @@ public class Item {
     public void setPhotos(List<Photo> photos) {
         this.photos = photos;
     }
+    
+    
+    
     
     
 }

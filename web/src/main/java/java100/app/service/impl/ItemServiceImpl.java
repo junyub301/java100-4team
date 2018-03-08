@@ -8,8 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java100.app.dao.ItemDao;
+import java100.app.dao.MapsDao;
 import java100.app.dao.PhotoDao;
 import java100.app.domain.Item;
+import java100.app.domain.Maps;
 import java100.app.domain.Photo;
 import java100.app.service.ItemService;
 
@@ -18,10 +20,15 @@ public class ItemServiceImpl implements ItemService {
 
     @Autowired ItemDao itemDao;
     @Autowired PhotoDao photoDao;
+    @Autowired MapsDao mapsDao;
     
     @Override
-    public int add(Item item, List<Photo> photoList) {
+    public int add(Item item, List<Photo> photoList, Maps maps) {
         int count = itemDao.insert(item);
+        if (maps.getLatitude() != 0) {
+            maps.setItemNo(item.getItemNo());
+            mapsDao.insert(maps);
+        }
         if (!photoList.isEmpty()) {
         try {
             upload(item.getItemNo(), photoList);
@@ -33,11 +40,10 @@ public class ItemServiceImpl implements ItemService {
     }
  
     @Override
-    public List<Item> list(int pageNo, int pageSize, Map<String, Object> options, int userType, int categoryNo) {
+    public List<Item> list(int pageNo, int pageSize, Map<String, Object> options,int categoryNo) {
         HashMap<String,Object> params = new HashMap<>();
         params.put("startIndex", (pageNo - 1) * pageSize);
         params.put("size", pageSize);
-        params.put("userType", userType);
         params.put("categoryNo", categoryNo);
         if (options != null) {
             params.putAll(options);
@@ -51,17 +57,16 @@ public class ItemServiceImpl implements ItemService {
         return item;
     }
     @Override
-    public int getTotalCount(int userType, String[] words, int categoryNo) {
+    public int getTotalCount(String[] words, int categoryNo) {
         HashMap<String,Object> params = new HashMap<>();
-        params.put("userType", userType);
         params.put("words", words);
         params.put("categoryNo", categoryNo);
         return  itemDao.countAll(params);
     }
 
     @Override
-    public int update(Item item) {
-        return itemDao.update(item);
+    public int changeStatus(Item item) {
+        return itemDao.changeStatus(item);
     }
     
     

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="java100.app.dao.RequestDao">
+    
+    <resultMap type="request" id="requestMap">
+        <id column="rq_no" property="requestNo"/>
+        <result column="ur_no" property="userNo"/>
+        <result column="title" property="title"/>
+        <result column="cnt" property="content"/>
+        <result column="item_name" property="itemName"/>
+        <result column="reg_date" property="regDate"/>
+    </resultMap>
+    
+    <select id="list" resultMap="requestMap" parameterType="int">
+        select
+            rq_no,
+            ur_no,
+            title,
+            cnt,
+            item_name,
+            reg_date
+         from request
+         order by rq_no desc
+    </select>
+    
+    <select id="findByNo" resultMap="requestMap" parameterType="int">
+        select
+            rq_no,
+            ur_no,
+            title,
+            cnt,
+            item_name,
+            reg_date
+         from request where rq_no=#{value}
+    </select>
+    
+    
+    <insert id="insert" parameterType="request" 
+        useGeneratedKeys="true" keyColumn="rq_no" keyProperty="requestNo">
+        insert into request(ur_no,title,cnt,item_name,reg_date) 
+        values(#{userNo},#{title},#{content},#{itemName},now())
+    </insert>
+
+    <update id="update" parameterType="message">
+        update message set 
+            title=#{title},
+            cnt=#{content},
+            item_name=#{itemName},
+            reg_date=now()
+        where rq_no=#{requestNo}
+    </update>
+    
+    <delete id="delete" parameterType="int">
+        delete from message 
+        where rq_no=#{value}
+    </delete>
+
+</mapper>  
+
+
+
+
+
+
+
+
+

@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java100.app.domain.Account;
 import java100.app.domain.Message;
+import java100.app.domain.User;
 import java100.app.service.MessageService;
 
 @RestController
@@ -24,9 +24,9 @@ public class MessageController {
      
     @RequestMapping("list")
     public Object list(HttpSession session) throws Exception {
-        Account account = (Account)session.getAttribute("loginUser");
+        User user = (User)session.getAttribute("loginUser");
         HashMap<String,Object> result = new HashMap<>();
-        result.put("message", messageService.list(account.getAccountsNo()));
+        result.put("message", messageService.list(user.getUserNo()));
         
         return result;
     }
@@ -41,8 +41,8 @@ public class MessageController {
     
     @RequestMapping("add")
     public Object add(Message message, HttpSession session) throws Exception {
-        Account account = (Account) session.getAttribute("loginUser");
-        message.setUserNo(account.getAccountsNo());
+        User user = (User) session.getAttribute("loginUser");
+        message.setUserNo(user.getUserNo());
         messageService.add(message);
         HashMap<String, Object> result = new HashMap<>();
         result.put("stauts", "success");

@@ -1,14 +1,15 @@
 package java100.app.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java100.app.dao.AccountDao;
+import java100.app.dao.MapsDao;
 import java100.app.dao.PhotoDao;
 import java100.app.dao.UserDao;
-import java100.app.domain.Account;
+import java100.app.domain.Maps;
 import java100.app.domain.Photo;
 import java100.app.domain.User;
 import java100.app.service.UserService;
@@ -16,70 +17,52 @@ import java100.app.service.UserService;
 @Service
 public class UserServiceImpl implements UserService {
 
-    @Autowired AccountDao accountDao;
+    
     @Autowired UserDao userDao;
     @Autowired PhotoDao photoDao;
+    @Autowired MapsDao mapsDao;
+    
     
     @Override
-    public List<Account> listAccount() {
-        return accountDao.list();
-    }
-    
-    @Override
-    public List<User> listUser() {
+    public List<User> list() {
         return userDao.list();
     }
     
-    
-    @Override
-    public Account getAccount(int no) {
-
-        Account account = accountDao.findByNo(no);
-        return account;
-    }
     @Override
     public User getUser(int no) {
-        
-        // 게시물의 첨부 파일 정보를 가져올 때 
-        // 방법1: 따로 따로 가져오기
-        //  Board board = boardDao.findByNo(no);
-        // board.setFiles(fileDao.findByBoardNo(no));
-        
-        // 방법2 : board 객체에 묶어서 가져오기
         User user = userDao.findByNo(no);
         return user;
     }
 
     @Override
-    public int add(Account account, User user) {
-        int count = accountDao.insert(account);
-        user.setUserNo(account.getAccountsNo());
-        userDao.insert(user);
+    public int add( User user, Maps maps) {
+        int count = userDao.insert(user);
+        maps.setUserNo(user.getUserNo());
+        mapsDao.insert(maps);
         try {
             addFiles(user.getPhotos(),user.getUserNo());
             } catch (Exception e) {
                 System.out.println("첨부파일 등록 중 예외 발생!");
             }
             
-            //this.addFiles(user.getPhotos(),user.getUserNo());
         return count;
     }
     
+
+    
     @Override
-    public int update(Account account, User user) {
+    public int update(User user) {
         int count;
         // 패스워드가 비었으면 패스워드를 제외한 업데이트(sql)를 실행
-        if (account.getPassword().isEmpty()) {
-            count = accountDao.update2(account);
+        if (user.getPassword().isEmpty()) {
+            count = userDao.update2(user);
         } else {
-            count = accountDao.update(account);
+            count = userDao.update(user);
         }
-        user.setUserNo(account.getAccountsNo());
         if (!user.getPhotos().isEmpty()) {
         photoDao.deleteAllByUserNo(user.getUserNo());
         addFiles(user.getPhotos(), user.getUserNo());
         }
-        userDao.update(user);
 
         return count;
     }
@@ -88,7 +71,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public int delete(int no) {
 
-        return accountDao.delete(no);
+        return userDao.delete(no);
     }
 
 
@@ -103,16 +86,35 @@ public class UserServiceImpl implements UserService {
         }
 
     }
-    
     @Override
     public int checkId(String id) {
-        return accountDao.checkId(id);
+        return userDao.checkId(id);
     }
 
     @Override
     public int checkEmail(String email) {
-        return accountDao.checkEmail(email);
+        return userDao.checkEmail(email);
     }
-
+    
+    @Override
+    public User get(String id, String password) {
+        HashMap<String,Object> params = new HashMap<>();
+        params.put("id", id);
+        params.put("password", password);
+        
+        return userDao.findByaccountNameAndPassword(params);
+    }
+    @Override
+    public User get(String email) {
+        return userDao.findByEmail(email);
+    }
+    
+    @Override
+    public int checkPassword(String id, String password) {
+        HashMap<String,Object> params = new HashMap<>();
+        params.put("id", id);
+        params.put("password", password);
+        return userDao.checkPassword(params);
+    }
 
 }

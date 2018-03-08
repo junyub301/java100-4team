@@ -21,7 +21,7 @@ import java100.app.service.ItemService;
 import java100.app.service.UserService;
 import net.coobird.thumbnailator.Thumbnails;
 
-@Controller
+//@Controller
 @RequestMapping("/item")
 public class ItemController {
     

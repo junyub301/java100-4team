@@ -10,7 +10,7 @@ public interface ItemDao {
     List<Item> findAll(Map<String,Object> params);
     Item findByNo(int no);
     int countAll(Map<String,Object> params);
-    int update(Item item);
+    int changeStatus(Item item);
 }
 
 

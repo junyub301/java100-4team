@@ -1,7 +1,7 @@
 package java100.app.domain;
 
 public class Photo {
-    int no;
+    int photoNo;
     String photoName;
     String thumbnailName;
     int itemNo;
@@ -20,16 +20,16 @@ public class Photo {
 
     @Override
     public String toString() {
-        return "Photo [no=" + no + ", photoName=" + photoName + ", thumbnailName=" + thumbnailName + ", itemNo="
-                + itemNo + ", userNo=" + userNo + "]";
+        return "Photo [photoNo=" + photoNo + ", photoName=" + photoName + ", thumbnailName=" + thumbnailName
+                + ", itemNo=" + itemNo + ", userNo=" + userNo + "]";
     }
 
-    public int getNo() {
-        return no;
+    public int getPhotoNo() {
+        return photoNo;
     }
 
-    public void setNo(int no) {
-        this.no = no;
+    public void setPhotoNo(int photoNo) {
+        this.photoNo = photoNo;
     }
 
     public String getPhotoName() {
@@ -64,7 +64,6 @@ public class Photo {
         this.userNo = userNo;
     }
 
-    
     
     
 

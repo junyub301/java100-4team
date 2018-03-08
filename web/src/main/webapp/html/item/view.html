@@ -9,7 +9,13 @@
 <style>
 
 .no-js {display:none;}
-
+#map {  
+        display:inline-block;
+        margin:10px auto;
+        width: 300px;
+        height: 300px;
+        border: 1px groove gray;
+      }
 .hr-sect {
     display: flex;
     flex-basis: 100%;
@@ -61,9 +67,8 @@
 </div>
 <div class="row">
 <div class="mx-auto">
-<button id='priceBtn' type="button" class="btn btn-primary float-right" 
-        data-toggle="modal" data-target="#priceModal" style="z-index: 5;">결제하기</button>
-<button id='openprice' type="button" class="btn btn-primary float-right" style="z-index: 1;position: absolute;">결제하기</button>
+<button id='dealBtn' type="button" class="btn btn-primary float-left mr-2">거래하기</button>
+<button id='priceBtn' type="button" class="btn btn-primary float-right">결제하기</button>
     </div>
 </div>
 
@@ -83,6 +88,10 @@
 </div>
 </div>
 
+<div>
+<div id="map"></div><span id="distance"></span><button type="button" class="btn" onclick="distanceCalculator()">거리 계산</button>
+<button type="button" class="btn" onclick="routeOpen()">길찾기</button>
+</div>
 
 </div>
 <br><br><br><br><br><br><br><br><br>
@@ -162,7 +171,7 @@
 <script id='t3' type="text/handlebars-template">
 <table class="table table-bordered">
 <tbody><tr><th style="background-color: #f3f3f3;" class="text-center align-middle" rowspan="4">대여</th></tr>
-<tr><td><span>물품</span><span style="float: right;">{{name}}</span></td></tr>
+<tr><td><span>물품</span><span style="float: right;">{{itemName}}</span></td></tr>
 <tr><td class="text-muted" type="date"><span>기간</span><span style="float: right;">{{formatDate startDate}} ~ {{formatDate endDate}}</span></td></tr>
 <tr><td><span>가격</span><span style="float: right;">{{fb price}} 원</span></td></tr>
 </tbody>
@@ -180,14 +189,14 @@
 <script src='/node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
 <script src='/node_modules/sweetalert/dist/sweetalert.min.js'></script>
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
-
+<script type="text/javascript" src="http://dapi.kakao.com/v2/maps/sdk.js?appkey=41a90b1059ade44d7db374c4db586dfb&libraries=services"></script>
 
 
 <script type="text/javascript">
 
 var IMP = window.IMP;
 IMP.init("imp92089366");
-var itemNo, price;
+var itemNo, price, slat, slng, elat, elng, userNo;
 var template1Src = $('#t1').html(),
 template2Src = $('#t2').html(),
 template3Src = $('#t3').html(),
@@ -205,7 +214,19 @@ Handlebars.registerHelper('formatDate', function(date) {
     return moment(date).format('YYYY-MM-DD');
 });
 
-$('#openprice').click(() => {
+$.ajax("/json/maps/get",{
+    type: 'POST',
+    dataType: 'json',
+    success: (result) => {
+        slat= result.map.latitude;
+        slng= result.map.longitude;
+    },
+    error: () => {
+        swal("로그인 회원정보의 주소 정보 로드 실패");
+    }
+})
+
+$('#priceBtn').click(() => {
     $.getJSON('/json/auth/loginUser', function(result) {
             if (result.status == "fail"){
                 swal("로그인이 필요한 페이지 입니다.").then((value) => {
@@ -213,10 +234,69 @@ $('#openprice').click(() => {
                 })
                 return;
             } else {
-                $('#priceBtn').click()
+                $('#priceModal').modal('show')
             } 
         })
 })
+
+//길찾기 새탭에서 호출
+function routeOpen() {
+    if (slng == elng && slat == elat) {
+        return swal("출발지와 도착지가 같습니다.");
+    }    
+    window.open("http://map.naver.com/index.nhn?slng="+slng+"&slat="+slat+
+            "&stext=출발지&elng="+elng+"&elat="+elat+"&etext=도착지&menu=route", "_blank");
+}
+
+//거래하기
+$('#dealBtn').click(() => {
+    $.getJSON('/json/auth/loginUser', function(result) {
+            if (result.status == "fail"){
+                swal("로그인이 필요한 페이지 입니다.").then((value) => {
+                    $('#loginBtn').click()     
+                })
+                return;
+            } else {
+                if (result.user.userNo == userNo) {
+                swal('본인 아이템을 구매할 수 없습니다');
+                throw stop;
+                }
+                swal({
+                    html: true,
+                    title:"거래하시겠습니까?",
+                    text: "판매자의 연락처가 메시지함으로 전송됩니다.\n" +
+                    "전송된 연락처로 직접 연락하여 거래하세요! ",
+                    buttons:{
+                            confirm: {text: "OK", value: true},
+                            cancel: {text: "NO",value: false ,visible: true}
+                            }
+                }).then((value)=> {
+                      if (value){
+                          $.ajax("/json/tr/add", {
+                              method: "POST",
+                              dataType: 'json',
+                              data: {
+                                  itemNo: itemNo,
+                                  selectAdd: 2
+                              },
+                              success: (result) => {
+                                  swal('거래를 신청하였습니다');
+                                  $('#priceBtn').prop("disabled",'true').html("거래중입니다");
+                                  $('#dealBtn').hide();
+                              },
+                              error: (request,status,error) => {
+                                  swal("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+                                  }
+                              
+                          });
+                      }
+                      else 
+                          swal("취소하셨습니다!")
+                  })
+            } 
+        })
+})
+
 
 var index = location.href.indexOf('?');
 
@@ -224,7 +304,7 @@ if (index != -1) { // 기존 데이터를 조회할 경우
     var qs = location.href.substr(index + 1);
     var arr = qs.split('=');
 }   
-$('#addItemBtn').hide();
+
     $.ajax('/json/item/' + arr[1], {
         dataType: 'json',
         success: (result) => {
@@ -233,31 +313,46 @@ $('#addItemBtn').hide();
                 var photo = data.photoName.split(',');
                 var thumb = data.thumbnailName.split(',');
             }
-            if (result.item.userType == 1) {
-                $('#addItemBtn').hide();
-                $('#priceBtn').hide();
-                $('#openprice').hide();
-                $('#trinfo').hide();
-            }
             $('#itempic1').css("background-image","url('/download/"+thumb[0]+"')");
-            $('#itemName').html('물품명:'+result.item.name);
+            $('#itemName').html('물품명:'+result.item.itmeName);
             price = result.item.price + 2500;
             $('#dp').prepend('기간 : ' + moment(result.item.startDate).format('YYYY-MM-DD') + ' ~ ' +
                     moment(result.item.endDate).format('YYYY-MM-DD') +'<br><br>' + 
                     '가격 : ');
             $('#pr').html(transPrice(price)+" 원");
+            userNo = result.item.userNo
             itemNo = result.item.itemNo;
+            elat = result.maps.latitude;
+            elng = result.maps.longitude;
+            //지도표시
+            var loc = new daum.maps.LatLng(result.maps.latitude, result.maps.longitude);
+            var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+            mapOption = {
+                center: loc, // 지도의 중심좌표
+                level: 3, // 지도의 확대 레벨
+                mapTypeId : daum.maps.MapTypeId.ROADMAP // 지도종류
+            }; 
+            var map = new daum.maps.Map(mapContainer, mapOption); 
+            var mapTypeControl = new daum.maps.MapTypeControl();
+            map.addControl(mapTypeControl, daum.maps.ControlPosition.TOPRIGHT); 
+            var zoomControl = new daum.maps.ZoomControl();
+            map.addControl(zoomControl, daum.maps.ControlPosition.RIGHT);
+            marker = new daum.maps.Marker({
+                map: map,
+                position: loc
+            });
+            
             $('#itemphoto').html(template2Engine(thumb));
             $('#itemphoto').append(template4Engine(photo));
-            $('#actname').html('<div style="text-align: center;">' + result.account.accountName + '</div>');
+            $('#actname').html('<div style="text-align: center;">' + result.user.userId + '</div>');
             $('#title').html('<h3 class="mb-0"><div>' + result.item.title + '</div></h3>');
             //$('#title').append('<div style="padding-top: 20px !important;">' + result.item.name + '</div>');
             $('#title').append('<div style="padding-top: 10px !important;">' + result.item.content + '</div>');
             $('#date').html(template3Engine(result.item));
-            if (result.item.status == 1)
-            $('#openprice').prop("disabled",'true').html("결제완료");
-            $('#priceBtn').css("background-color", "white");
-            $('#priceBtn').css("border", "0");
+            if (result.item.status != 0) {
+                $('#priceBtn').prop("disabled",'true').html("거래중입니다");
+                $('#dealBtn').hide();
+            }
         }
     });
     
@@ -301,7 +396,26 @@ $('#addItemBtn').hide();
             swal("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
             }
     });
-    
+
+//계산버튼클릭시 수행
+function distanceCalculator() {
+    var distance = getDistanceFromLatLonInKm(slat,slng,elat,elng);
+    $('#distance').html(distance);
+}
+//거리 계산 함수
+function getDistanceFromLatLonInKm(lat1,lng1,lat2,lng2) {
+    function deg2rad(deg) {
+        return deg * (Math.PI/180)
+    }
+    var R = 6371; // Radius of the earth in km
+    var dLat = deg2rad(lat2-lat1);  // deg2rad below
+    var dLon = deg2rad(lng2-lng1);
+    var a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.sin(dLon/2) * Math.sin(dLon/2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    var d = R * c; // Distance in km
+    return d.toFixed(3)+"Km";
+}    
+
 /*배송비 결제에 따른 가격변동 */
 $('.deliberypay').change(() => {
     if ($('#prepaid').prop("checked")) {
@@ -351,12 +465,12 @@ function pay() {
         }
         IMP.request_pay({ // param
             pay_method: payMethod, // card:카드결제 trans:계좌이체 phone:휴대폰 결제
-            merchant_uid: lender.account.accountName+"/"+data.item.name+"?"+data.item.itemNo, //아이템 번호 넣으면 될듯..결제가 된 적이 있는 merchant_uid로는 재결제 불가
+            merchant_uid: lender.user.id+"/"+data.item.itemName+"?"+data.item.itemNo, //아이템 번호 넣으면 될듯..결제가 된 적이 있는 merchant_uid로는 재결제 불가
             name: data.item.name, //물품명
             amount: price, //결제 가격
             //notice_url: "",
-            buyer_email: lender.account.email, //tel빼고 나머지 아래 모두 선택요소 
-            buyer_name: lender.account.name,
+            buyer_email: lender.user.email, //tel빼고 나머지 아래 모두 선택요소 
+            buyer_name: lender.user.userName,
             buyer_tel: lender.user.phone, //필수
             buyer_addr: lender.user.baseAddress +' '+ lender.user.detailAddress,
             buyer_postcode: lender.user.postNo
@@ -377,7 +491,8 @@ function pay() {
                     },
                     success: (result) => {
                         swal('결제성공');
-                        $('#openprice').prop("disabled",'true').html("결제완료");
+                        $('#priceBtn').prop("disabled",'true').html("결제완료");
+                        $('#dealBtn').hide();
                     },
                     error: (request,status,error) => {
                         swal("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);

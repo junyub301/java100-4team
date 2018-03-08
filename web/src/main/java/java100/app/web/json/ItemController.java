@@ -8,6 +8,7 @@ import java.util.HashMap;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,26 +16,30 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import java100.app.domain.Account;
 import java100.app.domain.Item;
+import java100.app.domain.Maps;
 import java100.app.domain.Photo;
+import java100.app.domain.User;
 import java100.app.service.ItemService;
+import java100.app.service.MapsService;
 import java100.app.service.UserService;
 import net.coobird.thumbnailator.Thumbnails;
 
 @RestController
 @RequestMapping("/item")
 public class ItemController {
-
     @Autowired ServletContext servletContext;
     @Autowired ItemService itemService;
     @Autowired UserService userService;
+    @Autowired MapsService mapsService;
+    
+    static Logger logger = Logger.getLogger(ItemController.class);
     
     @RequestMapping("add")
-    public Object add(Item item,MultipartFile[] photo, HttpSession session) throws Exception {
-        Account account = (Account) session.getAttribute("loginUser"); //로그인정보 받아오기
+    public Object add(Item item,MultipartFile[] photo, HttpSession session, Maps maps) throws Exception {
+        User user = (User) session.getAttribute("loginUser"); //로그인정보 받아오기
         String uploadDir = servletContext.getRealPath("/download");
-        item.setUserNo(account.getAccountsNo()); //user번호 저장하기
+        item.setUserNo(user.getUserNo()); //user번호 저장하기
         ArrayList<Photo> uploadFiles = new ArrayList<>();
         for (MultipartFile part: photo) {
             if (part.isEmpty())
@@ -47,19 +52,20 @@ public class ItemController {
             uploadFiles.add(new Photo(filename,Thumbnail));
         }
         
-        itemService.add(item, uploadFiles);
+        itemService.add(item, uploadFiles,maps);
         return "아이템 등록 성공!";
 }
     
     @RequestMapping("list")
     public Object list(
-            @RequestParam(value="ut", defaultValue="0") int userType,
             @RequestParam(value="cr", defaultValue="0") int categoryNo,
             @RequestParam(value="pn", defaultValue="1") int pageNo,
             @RequestParam(value="ps", defaultValue="8") int pageSize,
             @RequestParam(value="words", required=false) String word,
             @RequestParam(value="oc", required=false) String orderColumn,
-            @RequestParam(value="al", required=false) String alignColumn) throws Exception {
+            @RequestParam(value="al", required=false) String alignColumn,
+            HttpSession session) throws Exception {
+        User user = (User)session.getAttribute("loginUser");
         
         if (pageNo < 1) {
             pageNo = 1;
@@ -75,7 +81,10 @@ public class ItemController {
         words = word.split(" ");
         }
         options.put("words", words);
-        int totalCount = itemService.getTotalCount(userType, words, categoryNo);
+        if (user != null) {
+        options.put("user",user.getUserNo());
+        }
+        int totalCount = itemService.getTotalCount(words, categoryNo);
         int lastPageNo = totalCount / pageSize;
         if ((totalCount % pageSize) > 0) {
             lastPageNo++;
@@ -86,7 +95,7 @@ public class ItemController {
         HashMap<String,Object> result = new HashMap<>();
         result.put("pageNo", pageNo);
         result.put("lastPageNo", lastPageNo);
-        result.put("list", itemService.list(pageNo, pageSize, options, userType, categoryNo));
+        result.put("list", itemService.list(pageNo, pageSize, options, categoryNo));
         
         return result;
     }
@@ -98,7 +107,18 @@ public class ItemController {
         Item item = itemService.getItem(no);
         result.put("item", item);
         result.put("user", userService.getUser(item.getUserNo()));
-        result.put("account", userService.getAccount(item.getUserNo()));
+        result.put("maps", mapsService.getItem(item.getItemNo()));
+        return result;
+    }
+    
+    @RequestMapping("update")
+    public Object update(int itemNo,int status) throws Exception {
+        Item item = new Item();
+        item.setItemNo(itemNo);
+        item.setStatus(status);
+        itemService.changeStatus(item);
+        HashMap<String,Object> result = new HashMap<>();
+        result.put("status", "success");
         return result;
     }
     

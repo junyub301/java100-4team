@@ -2,7 +2,7 @@ package java100.app.service;
 
 import java.util.List;
 
-import java100.app.domain.Account;
+import java100.app.domain.Maps;
 import java100.app.domain.Photo;
 import java100.app.domain.User;
 
@@ -16,16 +16,17 @@ import java100.app.domain.User;
 // 가능한 업무 용어를 사용한다.
 //
 public interface UserService {
-    List<Account> listAccount();
-    List<User> listUser();
-    int add(Account account, User user);
-    Account getAccount(int no);
+    List<User> list();
+    int add(User user, Maps maps);
     User getUser(int no);
-    int update(Account account, User user);
+    int update(User user);
     int delete(int no);
     void addFiles(List<Photo>photos, int userNo);
     int checkId(String id);
     int checkEmail(String email);
+    User get(String id, String password);
+    User get(String email);
+    int checkPassword(String id, String password);
 }
 
 

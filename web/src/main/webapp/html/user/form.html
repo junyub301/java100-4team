@@ -44,7 +44,7 @@ body, div {
 <form id="form" method="post" enctype="multipart/form-data" autocomplete="off">
 <div class="form-group row" >
 <div class="col-sm-10">
-<input id='act_id' class="form-control" type='text' placeholder="아이디를입력하시오." required name='accountName' >
+<input id='act_id' class="form-control" type='text' placeholder="아이디를입력하시오." required name='userId' >
 <p class="mb-0" id="checkId" >
 </div>
 </div>
@@ -72,7 +72,7 @@ body, div {
 
 <div class="form-group row">
 <div class="col-sm-10">
-<input id='name' type='text' class="form-control" placeholder="이름를입력하시오." required name='name'>
+<input id='name' type='text' class="form-control" placeholder="이름를입력하시오." required name='userName'>
 </div>
 </div>
 
@@ -121,7 +121,9 @@ body, div {
 <input type="text" id="sample6_address2" class="form-control" placeholder="상세주소를입력하시오." name='detailAddress'>
 </div>
 </div>
-
+<input id='address' type="hidden" name='address'>
+<input id='lat' type="hidden" name='latitude'>
+<input id='lng' type="hidden" name='longitude'>
 
 <div id="file" class="form-group row">
 <div class="col-sm-10">
@@ -154,7 +156,7 @@ body, div {
 <script src='../../node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
 <script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
 <script src='/node_modules/sweetalert/dist/sweetalert.min.js'></script>
-
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=41a90b1059ade44d7db374c4db586dfb&libraries=services"></script>
 <script type="text/javascript">
 var pwd = $('#pwd'),
     pwd2 = $('#PwCheck'),
@@ -171,27 +173,20 @@ var pwd = $('#pwd'),
     photos = $('#photo'),
     addBtn = $('#addBtn');
 
-/* $('input').on("blur",function(e) {
-    if(e.target.value == "") {
-        $(this).addClass('mb-0');
-        $(this).siblings().html('<i class="fa fa-exclamation-circle" style="color:red"></i>빈칸을 채워주세요').css('color', 'red');
-    }
-}) */
-
 $(document).ready(function(){
+  //아이디 중복 체크  
     id.keyup(() => {
         var value = id.val();
         if(value && $.trim(value))
            {
             $.ajax({
                 type: 'POST',
-                url: '  ../../json/user/checkId',
+                url: '/json/user/checkId',
                 data: {
-                    "accountName" : value
+                    id : $.trim(value)
                 },
                 success: function(data){
-                    console.log(data)
-                    if($.trim(data) == 0){
+                    if(data == 0){
                     $('#act_id').addClass('mb-0');
                     $('#checkId').html('<i class="fa fa-check" style="color:#21ff00"></i>사용가능').css('color', '#007BFF');
                 } else {
@@ -208,19 +203,19 @@ $(document).ready(function(){
            }
     }); 
     
+//이메일 중복 체크
     email.keyup(() => {
         var value = email.val();
         if(value && $.trim(value))
            {
 		        $.ajax({
 		            type: 'POST',
-		            url: '  ../../json/user/checkEmail',
+		            url: '/json/user/checkEmail',
 		            data: {
-		                "email" : value
+		                email : $.trim(value)
 		            },
 		            success: function(data){
-		                console.log(data)
-		                if($.trim(data) == 0){
+		                if(data == 0){
 		                    $('#email').addClass('mb-0');
 		                    $('#checkEmail').html('<i class="fa fa-check" style="color:#21ff00"></i>사용가능').css('color', '#007BFF');
 		                } 
@@ -240,6 +235,7 @@ $(document).ready(function(){
     
 });
 
+//비밀먼호 확인 체크
 $('#PwCheck').keyup(() => {
     if (pwd.val() == pwd2.val()) {
         $('#PwCheck').addClass('mb-0');
@@ -250,6 +246,19 @@ $('#PwCheck').keyup(() => {
     }
 });
 
+//주소 검색 완료시 위도경도 받아오기
+detailAddr.focus(()=> {
+    var geocoder = new daum.maps.services.Geocoder();
+    geocoder.addressSearch(baseAddr.val(),function(result, status) {
+        console.log(result)
+    $('#address').val(result[0].address_name);
+    $('#lat').val(result[0].y);
+    $('#lng').val(result[0].x);
+    })
+
+})
+
+//추가버튼 클릭 회원가입 수행
 addBtn.click(() => {
     $(':required').each(function() {
         if ($(this).val() == "") {
@@ -258,32 +267,32 @@ addBtn.click(() => {
         };
     });
     var formData = new FormData($("#form")[0]);
-    $.ajax('../../json/user/add', {
+    $.ajax('/json/user/add', {
         data : formData,
         dataType: 'json',
         method: 'POST',
         processData : false,
         contentType : false,
         success: (result) => {
-            $.post('../../json/auth/login', {
-                accountName: id.val(),
+             $.post('/json/auth/login', {
+                id: id.val(),
                 password: pwd.val()
-                
             }, (result) => {
                 if (result.status == "success") {
-                    location.href = "../item/list.html"
+                    swal("회원 가입성공, 로그인 성공")
+                    //location.href = "../item/list.html"
                 }
             },'json');
         },
-        error:function(request,status,error){
+        error:function(request,status,error) {
             swal("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
          }
 
     });
 });
 
-
-    function sample6_execDaumPostcode() {
+// 주소검색 함수
+function sample6_execDaumPostcode() {
         new daum.Postcode({
             oncomplete: function(data) {
                 // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
@@ -325,6 +334,7 @@ addBtn.click(() => {
         }).open();
     }
 </script>
+
 <script>
 $('#file4').fileinput({
     theme: 'fa',

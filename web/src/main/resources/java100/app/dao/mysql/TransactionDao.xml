@@ -13,13 +13,14 @@
         <result column="pay_way" property="payMethod"/>
         <result column="pay_dat" property="payDate"/>
         <result column="pay_type" property="deliveryPayType"/>
+        <result column="parcel" property="parcel"/>
         <result column="del_no" property="deliveryNo"/>
         <result column="del_dat" property="deliveryDate"/>
         <result column="state" property="reviewState"/>
         <association property="item" javaType="Item">
             <id column="it_no" property="itemNo"/>
             <result column="title" property="title"/>
-            <result column="item_name" property="name"/>
+            <result column="item_name" property="itemName"/>
             <result column="start" property="startDate"/>
             <result column="end" property="endDate"/>
             <result column="price" property="price"/>
@@ -37,8 +38,8 @@
             t.pay_way,
             t.pay_dat,
             t.pay_type,
+            t.parcel,
             t.del_no,
-            t.del_dat,
             t.state,
             i.title,
             i.item_name,
@@ -60,8 +61,8 @@
             t.pay_way,
             t.pay_dat,
             t.pay_type,
+            t.parcel,
             t.del_no,
-            t.del_dat,
             t.state,
             i.title,
             i.item_name,
@@ -83,8 +84,8 @@
             pay_way,
             pay_dat,
             pay_type,
+            parcel,
             del_no,
-            del_dat,
             state
          from transaction
          where rent_no=#{value}
@@ -105,6 +106,7 @@
     
     <update id="update" parameterType="transaction">
         update transaction set 
+           parcel=#{parcel},
            del_no=#{deliveryNo},
            del_dat=#{deliveryDate}
         where rent_no=#{no}

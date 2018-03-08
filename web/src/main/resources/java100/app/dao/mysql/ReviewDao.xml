@@ -31,8 +31,8 @@
             star,
             it_no,
             cre_date,
-            (select act_name from account where act_no=(select ur_no from transaction where it_no=#{value})) as actname,
-            (select th_name from itemphoto where ur_no=(select ur_no from transaction where it_no=#{value})) as thumb_pic
+            (select ur_id from user where ur_no=(select ur_no from transaction where it_no=#{value})) as actname,
+            (select th_name from photo where ur_no=(select ur_no from transaction where it_no=#{value})) as thumb_pic
          from review where it_no=#{value}
     </select>
     

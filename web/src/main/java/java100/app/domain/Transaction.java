@@ -5,23 +5,23 @@ import java.sql.Date;
 public class Transaction {
     
     protected int no;
-    protected int lenderNo; //userNo
+    protected int lenderNo; 
     protected int itemNo;
-    protected int sellerNo;  // 신청일
-    protected String payMethod;   // 결제유형
-    protected Date payDate;    // 결제일
-    protected int deliveryPayType;   //배송비결제유형
-    protected int deliveryNo;      //운송장 번호
-    protected Date deliveryDate;    //배송일
-    protected Item item;
+    protected int sellerNo;  
+    protected String payMethod;   
+    protected Date payDate;    
+    protected int deliveryPayType;   
+    protected String parcel;   
+    protected int deliveryNo;      
     protected Boolean reviewState;
+    protected Item item;
     
     @Override
     public String toString() {
         return "Transaction [no=" + no + ", lenderNo=" + lenderNo + ", itemNo=" + itemNo + ", sellerNo=" + sellerNo
                 + ", payMethod=" + payMethod + ", payDate=" + payDate + ", deliveryPayType=" + deliveryPayType
-                + ", deliveryNo=" + deliveryNo + ", deliveryDate=" + deliveryDate + ", item=" + item + ", reviewState="
-                + reviewState + "]";
+                + ", parcel=" + parcel + ", deliveryNo=" + deliveryNo + ", reviewState=" + reviewState + ", item="
+                + item + "]";
     }
 
     public int getNo() {
@@ -80,28 +80,20 @@ public class Transaction {
         this.deliveryPayType = deliveryPayType;
     }
 
+    public String getParcel() {
+        return parcel;
+    }
+
+    public void setParcel(String parcel) {
+        this.parcel = parcel;
+    }
+
     public int getDeliveryNo() {
         return deliveryNo;
     }
 
     public void setDeliveryNo(int deliveryNo) {
         this.deliveryNo = deliveryNo;
-    }
-
-    public Date getDeliveryDate() {
-        return deliveryDate;
-    }
-
-    public void setDeliveryDate(Date deliveryDate) {
-        this.deliveryDate = deliveryDate;
-    }
-
-    public Item getItem() {
-        return item;
-    }
-
-    public void setItem(Item item) {
-        this.item = item;
     }
 
     public Boolean getReviewState() {
@@ -111,6 +103,15 @@ public class Transaction {
     public void setReviewState(Boolean reviewState) {
         this.reviewState = reviewState;
     }
+
+    public Item getItem() {
+        return item;
+    }
+
+    public void setItem(Item item) {
+        this.item = item;
+    }
+    
     
     
     

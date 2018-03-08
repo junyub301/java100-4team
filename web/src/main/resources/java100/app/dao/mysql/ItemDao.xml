@@ -8,63 +8,77 @@
         <id column="it_no" property="itemNo"/>
         <result column="ur_no" property="userNo"/>
         <result column="category" property="category"/>
-        <result column="user_type" property="userType"/>
-        <result column="item_name" property="name"/>
+        <result column="item_name" property="itemName"/>
         <result column="title" property="title"/>
         <result column="cnt" property="content"/>
+        <result column="add_date" property="regDate"/>
         <result column="start" property="startDate"/>
         <result column="end" property="endDate"/>
         <result column="price" property="price"/>
+        <result column="addr" property="dealAddress"/>
+        <result column="pay_yn" property="directOrPay"/>
         <result column="status" property="status"/>
+        <result column="distance" property="distance"/>
         
         <collection property="photos" ofType="Photo">
-            <id column="pho_no" property="no"/>
+            <id column="pho_no" property="photoNo"/>
             <result column="it_no" property="itemNo"/>
             <result column="pho_name" property="photoName"/>
             <result column="th_name" property="thumbnailName"/>
         </collection>
-        
     </resultMap>
     
     <select id="countAll" resultType="int" parameterType="map">
-        select count(*) from item where user_type=#{userType}
-        <if test="categoryNo != 0">
-            and category=#{categoryNo}
+        select count(*) from item
+        <!-- <if test="categoryNo != 0">
+            where category=#{categoryNo}
         </if>
         <if test="words != null">
             <foreach collection="words" item="word">
                 and title like '%${word}%'
              </foreach>
-        </if>
+        </if> -->
     </select>
     
     <insert id="insert" parameterType="item"
         useGeneratedKeys="true" keyColumn="it_no" keyProperty="itemNo">
-        insert into item(ur_no,category,user_type,title,item_name,cnt,start,end,price,status) 
-        values(#{userNo},#{category},#{userType},#{title},#{name},#{content},#{startDate},
-                #{endDate},#{price},#{status})
+        insert into item(ur_no,category,title,item_name,cnt,add_date,start,end,price,addr,pay_yn,status) 
+        values(#{userNo},#{category},#{title},#{itemName},#{content},now(),#{startDate},
+                #{endDate},#{price},#{dealAddress},#{directOrPay},#{status})
     </insert>
+    
     <select id="findAll" resultMap="itemMap" parameterType="map">
         select 
-            i.it_no, i.ur_no, i.category, i.user_type, i.item_name, 
-            i.title, i.cnt, i.start, i.end,
-            i.price, i.status,
+            i.it_no, i.ur_no, i.category, i.item_name, 
+            i.title, i.cnt, i.add_date, i.start, i.end,
+            i.price, i.pay_yn, i.status,
             p.pho_no as pho_no,
+            <if test="user != null">
+            im.lat as originlat,
+            im.lng as originlng,
+            um.lat as setlat,
+            um.lng as setlng,
+            (select ROUND(6371 * acos( cos( radians(originlat) ) * 
+            cos(radians(setlat)) * cos(radians(setlng) - radians(originlng)) +
+            sin(radians(originlat)) * sin(radians(setlat))),3)) as distance,
+            </if>
             GROUP_CONCAT(p.pho_name order by p.pho_name) as pho_name,
             GROUP_CONCAT(p.th_name order by p.th_name) as th_name
-            from item as i
-            join user as u on i.ur_no=u.ur_no
-            join itemphoto as p on i.it_no=p.it_no 
-            where user_type=#{userType} 
+         from item as i
+            <if test="user != null">
+            join map as im on im.it_no=i.it_no
+            join map as um on um.ur_no=#{user}
+            </if>
+            join photo as p on i.it_no=p.it_no 
         <if test="categoryNo != 0">
-            and category=#{categoryNo}
+            where category=#{categoryNo}
         </if>
         
-        <if test="words != null">
+        <!-- <if test="words != null">
             <foreach collection="words" item="word">
                 and title like '%${word}%'
              </foreach>
-        </if>
+        </if> -->
         group by it_no
         <!-- 정렬 조건에 따라 SQL문을 변경한다.-->
         order by 
@@ -96,22 +110,24 @@
             i.it_no,
             i.ur_no,
             i.category,
-            i.user_type,
             i.item_name,
             i.title,
             i.cnt,
+            i.add_date,
             i.start,
             i.end,
             i.price,
+            i.addr,
+            i.pay_yn,
             i.status,
             GROUP_CONCAT(p.pho_name order by p.pho_name) as pho_name,
             GROUP_CONCAT(p.th_name order by p.th_name) as th_name
-            from item as i join itemphoto as p on i.it_no=p.it_no 
+            from item as i join photo as p on i.it_no=p.it_no 
             where i.it_no=#{value}
             group by it_no
     </select>
 
-    <update id="update" parameterType="item">
+    <update id="changeStatus" parameterType="item">
         update item set 
             status=#{status}
         where it_no=#{itemNo}

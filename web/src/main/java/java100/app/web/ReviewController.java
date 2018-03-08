@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java100.app.domain.Review;
 import java100.app.service.ReviewService;
 
-@Controller
+//@Controller
 @RequestMapping("/rv")
 public class ReviewController {
     

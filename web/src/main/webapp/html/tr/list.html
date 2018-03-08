@@ -68,7 +68,7 @@ star-input>.input.focus{outline:1px dotted #ddd;}
 <table id='list' style='margin-top: 10px;'class='table text-center'>
 <thead>
 <tr>
-<th>결제일</th><th>상품명</th><th>금액</th><th>대여기간</th><th>현황</th><th id="thAdd"></th>
+<th>신청일</th><th>상품명</th><th>금액</th><th>대여기간</th><th>현황</th><th id="thAdd"></th>
 </tr>
 </thead>
 <tbody>
@@ -78,7 +78,7 @@ star-input>.input.focus{outline:1px dotted #ddd;}
 </table>
 </div>
 </div>
-
+<!-- 리뷰 -->
 <div class="modal fade" id="reviewModal" tabindex="-1" role="dialog" aria-labelledby="reviewModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content" style="width:370px;">
@@ -129,6 +129,7 @@ star-input>.input.focus{outline:1px dotted #ddd;}
   </div>
 </div>
 
+<!-- 배송등록 -->
 <div class="modal fade" id="deliveryModal" tabindex="-1" role="dialog" aria-labelledby="deliveryModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -139,7 +140,15 @@ star-input>.input.focus{outline:1px dotted #ddd;}
         </button>
       </div>
       <div class="modal-body">
-      
+      <div>
+      배송지 정보
+        <div>
+            <span id='lenderName'></span><span style="margin-left:30px;" id='lenderPhone'></span><div id='lenderAddr'></div>
+        </div>
+      </div>
+      <div>
+      택배회사:<input id="parcel" type="text" name="parcel">
+      </div>
       <div>
       운송장번호:<input id="deliveryNo" type="number" name="deliveryNo">
       </div>
@@ -156,7 +165,6 @@ star-input>.input.focus{outline:1px dotted #ddd;}
   </div>
 </div>
 
-<script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
 <script src='/node_modules/handlebars/dist/handlebars.min.js'></script>
 <script src='/node_modules/moment/moment.js'></script>
 <script src='/node_modules/jquery/dist/jquery.min.js'></script>
@@ -170,14 +178,18 @@ star-input>.input.focus{outline:1px dotted #ddd;}
 $('header').load('../header.html');
 
 var tbody = $('#list > tbody')
+
+
 load();
 
+//구매내역클릭
 $('#buyBtn').click(()=> {
     $('#buyBtn').removeClass('btn-outline-dark').addClass('btn-dark');
     $('#sellBtn').removeClass('btn-dark').addClass('btn-outline-dark');
     load();
 });
 
+//판매내역클릭
 $('#sellBtn').click(()=> {
     $('#buyBtn').removeClass('btn-dark').addClass('btn-outline-dark');
     $('#sellBtn').removeClass('btn-outline-dark').addClass('btn-dark');
@@ -187,6 +199,7 @@ $('#sellBtn').click(()=> {
 //별점 기본값 3으로..
 $('#p3').prop("checked",true);
 
+//기본 화면 로딩
 function load() {
     $.ajax('/json/tr/list', {
         dataType: 'json',
@@ -199,24 +212,32 @@ function load() {
             for (var data of result.transaction) {
                 var status;
                 switch (data.item.status) {
-                case 0: status="미결제";
+                case 1: status="거래중";
                 break;
-                case 1: status="결제완료";
+                case 2: status="거래완료";
                 break;
-                case 2: status="배송중";
+                case 3: status="결제완료";
+                break;
+                case 4: status="<a class='deliveryInfo' data-rentNo='"+data.no+
+                "' data-itemNo='"+data.item.itemNo+"' href=#>배송중</a>";
+                break;
+                case 5: status="수취완료";
                 }
             $('<tr>')
             .html(  
                 "<td>" + moment(data.payDate).format('YYYY-MM-DD') + "</td>" + 
-                "<td><a href='/html/item/view.html?no="+data.itemNo+"'>"+ data.item.name + "</a></td>" +
-                "<td>"+ transPrice(data.item.price) +"</td>" + 
+                "<td><a href='/html/item/view.html?no="+data.itemNo+"'>"+ data.item.itemName + "</a></td>" +
+                "<td>"+ data.item.price +"</td>" + 
                 "<td>" + moment(data.item.startDate).format('YYYY-MM-DD') + "~"+ 
                 moment(data.item.endDate).format('YYYY-MM-DD')+ "</td>" +
                 "<td>"+ status +"</td>"+
-                "<td>" +"<button id='reviewBtn' data-rentNo='"+data.no
+                "<td>" +"<button id='reviewBtn' style='height:34px;padding:4px' data-rentNo='"+data.no
                 +"' data-itemNo='"+data.item.itemNo+"' class='border btn btn-light' "
                 +"data-toggle='modal' data-target='#reviewModal'>리뷰등록</button></td>")
             .appendTo(tbody);
+            if (data.item.status !=2 && data.item.status !=5) {
+                $('.btn-light').last().prop("disabled",'true');
+            }
             if (data.reviewState) {
                 $('.btn-light').last().prop("disabled",'true').html("등록완료");
             } 
@@ -229,12 +250,10 @@ function load() {
     });
 };
 
+//판매내역 로딩
 function load2() {
     $.ajax('/json/tr/list2', {
         type:"POST",
-        data: {
-            
-        },
         dataType: 'json',
         success: (result) => {
             
@@ -246,24 +265,33 @@ function load2() {
             for (var data of result.transaction) {
                 var status;
                 switch (data.item.status) {
-                case 0: status="미결제";
+                case 1: status="<a class='dealAccept' data-rentNo='"+data.no+
+                        "' data-itemNo='"+data.item.itemNo+"' href=#>거래중</a>";
                 break;
-                case 1: status="결제완료";
+                case 2: status="거래완료";
                 break;
-                case 2: status="배송중";
+                case 3: status="결제완료";
+                break;
+                case 4: status="배송중";
+                break;
+                case 5: status="배송완료";
                 }
                 $('<tr>')
                 .html(  
                     "<td>" + moment(data.payDate).format('YYYY-MM-DD') + "</td>" + 
-                    "<td><a href='/html/item/view.html?no="+data.itemNo+"'>"+ data.item.name + "</a></td>" +
-                    "<td>"+ transPrice(data.item.price) +"</td>" + 
+                    "<td><a href='/html/item/view.html?no="+data.itemNo+"'>"+ data.item.itemName + "</a></td>" +
+                    "<td>"+ data.item.price +"</td>" + 
                     "<td>" + moment(data.item.startDate).format('YYYY-MM-DD') + "~"+ 
                     moment(data.item.endDate).format('YYYY-MM-DD')+ "</td>" +
                     "<td>"+ status +"</td>"
-                    +"<td>" +"<button id='deliveryBtn' data-rentNo='"+data.no+"' data-itemNo='"+data.item.itemNo
+                    +"<td>" +"<button id='deliveryBtn' style='height:34px;padding:4px;' data-userNo='"
+                    +data.lenderNo+"' data-rentNo='"+data.no+"' data-itemNo='"+data.item.itemNo
                     +"' class='border btn btn-light' data-toggle='modal' " 
                     +"data-target='#deliveryModal'>배송등록</button></td>")
                 .appendTo(tbody);
+                if (data.item.status < 3 || data.item.status == 5) {
+                    $('.btn-light').last().prop("disabled",'true');
+                }
             };
             };
         },
@@ -273,6 +301,7 @@ function load2() {
     });
 };
 
+//리뷰버튼 클릭이벤트
 $(tbody).on("click","#reviewBtn",function(e) {
     $('#rentNo').val($(e.target).attr('data-rentNo'));
     $('#itemNo').val($(e.target).attr('data-itemNo'));
@@ -282,12 +311,124 @@ $(tbody).on("click","#reviewBtn",function(e) {
     for (var data of result.item.photos) {
         var thumb = data.thumbnailName.split(',');
     $('#itemPic').css("background-image","url('/download/"+thumb[0]+"')");
-    $('#itemName').html('<b>'+result.item.name+'</b>');
-    $('#price').html(transPrice(result.item.price)+' 원');
+    $('#itemName').html('<b>'+result.item.itemName+'</b>');
+    $('#price').html(result.item.price+' 원');
     }
 })
 });
 
+//배송중 클릭시 이벤트
+$(tbody).on("click","a.deliveryInfo",function(e) {
+    var rentNo = $(e.target).attr('data-rentNo');
+    var itemNo = $(e.target).attr('data-itemNo');
+    
+    $.ajax("/json/tr/"+rentNo).done((result)=>{
+        var parcel = result.transaction.parcel;
+        var deliveryNo = result.transaction.deliveryNo;
+     swal({
+        html:true,
+        title: "배송정보",
+        text: "택배회사: "+parcel+"\n\n운송장번호: "
+               +deliveryNo+"",
+        buttons: {
+            confirm: {text: "수취완료", value: true},
+            cancel: {text: "닫기",value: false ,visible: true}
+        },
+    }).then((value)=> {
+        if (value) {
+            swal({
+                text:"확인 버튼을 누르면 수취완료 처리가 됩니다." ,
+                buttons: {
+                    confirm: {text: "확인", value: true},
+                    cancel: {text: "취소",value: false ,visible: true}
+                },
+            }).then((value)=> {
+                if (value) {
+                $.ajax("/json/item/update",{
+                    type:"POST",
+                    dataType: 'json',
+                    data:{
+                        itemNo: itemNo,
+                        status: 5
+                        },
+                    success: (result) => {
+                        swal({
+                            text:"수취완료 처리 되었습니다.",
+                            icon:"success",
+                        })
+                        load();
+                    }
+                })
+                }
+            })
+        }
+    }) 
+        
+    })//done
+})
+
+//거래중 클릭시 이벤트
+$(tbody).on("click","a.dealAccept",function(e) {
+    var rentNo = $(e.target).attr('data-rentNo');
+    var itemNo = $(e.target).attr('data-itemNo');
+    swal({
+        html:true,
+        title: "거래를 완료하시겠습니까?",
+        text: "거래를 완료하시려면 거래완료버튼을 눌러주세요.\n"
+        +"지금 신청자와 거래를 취소하시려면 취소버튼을 눌러주세요",
+        buttons: {
+            confirm: {text: "거래완료", value: true},
+            cancel: {text: "거래취소",value: false ,visible: true}
+        },
+    }).then((value)=> {
+        if (value) {
+            $.ajax("/json/item/update",{
+                dataType: 'json',
+                data:{
+                    status: 2,
+                    itemNo: itemNo
+                },
+                success: (result) => {
+                    swal("거래가 완료되었습니다.")
+                    load2();
+                },
+                error: () => {
+                    console.log('거래완료등록실패');
+                }
+            })
+        } else {
+            swal({
+                title:"거래 취소",
+                text:"정말 거래를 취소하시겠습니까?",
+                icon:"warning",
+                buttons:{
+                        confirm: {text: "OK", value: true},
+                        cancel: {text: "NO",value: false ,visible: true}
+                        }
+            }).then((value)=> {
+                if (value) {
+                    $.ajax("/json/tr/delete",{
+                        dataType: 'json',
+                        data:{
+                            itemNo: itemNo,
+                            rentNo: rentNo
+                        },
+                        success: (result) => {
+                            swal("거래가 취소 되었습니다.")
+                            load2();
+                        },
+                        error: () => {
+                            console.log('거래취소실패');
+                        }
+                    })
+                }
+            })
+        }//else end
+    })
+    
+});
+
+//리뷰등록
 function reviewAdd() {
     $('#closeModal').trigger("click");
      $.ajax('/json/rv/add', {
@@ -300,9 +441,7 @@ function reviewAdd() {
             state: 1
         },
         success: (result) => {
-          swal("리뷰등록성공").then((value) => {
-	          location.reload();
-          });
+          swal("리뷰등록성공");
         },
         error: () => {
             swal('리뷰 등록 실패!');
@@ -310,20 +449,31 @@ function reviewAdd() {
     }); 
 }
 
+//배송등록버튼 클릭 이벤트
 $(tbody).on("click","#deliveryBtn",function(e) {
     $('#rentNo2').val($(e.target).attr('data-rentNo'));
     $('#itemNo2').val($(e.target).attr('data-itemNo'));
     $('#deliveryNo').val("");
+    $('#parcel').val("");
     $('#deliveryDate').val("");
+    $.ajax("/json/user/"+$(e.target).attr('data-userNo'),{
+        success: (result)=> {
+            $('#lenderName').html("구매자 이름: "+result.user.userName);
+            $('#lenderPhone').html("구매자 전화번호: "+result.user.phone);
+            $('#lenderAddr').html("배송지: "+result.user.baseAddress+" "+result.user.detailAddress);
+        }
+    })
     $.ajax('/json/tr/'+ $(e.target).attr('data-rentNo'), {}).done(
             function(result) {
                 if (result.transaction.deliveryNo != 0) {
                     $('#deliveryNo').val(result.transaction.deliveryNo);
+                    $('#parcel').val(result.transaction.parcel);
                     $('#deliveryDate').val(moment(result.transaction.deliveryDate).format("YYYY-MM-DD"));
                 }
             });
 });
 
+//배송 등록시 실행되는 함수
 function deliveryAdd() {
     $('#closeModal2').trigger("click");
     $.ajax('/json/tr/update', {
@@ -331,11 +481,13 @@ function deliveryAdd() {
         data:{
             no: $('#rentNo2').val(),
             itemNo: $('#itemNo2').val(),
+            parcel: $('#parcel').val(),
             deliveryNo: $('#deliveryNo').val(),
             deliveryDate: $('#deliveryDate').val()
         },
         success: (result) => {
           swal("배송등록성공");
+          load2();
         },
         error: () => {
             swal('배송 등록 실패!');
@@ -395,23 +547,6 @@ starRating();
 $(function(){
     $('html').removeClass("no-js");
 })
-
-function transPrice(price) {
-    var len, point, str, price;
-
-    price = price + "";
-    point = price.length % 3 ;
-    len = price.length;
-
-    str = price.substring(0, point);
-    while (point < len) {
-       if (str != "") str += ",";
-       str += price.substring(point, point + 3);
-       point += 3;
-    }
-
-    return str;
-}
 
 </script>
 

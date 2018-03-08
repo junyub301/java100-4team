@@ -16,7 +16,7 @@ import java100.app.domain.Account;
 import java100.app.service.AccountService;
 import java100.app.service.UserService;
 
-@Controller
+//@Controller
 @RequestMapping("/auth")
 @SessionAttributes("loginUser")
 public class LoginController {

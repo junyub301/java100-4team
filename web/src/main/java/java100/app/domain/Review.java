@@ -9,27 +9,13 @@ public class Review {
     protected int itemNo;
     protected Date createdDate;
     protected String userPic;
-    protected String actname;
+    protected String userName;
     
     @Override
     public String toString() {
         return "Review [rentNo=" + rentNo + ", contents=" + contents + ", star=" + star + ", itemNo=" + itemNo
-                + ", createdDate=" + createdDate + ", userPic=" + userPic + "]";
+                + ", createdDate=" + createdDate + ", userPic=" + userPic + ", userName=" + userName + "]";
     }
-
-   
-
-    public String getActname() {
-        return actname;
-    }
-
-
-
-    public void setActname(String actname) {
-        this.actname = actname;
-    }
-
-
 
     public int getRentNo() {
         return rentNo;
@@ -77,6 +63,14 @@ public class Review {
 
     public void setUserPic(String userPic) {
         this.userPic = userPic;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
     
     

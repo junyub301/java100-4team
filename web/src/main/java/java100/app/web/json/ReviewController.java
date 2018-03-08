@@ -21,12 +21,6 @@ public class ReviewController {
     @Autowired ReviewService reviewService;
     @Autowired TransactionService transactionService;
     
-    /*@RequestMapping("list")
-    public String list(Model model) throws Exception {
-        model.addAttribute("review", reviewService.list());
-        
-        return "rv/list";
-    }*/
     
     @RequestMapping("{no}")
     public Object view(@PathVariable int no) throws Exception {
@@ -44,21 +38,6 @@ public class ReviewController {
         return result;
     }
     
-    /*@RequestMapping("update")
-    public String update(Review review) throws Exception  {
-        
-        reviewService.update(review);
-        
-        return "redirect:list";
-    }
-
-    @RequestMapping("delete")
-    public String delete(int no) throws Exception  {
-
-        reviewService.delete(no);
-
-        return "redirect:list";
-    }*/
     
     
 }

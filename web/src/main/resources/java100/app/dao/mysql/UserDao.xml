@@ -8,8 +8,12 @@
 <mapper namespace="java100.app.dao.UserDao">
     <resultMap type="user" id="userMap">
         <id column="ur_no" property="userNo"/>
-        <result column="acc_no" property="accountNo"/>
+        <result column="ur_id" property="userId"/>
+        <result column="email" property="email"/>
+        <result column="pwd" property="password"/>
         <result column="bank" property="bank"/>
+        <result column="act_no" property="accountNo"/>
+        <result column="ur_name" property="userName"/>
         <result column="cnt" property="comment"/>
         <result column="phone" property="phone"/>
         <result column="pst_no" property="postNo"/>
@@ -17,7 +21,7 @@
         <result column="det_addr" property="detailAddress"/>
         
     <collection property="photos" ofType="photo">
-            <id column="pho_no" property="no"/>
+            <id column="pho_no" property="photoNo"/>
             <result column="pho_name" property="photoName"/>
             <result column="th_name" property="thumbnailName"/>
             <result column="ur_no" property="userNo"/>
@@ -27,22 +31,25 @@
     <select id="list" resultMap="userMap" parameterType="map">
         select
             u.ur_no,
-            u.acc_no,
-            u.bank,
+            u.ur_id,
+            u.ur_name,
+            u.email,
             u.cnt,
-            u.phone,
-            u.pst_no,
             u.bas_addr,
             u.det_addr,
-            p.pho_name
-         from user as u join itemphoto as p on u.ur_no=p.ur_no
+            p.pho_name,
+            p.th_name
+         from user as u join photo as p on u.ur_no=p.ur_no
     </select>
     
     <select id="findByNo" resultMap="userMap" parameterType="int">
         select
             u.ur_no,
-            u.acc_no,
+            u.ur_id,
+            u.email,
             u.bank,
+            u.act_no,
+            u.ur_name,
             u.cnt,
             u.phone,
             u.pst_no,
@@ -50,25 +57,30 @@
             u.det_addr,
             p.pho_name,
             p.th_name
-         from user as u left join itemphoto as p on u.ur_no=p.ur_no where u.ur_no=#{value}
+         from user as u left join photo as p on u.ur_no=p.ur_no where u.ur_no=#{value}
     </select>
     
     
-    <insert id="insert" parameterType="user">
-        <if test="bank == ''" >
-            insert into user(ur_no,cnt,phone,pst_no,bas_addr,det_addr) 
-        values(#{userNo},#{comment},#{phone},#{postNo},#{baseAddress},#{detailAddress})
-        </if>
+    <insert id="insert" parameterType="user" useGeneratedKeys="true" 
+        keyColumn="ur_no" keyProperty="userNo">
         <if test="bank != ''">
-        insert into user(ur_no,acc_no,bank,cnt,phone,pst_no,bas_addr,det_addr) 
-        values(#{userNo},#{accountNo},#{bank},#{comment},#{phone},#{postNo},#{baseAddress},#{detailAddress})
+        insert into user(ur_id,email,pwd,bank,act_no,ur_name,cnt,phone,pst_no,bas_addr,det_addr) 
+        values(#{userId},#{email},password(#{password}),#{bank},#{accountNo},
+                #{userName},#{comment},#{phone},#{postNo},#{baseAddress},#{detailAddress})
+        </if>
+        <if test="bank == ''">
+        insert into user(ur_id,email,pwd,ur_name,cnt,phone,pst_no,bas_addr,det_addr) 
+        values(#{userId},#{email},password(#{password}),#{userName},#{comment},
+                #{phone},#{postNo},#{baseAddress},#{detailAddress})
         </if>
     </insert>
 
     <update id="update" parameterType="user">
         update user set 
-            acc_no=#{accountNo},
+            email=#{email},
+            pwd=password(#{password}),
             bank=#{bank},
+            act_no=#{accountNo},
             cnt=#{comment},
             phone=#{phone},
             pst_no=#{postNo},
@@ -76,8 +88,62 @@
             det_addr=#{detailAddress}
         where ur_no=#{userNo}
     </update>
-
-
+    
+    <update id="update2" parameterType="user">
+        update user set 
+            email=#{email},
+            bank=#{bank},
+            act_no=#{accountNo},
+            cnt=#{comment},
+            phone=#{phone},
+            pst_no=#{postNo},
+            bas_addr=#{baseAddress},
+            det_addr=#{detailAddress}
+        where ur_no=#{userNo}
+    </update>
+    
+    <delete id="delete" parameterType="int">
+        delete from user 
+        where ur_no=#{value}
+    </delete>
+    
+    <select id = "checkId" parameterType = "String" resultType = "int">
+        select count(*) from user where ur_id = #{id}
+    </select>
+    
+    <select id = "checkEmail" parameterType = "String" resultType = "int">
+        select count(*) from user where email = #{email}
+    </select>
+    
+    <select id = "findByaccountNameAndPassword" 
+            resultMap = "userMap" parameterType = "user">
+        select
+            ur_no,
+            ur_id,
+            email,
+            pwd,
+            ur_name
+        from user
+        where ur_id=#{id} and pwd=password(#{password})
+    </select>
+    
+     <select id = "findByEmail" 
+            resultMap = "userMap" parameterType = "string">
+        select
+            ur_no,
+            ur_id,
+            email,
+            pwd,
+            ur_name
+        from user
+        where email=#{email}
+    </select>
+    
+    <select id = "checkPassword" parameterType = "map" resultType = "int">
+        select count(*) from user where ur_id = #{id} and pwd=password(#{password})
+    </select>
+    
+    
 </mapper>  
 
 

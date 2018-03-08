@@ -1,9 +1,7 @@
 package java100.app.web.json;
 
 import java.util.HashMap;
-import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -15,9 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
-import java100.app.domain.Account;
 import java100.app.domain.User;
-import java100.app.service.AccountService;
 import java100.app.service.FacebookService;
 import java100.app.service.GoogleService;
 import java100.app.service.KakaoService;
@@ -28,7 +24,6 @@ import java100.app.service.UserService;
 @SessionAttributes("loginUser")
 public class LoginController {
 
-    @Autowired AccountService accountService;
     @Autowired UserService userService;
     @Autowired FacebookService facebookService;
     @Autowired KakaoService kakaoService;
@@ -36,28 +31,28 @@ public class LoginController {
 
     @RequestMapping(value="login", method=RequestMethod.POST)
     public Object login(
-            String accountName, 
+            String id, 
             String password,
             HttpServletResponse response,
             HttpSession session,
             Model model) {
 
-        Account account = accountService.get(accountName, password);
+        User user = userService.get(id, password);
 
         HashMap<String,Object> result = new HashMap<>();
 
-        if (account == null) {
+        if (user == null) {
             model.addAttribute("loginUser", null);
             result.put("status", "fail"); 
         } else {
-            model.addAttribute("loginUser", account);
+            model.addAttribute("loginUser", user);
             result.put("status", "success");
         }
 
         return result;
     }
 
-    @RequestMapping(value="facebookLogin")
+    /*@RequestMapping(value="facebookLogin")
     public Object facebookLogin(
             String accessToken, 
             HttpSession session,
@@ -77,7 +72,7 @@ public class LoginController {
                 account.setName((String)userInfo.get("name"));
                 account.setEmail((String)userInfo.get("email"));
                 String[] a = account.getEmail().split("@");
-                account.setAccountName(a[0]);
+                account.setId(a[0]);
                 account.setPassword("1111");
                 user.setAccountNo("");
                 user.setBank("");
@@ -128,7 +123,7 @@ public class LoginController {
                 account.setName((String)((Map)koResponse.get("properties")).get("nickname"));
                 account.setEmail((String)koResponse.get("kaccount_email"));
                 String[] a = account.getEmail().split("@");
-                account.setAccountName(a[0]);
+                account.setId(a[0]);
                 account.setPassword("1111");
                 user.setAccountNo("");
                 user.setBank("");
@@ -181,7 +176,7 @@ public class LoginController {
                 account.setName((String)userInfo.get("name"));
                 account.setEmail((String)userInfo.get("email"));
                 String[] a = account.getEmail().split("@");
-                account.setAccountName(a[0] + "_google");
+                account.setId(a[0] + "_google");
                 account.setPassword("1111");
                 user.setAccountNo("");
                 user.setBank("");
@@ -219,7 +214,7 @@ public class LoginController {
                 account.setName(naccount.getName());
                 account.setEmail(naccount.getEmail());
                 String[] a = account.getEmail().split("@");
-                account.setAccountName(a[0]);
+                account.setId(a[0]);
                 account.setPassword("1111");
                 user.setAccountNo("");
                 user.setBank("");
@@ -243,9 +238,7 @@ public class LoginController {
             result.put("exception", e.getStackTrace());
             return result;
         }
-    }
-
-
+    }*/
 
         @RequestMapping("logout")
         public Object logout(HttpSession session, SessionStatus status) {
@@ -261,14 +254,13 @@ public class LoginController {
         @RequestMapping("loginUser")
         public Object userName(HttpSession session) {
 
-            Account account = (Account)session.getAttribute("loginUser");
+            User user = (User)session.getAttribute("loginUser");
 
             HashMap<String,Object> result = new HashMap<>();
 
-            if (account != null) {
+            if (user != null) {
                 result.put("status", "success");
-                result.put("account", account);
-                result.put("user", userService.getUser(account.getAccountsNo()));
+                result.put("user", user);
             } else {
                 result.put("status", "fail");
             }

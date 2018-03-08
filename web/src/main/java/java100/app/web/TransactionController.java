@@ -13,7 +13,7 @@ import java100.app.domain.Account;
 import java100.app.domain.Transaction;
 import java100.app.service.TransactionService;
 
-@Controller
+//@Controller
 @RequestMapping("/tr")
 public class TransactionController {
     

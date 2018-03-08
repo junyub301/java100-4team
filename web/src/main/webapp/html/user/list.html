@@ -23,14 +23,14 @@
 </table>
 </div>
 <script id="template1" type="text/x-handlebars-template">
-{{#each account}}
+{{#each user}}
 <tr>
-  <td>{{accountsNo}}</td>
-  <td><a href="view.html?no={{accountsNo}}">{{accountName}}</a></td>
+  <td>{{userNo}}</td>
+  <td><a href="view.html?no={{userNo}}">{{userName}}</a></td>
   <td>{{email}}</td>
   <td><img 
 {{#each photos}}
-src="/download/{{photoName}}"
+src="/download/{{thumbnailName}}"
 {{/each}}
 ></td>
 </tr>
@@ -51,10 +51,10 @@ template1Engine = Handlebars.compile(template1Src);
 load();
 
 function load() { 
-    $.ajax('../../json/user/list', {
+    $.ajax('/json/user/list', {
         dataType: 'json',
         success: (result) => {
-            tbody.html(template1Engine(result));            
+            tbody.html(template1Engine(result));
         },
         error: () => {
             window.alert('서버 실행 오류!');

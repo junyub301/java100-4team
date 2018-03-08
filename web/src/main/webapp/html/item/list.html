@@ -104,10 +104,8 @@ height: 100%;
     <div class="card-body px-0 py-0"> 
         <h3 class="mb-2 mx-3">
         <p class="card-text text-truncate" style="text-align: center;">{{title}}</p></h3>
-        {{#check userType}}
-        <p class="card-text mb-0 mx-3 text-truncate text-muted" style="text-align: right;">{{name}}</p>
+        <p class="card-text mb-0 mx-3 text-truncate text-muted" style="text-align: right;">{{itemName}}</p>
         <p class="card-text mb-0 mx-3 text-muted" type="date" style="text-align: right;">{{formatDate startDate}} ~ {{formatDate endDate}}</p>
-        {{/check}}
         <p class="card-text mb-0 mx-3 text-truncate text-muted" style="text-align: right;">{{fb price}} 원</p>
         <p class="card-text mb-0 mx-3 text-truncate text-muted" style="text-align: right;">{{cty category}}</p>
         <div class="mb-2">
@@ -176,7 +174,6 @@ var prevBtn = $("#prevBtn"),
     rentIcon = $('#renticon'),
     lendIcon = $('#lendicon'),
     currPageNo = 1,
-    userType = 0,
     categoryNo = 0,
     words = "",
     template1Src = $('#t1').html(),
@@ -233,11 +230,6 @@ Handlebars.registerHelper('thumbnail', function(thumbnailName) {
     var thumbnails = thumbnailName.split(",");
     return thumbnails[0];
 });
-Handlebars.registerHelper('check', function(userType, options) {
-    if (userType == 0){
-    return options.fn(this);
-    }
-});
 Handlebars.registerHelper('shared', function(status, options) {
     if (status >= 1){
     return options.fn(this);
@@ -259,33 +251,24 @@ Handlebars.registerHelper("cty", function(category) {
 rentBtn.click(() => {
     $('#renticon').css('color', '#007BFF');
     $('#lendicon').css('color', 'grey');
-    userType = 0;
-    load(1,userType,categoryNo,words)
-});
-lendBtn.click(() => {
-    $('#renticon').css('color', 'grey');
-    $('#lendicon').css('color', '#007BFF'); 
-    userType = 1;
-    load(1,userType,categoryNo,words);
+    load(1,categoryNo,words)
 });
 
 prevBtn.click(() => {
-    load(currPageNo - 1, userType, categoryNo, words)
+    load(currPageNo - 1, categoryNo, words)
 });
 nextBtn.click(() => {
-    load(currPageNo + 1, userType, categoryNo, words)
+    load(currPageNo + 1,  categoryNo, words)
 });
 
-function load(pageNo, userType, categoryNo, words) {
+function load(pageNo, categoryNo, words) {
     /* 
     if (options == undefined) options = {};
     options.pn = pageNo; */
-    console.log(categoryNo)
     $.ajax('../../json/item/list', {
         
         data: {
             pn: pageNo, 
-            ut: userType,
             words: words,
             cr: categoryNo
         },

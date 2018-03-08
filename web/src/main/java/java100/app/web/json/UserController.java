@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,10 +18,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import java100.app.domain.Account;
+import java100.app.domain.Maps;
 import java100.app.domain.Photo;
 import java100.app.domain.User;
-import java100.app.service.AccountService;
+import java100.app.service.MapsService;
 import java100.app.service.UserService;
 import net.coobird.thumbnailator.Thumbnails;
 
@@ -31,42 +31,35 @@ public class UserController {
     
     @Autowired ServletContext servletContext;
     @Autowired UserService userService;
-    @Autowired AccountService accountService;
+    @Autowired MapsService mapsService;
+    
+    static Logger logger = Logger.getLogger(UserController.class);
     
     @RequestMapping("list")
     public Object list() throws Exception {
         HashMap<String, Object> result = new HashMap<>();
-        
-        result.put("account", userService.listAccount());
-        result.put("user",userService.listUser());
+        result.put("user",userService.list());
         
         return result;
     }
-    
+   
     @RequestMapping("{no}")
     public Object view(@PathVariable int no) throws Exception {
-
         HashMap<String,Object> result = new HashMap<>();
-
-        result.put("account", userService.getAccount(no));
         result.put("user", userService.getUser(no));
-
         return result;
     }
     
     @RequestMapping("view")
     public Object view2(HttpSession session) throws Exception {
-        Account account = (Account)session.getAttribute("loginUser");
+        User user = (User)session.getAttribute("loginUser");
         HashMap<String,Object> result = new HashMap<>();
-        
-        result.put("account", userService.getAccount(account.getAccountsNo()));
-        result.put("user", userService.getUser(account.getAccountsNo()));
-        
+        result.put("user", userService.getUser(user.getUserNo()));
         return result;
     }
     
     @RequestMapping("add")
-    public Object add(Account account, User user, MultipartFile[] photo) throws Exception {
+    public Object add(User user, Maps maps, MultipartFile[] photo) throws Exception {
         String uploadDir = servletContext.getRealPath("/download");
         ArrayList<Photo> uploadFiles = new ArrayList<>();
         for (MultipartFile part: photo) {
@@ -80,17 +73,30 @@ public class UserController {
 
             uploadFiles.add(new Photo(filename,Thumbnail));
         }
-        
         user.setPhotos(uploadFiles);
-        userService.add(account, user); 
+        userService.add(user, maps); 
         
         HashMap<String,Object> result = new HashMap<>();
         result.put("status",  "success");
         return result;
     }
         
+    @ResponseBody
+    @RequestMapping(value = "/checkId", method = RequestMethod.POST)
+    public int checkId(String id, Model model) {
+        int rowcount = userService.checkId(id);
+        return rowcount;
+    }
+    
+    @ResponseBody
+    @RequestMapping(value = "/checkEmail", method = RequestMethod.POST)
+    public int checkEmail(String email, Model model) {
+        int rowcount = userService.checkEmail(email);
+        return rowcount;
+    }
+    
     @RequestMapping("update")
-    public Object update(Account account, User user, MultipartFile[] photo) throws Exception  {
+    public Object update(User user, Maps maps, MultipartFile[] photo) throws Exception  {
         // 업로드 파일을 정장할 위치를 가져온다.
         String uploadDir = servletContext.getRealPath("/download");
 
@@ -110,9 +116,10 @@ public class UserController {
         }
         // Board 객체에 저장한 파일명을 등록한다. 
         user.setPhotos(uploadFiles);
-        
-        userService.update(account, user);
-        
+        userService.update(user);
+        if (!maps.getAddress().isEmpty()) {
+        mapsService.update(maps);
+        }
         HashMap<String,Object> result = new HashMap<>();
         result.put("status", uploadFiles);
         return result;
@@ -130,28 +137,12 @@ public class UserController {
     
 
 
-    @ResponseBody
-    @RequestMapping(value = "/checkId", method = RequestMethod.POST)
-    public String checkId(HttpServletRequest request, Model model) {
-        String id = request.getParameter("accountName");
-        int rowcount = userService.checkId(id);
-        
-        return String.valueOf(rowcount);
-    }
     
-    @ResponseBody
-    @RequestMapping(value = "/checkEmail", method = RequestMethod.POST)
-    public String checkEmail(HttpServletRequest request, Model model) {
-        String email = request.getParameter("email");
-        int rowcount = userService.checkEmail(email);
-        
-        return String.valueOf(rowcount);
-    }
     
     @RequestMapping("checkPwd")
     public int checkPwd(HttpSession session,String password) {
-        String accountName = ((Account)session.getAttribute("loginUser")).getAccountName();
-        return accountService.checkPassword(accountName, password);
+        String id = ((User)session.getAttribute("loginUser")).getUserId();
+        return userService.checkPassword(id, password);
     }
     
     

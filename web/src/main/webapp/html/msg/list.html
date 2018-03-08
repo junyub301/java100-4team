@@ -141,17 +141,15 @@ function load() {
         }
     });
 }
-//이벤트 등록
-function viewEvent() {
-//뷰실행
-$('.detailView').on('click',(e) => {
+
+//메시지모달뷰이벤트
+$('tbody').on('click',".detailView",(e) => {
     var num = $(e.target).attr('id').split("m")[1];
         $.ajax('/json/msg/' + num, {
             dataType: 'json',
             success: (result) => {
                 $('.modal-body').html(template1Engine(result.message));
                 $('.modal-footer').html(template2Engine(result.message));
-                delEvent();
             },
             error: () => {
                 swal('서버 실행 오류!');
@@ -159,9 +157,8 @@ $('.detailView').on('click',(e) => {
         });
 });
 
-};
-function delEvent() {
-$('#delBtn').on('click',(e) => {
+//삭제버튼 클릭 이벤트
+$('.modal-footer').on('click',"#delBtn",(e) => {
     var num = $(e.target).attr('data-no');
   $.ajax('/json/msg/delete', {
         data: {
@@ -176,7 +173,6 @@ $('#delBtn').on('click',(e) => {
         }
     });
 });
-};
 
 $(function(){
     $('html').removeClass("no-js");

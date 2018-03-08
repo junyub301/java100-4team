@@ -21,7 +21,7 @@ import java100.app.domain.Photo;
 import java100.app.domain.User;
 import java100.app.service.UserService;
 
-@Controller
+//@Controller
 @RequestMapping("/user")
 public class UserController {
     

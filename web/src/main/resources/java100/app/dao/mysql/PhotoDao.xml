@@ -12,17 +12,17 @@
 
 
     <insert id="insertUser" parameterType="photo">
-        insert into itemphoto(pho_name,ur_no,th_name) 
+        insert into photo(pho_name,ur_no,th_name) 
         values(#{photoName}, #{userNo}, #{thumbnailName})
     </insert>
     
     <insert id="insertItem" parameterType="photo">
-        insert into itemphoto(pho_name,it_no,th_name) 
+        insert into photo(pho_name,it_no,th_name) 
         values(#{photoName}, #{itemNo},#{thumbnailName})
     </insert>
 
    <delete id="deleteAllByUserNo" parameterType="int">
-        delete from itemphoto
+        delete from photo
         where ur_no=#{value}
     </delete>
     
