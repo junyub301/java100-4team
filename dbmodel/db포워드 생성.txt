@@ -1,12 +1,11 @@
 ﻿-- 후기
 CREATE TABLE review (
-	rent_no  INTEGER      NOT NULL COMMENT '대여번호', -- 대여번호
-	cnt      VARCHAR(255) NULL     COMMENT '내용', -- 내용
-	cre_date DATE         NULL     COMMENT '작성일', -- 작성일
-	star     INTEGER      NULL     COMMENT '별점', -- 별점
-	it_no    INTEGER      NOT NULL COMMENT '아이템번호' -- 아이템번호
-)
-COMMENT '후기';
+	rent_no  INTEGER      NOT NULL, -- 대여번호
+	cnt      VARCHAR(255) NULL,     -- 내용
+	cre_date DATE         NULL,     -- 작성일
+	star     INTEGER      NULL,     -- 별점
+	it_no    INTEGER      NOT NULL  -- 아이템번호
+);
 
 -- 후기
 ALTER TABLE review
@@ -17,20 +16,20 @@ ALTER TABLE review
 
 -- 물품
 CREATE TABLE item (
-	it_no     INTEGER      NOT NULL COMMENT '물품번호', -- 물품번호
-	ur_no     INTEGER      NOT NULL COMMENT '사용자번호', -- 사용자번호
-	category  INTEGER      NOT NULL COMMENT '카테고리', -- 카테고리
-	user_type INTEGER      NOT NULL COMMENT '사용자상태', -- 사용자상태
-	item_name VARCHAR(50)  NOT NULL COMMENT '물품명', -- 물품명
-	title     VARCHAR(50)  NOT NULL COMMENT '글 제목', -- 글 제목
-	cnt       VARCHAR(255) NOT NULL COMMENT '내용', -- 내용
-	add_date  DATE         NULL     COMMENT '등록일', -- 등록일
-	start     DATE         NULL     COMMENT '대여시작일', -- 대여시작일
-	end       DATE         NULL     COMMENT '대여종료일', -- 대여종료일
-	price     INTEGER      NULL     COMMENT '대여 기본 가격', -- 대여 기본 가격
-	status    BOOLEAN      NULL     COMMENT '물품 상태' -- 물품 상태
-)
-COMMENT '물품';
+	it_no     INTEGER      NOT NULL, -- 물품번호
+	ur_no     INTEGER      NOT NULL, -- 사용자번호
+	category  INTEGER      NOT NULL, -- 카테고리
+	item_name VARCHAR(50)  NOT NULL, -- 물품명
+	title     VARCHAR(50)  NOT NULL, -- 글 제목
+	cnt       VARCHAR(255) NOT NULL, -- 내용
+	add_date  DATE         NOT NULL, -- 등록일
+	start     DATE         NOT NULL, -- 대여시작일
+	end       DATE         NOT NULL, -- 대여종료일
+	price     INTEGER      NOT NULL, -- 대여 기본 가격
+	addr      VARCHAR(255) NULL,     -- 거래장소
+	pay_yn    BOOLEAN      NOT NULL, -- 판매여부
+	status    BOOLEAN      NOT NULL  -- 물품 상태
+);
 
 -- 물품
 ALTER TABLE item
@@ -39,83 +38,37 @@ ALTER TABLE item
 			it_no -- 물품번호
 		);
 
--- 물품 인덱스
-CREATE INDEX IX_item
-	ON item( -- 물품
-		it_no ASC -- 물품번호
-	);
-
 ALTER TABLE item
-	MODIFY COLUMN it_no INTEGER NOT NULL AUTO_INCREMENT COMMENT '물품번호';
+	MODIFY COLUMN it_no INTEGER NOT NULL AUTO_INCREMENT;
 
 -- 사진
-CREATE TABLE itemphoto (
-	pho_no   INTEGER      NOT NULL COMMENT '사진번호', -- 사진번호
-	it_no    INTEGER      NULL     COMMENT '물품번호', -- 물품번호
-	ur_no    INTEGER      NULL     COMMENT '사용자번호', -- 사용자번호
-	th_name  VARCHAR(255) NULL     COMMENT '썸네일', -- 썸네일
-	pho_name VARCHAR(255) NULL     COMMENT '파일이름' -- 파일이름
-)
-COMMENT '사진';
+CREATE TABLE photo (
+	pho_no   INTEGER      NOT NULL, -- 사진번호
+	it_no    INTEGER      NULL,     -- 물품번호
+	ur_no    INTEGER      NULL,     -- 사용자번호
+	th_name  VARCHAR(255) NULL,     -- 썸네일
+	pho_name VARCHAR(255) NOT NULL  -- 파일이름
+);
 
 -- 사진
-ALTER TABLE itemphoto
-	ADD CONSTRAINT PK_itemphoto -- 사진 기본키
+ALTER TABLE photo
+	ADD CONSTRAINT PK_photo -- 사진 기본키
 		PRIMARY KEY (
 			pho_no -- 사진번호
 		);
 
-ALTER TABLE itemphoto
-	MODIFY COLUMN pho_no INTEGER NOT NULL AUTO_INCREMENT COMMENT '사진번호';
-
--- 계정
-CREATE TABLE account (
-	act_no   INTEGER      NOT NULL COMMENT '계정번호', -- 계정번호
-	act_id   VARCHAR(50)  NOT NULL COMMENT '아이디', -- 아이디
-	email    VARCHAR(40)  NOT NULL COMMENT '이메일', -- 이메일
-	pwd      VARCHAR(100) NOT NULL COMMENT '암호', -- 암호
-	act_name VARCHAR(50)  NOT NULL COMMENT '이름', -- 이름
-	rank     INTEGER      NOT NULL COMMENT '등급' -- 등급
-)
-COMMENT '계정';
-
--- 계정
-ALTER TABLE account
-	ADD CONSTRAINT PK_account -- 계정 기본키
-		PRIMARY KEY (
-			act_no -- 계정번호
-		);
-
--- 계정 유니크 인덱스
-CREATE UNIQUE INDEX UIX_account
-	ON account ( -- 계정
-		act_id ASC -- 아이디
-	);
-
--- 계정 유니크 인덱스2
-CREATE UNIQUE INDEX UIX_account2
-	ON account ( -- 계정
-		email ASC -- 이메일
-	);
-
--- 계정 인덱스
-CREATE INDEX IX_account
-	ON account( -- 계정
-	);
-
-ALTER TABLE account
-	MODIFY COLUMN act_no INTEGER NOT NULL AUTO_INCREMENT COMMENT '계정번호';
+ALTER TABLE photo
+	MODIFY COLUMN pho_no INTEGER NOT NULL AUTO_INCREMENT;
 
 -- 메시지
 CREATE TABLE message (
-	mg_no    INTEGER      NOT NULL COMMENT '메시지번호', -- 메시지번호
-	ur_no    INTEGER      NULL     COMMENT '받는이', -- 받는이
-	title    VARCHAR(50)  NOT NULL COMMENT '제목', -- 제목
-	cnt      VARCHAR(255) NOT NULL COMMENT '내용', -- 내용
-	state    BOOLEAN      NOT NULL COMMENT '수신확인상태', -- 수신확인상태
-	dis_date DATE         NOT NULL COMMENT '발송날짜' -- 발송날짜
-)
-COMMENT '메시지';
+	mg_no    INTEGER      NOT NULL, -- 메시지번호
+	ur_no    INTEGER      NOT NULL, -- 받는이
+	title    VARCHAR(50)  NOT NULL, -- 제목
+	cnt      VARCHAR(255) NOT NULL, -- 내용
+	state    BOOLEAN      NOT NULL, -- 수신확인상태
+	dis_date DATE         NOT NULL  -- 발송날짜
+);
 
 -- 메시지
 ALTER TABLE message
@@ -125,20 +78,23 @@ ALTER TABLE message
 		);
 
 ALTER TABLE message
-	MODIFY COLUMN mg_no INTEGER NOT NULL AUTO_INCREMENT COMMENT '메시지번호';
+	MODIFY COLUMN mg_no INTEGER NOT NULL AUTO_INCREMENT;
 
 -- 사용자
 CREATE TABLE user (
-	ur_no    INTEGER      NOT NULL COMMENT '사용자번호', -- 사용자번호
-	acc_no   VARCHAR(100) NULL     COMMENT '통장번호', -- 통장번호
-	bank     VARCHAR(30)  NULL     COMMENT '은행명', -- 은행명
-	cnt      VARCHAR(50)  NULL     COMMENT '한마디', -- 한마디
-	phone    VARCHAR(30)  NOT NULL COMMENT '전화번호', -- 전화번호
-	pst_no   VARCHAR(30)  NOT NULL COMMENT '우편번호', -- 우편번호
-	bas_addr VARCHAR(255) NOT NULL COMMENT '기본주소', -- 기본주소
-	det_addr VARCHAR(255) NOT NULL COMMENT '상세주소' -- 상세주소
-)
-COMMENT '사용자';
+	ur_no    INTEGER      NOT NULL, -- 사용자번호
+	ur_id    VARCHAR(50)  NOT NULL, -- 아이디
+	email    VARCHAR(40)  NOT NULL, -- 이메일
+	pwd      VARCHAR(100) NOT NULL, -- 암호
+	bank     VARCHAR(30)  NULL,     -- 은행명
+	act_no   VARCHAR(50)  NULL,     -- 계좌번호
+	ur_name  VARCHAR(50)  NOT NULL, -- 이름
+	cnt      VARCHAR(50)  NULL,     -- 한마디
+	phone    VARCHAR(30)  NULL,     -- 전화번호
+	pst_no   VARCHAR(30)  NULL,     -- 우편번호
+	bas_addr VARCHAR(255) NULL,     -- 기본주소
+	det_addr VARCHAR(255) NULL      -- 상세주소
+);
 
 -- 사용자
 ALTER TABLE user
@@ -150,27 +106,38 @@ ALTER TABLE user
 -- 사용자 유니크 인덱스
 CREATE UNIQUE INDEX UIX_user
 	ON user ( -- 사용자
-		acc_no ASC, -- 통장번호
-		bank ASC    -- 은행명
+		ur_id ASC -- 아이디
+	);
+
+-- 사용자 유니크 인덱스2
+CREATE UNIQUE INDEX UIX_user2
+	ON user ( -- 사용자
+		email ASC -- 이메일
+	);
+
+-- 사용자 유니크 인덱스3
+CREATE UNIQUE INDEX UIX_user3
+	ON user ( -- 사용자
+		bank ASC,   -- 은행명
+		act_no ASC  -- 계좌번호
 	);
 
 ALTER TABLE user
-	MODIFY COLUMN ur_no INTEGER NOT NULL AUTO_INCREMENT COMMENT '사용자번호';
+	MODIFY COLUMN ur_no INTEGER NOT NULL AUTO_INCREMENT;
 
 -- 대여
 CREATE TABLE transaction (
-	rent_no  INTEGER     NOT NULL COMMENT '대여번호', -- 대여번호
-	ur_no    INTEGER     NOT NULL COMMENT '대여자번호', -- 대여자번호
-	it_no    INTEGER     NOT NULL COMMENT '물품번호', -- 물품번호
-	sel_no   INTEGER     NOT NULL COMMENT '판매자번호', -- 판매자번호
-	pay_way  VARCHAR(50) NULL     COMMENT '결제수단', -- 결제수단
-	pay_dat  DATE        NULL     COMMENT '결제일', -- 결제일
-	pay_type INTEGER     NULL     COMMENT '배송비결제유형', -- 배송비결제유형
-	del_no   VARCHAR(50) NULL     COMMENT '운송장번호', -- 운송장번호
-	del_dat  DATE        NULL     COMMENT '배송일', -- 배송일
-	state    BOOLEAN     NULL     COMMENT '리뷰등록여부' -- 리뷰등록여부
-)
-COMMENT '대여';
+	rent_no  INTEGER     NOT NULL, -- 대여번호
+	ur_no    INTEGER     NOT NULL, -- 대여자번호
+	it_no    INTEGER     NOT NULL, -- 물품번호
+	sel_no   INTEGER     NOT NULL, -- 판매자번호
+	pay_way  VARCHAR(50) NULL,     -- 결제수단
+	pay_dat  DATE        NULL,     -- 거래일
+	pay_type INTEGER     NULL,     -- 배송비결제유형
+	parcel   VARCHAR(50) NULL,     -- 택배사
+	del_no   VARCHAR(50) NULL,     -- 운송장번호
+	state    BOOLEAN     NULL      -- 리뷰등록여부
+);
 
 -- 대여
 ALTER TABLE transaction
@@ -182,12 +149,51 @@ ALTER TABLE transaction
 -- 대여 유니크 인덱스
 CREATE UNIQUE INDEX UIX_transaction
 	ON transaction ( -- 대여
-		ur_no ASC, -- 대여자번호
-		it_no ASC  -- 물품번호
+		it_no ASC -- 물품번호
 	);
 
 ALTER TABLE transaction
-	MODIFY COLUMN rent_no INTEGER NOT NULL AUTO_INCREMENT COMMENT '대여번호';
+	MODIFY COLUMN rent_no INTEGER NOT NULL AUTO_INCREMENT;
+
+-- 지도마커
+CREATE TABLE map (
+	m_no    INTEGER     NOT NULL, -- 마커번호
+	address VARCHAR(50) NULL,     -- 주소
+	lat     FLOAT(12,8) NOT NULL, -- 위도
+	lng     FLOAT(12,8) NOT NULL, -- 경도
+	ur_no   INTEGER     NULL,     -- 사용자번호
+	it_no   INTEGER     NULL      -- 물품번호
+);
+
+-- 지도마커
+ALTER TABLE map
+	ADD CONSTRAINT PK_map -- 지도마커 기본키
+		PRIMARY KEY (
+			m_no -- 마커번호
+		);
+
+ALTER TABLE map
+	MODIFY COLUMN m_no INTEGER NOT NULL AUTO_INCREMENT;
+
+-- 요청게시판
+CREATE TABLE request (
+	rq_no     INTEGER      NOT NULL, -- 게시판번호
+	title     VARCHAR(50)  NOT NULL, -- 제목
+	cnt       VARCHAR(255) NOT NULL, -- 내용
+	item_name VARCHAR(50)  NOT NULL, -- 물품명
+	reg_date  DATE         NOT NULL, -- 등록날짜
+	ur_no     INTEGER      NOT NULL  -- 사용자번호
+);
+
+-- 요청게시판
+ALTER TABLE request
+	ADD CONSTRAINT PK_request -- 요청게시판 기본키
+		PRIMARY KEY (
+			rq_no -- 게시판번호
+		);
+
+ALTER TABLE request
+	MODIFY COLUMN rq_no INTEGER NOT NULL AUTO_INCREMENT;
 
 -- 후기
 ALTER TABLE review
@@ -212,8 +218,8 @@ ALTER TABLE item
 		ON DELETE CASCADE;
 
 -- 사진
-ALTER TABLE itemphoto
-	ADD CONSTRAINT FK_item_TO_itemphoto -- 물품 -> 사진
+ALTER TABLE photo
+	ADD CONSTRAINT FK_item_TO_photo -- 물품 -> 사진
 		FOREIGN KEY (
 			it_no -- 물품번호
 		)
@@ -223,8 +229,8 @@ ALTER TABLE itemphoto
 		ON DELETE CASCADE;
 
 -- 사진
-ALTER TABLE itemphoto
-	ADD CONSTRAINT FK_user_TO_itemphoto -- 사용자 -> 사진
+ALTER TABLE photo
+	ADD CONSTRAINT FK_user_TO_photo -- 사용자 -> 사진
 		FOREIGN KEY (
 			ur_no -- 사용자번호
 		)
@@ -244,17 +250,6 @@ ALTER TABLE message
 		)
 		ON DELETE CASCADE;
 
--- 사용자
-ALTER TABLE user
-	ADD CONSTRAINT FK_account_TO_user -- 계정 -> 사용자
-		FOREIGN KEY (
-			ur_no -- 사용자번호
-		)
-		REFERENCES account ( -- 계정
-			act_no -- 계정번호
-		)
-		ON DELETE CASCADE;
-
 -- 대여
 ALTER TABLE transaction
 	ADD CONSTRAINT FK_user_TO_transaction -- 사용자 -> 대여
@@ -266,13 +261,35 @@ ALTER TABLE transaction
 		)
 		ON DELETE CASCADE;
 
--- 대여
-ALTER TABLE transaction
-	ADD CONSTRAINT FK_item_TO_transaction -- 물품 -> 대여
+-- 지도마커
+ALTER TABLE map
+	ADD CONSTRAINT FK_user_TO_map -- 사용자 -> 지도마커
+		FOREIGN KEY (
+			ur_no -- 사용자번호
+		)
+		REFERENCES user ( -- 사용자
+			ur_no -- 사용자번호
+		)
+		ON DELETE CASCADE;
+
+-- 지도마커
+ALTER TABLE map
+	ADD CONSTRAINT FK_item_TO_map -- 물품 -> 지도마커
 		FOREIGN KEY (
 			it_no -- 물품번호
 		)
 		REFERENCES item ( -- 물품
 			it_no -- 물품번호
+		)
+		ON DELETE CASCADE;
+
+-- 요청게시판
+ALTER TABLE request
+	ADD CONSTRAINT FK_user_TO_request -- 사용자 -> 요청게시판
+		FOREIGN KEY (
+			ur_no -- 사용자번호
+		)
+		REFERENCES user ( -- 사용자
+			ur_no -- 사용자번호
 		)
 		ON DELETE CASCADE;
