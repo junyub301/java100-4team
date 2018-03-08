@@ -41,18 +41,34 @@
 <header></header>
 
 <div class="container">
-<div class="row">
-<div class="col-md-4 col-sm-6 col-xs-12 mx-auto">
-<div class="card-body">
-    <div id='aa' class="card-text">
-  </div>
+
+<div class="hr-sect my-3 col-8 mx-auto"><h4 class="hr-sect mb-0">사진</h4></div>
     
-      <h4 id='actname' class="py-3 text_center" style="color:#3680C1"></h4>
-      <p class="text_center text-muted"></p>
-  
+<div class="row py-2">
+<div class="mx-auto">
+    <div id="itemphoto"></div>
+    </div>
 </div>
-<div class="card-body text-center">
+
+<div class="hr-sect my-3 col-8 mx-auto"><h4 class="hr-sect mb-0">물품정보</h4></div>
+
+<div class="row">
+<div class="mx-auto">
+<div class="col-6 textcenter disinline">
+<div class="card-body">
+<div id='aa' class="card-text"></div>
+<h4 id='actname' class="mb-0" style="color:#3680C1"></h4></div>
 <p id="title" class="card-text"></p>
+</div>
+<div class="col-5 disinline">
+<div id="map"></div>
+<button type="button" class="btn btn-primary btn-sm" onclick="routeOpen()">길찾기</button>
+<button type="button" class="btn btn-primary btn-sm" onclick="distanceCalculator()">거리 계산</button>
+<table class="table table-bordered mb-0">
+<tbody>
+<tr><th style="background-color: #f3f3f3;" rowspan="1" id="distance"></th></tr>
+</tbody>
+</table>
 </div>
 </div>
 </div>
@@ -71,25 +87,13 @@
     </div>
 </div>
 
-<div class="hr-sect my-5 col-8 mx-auto"><h4 class="hr-sect mb-0">사진</h4></div>
- 
-    
-<div class="row py-2">
-<div class="mx-auto">
-    <div id="itemphoto"></div>
-    </div>
-</div>
+
 
 <div style="display: none;" id="rivewBar" class="hr-sect my-5 col-8 mx-auto"><h4 class="hr-sect mb-0">리뷰</h4></div>
 
 <div class="row py-2">
 <div id='review' class="mx-auto col-3" style="text-align: center;">
 </div>
-</div>
-
-<div>
-<div id="map"></div><span id="distance"></span><button type="button" class="btn" onclick="distanceCalculator()">거리 계산</button>
-<button type="button" class="btn" onclick="routeOpen()">길찾기</button>
 </div>
 
 </div>
@@ -170,7 +174,7 @@
 
 <script id='t1' type="text/x-handlebars-template">
 {{#each photos}}
-    <img src="/download/{{thumbnailName}}" class="img-responsive rounded-circle" style="width:100%">
+    <img src="/download/{{thumbnailName}}" class="img-responsive">
 {{/each}}
 </script>
 <script id='t2' type="text/x-handlebars-template">
@@ -207,10 +211,14 @@
 
 <script id='t3' type="text/handlebars-template">
 <table class="table table-bordered">
-<tbody><tr><th style="background-color: #f3f3f3;" class="text-center align-middle" rowspan="4">대여</th></tr>
-<tr><td><span>물품</span><span style="float: right;">{{itemName}}</span></td></tr>
-<tr><td class="text-muted" type="date"><span>기간</span><span style="float: right;">{{formatDate startDate}} ~ {{formatDate endDate}}</span></td></tr>
-<tr><td><span>가격</span><span style="float: right;">{{fb price}} 원</span></td></tr>
+<tbody>
+<tr><th style="background-color: #f3f3f3;" class="text-center" rowspan="2">물품</th></tr>
+<tr><td>{{itemName}}</span></td></tr>
+<tr><th style="background-color: #f3f3f3;" class="text-center" rowspan="2">기간</th></tr>
+<tr><td class="text-muted" type="date">{{formatDate startDate}} ~ {{formatDate endDate}}</td></tr>
+<tr><th style="background-color: #f3f3f3;" class="text-center" rowspan="2">가격</th></tr>
+<tr><td>{{fb price}} 원</td></tr>
+<tr><th style="background-color: #f3f3f3;" class="text-center" rowspan="2">거리</th></tr>
 </tbody>
 </table>
 </div>
@@ -380,7 +388,7 @@ if (index != -1) { // 기존 데이터를 조회할 경우
             
             $('#itemphoto').html(template2Engine(thumb));
             $('#itemphoto').append(template4Engine(photo));
-            $('#actname').html('<div style="text-align: center;">' + result.user.userId + '</div>');
+            $('#actname').html('<div>' + result.user.userId + '</div>');
             $('#title').html('<h3 class="mb-0"><div>' + result.item.title + '</div></h3>');
             //$('#title').append('<div style="padding-top: 20px !important;">' + result.item.name + '</div>');
             $('#title').append('<div style="padding-top: 10px !important;">' + result.item.content + '</div>');

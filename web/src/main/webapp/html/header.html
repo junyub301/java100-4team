@@ -8,7 +8,6 @@ body, div {
 body {
     padding-top: 110px !important;
 }
-
 .ddd {
     border-color: #a8a8a8;
 }
@@ -73,6 +72,7 @@ ul{
     width: 130px;
 }
 
+
 </style>
 
 <meta name="google-signin-scope" content="profile email">
@@ -97,12 +97,19 @@ ul{
             <span class="navbar-toggler-icon"></span>
         </button>
         
-        <div class="col-auto"></div>
         <div class="collapse navbar-collapse" id="navbarColor02">
-            <form action=../item/list.html class="form-inline">
-                <input id="words" class="form-control col-sm-10 mb-0" type="search"
+            <form action=../item/list.html class="form-inline col-5">
+                <input id="words" class="form-control form-control-sm col-sm-4 mb-0" type="search"
                     name='words' placeholder="&#xf002" aria-label="Search">
+                 <select id='category' class="btn btn-outline-light btn-sm data-reset" name="category"><option value=0>카테고리</option>
+                            <option value=1>전자제품</option>
+                            <option value=2>뷰티/악세</option>
+                            <option value=3>의류</option>
+                            <option value=4>공구</option>
+                            <option value=5>ETC</option>
+                            </select>
             </form>
+                        
             <ul class="navbar-nav ml-auto">
             <li id="add" class="nav-item active"><i id="" style="font-size:24px;color:white;display: inline-block;" class="fa fa-plus-square"></i>
                 <a class="nav-link px-0 disinline" id=""
@@ -498,6 +505,7 @@ $('#add').hide();
     },
     dataType: 'json',
     success: (result) => {
+        console.log(result)
         $('#username').html("<i id='usericon' class='fa fa-user mx-1' style='font-size: 24px; color: white'></i>" 
         + result.user.userName);
         $('#loginBtn').hide();

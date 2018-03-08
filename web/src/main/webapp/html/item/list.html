@@ -101,12 +101,9 @@ height: 100%;
 {{/shared}}
     <div class="card-body px-0 py-0"> 
         <h3 class="mb-2 mx-3">
-        <p class="card-text text-truncate" style="text-align: center;">{{title}}</p></h3>
-        <p class="card-text mb-0 mx-3 text-truncate text-muted" style="text-align: right;">{{itemName}}</p>
-        <p class="card-text mb-0 mx-3 text-muted" type="date" style="text-align: right;">{{formatDate startDate}} ~ {{formatDate endDate}}</p>
-        <p class="card-text mb-0 mx-3 text-truncate text-muted" style="text-align: right;">{{fb price}} 원</p>
-        <p class="card-text mb-0 mx-3 text-truncate text-muted" style="text-align: right;">{{cty category}}</p>
-        <p class="card-text mb-0 mx-3 text-truncate text-muted" style="text-align: right;">{{distance}}Km</p>
+        <p class="card-text text-truncate">{{title}}</p></h3>
+        <p class="card-text mb-0 mx-3 text-truncate text-muted">{{itemName}}</p>
+        <p class="card-text mb-0 mx-3 text-truncate text-muted">{{fb price}} 원</p>
         <div class="mb-2">
     </div>
     </div>
@@ -114,6 +111,10 @@ height: 100%;
 </div>
 {{/each}}
 </script>
+
+        <!-- <p class="card-text mb-0 mx-3 text-muted" type="date" style="text-align: right;">{{formatDate startDate}} ~ {{formatDate endDate}}</p>
+        <p class="card-text mb-0 mx-3 text-truncate text-muted" style="text-align: right;">{{cty category}}</p>
+        <p class="card-text mb-0 mx-3 text-truncate text-muted" style="text-align: right;">{{distance}}Km</p> -->
 
 <script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
 <script src='../../node_modules/handlebars/dist/handlebars.min.js'></script>
