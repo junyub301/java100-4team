@@ -105,13 +105,12 @@ star-input>.input.focus{outline:1px dotted #ddd;}
       <div id='itemPic' class="d-inline-block" style="width:150px; height: 150px;background-size: 100% 100%">
       </div>
       
-      <div class="d-inline-block pl-2" style="vertical-align: top;">
-      <div id='itemName'></div>
-      <div id='price'></div>
-      </div>
+      
       
       <div class='m-3' style="clear:both;">
-      별점주기
+      <div id='itemName'></div>
+      <div id='price'></div>
+      
        <span class="star-input">
     <span class="input">
         <input type="radio" name="star-input" value="1" id="p1">
@@ -323,8 +322,8 @@ $(tbody).on("click","#reviewBtn",function(e) {
     for (var data of result.item.photos) {
         var thumb = data.thumbnailName.split(',');
     $('#itemPic').css("background-image","url('/download/"+thumb[0]+"')");
-    $('#itemName').html('<b>'+result.item.itemName+'</b>');
-    $('#price').html(result.item.price+' 원');
+    $('#itemName').html('<b><h5 class="m-0">'+result.item.itemName+'</h5></b>');
+    $('#price').html(transPrice(result.item.price)+' 원');
     }
 })
 });
@@ -455,6 +454,7 @@ function reviewAdd() {
         success: (result) => {
           $('#reviewModal').modal('hide');
           swal("리뷰등록성공");
+          location.reload();
         },
         error: () => {
             swal('리뷰 등록 실패!');
@@ -559,6 +559,23 @@ starRating();
 $(function(){
     $('html').removeClass("no-js");
 })
+
+function transPrice(price) {
+    var len, point, str, price;
+
+    price = price + "";
+    point = price.length % 3 ;
+    len = price.length;
+
+    str = price.substring(0, point);
+    while (point < len) {
+       if (str != "") str += ",";
+       str += price.substring(point, point + 3);
+       point += 3;
+    }
+
+    return str;
+}
 
 </script>
 

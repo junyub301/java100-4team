@@ -45,47 +45,49 @@
 <div class="hr-sect my-3 col-8 mx-auto"><h4 class="hr-sect mb-0">사진</h4></div>
     
 <div class="row py-2">
-<div class="mx-auto">
-    <div id="itemphoto"></div>
+<div class="mx-auto textcenter">
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+
+  <div class="carousel-inner">
+    
+      <div id="itemphoto"></div>
+     
+    </div>
+  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+    
+    
     </div>
 </div>
 
 <div class="hr-sect my-3 col-8 mx-auto"><h4 class="hr-sect mb-0">물품정보</h4></div>
 
-<div class="row">
-<div class="mx-auto">
-<div class="col-6 textcenter disinline">
-<div class="card-body">
-<div id='aa' class="card-text"></div>
-<h4 id='actname' class="mb-0" style="color:#3680C1"></h4></div>
-<p id="title" class="card-text"></p>
-</div>
-<div class="col-5 disinline">
+<div class="row justify-content-center">
+<div class="disinline" style="text-align: right;">
+<div id="trinfo" class="card">
 <div id="map"></div>
-<button type="button" class="btn btn-primary btn-sm" onclick="routeOpen()">길찾기</button>
-<button type="button" class="btn btn-primary btn-sm" onclick="distanceCalculator()">거리 계산</button>
-<table class="table table-bordered mb-0">
-<tbody>
-<tr><th style="background-color: #f3f3f3;" rowspan="1" id="distance"></th></tr>
-</tbody>
-</table>
 </div>
 </div>
 </div>
 
-<div class="row">
-<div class="col-sm-6 mx-auto">
-<div id="trinfo" class="card-body" style="display: block;">
-<p id="date" class="card-text text_right text-muted"></p>
+
+<div class="row justify-content-center mt-3">
+<p id="date" class="col-sm-6 card-text text-muted" style="text-align: right;"></p>
 </div>
+<div class="row justify-content-center">
+<button id='dealBtn' type="button" class="btn btn-primary mr-2">거래하기</button>
+<button id='priceBtn' type="button" class="btn btn-primary ml-2">결제하기</button>
 </div>
-</div>
-<div class="row">
-<div class="mx-auto">
-<button id='dealBtn' type="button" class="btn btn-primary float-left mr-2">거래하기</button>
-<button id='priceBtn' type="button" class="btn btn-primary float-right">결제하기</button>
-    </div>
-</div>
+
+
+
 
 
 
@@ -96,7 +98,6 @@
 </div>
 </div>
 
-</div>
 <br><br><br><br><br><br><br><br><br>
 
 <!--결제창 -->
@@ -179,8 +180,14 @@
 </script>
 <script id='t2' type="text/x-handlebars-template">
 {{#each this}}
+{{#if @first}}
+<div class="carousel-item active">
+{{else}}
+<div class="carousel-item">
+{{/if}}
 <a data-toggle="modal" data-target="#exampleModal{{@index}}" href="/download/{{this}}">
-    <img src="/download/{{this}}" style="height: 225px; width: 250px; display: inline-block; margin: 10px;"></a>
+    <img class="img-fluid" src="/download/{{this}}"></a>
+</div>
 {{/each}}
 </script>
 <script id='t4' type="text/x-handlebars-template">
@@ -212,13 +219,22 @@
 <script id='t3' type="text/handlebars-template">
 <table class="table table-bordered">
 <tbody>
+<tr><th style="background-color: #f3f3f3;" class="text-center" rowspan="2">판매자</th></tr>
+<tr><td ><button class="btn btn-outline-primary btn-sm" data-toggle="popover" title="User Info">{{user.userId}}</button></td></tr>
+<tr><th style="background-color: #f3f3f3;" class="text-center" rowspan="2">제목</th></tr>
+<tr><td>{{item.title}}</td></tr>
+<tr><th style="background-color: #f3f3f3;" class="text-center" rowspan="2">내용</th></tr>
+<tr><td>{{item.content}}</td></tr>
+<tr><th style="background-color: #f3f3f3;" class="text-center" rowspan="2">거리</th></tr>
+<tr><td>
+<button class="btn btn-outline-primary btn-sm mr-2" onclick="routeOpen()">길찾기</button>
+<button class="btn btn-outline-primary btn-sm" id="dc" onclick="distanceCalculator()">계산하기</button><span id="distance"></span></td></tr>
 <tr><th style="background-color: #f3f3f3;" class="text-center" rowspan="2">물품</th></tr>
-<tr><td>{{itemName}}</span></td></tr>
+<tr><td>{{item.itemName}}</td></tr>
 <tr><th style="background-color: #f3f3f3;" class="text-center" rowspan="2">기간</th></tr>
 <tr><td class="text-muted" type="date">{{formatDate startDate}} ~ {{formatDate endDate}}</td></tr>
 <tr><th style="background-color: #f3f3f3;" class="text-center" rowspan="2">가격</th></tr>
-<tr><td>{{fb price}} 원</td></tr>
-<tr><th style="background-color: #f3f3f3;" class="text-center" rowspan="2">거리</th></tr>
+<tr><td>{{fb item.price}} 원</td></tr>
 </tbody>
 </table>
 </div>
@@ -258,6 +274,7 @@ Handlebars.registerHelper('fb', transPrice);
 Handlebars.registerHelper('formatDate', function(date) {
     return moment(date).format('YYYY-MM-DD');
 });
+
 
 $.ajax("/json/maps/get",{
     type: 'POST',
@@ -353,11 +370,24 @@ if (index != -1) { // 기존 데이터를 조회할 경우
     $.ajax('/json/item/' + arr[1], {
         dataType: 'json',
         success: (result) => {
-            $('#aa').html(template1Engine(result.user));
             for (var data of result.item.photos) {
                 var photo = data.photoName.split(',');
                 var thumb = data.thumbnailName.split(',');
             }
+            for (var data of result.user.photos) {
+                var thumb2 = data.thumbnailName.split(',');
+            }
+            console.log(thumb2);
+            
+            $(document).ready(function(){
+                $('[data-toggle="popover"]').popover({
+                    placement : 'top',
+                    trigger : 'hover',
+                    html : true,
+                    content : '<div class="media"><a href="#" class="pull-left"><img src="/download/'+thumb2+'" class="media-object"></a><div class="media-body ml-2"><h4 class="media-heading">'+result.user.userId+'</h4><p>'+result.user.comment+'</p></div></div>'
+                });
+            });
+            
             price = result.item.price + 2500;
             userNo = result.item.userNo
             itemNo = result.item.itemNo;
@@ -386,13 +416,14 @@ if (index != -1) { // 기존 데이터를 조회할 경우
                 position: loc
             });
             
-            $('#itemphoto').html(template2Engine(thumb));
+            /* $('#itemphoto').html(template2Engine(thumb)); */
+            $('#itemphoto').html(template2Engine(photo));
             $('#itemphoto').append(template4Engine(photo));
             $('#actname').html('<div>' + result.user.userId + '</div>');
             $('#title').html('<h3 class="mb-0"><div>' + result.item.title + '</div></h3>');
             //$('#title').append('<div style="padding-top: 20px !important;">' + result.item.name + '</div>');
             $('#title').append('<div style="padding-top: 10px !important;">' + result.item.content + '</div>');
-            $('#date').html(template3Engine(result.item));
+            $('#date').html(template3Engine(result));
             if (result.item.status != 0) {
                 $('#priceBtn').prop("disabled",'true').html("거래중입니다");
                 $('#dealBtn').hide();
@@ -411,7 +442,7 @@ if (index != -1) { // 기존 데이터를 조회할 경우
             +"<div id='userpic' class='d-inline-block rounded-circle' style='width:50px; height: 50px;background-size: 100% 100%'></div></div>"
             +"<div class='d-inline-flex align-items-stretch flex-column-reverse align-top ml-3'>"
             +"<div id='starpic' class='d-inline-block' style='width:100px; height: 19px;background-size: 100% 100%;'></div>"
-            +"<div class='d-inline-block mb-2' style='text-align: left;width:100px; height: 19px;background-size: 100% 100%;'>"+result.review.userName+"</div></div>"
+            +"<div class='d-inline-block mb-2' style='text-align: left;color:#3680C1'>"+result.review.userName+"</div></div>"
             +"<div class='mt-2'>"+result.review.contents+"</div>")
             var starpic;
             switch (result.review.star) {
@@ -445,6 +476,7 @@ if (index != -1) { // 기존 데이터를 조회할 경우
 function distanceCalculator() {
     var distance = getDistanceFromLatLonInKm(slat,slng,elat,elng);
     $('#distance').html(distance);
+    $('#dc').hide();
 }
 //거리 계산 함수
 function getDistanceFromLatLonInKm(lat1,lng1,lat2,lng2) {

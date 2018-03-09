@@ -1,7 +1,8 @@
-alter table gazua.account convert to character set utf8;
 alter table gazua.item convert to character set utf8;
-alter table gazua.itemphoto convert to character set utf8;
+alter table gazua.photo convert to character set utf8;
+alter table gazua.map convert to character set utf8;
 alter table gazua.message convert to character set utf8;
 alter table gazua.review convert to character set utf8;
+alter table gazua.request convert to character set utf8;
 alter table gazua.transaction convert to character set utf8;
 alter table gazua.user convert to character set utf8;
