@@ -71,7 +71,7 @@ height: 100%;
 <div id="priceSlide"></div><span id="priceValue"></span>
 </div>
 <div style="margin:20px auto;width:400px;">
-<input id="word" class="form-control" type="search"  style="width:150px;display: inline-block;margin-right: 50px;"
+<input id="words" class="form-control" type="search"  style="width:150px;display: inline-block;margin-right: 50px;"
                     name='words' placeholder="&#xf002" aria-label="Search">
 <button id="detailSearch" type="button" class="btn">검색하기</button>
 </div>
@@ -235,7 +235,7 @@ $('#detailSearch').click(function() {
     } else {
         dealEnd = 6;
     }
-    words = $('#word').val()
+    words = $('#words').val()
     console.log($('#order').val())
     switch ($('#order').val()) {
     case '1' : 
