@@ -2,7 +2,7 @@
 <html class="no-js">
 <head>
 <meta charset="UTF-8">
-<title>회원관리</title>
+<title>lend</title>
 <link href="../../css/bootstrap.min.css" rel="stylesheet">
 <script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
 <link rel="stylesheet"
@@ -26,6 +26,11 @@
 <button id="lendBtn" class="border btn btn-light" data-toggle='modal' data-target='#lendModal'>추가</button>
 
 <table id="list" style='margin-top: 10px; width:100%'class='table'>
+<thead class="thead-light">
+<tr>
+<th>번호</th><th>제목</th><th>작성자</th><th>등록일</th>
+</tr>
+</thead>
 <tbody>
 </tbody>
 </table>
@@ -38,7 +43,8 @@
       <div class="mx-auto">
         <h4 class="modal-title" id="exampleModalLongTitle">
         <a onclick="location.href='/html/item/list.html'"
-                style="color: #0160c5;" class="" href="#">요청<i class="fa fa-handshake-o" style="font-size: 24px; color: #0160c5"></i>등록</a></h4>
+                style="color: #0160c5;" class="" href="#">요청<i class="fa fa-handshake-o" style="font-size: 24px
+                ; color: #0160c5"></i>등록</a></h4>
                 </div>
       </div>
       <div class="modal-body">
@@ -92,7 +98,7 @@
   <td>{{Date regDate}}</td>
 </tr>
 <tr class="hide">
-  <td colspan="4">{{content}}</td>
+  <td colspan="3">{{content}}</td>
 </tr>
 {{/each}}
 </script>
@@ -121,10 +127,6 @@ load();
 
 Handlebars.registerHelper('Date', function(date) {
     return  moment(date).format('YYYY-MM-DD');
-});
-
-Handlebars.registerHelper('user', function(user) {
-    console.log(result)
 });
 
 var index = location.href.indexOf('?');
