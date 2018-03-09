@@ -61,7 +61,11 @@ public class ItemController {
             @RequestParam(value="cr", defaultValue="0") int categoryNo,
             @RequestParam(value="pn", defaultValue="1") int pageNo,
             @RequestParam(value="ps", defaultValue="8") int pageSize,
-            @RequestParam(value="words", required=false) String word,
+            @RequestParam(value="distance", defaultValue="0") int distance,
+            @RequestParam(value="price1", defaultValue="0") int priceStart,
+            @RequestParam(value="price2", defaultValue="0") int priceEnd,
+            @RequestParam(value="dealEnd", defaultValue="6") int dealPossible,
+            @RequestParam(value="words", required=false) String words,
             @RequestParam(value="oc", required=false) String orderColumn,
             @RequestParam(value="al", required=false) String alignColumn,
             HttpSession session) throws Exception {
@@ -73,18 +77,26 @@ public class ItemController {
             pageSize = 8;
         }
         HashMap<String,Object> options = new HashMap<>();
-        options.put("orderColumn", orderColumn);
-        options.put("alignColumn", alignColumn);
-        String[] words = null;
-        if (word != null) {
-        words = word.split(" ");
-        }
-        
+        options.put("order", orderColumn);
+        options.put("align", alignColumn);
+        options.put("categoryNo", categoryNo);
         options.put("words", words);
+        options.put("priceStart", priceStart);
+        options.put("priceEnd", priceEnd);
+        options.put("dealPossible", dealPossible);
+        options.put("distance", distance);
+        logger.debug("words ------------"+words);
+        logger.debug("categoryNo ------------"+categoryNo);
+        logger.debug("distance ------------"+distance);
+        logger.debug("priceStart ------------"+priceStart);
+        logger.debug("priceEnd ------------"+priceEnd);
+        logger.debug("dealPossible ------------"+dealPossible);
+        logger.debug("orderColumn ------------"+orderColumn);
+        logger.debug("alignColumn ------------"+alignColumn);
         if (user != null) {
         options.put("user",user.getUserNo());
         }
-        int totalCount = itemService.getTotalCount(words, categoryNo);
+        int totalCount = itemService.getTotalCount(words, categoryNo, priceStart, priceEnd, dealPossible);
         int lastPageNo = totalCount / pageSize;
         if ((totalCount % pageSize) > 0) {
             lastPageNo++;
@@ -95,7 +107,7 @@ public class ItemController {
         HashMap<String,Object> result = new HashMap<>();
         result.put("pageNo", pageNo);
         result.put("lastPageNo", lastPageNo);
-        result.put("list", itemService.list(pageNo, pageSize, options, categoryNo));
+        result.put("list", itemService.list(pageNo, pageSize, options));
         
         return result;
     }

@@ -5,6 +5,7 @@
 <link rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="../../css/main.css">
+<link rel="stylesheet" type="text/css" href="/css/jquery-ui.min.css">
 <meta charset="UTF-8">
 <style type="text/css">
 .no-js {display:none;}
@@ -45,6 +46,37 @@ height: 100%;
 
 <body onLoad="runSlideShow()">
 <header></header>
+<div><img id ="dropdownSearch" title="상세검색" src="/images/arrowdown.png" style="display:block;margin:0 auto;cursor:pointer;"></div>
+<div id="searchDiv" style="width:700px;margin:auto;display:none;">
+<select id='category' style="float:left;margin:20px;" class="btn btn-secondary data-reset">
+                            <option value=0>카테고리</option>
+                            <option value=1>전자제품</option>
+                            <option value=2>뷰티/악세</option>
+                            <option value=3>의류</option>
+                            <option value=4>공구</option>
+                            <option value=5>ETC</option>
+</select>
+<select id='order' style="float:left;margin:20px;" class="btn btn-secondary data-reset">
+                            <option value=0>정렬</option>
+                            <option value=1>거리오름차순</option>
+                            <option value=2>거리내림차순</option>
+                            <option value=3>가격오름차순</option>
+                            <option value=4>가격내림차순</option>
+</select>
+거래 가능 상품만 보기<input id="dealEnd" type="checkbox">
+<div style="display: inline-block;margin-top:30px;width:270px;">
+<div id="distanceSlide"></div><span id="distanceValue"></span>
+</div >
+<div style="display: inline-block;margin-top:30px;width:270px;">
+<div id="priceSlide"></div><span id="priceValue"></span>
+</div>
+<div style="margin:20px auto;width:400px;">
+<input id="word" class="form-control" type="search"  style="width:150px;display: inline-block;margin-right: 50px;"
+                    name='words' placeholder="&#xf002" aria-label="Search">
+<button id="detailSearch" type="button" class="btn">검색하기</button>
+</div>
+</div>
+<div><img id ="foldSearch" title="접기" src="/images/arrowup.png" style="display:block;margin:0 auto;cursor:pointer;"></div>
 <div id="banner" style="overflow: hidden;">
 
 
@@ -124,8 +156,24 @@ height: 100%;
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
 <script src='../../js/fileupload.js'></script>
+<script src='/js/jquery-ui.min.js'></script>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=41a90b1059ade44d7db374c4db586dfb&libraries=services"></script>
 <script> 
+$('#foldSearch').hide();
+//검색바 드롭다운
+$("#dropdownSearch").click(()=>{
+    $('#searchDiv').show();
+    $('#dropdownSearch').hide();
+    $('#foldSearch').show();
+})
+$("#foldSearch").click(()=>{
+    $('#searchDiv').hide();
+    $('#dropdownSearch').show();
+    $('#foldSearch').hide();
+})
+
+
+
 var slideShowSpeed = 3000 
 var crossFadeDuration = 2 
 var Pic = new Array() 
@@ -161,9 +209,6 @@ function runSlideShow(){
   t = setTimeout('runSlideShow()', slideShowSpeed) 
 } 
 
-
-
-
 </script> 
 <script type="text/javascript">
 var prevBtn = $("#prevBtn"),
@@ -176,12 +221,69 @@ var prevBtn = $("#prevBtn"),
     currPageNo = 1,
     categoryNo = 0,
     words = "",
+    pageNo = 1,
+    dealEnd, priceStart, priceEnd, distance, order, align,
     template1Src = $('#t1').html(),
     template1Engine = Handlebars.compile(template1Src);
 
-console.log(categoryNo)
-console.log(words)
-load(1,categoryNo,words);
+//상세버튼 클릭시
+$('#detailSearch').click(function() {
+    categoryNo = $('#category').val();
+    if ($('#dealEnd').prop("checked")) {
+        dealEnd = 1;
+    } else {
+        dealEnd = 6;
+    }
+    words = $('#word').val()
+    console.log($('#order').val())
+    switch ($('#order').val()) {
+    case '1' : 
+        order = 'distance';
+        align = 'asc';
+        break;
+    case '2' : 
+        order = 'distance';
+        align = 'desc';
+        break;
+    case '3' :
+        order = 'price';
+        align = 'asc';
+        break;
+    case '4' : 
+        order = 'price';
+        align = 'desc';
+        break;
+    default : 
+        order = null;
+        align = null;
+    }
+    load(pageNo, categoryNo, words, dealEnd, priceStart, priceEnd, distance, order, align);
+    
+})
+
+//검색슬라이더
+$( function() {
+    $( "#distanceSlide" ).slider({min:0,max:500,value:500,create: function() {
+        $("#distanceValue").text("위치 범위 : "+$( this ).slider( "value" )+"Km" );
+        distance = $( this ).slider( "value" );
+    },
+    slide: function( event, ui ) {
+        $("#distanceValue").text("위치 범위 : "+ ui.value+"Km" );
+        distance = ui.value;
+    }});
+    
+    $( "#priceSlide" ).slider({min:0,max:100000,values:[0,100000],range:true,step:10000,create: function() {
+        $("#priceValue").text("가격 범위 : "+$( this ).slider( "values", 0 ) +"원 ~ "+$( this ).slider( "values", 1 )+"원" );
+        priceStart = $( this ).slider( "values", 0 );
+        priceEnd = $( this ).slider( "values", 1 );
+    },
+    slide: function( event, ui ) {
+        $("#priceValue").text("가격 범위 : "+ui.values[0] +"원 ~ "+ui.values[1]+"원" );
+        priceStart = ui.values[0];
+        priceEnd = ui.values[1];
+    }});
+  } );
+load(1,0);
 $('header').load('../header.html')
 
 $("#shared_img").mouseover(function(){ 
@@ -250,12 +352,18 @@ nextBtn.click(() => {
     load(currPageNo + 1,  categoryNo, words)
 });
 
-function load(pageNo, categoryNo, words) {
+function load(pageNo, categoryNo, words, dealEnd, priceStart, priceEnd, distance, order, align) {
     $.ajax('../../json/item/list', {
         data: {
             pn: pageNo, 
             words: words,
-            cr: categoryNo
+            cr: categoryNo,
+            distance: distance,
+            price1: priceStart,
+            price2: priceEnd,
+            dealEnd: dealEnd,
+            oc: order,
+            al: align
         },
         dataType: 'json',
         success: (result) => {

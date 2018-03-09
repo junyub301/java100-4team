@@ -29,15 +29,17 @@
     </resultMap>
     
     <select id="countAll" resultType="int" parameterType="map">
-        select count(*) from item
+        select count(*) from item where status <![CDATA[<]]> #{dealPossible}
         <if test="categoryNo != 0">
-            where category=#{categoryNo}
+            and category=#{categoryNo}
+        </if>
+        <if test="priceEnd != 0">
+            and price <![CDATA[>]]> #{priceStart} and price <![CDATA[<]]> #{priceEnd}
+        </if>
         <if test="words != null">
-            <foreach collection="words" item="word">
-                and title like '%${word}%'
-             </foreach>
+                and title like '%${words}%'
         </if>
-        </if>
+        
     </select>
     
     <insert id="insert" parameterType="item"
@@ -70,29 +72,42 @@
             join map as um on um.ur_no=#{user}
             </if>
             join photo as p on i.it_no=p.it_no 
+            where status <![CDATA[<]]> #{dealPossible}
         <if test="categoryNo != 0">
-            where category=#{categoryNo}
-        <if test="words != null">
-            <foreach collection="words" item="word">
-                and title like '%${word}%'
-             </foreach>
+            and category=#{categoryNo}
         </if>
+        <if test="priceEnd != 0">
+            and price <![CDATA[>]]> #{priceStart} and price <![CDATA[<]]> #{priceEnd}
+        </if>
+        <if test="words != ''">
+            and title like '%${words}%'
         </if>
         group by it_no
+        <if test="user != null">
+        <if test="distance != 0">
+            having distance <![CDATA[<]]> #{distance}
+        </if>
+        </if>
         <!-- 정렬 조건에 따라 SQL문을 변경한다.-->
         order by 
         <choose>
-            <when test="orderColumn == 'title' and align == 'desc'">
-                i.title desc
-            </when>
-            <when test="orderColumn == 'title' and align == 'asc'">
-                i.title asc
-            </when>
-            <when test="orderColumn == 'it_no' and align == 'desc'">
+            <when test="order == 'it_no' and align == 'desc'">
                 i.it_no desc
             </when>
-            <when test="orderColumn == 'it_no' and align == 'asc'">
+            <when test="order == 'it_no' and align == 'asc'">
                 i.it_no asc
+            </when>
+            <when test="order == 'price' and align == 'desc'">
+                i.price desc
+            </when>
+            <when test="order == 'price' and align == 'asc'">
+                i.price asc
+            </when>
+            <when test="order == 'distance' and align == 'desc'">
+                distance desc
+            </when>
+            <when test="order == 'distance' and align == 'asc'">
+                distance asc
             </when>
             <otherwise>
                 i.it_no desc
