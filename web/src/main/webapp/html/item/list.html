@@ -46,9 +46,24 @@ height: 100%;
 
 <body onLoad="runSlideShow()">
 <header></header>
-<div><img id ="dropdownSearch" title="상세검색" src="/images/arrowdown.png" style="display:block;margin:0 auto;cursor:pointer;"></div>
-<div id="searchDiv" style="width:700px;margin:auto;display:none;">
-<select id='category' style="float:left;margin:20px;" class="btn btn-secondary data-reset">
+<div id ="dropdownSearch" style="text-align: center;cursor:pointer;"><img title="상세검색" src="/images/search.png">
+<span><b>상세검색</b></span>
+</div>
+
+<div id="searchDiv" style="width:600px;margin:auto;display:none;">
+<!-- 슬라이더 묶음 -->
+<div>
+<div style="display: inline-block;margin:20px;width:220px;">
+<div id="distanceSlide"></div><div id="distanceValue" style="text-align:center;"></div>
+</div >
+<div style="display: inline-block;margin:20px;width:270px;">
+<div id="priceSlide"></div><div id="priceValue" style="text-align:center;"></div>
+</div>
+</div>
+<!-- 정렬쪽 묶음 -->
+<div>
+<span style="margin:0 5px 0 50px;">거래 가능 상품만 보기</span><input id="dealEnd" type="checkbox">
+<select id='category' style="margin:20px;" class="btn btn-secondary data-reset">
                             <option value=0>카테고리</option>
                             <option value=1>전자제품</option>
                             <option value=2>뷰티/악세</option>
@@ -56,22 +71,17 @@ height: 100%;
                             <option value=4>공구</option>
                             <option value=5>ETC</option>
 </select>
-<select id='order' style="float:left;margin:20px;" class="btn btn-secondary data-reset">
+<select id='order' style="margin:20px;" class="btn btn-secondary data-reset">
                             <option value=0>정렬</option>
                             <option value=1>거리오름차순</option>
                             <option value=2>거리내림차순</option>
                             <option value=3>가격오름차순</option>
                             <option value=4>가격내림차순</option>
 </select>
-거래 가능 상품만 보기<input id="dealEnd" type="checkbox">
-<div style="display: inline-block;margin-top:30px;width:270px;">
-<div id="distanceSlide"></div><span id="distanceValue"></span>
-</div >
-<div style="display: inline-block;margin-top:30px;width:270px;">
-<div id="priceSlide"></div><span id="priceValue"></span>
 </div>
+
 <div style="margin:20px auto;width:400px;">
-<input id="words" class="form-control" type="search"  style="width:150px;display: inline-block;margin-right: 50px;"
+<input id="words" class="form-control" type="search"  style="width:150px;display:inline-block;margin:0 50px 0 30px;"
                     name='words' placeholder="&#xf002" aria-label="Search">
 <button id="detailSearch" type="button" class="btn">검색하기</button>
 </div>
@@ -163,9 +173,16 @@ height: 100%;
 $('#foldSearch').hide();
 //검색바 드롭다운
 $("#dropdownSearch").click(()=>{
-    $('#searchDiv').show();
-    $('#dropdownSearch').hide();
-    $('#foldSearch').show();
+    $.getJSON("/json/auth/loginUser",(result)=> {
+        if (result.status == "fail") {
+            return swal("상세검색을 원하시면 로그인 해주세요");
+        } else {
+            $('#searchDiv').show();
+            $('#dropdownSearch').hide();
+            $('#foldSearch').show();
+        }
+    })
+    
 })
 $("#foldSearch").click(()=>{
     $('#searchDiv').hide();
