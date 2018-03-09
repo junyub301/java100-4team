@@ -10,12 +10,27 @@ public class RequestItem {
     protected String itemName;
     protected Date regDate;
     protected int userNo;
+    protected User user;
     
     @Override
     public String toString() {
         return "Request [requestNo=" + requestNo + ", title=" + title + ", content=" + content + ", itemName="
                 + itemName + ", regDate=" + regDate + ", userNo=" + userNo + "]";
     }
+
+    
+    
+    public User getUser() {
+        return user;
+    }
+
+
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+
 
     public int getRequestNo() {
         return requestNo;

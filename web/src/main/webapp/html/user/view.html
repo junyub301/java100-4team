@@ -64,24 +64,26 @@ img {
 					enctype="multipart/form-data">
 					<div id="nodiv"></div>
 
-					<input id="btn2" type="file" class="form-control-file col-1"
-						name="photo" style='opacity: 0;'>
-					<div class="row">
-						<div id="imdiv" class="mx-auto my-2"></div>
-					</div>
-
-					<div class="row">
-						<div class="my-2 mx-auto">
-							<i id="btn1" class="fa fa-camera"
-								style="cursor: pointer; font-size: 36px; color: #007BFF"></i>
-						</div>
-					</div>
 
 					<div class="row">
 						<div class="row col-12 mx-auto">
-
 							<table class="table table-bordered">
 								<tbody>
+								    <tr>
+                               <th style="background-color: #f3f3f3;"
+                             class="thwidth text-center" colspan="2">
+      		        		<div id="imdiv" class="mx-auto my-2"></div>
+      		        		<div class="col-3 mx-auto">
+                                <input id="btn2" type="file" class="form-control-file" name="photo">
+                                </div>
+					<!-- 		<div class="my-2 mx-auto">
+        						<i id="btn1" class="fa fa-camera"
+							style="cursor: pointer; font-size: 36px; color: #007BFF"></i>
+										</div> -->
+								</th>
+                                  </tr>
+								
+								
 									<tr>
 										<th style="background-color: #f3f3f3;"
 											class="thwidth text-center" rowspan="2">아이디</th>
@@ -262,7 +264,7 @@ var password = $('#pwd'),
 
 $('header').load('../header.html');
 
-var btn1 = document.querySelector('#btn1')
+/* var btn1 = document.querySelector('#btn1')
 var btn2 = document.querySelector('#btn2')
 btn1.addEventListener('click', function(event) {
   var me = new MouseEvent('click')
@@ -271,7 +273,7 @@ btn1.addEventListener('click', function(event) {
 btn2.addEventListener('change', function(event) {
     readURL(this);
 })
-
+ */
 //위도 경도 받기
 detailAddr.focus(()=> {
     var geocoder = new daum.maps.services.Geocoder();
@@ -283,6 +285,20 @@ detailAddr.focus(()=> {
     })
 
 })
+
+function imageURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+            $('#replaceMe').attr('src', e.target.result)
+             .width(100)
+             .height(100);
+        }
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}
 
 var index = location.href.indexOf('?');
 if (index != -1) { // 기존 데이터를 조회할 경우
@@ -304,7 +320,7 @@ if (index != -1) { // 기존 데이터를 조회할 경우
                 detailAddr.val(result.user.detailAddress);
                 for (var data of result.user.photos){
                     var filename = data.thumbnailName
-                    imd.html( '<img class="rounded-circle" id="imag" align="middle" src="/download/' + filename + '">');
+                    imd.html( '<img id="imag" align="middle" src="/download/' + filename + '">');
                 }
                 nod.html("<input id='no' type='hidden' name='userNo' value='" + result.user.userNo + "'>")
             },
@@ -332,7 +348,7 @@ if (index != -1) { // 기존 데이터를 조회할 경우
                 detailAddr.val(result.user.detailAddress);
                 for (var data of result.user.photos){
                     var filename = data.thumbnailName
-                    imd.html( '<img class="rounded-circle" id="imag" align="middle" src="/download/' + filename + '">');
+                    imd.html('<img align="middle" src="/download/' + filename + '">');
                 }
                 } catch (e) {console.log(e)};
                 nod.html("<input id='no' type='hidden' name='userNo' value='" + result.user.userNo + "'>")
