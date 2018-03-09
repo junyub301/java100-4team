@@ -12,17 +12,24 @@
         <result column="title" property="title"/>
         <result column="cnt" property="content"/>
         <result column="reg_date" property="regDate"/>
+         
+         <association property="user" javaType="user">
+            <id     column="ur_no"       property="userNo"/>
+            <result column="ur_id"     property="userId"/>
+        </association>
+        
     </resultMap>
     
     <select id="list" resultMap="requestMap" parameterType="int">
         select
-            rq_no,
-            ur_no,
-            title,
-            cnt,
-            reg_date
-         from request
-         order by rq_no desc
+            r.rq_no,
+            r.ur_no,
+            r.title,
+            r.cnt,
+            r.reg_date,
+            u.ur_id
+         from request r join user u on r.ur_no=u.ur_no
+         order by r.rq_no desc
     </select>
     
     <select id="findByNo" resultMap="requestMap" parameterType="int">

@@ -22,7 +22,7 @@
 <body>
 <div class='container' style="width:600px;">
 <a href='form.html' class="btn btn-success">추가</a>
-<table id="list" style='margin-top: 10px;'class='table'>
+<table id="list" style='margin-top: 10px; width:100%'class='table'>
 <tbody>
 </tbody>
 </table>
@@ -32,11 +32,13 @@
 <tr>
   <td>{{requestNo}}</td>
   <td class="menu"><a>{{title}}</a></td>
-  <td>{{userId}}</a></td>
+    <td>
+    {{user.userId}}
+    </td>
   <td>{{Date regDate}}</td>
 </tr>
 <tr class="hide">
-  <td colspan="3">{{content}}</td>
+  <td colspan="4">{{content}}</td>
 </tr>
 {{/each}}
 </script>
@@ -60,6 +62,9 @@ Handlebars.registerHelper('Date', function(date) {
     return  moment(date).format('YYYY-MM-DD');
 });
 
+Handlebars.registerHelper('user', function(user) {
+    console.log(result)
+});
 
 function load() { 
     $.ajax('/json/lend/list', {
