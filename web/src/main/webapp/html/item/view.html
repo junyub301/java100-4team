@@ -220,7 +220,11 @@
 <table class="table table-bordered">
 <tbody>
 <tr><th style="background-color: #f3f3f3;" class="text-center" rowspan="2">판매자</th></tr>
-<tr><td ><button class="btn btn-outline-primary btn-sm" data-toggle="popover" title="User Info">{{user.userId}}</button></td></tr>
+<tr><td>
+<span class="badge badge-pill badge-primary fontsizemd" data-toggle="popover" title="User Info">
+{{user.userId}}
+</span>
+</td></tr>
 <tr><th style="background-color: #f3f3f3;" class="text-center" rowspan="2">제목</th></tr>
 <tr><td>{{item.title}}</td></tr>
 <tr><th style="background-color: #f3f3f3;" class="text-center" rowspan="2">내용</th></tr>
@@ -230,7 +234,7 @@
 <button class="btn btn-outline-primary btn-sm mr-2" onclick="routeOpen()">길찾기</button>
 <button class="btn btn-outline-primary btn-sm" id="dc" onclick="distanceCalculator()">계산하기</button><span id="distance"></span></td></tr>
 <tr><th style="background-color: #f3f3f3;" class="text-center" rowspan="2">물품</th></tr>
-<tr><td>{{item.itemName}}</td></tr>
+<tr><td><span class="badge badge-pill badge-secondary fontsizemd">{{item.itemName}}</span></td></tr>
 <tr><th style="background-color: #f3f3f3;" class="text-center" rowspan="2">기간</th></tr>
 <tr><td class="text-muted" type="date">{{formatDate startDate}} ~ {{formatDate endDate}}</td></tr>
 <tr><th style="background-color: #f3f3f3;" class="text-center" rowspan="2">가격</th></tr>
@@ -381,10 +385,10 @@ if (index != -1) { // 기존 데이터를 조회할 경우
             
             $(document).ready(function(){
                 $('[data-toggle="popover"]').popover({
-                    placement : 'top',
+                    placement : 'right',
                     trigger : 'hover',
                     html : true,
-                    content : '<div class="media"><a href="#" class="pull-left"><img src="/download/'+thumb2+'" class="media-object"></a><div class="media-body ml-2"><h4 class="media-heading">'+result.user.userId+'</h4><p>'+result.user.comment+'</p></div></div>'
+                    content : '<div class="media"><a href="#" class="pull-left"><img src="/download/'+thumb2+'" class="media-object"></a><div class="media-body ml-2"><h4 class="media-heading" style="color:#3680C1">'+result.user.userId+'</h4><p>'+result.user.comment+'</p></div></div>'
                 });
             });
             
