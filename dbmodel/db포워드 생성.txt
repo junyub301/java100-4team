@@ -177,12 +177,11 @@ ALTER TABLE map
 
 -- 요청게시판
 CREATE TABLE request (
-	rq_no     INTEGER      NOT NULL, -- 게시판번호
-	title     VARCHAR(50)  NOT NULL, -- 제목
-	cnt       VARCHAR(255) NOT NULL, -- 내용
-	item_name VARCHAR(50)  NOT NULL, -- 물품명
-	reg_date  DATE         NOT NULL, -- 등록날짜
-	ur_no     INTEGER      NOT NULL  -- 사용자번호
+	rq_no    INTEGER      NOT NULL, -- 게시판번호
+	title    VARCHAR(50)  NOT NULL, -- 제목
+	cnt      VARCHAR(255) NOT NULL, -- 내용
+	reg_date DATE         NOT NULL, -- 등록날짜
+	ur_no    INTEGER      NOT NULL  -- 사용자번호
 );
 
 -- 요청게시판

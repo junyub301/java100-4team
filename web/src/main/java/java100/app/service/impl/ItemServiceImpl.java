@@ -40,14 +40,11 @@ public class ItemServiceImpl implements ItemService {
     }
  
     @Override
-    public List<Item> list(int pageNo, int pageSize, Map<String, Object> options,int categoryNo) {
+    public List<Item> list(int pageNo, int pageSize, Map<String, Object> options) {
         HashMap<String,Object> params = new HashMap<>();
         params.put("startIndex", (pageNo - 1) * pageSize);
         params.put("size", pageSize);
-        params.put("categoryNo", categoryNo);
-        if (options != null) {
-            params.putAll(options);
-        }
+        params.putAll(options);
         return itemDao.findAll(params);
     }
 
@@ -57,10 +54,13 @@ public class ItemServiceImpl implements ItemService {
         return item;
     }
     @Override
-    public int getTotalCount(String[] words, int categoryNo) {
+    public int getTotalCount(String words, int categoryNo, int priceStart, int priceEnd, int dealPossible) {
         HashMap<String,Object> params = new HashMap<>();
         params.put("words", words);
         params.put("categoryNo", categoryNo);
+        params.put("priceStart", priceStart);
+        params.put("priceEnd", priceEnd);
+        params.put("dealPossible", dealPossible);
         return  itemDao.countAll(params);
     }
 
