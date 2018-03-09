@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <title>회원관리</title>
-<link rel="stylesheet" href='../../node_modules/bootstrap/dist/css/bootstrap.min.css'>
 <link href="../../css/bootstrap.min.css" rel="stylesheet">
+<script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
 <link rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="../../css/main.css">
@@ -20,13 +20,67 @@
 
 </style>
 <body>
+<header></header>
+
 <div class='container' style="width:600px;">
-<a href='form.html' class="btn btn-success">추가</a>
+<button id="lendBtn" class="border btn btn-light" data-toggle='modal' data-target='#lendModal'>추가</button>
+
 <table id="list" style='margin-top: 10px; width:100%'class='table'>
 <tbody>
 </tbody>
 </table>
 </div>
+
+<div class="modal fade" id="lendModal" tabindex="-1" role="dialog" aria-labelledby="lendModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="width:370px;">
+      <div class="modal-header">
+      <div class="mx-auto">
+        <h4 class="modal-title" id="exampleModalLongTitle">
+        <a onclick="location.href='/html/item/list.html'"
+                style="color: #0160c5;" class="" href="#">요청<i class="fa fa-handshake-o" style="font-size: 24px; color: #0160c5"></i>등록</a></h4>
+                </div>
+      </div>
+      <div class="modal-body">
+      <div class="textcenter">
+		      
+		<div class='form-group row my-view'> 
+		<label for='no'class='col-sm-2 col-form-label'>번호</label> 
+		<div class='col-sm-10'> 
+		<input class='form-control' readonly id='no' type='number' name='messageNo'>
+		</div> 
+		</div> 
+		
+		<div class='form-group row'> 
+		<label for='title' class='col-sm-2 col-form-label'>제목</label> 
+		<div class='col-sm-10'> 
+		<input class='form-control' id='title' type='text' name='title'>
+		</div> 
+		</div> 
+		
+		<div class='form-group row'> 
+		<label for='content' class='col-sm-2 col-form-label'>내용</label> 
+		<div class='col-sm-10'> 
+		<textarea class='form-control' id='content' name='content'></textarea>
+		</div> 
+		</div>
+		
+		<div class='form-group row my-view'> 
+		<label for='dispatchDate' class='col-sm-2 col-form-label'>보낸날짜</label> 
+		<div class='col-sm-10'> 
+		<input class='form-control' readonly id='dispatchDate' type='text'>
+		</div> 
+		</div> 
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary m-auto" onclick="reviewAdd()">등록</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
 <script id="template1" type="text/x-handlebars-template">
 {{#each requestItem}}
 <tr>
@@ -43,16 +97,23 @@
 {{/each}}
 </script>
 <link href="http://fonts.googleapis.com/earlyaccess/nanumgothic.css" rel="stylesheet" type="text/css">
-<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+<script src='../../node_modules/jquery/dist/jquery.min.js'></script>
+<script src='../../node_modules/handlebars/dist/handlebars.min.js'></script>
 <script src='../../node_modules/moment/moment.js'></script>
 <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
-<script src='../../node_modules/handlebars/dist/handlebars.min.js'></script>
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 <script src='../../node_modules/popper.js/dist/umd/popper.min.js'></script>
 <script src='../../node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
-<script src='../../node_modules/jquery/dist/jquery.min.js'></script>
+<script src='/node_modules/sweetalert/dist/sweetalert.min.js'></script>
 
 <script type="text/javascript">
-
+$('header').load('../header.html');
+var lendNo = $('#no'),
+	userId = $('#userId'),
+	title = $('#title'),
+	content = $('#content'),
+	disDate = $('#dispatchDate');
+	
 var tbody = $('#list > tbody'),
 template1Src = $('#template1').html(),
 template1Engine = Handlebars.compile(template1Src);
@@ -65,6 +126,30 @@ Handlebars.registerHelper('Date', function(date) {
 Handlebars.registerHelper('user', function(user) {
     console.log(result)
 });
+
+var index = location.href.indexOf('?');
+if (index != -1) { // 기존 데이터를 조회할 경우,
+    var qs = location.href.substr(index + 1);
+    var arr = qs.split('=');
+    $('.my-new').css('display', 'none');
+    $(() => {
+        $.ajax('/json/msg/' + arr[1], {
+            dataType: 'json',
+            success: (result) => {
+                lendNo.val(result.message.messageNo);
+                title.val(result.message.title);
+                content.val(result.message.content);
+                disDate.val(result.message.dispatchDate);
+            },
+            error: () => {
+                window.alert('서버 실행 오류!');
+            }
+        });
+    });
+    
+} else { // 신규 데이터 입력일 경우,
+    $('.my-view').css('display', 'none');
+}
 
 function load() { 
     $.ajax('/json/lend/list', {
@@ -95,7 +180,24 @@ $(document).ready(function(){
     });
 }); 
 
-
+//리뷰등록
+function reviewAdd() {
+    $('#closeModal').trigger("click");
+    $.ajax('/json/lend/add', {
+        data: {
+            title: title.val(),
+            content: content.val()
+        },
+        dataType: 'json',
+        method: 'POST',
+        success: (result) => {
+            location.href = "list.html";
+        },
+        error: () => {
+            window.alert('서버 실행 오류!');
+        }
+    });
+}
 
 
 $(function(){
