@@ -14,7 +14,9 @@
 
 <style type="text/css">
 
-
+.selected_color {
+color: #007bff !important;
+}
 
 #banner {
 overflow: hidden;
@@ -47,57 +49,50 @@ height: 100%;
 <body onLoad="runSlideShow()">
 <header></header>
 
-<div id ="dropdownSearch" style="text-align: center;cursor:pointer;"><img title="상세검색" src="/images/search.png">
-<span><b>상세검색</b></span>
-</div>
 
-<div id="searchDiv" style="width:600px;margin:auto;display:none;">
-<!-- 슬라이더 묶음 -->
-<div>
-<div style="display: inline-block;margin:20px;width:220px;">
-<div id="distanceSlide"></div><div id="distanceValue" style="text-align:center;"></div>
-</div >
-<div style="display: inline-block;margin:20px;width:270px;">
-<div id="priceSlide"></div><div id="priceValue" style="text-align:center;"></div>
-</div>
-</div>
-<!-- 정렬쪽 묶음 -->
-<div>
-<span style="margin:0 5px 0 50px;">거래 가능 상품만 보기</span><input id="dealEnd" type="checkbox">
-<select id='category' style="margin:20px;" class="btn btn-secondary data-reset">
-                            <option value=0>카테고리</option>
-                            <option value=1>전자제품</option>
-                            <option value=2>뷰티/악세</option>
-                            <option value=3>의류</option>
-                            <option value=4>공구</option>
-                            <option value=5>ETC</option>
-</select>
-<select id='order' style="margin:20px;" class="btn btn-secondary data-reset">
-                            <option value=0>정렬</option>
-                            <option value=1>거리오름차순</option>
-                            <option value=2>거리내림차순</option>
-                            <option value=3>가격오름차순</option>
-                            <option value=4>가격내림차순</option>
-</select>
-</div>
 
-<div style="margin:20px auto;width:400px;">
-<input id="words" class="form-control" type="search"  style="width:150px;display:inline-block;margin:0 50px 0 30px;"
-                    name='words' placeholder="&#xf002" aria-label="Search">
-<button id="detailSearch" type="button" class="btn">검색하기</button>
-</div>
-</div>
-<div><img id ="foldSearch" title="접기" src="/images/arrowup.png" style="display:block;margin:0 auto;cursor:pointer;"></div>
+
+
 
 <div id="banner" style="overflow: hidden;"></div>
 
 <div class="album py-3">
     <div class='container'>
-    
+<!-- 검색 -->
+<div style="padding:10px; border: 1px solid #eae8e8">
+<button id="dealEnd" class="badge badge-pill badge-info">모든 상품 보기</button>
+<button id="refresh" class="badge badge-pill badge-info">검색 초기화&nbsp;<img src="/images/refresh.png" width=10 height=10></button>
+<div style="position: relative; height: 75px;">
+<input id="words" class="form-control" type="search"  style="width:200px;display:inline-block;margin: 20px 0 30px 0;"
+                    name='words' placeholder="&#xf002 검색어를 입력하세요" aria-label="Search">
+<div style="display: inline-block;position: absolute;width:220px;top: 30px;left: 280px;">
+<div id="distanceSlide"></div><div id="distanceValue" style="text-align:center;"></div>
+</div >
+<div style="display: inline-block;width:270px;position: absolute;top: 30px;left: 580px;">
+<div id="priceSlide"></div><div id="priceValue" style="text-align:center;"></div>
+</div>
+<div style="display:inline-block;width:200px;float:right;margin-top: 25px;">
+<a id="distanceOrder" href="">거리순 정렬&nbsp;<img src="/images/arrowdown.png" height=11 width=11></a>
+<a id="priceOrder" href="">가격순 정렬&nbsp;<img src="/images/arrowdown.png" height=11 width=11></a>
+</div>
+</div>
+</div>
+
+<!-- <table class="table table-bordered">
+  <tbody>
+    <tr>
+      <td>Mark</td>
+    </tr>
+    <tr>
+      <td>@fat</td>
+    </tr>
+  </tbody>
+</table> -->
+
   
-        <div id="list" class='row'  style="position: relative;">
+<div id="list" class='row'  style="position: relative;padding-top:10px;">
         
-        </div>
+</div>
         
 <div style="text-align: center;cursor:pointer;">
 <img id="lastPage" src="/images/more.png">
@@ -105,6 +100,8 @@ height: 100%;
 
 </div>
 </div>
+<!-- 화면 스크롤 하기위해 -->
+<br><br><br><br><br>
 <script id="t1" type="text/x-handlebars-template">
 {{#each list}}
     <div style="color: #000 !important; background: #fff0 !important;" class="col-md-3 col-sm-6 col-xs-12 m_pointer" onclick="location.href='view.html?no={{itemNo}}'">
@@ -150,9 +147,9 @@ height: 100%;
 <script src='/js/jquery-ui.min.js'></script>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=41a90b1059ade44d7db374c4db586dfb&libraries=services"></script>
 <script> 
-$('#foldSearch').hide();
+
 //검색바 드롭다운
-$("#dropdownSearch").click(()=>{
+/* $("#dropdownSearch").click(()=>{
     $('#lastPage').attr("src","/images/more.png");
     $.getJSON("/json/auth/loginUser",(result)=> {
         if (result.status == "fail") {
@@ -164,13 +161,7 @@ $("#dropdownSearch").click(()=>{
         }
     })
     
-})
-$("#foldSearch").click(()=>{
-    $('#searchDiv').hide();
-    $('#dropdownSearch').show();
-    $('#foldSearch').hide();
-})
-
+}) */
 
 
 var slideShowSpeed = 3000 
@@ -221,12 +212,16 @@ var prevBtn = $("#prevBtn"),
     categoryNo = 0,
     words = "",
     pageNo = 1,
-    dealEnd, priceStart, priceEnd, distance, order, align, lastPage,
+    dealEnd = 6, 
+    priceStart, priceEnd, distance, 
+    order = null, 
+    align = null, 
+    lastPage,
     template1Src = $('#t1').html(),
     template1Engine = Handlebars.compile(template1Src);
 
 
-//test
+//scroll시 다음페이지로드
 $(window).scroll( function() {
     if ($(window).scrollTop() == $(document).height() - $(window).height()) {
         pageNo = pageNo + 1;
@@ -259,75 +254,205 @@ $(window).scroll( function() {
                    }
         });
         }
-
-        
-        // ajax를 추가해서 목록을 받아온다
-        
     }
 });
 
+//카테고리 검색
+$('header').on('click','#allItem',()=> {
+    event.preventDefault();
+    $('ul a').removeClass("selected_color");
+    $('#allItem').addClass("selected_color");
+    categoryNo = 0;
+    loadItem(categoryNo, words, dealEnd, priceStart, priceEnd, distance, order, align);
+})
+$('header').on('click','#itItem',()=> {
+    event.preventDefault();
+    $('ul a').removeClass("selected_color");
+    $('#itItem').addClass("selected_color");
+    categoryNo = 1;
+    loadItem(categoryNo, words, dealEnd, priceStart, priceEnd, distance, order, align);
+})
+$('header').on('click','#beautyItem',()=> {
+    event.preventDefault();
+    $('ul a').removeClass("selected_color");
+    $('#beautyItem').addClass("selected_color");
+    categoryNo = 2;
+    loadItem(categoryNo, words, dealEnd, priceStart, priceEnd, distance, order, align);
+})
+$('header').on('click','#clothItem',()=> {
+    event.preventDefault();
+    $('ul a').removeClass("selected_color");
+    $('#clothItem').addClass("selected_color");
+    categoryNo = 3;
+    loadItem(categoryNo, words, dealEnd, priceStart, priceEnd, distance, order, align);
+})
+$('header').on('click','#toolItem',()=> {
+    event.preventDefault();
+    $('ul a').removeClass("selected_color");
+    $('#toolItem').addClass("selected_color");
+    categoryNo = 4;
+    loadItem(categoryNo, words, dealEnd, priceStart, priceEnd, distance, order, align);
+})
+$('header').on('click','#etcItem',()=> {
+    event.preventDefault();
+    $('ul a').removeClass("selected_color");
+    $('#etcItem').addClass("selected_color");
+    categoryNo = 5;
+    loadItem(categoryNo, words, dealEnd, priceStart, priceEnd, distance, order, align);
+})
 
-
-//상세버튼 클릭시
-$('#detailSearch').click(function() {
-    pageNo = 1;
-    lastPage = 0;
-    categoryNo = $('#category').val();
-    if ($('#dealEnd').prop("checked")) {
-        dealEnd = 1;
-    } else {
-        dealEnd = 6;
+//검색어 엔터
+$('#words').keyup(function(e) {
+    if (e.keyCode == 13) {
+        words = $('#words').val()
+        loadItem(categoryNo, words, dealEnd, priceStart, priceEnd, distance, order, align);
     }
-    words = $('#words').val()
-    switch ($('#order').val()) {
-    case '1' : 
-        order = 'distance';
-        align = 'asc';
-        break;
-    case '2' : 
-        order = 'distance';
-        align = 'desc';
-        break;
-    case '3' :
-        order = 'price';
-        align = 'asc';
-        break;
-    case '4' : 
-        order = 'price';
-        align = 'desc';
-        break;
-    default : 
-        order = null;
+})
+
+//검색 초기화
+$('#refresh').click(()=> {
+    pageNo = 1; 
+    categoryNo = 0;
+    words = "";
+    dealEnd = 6;
+    priceStart = null;
+    priceEnd = null; 
+    order = null;
+    align = null;
+    $('#dealEnd').removeClass("badge-primary");
+    $('#dealEnd').addClass("badge-info");
+    $('#dealEnd').html("모든 상품 보기")
+    $( "#distanceSlide" ).slider( "value", 1000 );
+    $( "#priceSlide" ).slider( "values", [ 0, 210000 ] );
+    $('#distanceValue').html("위치 범위 : 1,000Km");
+    $('#priceValue').html("가격 범위 : 0원 이상");
+    $('ul a').removeClass("selected_color");
+    $('#allItem').addClass("selected_color");
+    $('#priceOrder img').attr("src","/images/arrowdown.png")
+    $('#distanceOrder img').attr("src","/images/arrowdown.png")
+    loadItem(categoryNo, words, dealEnd, priceStart, priceEnd, distance, order, align);
+})
+
+//모든 상품 보기
+$('#dealEnd').click(function() {
+    if (dealEnd == 6) {
+	    $(this).removeClass("badge-info");
+	    $(this).addClass("badge-primary");
+	    $(this).html("거래가능 상품보기")
+	    dealEnd = 1;
+	    loadItem(categoryNo, words, dealEnd, priceStart, priceEnd, distance, order, align);
+    } else {
+        $(this).removeClass("badge-primary");
+        $(this).addClass("badge-info");
+        $(this).html("모든 상품 보기")
+        dealEnd = 6;
+        loadItem(categoryNo, words, dealEnd, priceStart, priceEnd, distance, order, align);
+    }
+}
+)
+
+//거리 정렬
+$('#distanceOrder').click(()=> {
+    event.preventDefault();
+    $('#priceOrder img').attr("src","/images/arrowdown.png")
+    if (order != "distance") {
         align = null;
     }
-    load(pageNo, categoryNo, words, dealEnd, priceStart, priceEnd, distance, order, align);
-    
+    $.getJSON("/json/auth/loginUser",(result)=> {
+        if (result.status == "fail") {
+            return swal("상세검색을 원하시면 로그인 해주세요");
+        } else {
+		    order = "distance";
+		    if (align == "asc") {
+		        align = 'desc';
+		        $('#distanceOrder img').attr("src","/images/arrowdown.png")
+		        loadItem(categoryNo, words, dealEnd, priceStart, priceEnd, distance, order, align);
+		    } else {
+		        align = 'asc';
+		        $('#distanceOrder img').attr("src","/images/arrowup.png")
+		        loadItem(categoryNo, words, dealEnd, priceStart, priceEnd, distance, order, align);
+		    }
+        }
+     })
 })
+
+//가격정렬
+$('#priceOrder').click(()=> {
+    event.preventDefault();
+    $('#distanceOrder img').attr("src","/images/arrowdown.png")
+    if (order != "price") {
+        align = null;
+    }
+    order = "price";
+    if (align == "asc") {
+        align = 'desc';
+        $('#priceOrder img').attr("src","/images/arrowdown.png")
+        loadItem(categoryNo, words, dealEnd, priceStart, priceEnd, distance, order, align);
+    } else {
+        align = 'asc';
+        $('#priceOrder img').attr("src","/images/arrowup.png")
+        loadItem(categoryNo, words, dealEnd, priceStart, priceEnd, distance, order, align);
+    }
+})
+
 
 //검색슬라이더
 $( function() {
-    $( "#distanceSlide" ).slider({min:0,max:500,value:500,create: function() {
-        $("#distanceValue").text("위치 범위 : "+$( this ).slider( "value" )+"Km" );
+    $( "#distanceSlide" ).slider({min:1,max:1000,value:1000,create: function() {
+        $("#distanceValue").text("위치 범위 : "+transPrice($( this ).slider( "value" ))+"Km" );
         distance = $( this ).slider( "value" );
     },
     slide: function( event, ui ) {
-        $("#distanceValue").text("위치 범위 : "+ ui.value+"Km" );
+        $("#distanceValue").text("위치 범위 : "+ transPrice(ui.value)+"Km" );
         distance = ui.value;
-    }});
+        $.getJSON("/json/auth/loginUser",(result)=> {
+            if (result.status == "fail") {
+                return swal("상세검색을 원하시면 로그인 해주세요");
+            } else {
+                    loadItem(categoryNo, words, dealEnd, priceStart, priceEnd, distance, order, align);
+            }
+         })
+    },
     
-    $( "#priceSlide" ).slider({min:0,max:100000,values:[0,100000],range:true,step:10000,create: function() {
-        $("#priceValue").text("가격 범위 : "+$( this ).slider( "values", 0 ) +"원 ~ "+$( this ).slider( "values", 1 )+"원" );
+    });
+    
+    $( "#priceSlide" ).slider({min:0,max:210000,values:[0,210000],range:true,step:10000,create: function() {
         priceStart = $( this ).slider( "values", 0 );
-        priceEnd = $( this ).slider( "values", 1 );
+        if ($( this ).slider( "values", 1 ) == 210000) {
+            priceEnd = 100000000;
+            $("#priceValue").text("가격 범위 : "+transPrice(priceStart) +"원 이상 ");
+        } else {
+            priceEnd = $( this ).slider( "values", 1 );
+            $("#priceValue").text("가격 범위 : "+transPrice(priceStart) +"원 ~ "+transPrice(priceEnd)+"원" );
+        }
     },
     slide: function( event, ui ) {
-        $("#priceValue").text("가격 범위 : "+ui.values[0] +"원 ~ "+ui.values[1]+"원" );
         priceStart = ui.values[0];
         priceEnd = ui.values[1];
-    }});
+        if (ui.values[1] == 210000) {
+            priceEnd = 100000000;
+        $("#priceValue").text("가격 범위 : "+transPrice(ui.values[0]) +"원 이상");
+        } else {
+            priceEnd = ui.values[1];
+        $("#priceValue").text("가격 범위 : "+transPrice(ui.values[0]) +"원 ~ "+transPrice(ui.values[1])+"원" );
+        }
+        if (ui.values[1] == 0) {
+            $('#list').html("");
+        } else {
+        loadItem(categoryNo, words, dealEnd, priceStart, priceEnd, distance, order, align);
+        }
+    },
+    });
   } );
-load(1,0);
-$('header').load('../header.html')
+//페이지접속시 기본로드
+loadItem(0);
+
+
+//헤더 불러오고 아이템 카테고리 네비바 쇼
+$('header').load('../header.html',function() {
+$('#itemCartegory').show();
+$('#allItem').addClass("selected_color");
+})
 
 $("#shared_img").mouseover(function(){ 
     $(this).prev().children().mouseover();    
@@ -341,22 +466,7 @@ btn1.addEventListener('hover', function(event) {
 }); */
 
 
-Handlebars.registerHelper('fb', function(price) {
-    var len, point, str, price;
-
-    price = price + "";
-    point = price.length % 3 ;
-    len = price.length;
-
-    str = price.substring(0, point);
-    while (point < len) {
-       if (str != "") str += ",";
-       str += price.substring(point, point + 3);
-       point += 3;
-    }
-
-    return str;
-});
+Handlebars.registerHelper('fb', transPrice);
 
 Handlebars.registerHelper('formatDate', function(date) {
     return  moment(date).format('YYYY-MM-DD');
@@ -382,20 +492,9 @@ Handlebars.registerHelper("cty", function(category) {
     if(category == 5){ return "ETC";}
 });
 
-rentBtn.click(() => {
-    $('#renticon').css('color', '#007BFF');
-    $('#lendicon').css('color', 'grey');
-    load(1,categoryNo,words)
-});
 
-prevBtn.click(() => {
-    load(currPageNo - 1, categoryNo, words)
-});
-nextBtn.click(() => {
-    load(currPageNo + 1,  categoryNo, words)
-});
-
-function load(pageNo, categoryNo, words, dealEnd, priceStart, priceEnd, distance, order, align) {
+function loadItem(categoryNo, words, dealEnd, priceStart, priceEnd, distance, order, align) {
+    pageNo = 1;
     lastPage = 0;
     $.ajax('../../json/item/list', {
         data: {
@@ -422,6 +521,24 @@ function load(pageNo, categoryNo, words, dealEnd, priceStart, priceEnd, distance
     });
     
 }
+
+function transPrice(price) {
+    var len, point, str, price;
+
+    price = price + "";
+    point = price.length % 3 ;
+    len = price.length;
+
+    str = price.substring(0, point);
+    while (point < len) {
+       if (str != "") str += ",";
+       str += price.substring(point, point + 3);
+       point += 3;
+    }
+
+    return str;
+}
+
 
 $(function(){
     $('html').removeClass("no-js");

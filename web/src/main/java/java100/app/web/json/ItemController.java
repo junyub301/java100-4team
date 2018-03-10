@@ -96,17 +96,17 @@ public class ItemController {
         if (user != null) {
         options.put("user",user.getUserNo());
         }
-        int totalCount = itemService.getTotalCount(words, categoryNo, priceStart, priceEnd, dealPossible);
+        /*int totalCount = itemService.getTotalCount(words, categoryNo, priceStart, priceEnd, dealPossible);
         int lastPageNo = totalCount / pageSize;
         if ((totalCount % pageSize) > 0) {
             lastPageNo++;
         }
         if (totalCount == 0) {
             lastPageNo = 1;
-        }
+        }*/
         HashMap<String,Object> result = new HashMap<>();
         result.put("pageNo", pageNo);
-        result.put("lastPageNo", lastPageNo);
+        //result.put("lastPageNo", lastPageNo);
         result.put("list", itemService.list(pageNo, pageSize, options));
         
         return result;

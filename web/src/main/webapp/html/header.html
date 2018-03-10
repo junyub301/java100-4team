@@ -88,7 +88,7 @@ ul{
 <link href="../../node_modules/bootstrap-fileinput/themes/explorer-fa/theme.css" media="all" rel="stylesheet" type="text/css"/>
 <link href="../../css/fileupload.css" rel="stylesheet" type="text/css">
 
-<nav class="fixed-top">
+<nav class="fixed-top" style="opacity: 0.8;">
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container">
         <h4 class="mb-0">
@@ -128,7 +128,7 @@ ul{
     </div>
 </nav>
 
-<nav class="site-header sticky-top border ddd" style="background-color: white;">
+<nav id="itemCartegory" class="site-header sticky-top border ddd" style="background-color: white; display:none;">
     <div class="container">
         <!-- <div style="display: inline-block;"
             onclick="location.href='../item/form.html'"
@@ -137,12 +137,12 @@ ul{
         </div> -->
         <div class="filter">
             <ul class="filter__list mb-0">
-                <li><a href="../item/list.html">All</a></li>
-                <li><a href="../item/list.html?cr=1">전자제품</a></li>
-                <li><a href="../item/list.html?cr=2">뷰티</a></li>
-                <li><a href="../item/list.html?cr=3">의류</a></li>
-                <li><a href="../item/list.html?cr=4">공구</a></li>
-                <li><a href="../item/list.html?cr=5">ETC</a></li>
+                <li><a id="allItem" href="">All</a></li>
+                <li><a id="itItem" href="">전자제품</a></li>
+                <li><a id="beautyItem" href="">뷰티</a></li>
+                <li><a id="clothItem" href="">의류</a></li>
+                <li><a id="toolItem" href="">공구</a></li>
+                <li><a id="etcItem" href="">ETC</a></li>
             </ul>
         </div>
     </div>

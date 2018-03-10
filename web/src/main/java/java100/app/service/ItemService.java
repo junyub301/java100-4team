@@ -12,7 +12,7 @@ public interface ItemService {
     int upload(int no, List<Photo> photoList);
     List<Item> list(int pageNo, int pageSize, Map<String, Object> options);
     Item getItem(int no);
-    int getTotalCount(String words, int categoryNo, int priceStart, int priceEnd, int dealPossible);
+    //int getTotalCount(String words, int categoryNo, int priceStart, int priceEnd, int dealPossible);
     int changeStatus(Item item);
 }
 

@@ -53,7 +53,8 @@ public class ItemServiceImpl implements ItemService {
         Item item = itemDao.findByNo(no);
         return item;
     }
-    @Override
+    
+    /*@Override
     public int getTotalCount(String words, int categoryNo, int priceStart, int priceEnd, int dealPossible) {
         HashMap<String,Object> params = new HashMap<>();
         params.put("words", words);
@@ -62,7 +63,7 @@ public class ItemServiceImpl implements ItemService {
         params.put("priceEnd", priceEnd);
         params.put("dealPossible", dealPossible);
         return  itemDao.countAll(params);
-    }
+    }*/
 
     @Override
     public int changeStatus(Item item) {
