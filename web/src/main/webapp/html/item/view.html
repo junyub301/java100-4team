@@ -32,6 +32,8 @@
     line-height: 0px;
     margin: 0px 8px;
 }
+
+
 </style>
 <title>아이템 상세 정보</title>
 </head>
@@ -79,7 +81,7 @@
 
 
 <div class="row justify-content-center mt-3">
-<p id="date" class="col-sm-6 card-text text-muted" style="text-align: right;"></p>
+<div id="date" class="col-sm-6 card-text text-muted" style="text-align: right;"></div>
 </div>
 <div class="row justify-content-center">
 <button id='dealBtn' type="button" class="btn btn-primary mr-2">거래하기</button>
@@ -171,7 +173,7 @@
     </div>
   </div>
 </div>
-
+</div>
 
 <script id='t1' type="text/x-handlebars-template">
 {{#each photos}}
@@ -216,32 +218,71 @@
 {{/each}}
 </script>
 
+
+
+
 <script id='t3' type="text/handlebars-template">
-<table class="table table-bordered">
-<tbody>
-<tr><th style="background-color: #f3f3f3;" class="text-center" rowspan="2">판매자</th></tr>
-<tr><td>
-<span class="badge badge-pill badge-primary fontsizemd" data-toggle="popover" title="User Info">
-{{user.userId}}
-</span>
-</td></tr>
-<tr><th style="background-color: #f3f3f3;" class="text-center" rowspan="2">제목</th></tr>
-<tr><td>{{item.title}}</td></tr>
-<tr><th style="background-color: #f3f3f3;" class="text-center" rowspan="2">내용</th></tr>
-<tr><td>{{item.content}}</td></tr>
-<tr><th style="background-color: #f3f3f3;" class="text-center" rowspan="2">거리</th></tr>
-<tr><td>
-<button class="btn btn-outline-primary btn-sm mr-2" onclick="routeOpen()">길찾기</button>
-<button class="btn btn-outline-primary btn-sm" id="dc" onclick="distanceCalculator()">계산하기</button><span id="distance"></span></td></tr>
-<tr><th style="background-color: #f3f3f3;" class="text-center" rowspan="2">물품</th></tr>
-<tr><td><span class="badge badge-pill badge-secondary fontsizemd">{{item.itemName}}</span></td></tr>
-<tr><th style="background-color: #f3f3f3;" class="text-center" rowspan="2">기간</th></tr>
-<tr><td class="text-muted" type="date">{{formatDate startDate}} ~ {{formatDate endDate}}</td></tr>
-<tr><th style="background-color: #f3f3f3;" class="text-center" rowspan="2">가격</th></tr>
-<tr><td>{{fb item.price}} 원</td></tr>
-</tbody>
-</table>
-</div>
+    
+<div class="form-group row">
+            <div class="border-bottom col-12 line-margin">
+            </div>
+            <label for="staticUserInfo" class="col-sm-2 col-form-label">판매자</label>
+            <div class="col-sm-10">
+                <span id="static-user-info" class="badge badge-pill badge-primary fontsizemd" data-toggle="popover" title="User Info">
+                    {{user.userId}}
+                    </span>
+            </div>
+            <div class="border-bottom col-12 line-margin">
+                </div>
+        
+            <label for="staticTitle" class="col-sm-2 col-form-label">제목</label>
+            <div class="col-sm-10">
+                <span id="static-title">
+                    {{item.title}}
+                </span>
+            </div>
+            <div class="border-bottom col-12 line-margin">
+                </div>
+        
+            <label for="staticContent" class="col-sm-2 col-form-label">내용</label>
+            <div class="col-sm-10">
+                <span id="static-content">
+                    {{item.content}}
+                </span>
+            </div>
+            <div class="border-bottom col-12 line-margin">
+                </div>
+        
+            <label class="col-sm-2 col-form-label">거리</label>
+            <div class="col-sm-10">
+                <button class="btn btn-outline-primary btn-sm mr-2" onclick="routeOpen()">길찾기</button>
+                <button class="btn btn-outline-primary btn-sm" id="dc" onclick="distanceCalculator()">계산하기</button><span id="distance"></span>
+            </div>
+            <div class="border-bottom col-12 line-margin">
+                </div>
+        
+            <label for="staticItemName" class="col-sm-2 col-form-label">물품</label>
+            <div class="col-sm-10">
+                <span id="static-item-name">{{item.itemName}}</span>
+            </div>
+            <div class="border-bottom col-12 line-margin">
+                </div>
+        
+            <label for="staticDate" class="col-sm-2 col-form-label">기간</label>
+            <div class="col-sm-10">
+                <span id="static-date">{{formatDate startDate}} ~ {{formatDate endDate}}</span>
+            </div>
+            <div class="border-bottom col-12 line-margin">
+                </div>
+        
+            <label for="staticPrice" class="col-sm-2 col-form-label">가격</label>
+            <div class="col-sm-10">
+                <span id="static-price">{{fb item.price}} 원</span>
+            </div>
+            <div class="border-bottom col-12 line-margin">
+                </div>
+        
+    </div>
 </script>
 
 <script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
