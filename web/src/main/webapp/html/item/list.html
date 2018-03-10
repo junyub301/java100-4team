@@ -14,6 +14,8 @@
 
 <style type="text/css">
 
+
+
 #banner {
 overflow: hidden;
 height: 100%;
@@ -93,34 +95,15 @@ height: 100%;
 <div class="album py-3">
     <div class='container'>
     
-<!-- <div class="d-flex justify-content-start bd-highlight mb-3">
-    <div class="p-2 bd-highlight m_pointer mx-auto" id="rent">
-    <i id="renticon" class="fa fa-sign-out" style="color:#007BFF;font-size:36px;"></i>
-    <h3 style="display: inline-block;"><a href="#">Rent</a></h3></div>
-    <div class="p-2 bd-highlight m_pointer mx-auto" id="lend">
-    <i id="lendicon" class="fa fa-sign-in" style="color:grey;font-size:36px;"></i>
-    <h3 style="display: inline-block;"><a href="#">Lend</a></h3></div>
-</div> -->
   
         <div id="list" class='row'  style="position: relative;">
         
         </div>
         
-        
-   <nav aria-label="Page navigation">
-  <ul class="pagination justify-content-center">
-    <li class="page-item">
-    <a id="prevBtn" class="page-link" tabindex="-1">
-    <i class="fa fa-chevron-left"></i>
-    </a></li>
-        
-    <li class="page-item"><a id="currBtn" class="page-link" href="#">1</a></li>
-    
-    <li class="page-item ">
-    <a id="nextBtn" class="page-link"  tabindex="0"><i class="fa fa-chevron-right"></i></a></li>
-  </ul>
-</nav>
-        
+<div style="text-align: center;cursor:pointer;">
+<img id="lastPage" src="/images/more.png">
+</div>
+
 </div>
 </div>
 <script id="t1" type="text/x-handlebars-template">
@@ -140,8 +123,8 @@ height: 100%;
     <img class="card-img-top" style="height: 50px; width: 200px; margin:90px 0 0 30px; position:absolute;"src="/images/shared.png">
 {{/shared}}
     <div class="card-body px-0 py-0"> 
-        <h4 class="mb-2 mx-3">
-        <p class="card-text text-truncate">{{title}}</p></h4>
+        <h3 class="mb-2 mx-3">
+        <p class="card-text text-truncate">{{title}}</p></h3>
         <p class="card-text mb-0 mx-3 text-truncate text-muted">{{itemName}}</p>
         <p class="card-text mb-0 mx-3 text-truncate text-muted">{{fb price}} 원</p>
         <div class="mb-2">
@@ -171,6 +154,7 @@ height: 100%;
 $('#foldSearch').hide();
 //검색바 드롭다운
 $("#dropdownSearch").click(()=>{
+    $('#lastPage').attr("src","/images/more.png");
     $.getJSON("/json/auth/loginUser",(result)=> {
         if (result.status == "fail") {
             return swal("상세검색을 원하시면 로그인 해주세요");
@@ -238,12 +222,57 @@ var prevBtn = $("#prevBtn"),
     categoryNo = 0,
     words = "",
     pageNo = 1,
-    dealEnd, priceStart, priceEnd, distance, order, align,
+    dealEnd, priceStart, priceEnd, distance, order, align, lastPage,
     template1Src = $('#t1').html(),
     template1Engine = Handlebars.compile(template1Src);
 
+
+//test
+$(window).scroll( function() {
+    if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+        pageNo = pageNo + 1;
+        if (lastPage != 1) {
+        //ajax
+        $.ajax('/json/item/list', {
+            data: {
+                pn: pageNo, 
+                words: words,
+                cr: categoryNo,
+                distance: distance,
+                price1: priceStart,
+                price2: priceEnd,
+                dealEnd: dealEnd,
+                oc: order,
+                al: align
+                  },
+            dataType: 'json',
+            success: (result) => {
+                if (result.list == "") {
+                    lastPage = 1;
+                    $('#lastPage').attr("src","/images/end.png");
+                } else {
+                $('#list').append(template1Engine(result))
+                }
+                  },
+            
+            error: () => {
+                swal('서버 실행 오류!');
+                   }
+        });
+        }
+
+        
+        // ajax를 추가해서 목록을 받아온다
+        
+    }
+});
+
+
+
 //상세버튼 클릭시
 $('#detailSearch').click(function() {
+    pageNo = 1;
+    lastPage = 0;
     categoryNo = $('#category').val();
     if ($('#dealEnd').prop("checked")) {
         dealEnd = 1;
@@ -251,7 +280,6 @@ $('#detailSearch').click(function() {
         dealEnd = 6;
     }
     words = $('#words').val()
-    console.log($('#order').val())
     switch ($('#order').val()) {
     case '1' : 
         order = 'distance';
@@ -369,6 +397,7 @@ nextBtn.click(() => {
 });
 
 function load(pageNo, categoryNo, words, dealEnd, priceStart, priceEnd, distance, order, align) {
+    lastPage = 0;
     $.ajax('../../json/item/list', {
         data: {
             pn: pageNo, 
@@ -386,20 +415,6 @@ function load(pageNo, categoryNo, words, dealEnd, priceStart, priceEnd, distance
             
             $('#list').html(template1Engine(result))
             
-            currPageNo = result.pageNo;
-            currBtn.html(currPageNo);
-            
-            if (result.pageNo == 1) {
-                $(prevBtn.parent()).addClass("disabled");
-            } else {
-                $(prevBtn.parent()).removeClass("disabled");
-            }
-            
-            if (result.lastPageNo == result.pageNo) {
-                $(nextBtn.parent()).addClass("disabled");
-            } else{
-                $(nextBtn.parent()).removeClass("disabled");
-            } 
         },
         
         error: () => {
