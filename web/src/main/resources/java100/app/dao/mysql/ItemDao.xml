@@ -75,7 +75,7 @@
             join map as um on um.ur_no=#{user}
             </if>
             </if>
-            join photo as p on i.it_no=p.it_no 
+            left join photo as p on i.it_no=p.it_no 
             where status <![CDATA[<]]> #{dealPossible}
         <if test="categoryNo != 0">
             and category=#{categoryNo}

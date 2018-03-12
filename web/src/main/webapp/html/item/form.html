@@ -281,6 +281,7 @@ $('#myaddr').click(()=> {
 
 //등록버튼 클릭이벤트
 addBtn.click(() => {
+    console.log($('#file4').val() == "")
     var payYn = 0;
     if (category.val() == 0) {
         return swal('카테고리를 선택하세요.');
@@ -299,6 +300,9 @@ addBtn.click(() => {
     } 
     if (price.val() == 0) {
         return swal('쉐어비용을 입력하세요.')
+    }
+    if ($('#file4').val() == 0) {
+        return swal('사진을 추가해 주세요')
     }
     if ($('#lat').val() == 0) {
         return swal('위치를 입력하세요')

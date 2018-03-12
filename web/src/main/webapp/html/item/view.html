@@ -270,7 +270,7 @@
         
             <label for="staticDate" class="col-sm-2 col-form-label">기간</label>
             <div class="col-sm-10">
-                <span id="static-date">{{formatDate startDate}} ~ {{formatDate endDate}}</span>
+                <span id="static-date">{{formatDate item.startDate}} ~ {{formatDate item.endDate}}</span>
             </div>
             <div class="border-bottom col-12 line-margin">
                 </div>
@@ -423,10 +423,10 @@ if (index != -1) { // 기존 데이터를 조회할 경우
                 var thumb = data.thumbnailName.split(',');
             }
             var thumb2;
-            if (result.user.photos.thumbnailName == null) {
+            if (result.user.photos[0].thumbnailName == null) {
                 thumb2 = "images/basic.png"
             } else {
-                thumb2 = "download/"+result.user.photos.thumbnailName;
+                thumb2 = "download/"+result.user.photos[0].thumbnailName;
             }
             $(document).ready(function(){
                 $('[data-toggle="popover"]').popover({
