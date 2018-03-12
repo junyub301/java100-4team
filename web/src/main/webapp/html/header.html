@@ -112,22 +112,23 @@ ul{
             
                         
             <ul class="navbar-nav ml-auto">
-            <li id="add" class="nav-item active"><i id="" style="font-size:24px;color:white;display: inline-block;" class="fa fa-plus-square"></i>
+            <li id="board" class="nav-item active mx-3"><i id="" style="font-size:24px;color:white;display: inline-block;" class="fa fa-pencil-square"></i>
+                <a class="nav-link px-0 disinline" id=""
+                    href="../lend/list.html">게시판</a>
+                    </li>
+            <li id="add" class="nav-item active mx-3"><i id="" style="font-size:24px;color:white;display: inline-block;" class="fa fa-plus-square"></i>
                 <a class="nav-link px-0 disinline" id=""
                     href="../item/form.html">물품등록</a>
                     </li>
-                    <div class="col-1"></div>
-                <li class="nav-item active"><a id="username" href=""
+                <li class="nav-item active mx-3"><a id="username" href=""
                     onclick="href='../tr/list.html'" style="display: inline-block;"
                     class="nav-link"></a></li>
-                    <div class="col-1"></div>
-                <li class="nav-item active"><i id="keyicon" style="font-size:24px;color:white;display: inline-block;" class="fa fa-key"></i>
+                <li class="nav-item active mx-3"><i id="keyicon" style="font-size:24px;color:white;display: inline-block;" class="fa fa-key"></i>
                 <a class="nav-link px-0 disinline" id="loginBtn"
                     href="" data-toggle="modal" data-target="#myModal">로그인</a>
                     <a class="nav-link px-0 disinline" id="logoutBtn" href="" >로그아웃</a> 
                 </li>
-                <div id="signupcol" class="col-1"></div>
-                <li class="nav-item active"><i id="signupicon" style="font-size:24px;color:white;display: inline-block;" class="fa fa-user-plus"></i>
+                <li class="nav-item active mx-3"><i id="signupicon" style="font-size:24px;color:white;display: inline-block;" class="fa fa-user-plus"></i>
                 <a class="nav-link px-0" id="signupBtn"
                     href="" style="display: inline-block;" data-toggle="modal" data-target="#spModal">회원가입</a>
             </ul>
@@ -499,6 +500,7 @@ window.onbeforeunload = function(e){
     
 $('#logoutBtn').hide();
 $('#add').hide();
+$('#board').hide();
 
  $.ajax('/json/auth/loginUser', {
     beforeSend: function(xmlHttpRequest) {
@@ -514,7 +516,7 @@ $('#add').hide();
         $('#signupicon').hide();
         $('#logoutBtn').show();
         $('#add').show();
-        $('#signupcol').removeClass('col-1');
+        $('#board').show();
         $('#keyicon').removeClass('fa fa-key').addClass('fa fa-unlock-alt');
         logined = true;
         $(document.body).trigger('login', {'status': 'success'});
