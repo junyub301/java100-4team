@@ -84,8 +84,8 @@
 <div id="date" class="col-sm-6 card-text text-muted" style="text-align: left;"></div>
 </div>
 <div class="row justify-content-center">
-<button id='dealBtn' type="button" class="btn btn-primary mr-2">거래하기</button>
-<button id='priceBtn' type="button" class="btn btn-primary ml-2">결제하기</button>
+<button id='dealBtn' type="button" class="btn btn-primary mr-2" style="display:none;">거래하기</button>
+<button id='priceBtn' type="button" class="btn btn-primary ml-2" style="display:none;">결제하기</button>
 </div>
 
 
@@ -333,6 +333,9 @@ $.ajax("/json/maps/get",{
     }
 })
 
+
+
+
 $('#priceBtn').click(() => {
     $.getJSON('/json/auth/loginUser', function(result) {
             if (result.status == "fail"){
@@ -438,6 +441,18 @@ if (index != -1) { // 기존 데이터를 조회할 경우
             itemNo = result.item.itemNo;
             elat = result.maps.latitude;
             elng = result.maps.longitude;
+            
+            switch (result.item.directOrPay) {
+            case 1 : 
+                $('#dealBtn').show();
+                break;
+            case 2 :
+                $('#priceBtn').show();
+                break;
+            case 3 :
+                $('#dealBtn').show();
+                $('#priceBtn').show();
+            }
             $('#itempic1').css("background-image","url('/download/"+thumb[0]+"')");
             $('#itemName').html('<h5><div style="color: black;">'+result.item.itemName+'</h5></div>');
             $('#dp').prepend('<div style="color: #fe8600;"><i class="fa fa-history pr-1"></i>대여기간 : ' + moment(result.item.startDate).format('YYYY-MM-DD') + ' ~ ' +
