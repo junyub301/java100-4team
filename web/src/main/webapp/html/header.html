@@ -120,8 +120,7 @@ ul{
                     href="../lend/list.html">게시판</a>
                     </li>
             <li id="add" class="nav-item active mx-3"><i id="" style="font-size:24px;color:white;display: inline-block;" class="fa fa-plus-square"></i>
-                <a class="nav-link px-0 disinline" id=""
-                    href="../item/form.html">물품등록</a>
+                <a class="nav-link px-0 disinline" href="" onclick="event.preventDefault()" id="addItem" >물품등록</a>
                     </li>
                 <li class="nav-item active mx-3"><a id="username" href=""
                     onclick="href='../tr/list.html'" style="display: inline-block;"
@@ -331,7 +330,7 @@ ul{
 
                         <div id="file" class="form-group row">
                             <div class="col-sm-10 mx-auto">
-                                <input id='file4' name="photo" type="file">
+                                <input id='file1' name="photo" type="file">
                             </div>
                         </div>
 
@@ -360,11 +359,12 @@ ul{
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" type="text/javascript"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" type="text/javascript"></script>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=41a90b1059ade44d7db374c4db586dfb&libraries=services"></script>
-
-<script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
 <script src='/node_modules/sweetalert/dist/sweetalert.min.js'></script>
+
+<!-- <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script> -->
+
 <script type="text/javascript">
-function onSignIn(googleUser) {
+/* function onSignIn(googleUser) {
     // The ID token you need to pass to your backend:
     if(!logined) {
         var id_token = googleUser.getAuthResponse().id_token;
@@ -376,7 +376,7 @@ function onSignIn(googleUser) {
                       
                       location.href = '../item/list.html';
                   } else {
-                      window.alert('로그인 실패입니다!');
+                      swal('로그인 실패입니다!');
                   }
             });
     }
@@ -394,7 +394,7 @@ function onSignIn(googleUser) {
       'onsuccess': onSignIn,
       'onfailure': onFailure
     });
-  }
+  } */
   
 //주소 검색 완료시 위도경도 받아오기
 $('#sample6_address2').focus(()=> {
@@ -438,8 +438,14 @@ $('#add').click(() => {
                     $('#loginBtn').click()
                 })
                 return;
+            } else {
+                if (result.user.baseAddress == null) {
+                    return swal("주소 정보를 추가해주세요").then((value)=> {
+                        location.href="/html/user/view.html"
+                    })
+                }
+             location.href="/html/item/form.html"
             }
-            location.href="/html/item/form.html"
         })
         
 })
@@ -475,15 +481,15 @@ loginBtn.click(() => {
             location.reload();
             
         } else {
-            alert('이메일이나 암호가 일치하는 사용자를 찾을 수 없습니다.!')
+            swal('이메일이나 암호가 일치하는 사용자를 찾을 수 없습니다.!')
         }
     },'json');
 });
 
 var logined = false;
-window.onbeforeunload = function(e){
+/* window.onbeforeunload = function(e){
       gapi.auth2.getAuthInstance().signOut();
-    };
+    }; */
     
 $('#logoutBtn').hide();
 $('#add').hide();
@@ -495,6 +501,7 @@ $('#board').hide();
     },
     dataType: 'json',
     success: (result) => {
+        if (result.status == "success") {
         $('#username').html("<i id='usericon' class='fa fa-user mx-1' style='font-size: 24px; color: white'></i>" 
         + result.user.userName);
         $('#loginBtn').hide();
@@ -506,6 +513,7 @@ $('#board').hide();
         $('#keyicon').removeClass('fa fa-key').addClass('fa fa-unlock-alt');
         logined = true;
         $(document.body).trigger('login', {'status': 'success'});
+        }
     },
     error: function(e) {
         if (e.status == 401) {
@@ -549,7 +557,7 @@ function autoServerLogin(accessToken) {
           if (result.status == 'success') {
               location.href = '../item/list.html';
           } else {
-              window.alert('로그인 실패입니다!');
+              swal('로그인 실패입니다!');
           }
     });
 }
@@ -602,7 +610,7 @@ Kakao.Auth.createLoginButton({
                     if (result.status == 'success') {
                         location.href = '../item/list.html';
                     } else {
-                        window.alert('로그인 실패입니다!');
+                        swal('로그인 실패입니다!');
                     }
               });
     }
@@ -792,7 +800,7 @@ function sample6_execDaumPostcode() {
 }
 </script>
 <script>
-$('#file4').fileinput({
+$('#file1').fileinput({
     theme: 'fa',
 });
 

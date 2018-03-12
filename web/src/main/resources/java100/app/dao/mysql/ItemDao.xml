@@ -75,7 +75,7 @@
             join map as um on um.ur_no=#{user}
             </if>
             </if>
-            join photo as p on i.it_no=p.it_no 
+            left join photo as p on i.it_no=p.it_no 
             where status <![CDATA[<]]> #{dealPossible}
         <if test="categoryNo != 0">
             and category=#{categoryNo}
@@ -88,8 +88,10 @@
         </if>
         group by it_no
         <if test="user != null">
+        <if test="baseAddress != null">
         <if test="distance != 0">
             having distance <![CDATA[<]]> #{distance}
+        </if>
         </if>
         </if>
         <!-- 정렬 조건에 따라 SQL문을 변경한다.-->
