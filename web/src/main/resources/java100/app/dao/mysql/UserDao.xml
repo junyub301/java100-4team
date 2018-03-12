@@ -39,7 +39,7 @@
             u.det_addr,
             p.pho_name,
             p.th_name
-         from user as u join photo as p on u.ur_no=p.ur_no
+         from user as u left join photo as p on u.ur_no=p.ur_no
     </select>
     
     <select id="findByNo" resultMap="userMap" parameterType="int">
