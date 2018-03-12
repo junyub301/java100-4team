@@ -88,8 +88,10 @@
         </if>
         group by it_no
         <if test="user != null">
+        <if test="baseAddress != null">
         <if test="distance != 0">
             having distance <![CDATA[<]]> #{distance}
+        </if>
         </if>
         </if>
         <!-- 정렬 조건에 따라 SQL문을 변경한다.-->

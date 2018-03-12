@@ -120,8 +120,7 @@ ul{
                     href="../lend/list.html">게시판</a>
                     </li>
             <li id="add" class="nav-item active mx-3"><i id="" style="font-size:24px;color:white;display: inline-block;" class="fa fa-plus-square"></i>
-                <a class="nav-link px-0 disinline" id=""
-                    href="../item/form.html">물품등록</a>
+                <a class="nav-link px-0 disinline" href="" onclick="event.preventDefault()" id="addItem" >물품등록</a>
                     </li>
                 <li class="nav-item active mx-3"><a id="username" href=""
                     onclick="href='../tr/list.html'" style="display: inline-block;"
@@ -331,7 +330,7 @@ ul{
 
                         <div id="file" class="form-group row">
                             <div class="col-sm-10 mx-auto">
-                                <input id='file4' name="photo" type="file">
+                                <input id='file1' name="photo" type="file">
                             </div>
                         </div>
 
@@ -438,8 +437,14 @@ $('#add').click(() => {
                     $('#loginBtn').click()
                 })
                 return;
+            } else {
+                if (result.user.baseAddress == null) {
+                    return swal("주소 정보를 추가해주세요").then((value)=> {
+                        location.href="/html/user/view.html"
+                    })
+                }
+             location.href="/html/item/form.html"
             }
-            location.href="/html/item/form.html"
         })
         
 })
@@ -573,7 +578,7 @@ function checkLoginState() {
 
 window.fbAsyncInit = function() {
   FB.init({
-    appId      : '1658829817493258', // 개발자가 등록한 앱 ID
+    appId      : '492653977795327', // 개발자가 등록한 앱 ID
     cookie     : true,  
     xfbml      : true,  
     version    : 'v2.12' 
@@ -792,7 +797,7 @@ function sample6_execDaumPostcode() {
 }
 </script>
 <script>
-$('#file4').fileinput({
+$('#file1').fileinput({
     theme: 'fa',
 });
 

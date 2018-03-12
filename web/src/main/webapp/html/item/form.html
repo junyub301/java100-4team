@@ -300,7 +300,9 @@ addBtn.click(() => {
     if (price.val() == 0) {
         return swal('쉐어비용을 입력하세요.')
     }
-    
+    if ($('#lat').val() == 0) {
+        return swal('위치를 입력하세요')
+    }
     if ($('.data-pay:checked').length == 0) {
         return swal('(직거래/안전거래) 최소한 한개 이상 체크하세요');
     }
