@@ -23,7 +23,7 @@
 <header></header>
 
 <div class='container' style="width:600px;">
-<button id="lendBtn" class="border btn btn-light" data-toggle='modal' data-target='#lendModal'>추가</button>
+<button id="lendBtn" class="border btn btn-light" >추가</button>
 
 <table id="list" style='margin-top: 10px; width:100%'class='table textcenter'>
 <thead class="thead-light">
@@ -129,6 +129,18 @@ Handlebars.registerHelper('Date', function(date) {
     return  moment(date).format('YYYY-MM-DD');
 });
 
+$('#lendBtn').click(()=> {
+    $.getJSON('/json/auth/loginUser', function(result) {
+        if (result.status == "fail"){
+            swal("로그인이 필요한 페이지 입니다.").then((value) => {
+                $('#loginBtn').click()     
+            })
+            return;
+        } else {
+            $('#lendModal').modal("show");
+        }
+})
+})
 var index = location.href.indexOf('?');
 if (index != -1) { // 기존 데이터를 조회할 경우,
     var qs = location.href.substr(index + 1);
@@ -199,6 +211,7 @@ function reviewAdd() {
             window.alert('서버 실행 오류!');
         }
     });
+            
 }
 
 

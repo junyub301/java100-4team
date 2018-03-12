@@ -132,6 +132,7 @@ height: 100%;
 {{#shared status}}
     <img class="card-img-top" style="height: 65%; width: 100%; position:absolute;"src="/images/soldout2.png">
 {{/shared}}
+
     <div class="card-body px-0 py-0"> 
         <h3 class="mb-2 mx-3">
         <p class="card-text text-truncate">{{title}}</p></h3>
@@ -500,6 +501,7 @@ function loadItem(categoryNo, words, dealEnd, priceStart, priceEnd, distance, or
            
             $('#list').html(template1Engine(result))
             $('#lastPage').attr("src","/images/more.png");
+            $(window).scrollTop(0);
         },
         
         error: () => {

@@ -122,7 +122,7 @@ ul{
             <li id="add" class="nav-item active mx-3"><i id="" style="font-size:24px;color:white;display: inline-block;" class="fa fa-plus-square"></i>
                 <a class="nav-link px-0 disinline" href="" onclick="event.preventDefault()" id="addItem" >물품등록</a>
                     </li>
-                <li class="nav-item active mx-3"><a id="username" href=""
+                <li id='usernameli' class="nav-item active mx-3"><a id="username" href=""
                     onclick="href='../tr/list.html'" style="display: inline-block;"
                     class="nav-link"></a></li>
                 <li class="nav-item active mx-3"><i id="keyicon" style="font-size:24px;color:white;display: inline-block;" class="fa fa-key"></i>
@@ -493,7 +493,8 @@ var logined = false;
     
 $('#logoutBtn').hide();
 $('#add').hide();
-$('#board').hide();
+//$('#board').hide();
+$('#usernameli').hide();
 
  $.ajax('/json/auth/loginUser', {
     beforeSend: function(xmlHttpRequest) {
@@ -509,6 +510,7 @@ $('#board').hide();
         $('#signupicon').hide();
         $('#logoutBtn').show();
         $('#add').show();
+        $('#usernameli').show();
         $('#board').show();
         $('#keyicon').removeClass('fa fa-key').addClass('fa fa-unlock-alt');
         logined = true;
@@ -525,18 +527,13 @@ $('#board').hide();
 $('#logoutBtn').click(() => {
     $.getJSON('../../json/auth/logout', (result) => {
         var link = document.location.href;
-        if(link.indexOf("/user/view.html") >= 0) {
-             location.href = '../item/list.html';
-            } else if(link.indexOf("/tr/list.html") >= 0) {
-                location.href = '../item/list.html';    
-            } else if(link.indexOf("/msg/list.html") >= 0) {
-                location.href = '../item/list.html';
-            } else if(link.indexOf("/item/form.html") >= 0) {
-                location.href = '../item/list.html';
+        if(link.indexOf("/item/list.html") >= 0) {
+            location.reload(true);
             } else if(link.indexOf("/item/view.html") >= 0) {
-                location.href = '../item/list.html';
-            } else {
                 location.reload(true);
+            } else {
+                location.href = '/html/item/list.html';
+                
             }
     });
 })
