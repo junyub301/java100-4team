@@ -135,7 +135,7 @@ height: 100%;
 
     <div class="card-body px-0 py-0"> 
         <h3 class="mb-2 mx-3">
-        <p class="card-text text-truncate">{{title}}</p></h3>
+        <p class="card-text text-truncate" title="{{title}}">{{title}}</p></h3>
         <p class="card-text mb-0 mx-3 text-truncate text-muted">{{itemName}}</p>
         <p class="card-text mb-0 mx-3 text-truncate text-muted">{{fb price}} 원</p>
         <div class="mb-2">
@@ -252,42 +252,42 @@ $('#lastPage').click(()=> {
 })
 
 //카테고리 검색
-$('header').on('click','#allItem',()=> {
+$('header').on('click','#allItem',(event)=> {
     event.preventDefault();
     $('ul a').removeClass("selected_color");
     $('#allItem').addClass("selected_color");
     categoryNo = 0;
     loadItem(categoryNo, words, dealEnd, priceStart, priceEnd, distance, order, align);
 })
-$('header').on('click','#itItem',()=> {
+$('header').on('click','#itItem',(event)=> {
     event.preventDefault();
     $('ul a').removeClass("selected_color");
     $('#itItem').addClass("selected_color");
     categoryNo = 1;
     loadItem(categoryNo, words, dealEnd, priceStart, priceEnd, distance, order, align);
 })
-$('header').on('click','#beautyItem',()=> {
+$('header').on('click','#beautyItem',(event)=> {
     event.preventDefault();
     $('ul a').removeClass("selected_color");
     $('#beautyItem').addClass("selected_color");
     categoryNo = 2;
     loadItem(categoryNo, words, dealEnd, priceStart, priceEnd, distance, order, align);
 })
-$('header').on('click','#clothItem',()=> {
+$('header').on('click','#clothItem',(event)=> {
     event.preventDefault();
     $('ul a').removeClass("selected_color");
     $('#clothItem').addClass("selected_color");
     categoryNo = 3;
     loadItem(categoryNo, words, dealEnd, priceStart, priceEnd, distance, order, align);
 })
-$('header').on('click','#toolItem',()=> {
+$('header').on('click','#toolItem',(event)=> {
     event.preventDefault();
     $('ul a').removeClass("selected_color");
     $('#toolItem').addClass("selected_color");
     categoryNo = 4;
     loadItem(categoryNo, words, dealEnd, priceStart, priceEnd, distance, order, align);
 })
-$('header').on('click','#etcItem',()=> {
+$('header').on('click','#etcItem',(event)=> {
     event.preventDefault();
     $('ul a').removeClass("selected_color");
     $('#etcItem').addClass("selected_color");
@@ -347,7 +347,7 @@ $('#dealEnd').click(function() {
 )
 
 //거리 정렬
-$('#distanceOrder').click(()=> {
+$('#distanceOrder').click((event)=> {
     event.preventDefault();
     $('#priceOrder img').attr("src","/images/arrowdown.png")
     if (order != "distance") {
@@ -372,7 +372,7 @@ $('#distanceOrder').click(()=> {
 })
 
 //가격정렬
-$('#priceOrder').click(()=> {
+$('#priceOrder').click((event)=> {
     event.preventDefault();
     $('#distanceOrder img').attr("src","/images/arrowdown.png")
     if (order != "price") {
