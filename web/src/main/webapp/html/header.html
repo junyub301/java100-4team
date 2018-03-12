@@ -539,6 +539,8 @@ $('#logoutBtn').click(() => {
                 location.href = '../item/list.html';
             } else if(link.indexOf("/item/form.html") >= 0) {
                 location.href = '../item/list.html';
+            } else if(link.indexOf("/item/view.html") >= 0) {
+                location.href = '../item/list.html';
             } else {
                 location.reload(true);
             }
@@ -659,7 +661,7 @@ $('.modal').on('shown.bs.modal', function (e) {
     $('.abcRioButton').addClass('mx-auto');
 });
 
-$('.modal').on('hidden.bs.modal', function (e) {
+$('#spModal').on('hidden.bs.modal', function (e) {
   $(this).find('form')[0].reset()
   $('#checkId').html(' ');
   $('#checkEmail').html(' ');

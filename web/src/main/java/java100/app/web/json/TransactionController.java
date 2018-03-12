@@ -53,12 +53,11 @@ public class TransactionController {
             User seller = userService.getUser(item.getUserNo());
             //구매자에게 보내는 메세지
             Message message = new Message(user.getUserNo(),"연락을 시도하세요","판매자:"+seller.getUserName()+
-                    "연락처:"+seller.getPhone());
+                    ",연락처:"+seller.getPhone());
             messageService.add(message);
             //판매자에게 보내는 메세지
             Message message2 = new Message(item.getUserNo(),"거래 요청을 확인하세요","거래 신청이 되었습니다. 이용내역에 현황을 참고하세요 ");
             messageService.add(message2);
-            
         }
         HashMap<String,Object> result = new HashMap<>();
         result.put("status", "success");
