@@ -492,11 +492,11 @@ function loadItem(categoryNo, words, dealEnd, priceStart, priceEnd, distance, or
         success: (result) => {
             
             $('#list').html(template1Engine(result))
-            
+            $('#lastPage').attr("src","/images/more.png");
         },
         
         error: () => {
-            window.alert('서버 실행 오류!');
+            console.log('서버 실행 오류!');
         }
     });
     
