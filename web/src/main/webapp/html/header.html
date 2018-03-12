@@ -410,7 +410,6 @@ function onSignIn(googleUser) {
 $('#sample6_address2').focus(()=> {
       var geocoder = new daum.maps.services.Geocoder();
       geocoder.addressSearch($('#sample6_address').val(),function(result, status) {
-      console.log(result)
       $('#address1').val(result[0].address_name);
       $('#lat1').val(result[0].y);
       $('#lng1').val(result[0].x);
@@ -469,7 +468,6 @@ var id1 = $('#userId'),
     
 loginBtn.click(() => {
     
-    console.log(id1.val(), pwd1.val(),saveId.is(':checked'));
     if (saveId.is(':checked')) {
         setCookie('check','ok',7);
         setCookie('id', id1.val(), 7);
@@ -506,7 +504,6 @@ $('#add').hide();
     },
     dataType: 'json',
     success: (result) => {
-        console.log(result)
         $('#username').html("<i id='usericon' class='fa fa-user mx-1' style='font-size: 24px; color: white'></i>" 
         + result.user.userName);
         $('#loginBtn').hide();
@@ -703,7 +700,6 @@ $(document).ready(function(){
                         "email" : value
                     },
                     success: function(data){
-                        console.log(data)
                         if($.trim(data) == 0){
                             $('#checkEmail').html('<i class="fa fa-check" style="color:#21ff00"></i>사용가능').css('color', '#007BFF');
                         } 

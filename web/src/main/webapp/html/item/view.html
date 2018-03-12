@@ -255,8 +255,8 @@
         
             <label class="col-sm-2 col-form-label">거리</label>
             <div class="col-sm-10">
-                <button class="btn btn-outline-primary btn-sm mr-2" onclick="routeOpen()">길찾기</button>
-                <button class="btn btn-outline-primary btn-sm" id="dc" onclick="distanceCalculator()">계산하기</button><span id="distance"></span>
+                <button id="routeBtn" class="btn btn-outline-primary btn-sm mr-2" title="사용하시려면 로그인 하세요" disabled onclick="routeOpen()">길찾기</button>
+                <button id="calBtn" class="btn btn-outline-primary btn-sm" id="dc" title="사용하시려면 로그인 하세요" disabled onclick="distanceCalculator()">계산하기</button><span id="distance"></span>
             </div>
             <div class="border-bottom col-12 line-margin">
                 </div>
@@ -329,7 +329,7 @@ $.ajax("/json/maps/get",{
         slng= result.map.longitude;
     },
     error: () => {
-        swal("로그인 회원정보의 주소 정보 로드 실패");
+        console.log("로그인 회원정보의 주소 정보 로드 실패");
     }
 })
 
@@ -425,7 +425,6 @@ if (index != -1) { // 기존 데이터를 조회할 경우
             for (var data of result.user.photos) {
                 var thumb2 = data.thumbnailName.split(',');
             }
-            console.log(thumb2);
             
             $(document).ready(function(){
                 $('[data-toggle="popover"]').popover({
@@ -489,6 +488,13 @@ if (index != -1) { // 기존 데이터를 조회할 경우
                 $('#dealBtn').hide();
             }
         }
+    }).done(()=> {
+        $.getJSON('/json/auth/loginUser', function(result) {
+            if (result.status == "success"){
+                $('#routeBtn').prop("disabled",false);
+                $('#calBtn').prop("disabled",false);
+            }
+            })
     });
     
     $.ajax('/json/rv/' + arr[1], {
@@ -534,10 +540,11 @@ if (index != -1) { // 기존 데이터를 조회할 경우
 
 //계산버튼클릭시 수행
 function distanceCalculator() {
-    var distance = getDistanceFromLatLonInKm(slat,slng,elat,elng);
-    $('#distance').html(distance);
-    $('#dc').hide();
+            var distance = getDistanceFromLatLonInKm(slat,slng,elat,elng);
+            $('#distance').html(distance);
+            $('#dc').hide();
 }
+
 //거리 계산 함수
 function getDistanceFromLatLonInKm(lat1,lng1,lat2,lng2) {
     function deg2rad(deg) {
@@ -614,7 +621,6 @@ function pay() {
             if (rsp.success) { // 결제 성공 시: 결제 승인 또는 가상계좌 발급에 성공한 경우
                 // jQuery로 transaction add
                 var item_no = (rsp.merchant_uid).split("?")[1];
-                console.log(item_no);
                 $.ajax("/json/tr/add", {
                     method: "POST",
                     dataType: 'json',
