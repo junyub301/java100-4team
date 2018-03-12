@@ -118,7 +118,11 @@ height: 100%;
     <div class="card mb-4 box-shadow">
     <div class="sample_image">
         <img class="card-img-top" 
-            style="height: 225px; width: 100%; display: block;" 
+            style="height: 225px; width: 100%; display: block;
+{{#shared status}}
+    opacity:0.5;
+{{/shared}}
+" 
 {{#each photos}}
             src="/download/{{thumbnail thumbnailName}}"></div> 
 {{/each}}
@@ -464,6 +468,9 @@ Handlebars.registerHelper('shared', function(status, options) {
     return options.fn(this);
     }
 });
+
+
+
 Handlebars.registerHelper("cty", function(category) {
     if(category == 1){ return "전자";}
     if(category == 2){ return "뷰티";}
@@ -490,7 +497,7 @@ function loadItem(categoryNo, words, dealEnd, priceStart, priceEnd, distance, or
         },
         dataType: 'json',
         success: (result) => {
-            
+           
             $('#list').html(template1Engine(result))
             $('#lastPage').attr("src","/images/more.png");
         },
