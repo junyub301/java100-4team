@@ -58,7 +58,7 @@
     </update>
     
     <delete id="delete" parameterType="int">
-        delete from message 
+        delete from request 
         where rq_no=#{value}
     </delete>
 
