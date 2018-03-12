@@ -68,7 +68,7 @@ height: 100%;
         <button id="refresh" class="badge badge-pill badge-info">검색 초기화&nbsp;<img src="/images/refresh.png" width=10 height=10></button>
     </div>
     
-<form class="form-inline">
+<form onsubmit="event.preventDefault()" class="form-inline">
     <input id="words" class="form-control col-sm-4" type="search" name='words' placeholder="&#xf002 검색어를 입력하세요" aria-label="Search">
 
 <div class="col-sm-4">
