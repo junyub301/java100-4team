@@ -18,6 +18,7 @@ import java100.app.domain.User;
 public interface UserService {
     List<User> list();
     int add(User user, Maps maps);
+    int addUser(User user);
     User getUser(int no);
     int update(User user);
     int delete(int no);

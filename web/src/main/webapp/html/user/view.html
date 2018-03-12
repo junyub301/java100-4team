@@ -345,7 +345,7 @@ if (index != -1) { // 기존 데이터를 조회할 경우
                 detailAddr.val(result.user.detailAddress);
                 for (var data of result.user.photos){
                     var filename = data.thumbnailName
-                    imd.html('<img align="middle" src="/download/' + filename + '">');
+                    imd.html('<img id="imag" align="middle" src="/download/' + filename + '">');
                 }
                 } catch (e) {console.log(e)};
                 nod.html("<input id='no' type='hidden' name='userNo' value='" + result.user.userNo + "'>")
@@ -391,6 +391,12 @@ if (index != -1) { // 기존 데이터를 조회할 경우
             }
         }).open();
     }
+    
+    $(function() {
+        $("#ex_file").on('change', function(){
+            readURL(this);
+        });
+    });
     
     function readURL(input) {
         if (input.files && input.files[0]) {

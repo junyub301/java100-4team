@@ -1,7 +1,9 @@
 package java100.app.web.json;
 
 import java.util.HashMap;
+import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -52,7 +54,7 @@ public class LoginController {
         return result;
     }
 
-    /*@RequestMapping(value="facebookLogin")
+    @RequestMapping(value="facebookLogin")
     public Object facebookLogin(
             String accessToken, 
             HttpSession session,
@@ -62,29 +64,28 @@ public class LoginController {
             @SuppressWarnings("rawtypes")
             Map userInfo = facebookService.me(accessToken, Map.class);
 
-            Account account = accountService.get(
+            User user = userService.get(
                     (String)userInfo.get("email"));
 
-            if (account == null) { // 등록된 회원이 아니면,
+            if (user == null) { // 등록된 회원이 아니면,
                 // 페이스북에서 받은 정보로 회원을 자동 등록한다.
-                User user = new User();
-                account = new Account();
-                account.setName((String)userInfo.get("name"));
-                account.setEmail((String)userInfo.get("email"));
-                String[] a = account.getEmail().split("@");
-                account.setId(a[0]);
-                account.setPassword("1111");
+                user = new User();
+                user.setUserName((String)userInfo.get("name"));
+                user.setEmail((String)userInfo.get("email"));
+                String[] a = user.getEmail().split("@");
+                user.setUserId(a[0]);
+                user.setPassword("1111");
                 user.setAccountNo("");
                 user.setBank("");
                 user.setPhone("");
                 user.setPostNo("");
                 user.setBaseAddress("");
                 user.setDetailAddress("");
-                userService.add(account, user);
+                userService.addUser(user);
             }
 
             // 회원 정보를 세션에 저장하여 자동 로그인 처리를 한다.
-            model.addAttribute("loginUser", account);
+            model.addAttribute("loginUser", user);
 
             HashMap<String,Object> result = new HashMap<>();
             result.put("status", "success");
@@ -115,26 +116,25 @@ public class LoginController {
                 return result;
             }
             // 이메일로 회원 정보를 찾는다.
-            Account account = accountService.get((String)koResponse.get("kaccount_email"));
-            if (account == null) {
+            User user = userService.get((String)koResponse.get("kaccount_email"));
+            if (user == null) {
                 // 회원 정보가 없으면 페이스북 회원 정보를 등록한다.
-                account = new Account();
-                User user = new User();
-                account.setName((String)((Map)koResponse.get("properties")).get("nickname"));
-                account.setEmail((String)koResponse.get("kaccount_email"));
-                String[] a = account.getEmail().split("@");
-                account.setId(a[0]);
-                account.setPassword("1111");
+                user = new User();
+                user.setUserName((String)((Map)koResponse.get("properties")).get("nickname"));
+                user.setEmail((String)koResponse.get("kaccount_email"));
+                String[] a = user.getEmail().split("@");
+                user.setUserId(a[0]);
+                user.setPassword("1111");
                 user.setAccountNo("");
                 user.setBank("");
                 user.setPhone("");
                 user.setBaseAddress("");
                 user.setDetailAddress("");
                 user.setPostNo("");
-                userService.add(account,user);
+                userService.addUser(user);
             }
 
-            model.addAttribute("loginUser", account);
+            model.addAttribute("loginUser", user);
 
             HashMap<String,Object> result = new HashMap<>();
             result.put("status", "success");
@@ -167,27 +167,26 @@ public class LoginController {
             }
 
             // 이메일로 회원 정보를 찾는다.
-            Account account = accountService.get((String)userInfo.get("email"));
+            User user = userService.get((String)userInfo.get("email"));
 
-            if (account == null) {
+            if (user == null) {
                 // 회원 정보가 없으면 페이스북 회원 정보를 등록한다.
-                account = new Account();
-                User user = new User();
-                account.setName((String)userInfo.get("name"));
-                account.setEmail((String)userInfo.get("email"));
-                String[] a = account.getEmail().split("@");
-                account.setId(a[0] + "_google");
-                account.setPassword("1111");
+                user = new User();
+                user.setUserName((String)userInfo.get("name"));
+                user.setEmail((String)userInfo.get("email"));
+                String[] a = user.getEmail().split("@");
+                user.setUserId(a[0] + "_google");
+                user.setPassword("1111");
                 user.setAccountNo("");
                 user.setBank("");
                 user.setPhone("");
                 user.setBaseAddress("");
                 user.setDetailAddress("");
                 user.setPostNo("");
-                userService.add(account,user);
+                userService.addUser(user);
             }
 
-            model.addAttribute("loginUser", account);
+            model.addAttribute("loginUser", user);
 
             HashMap<String,Object> result = new HashMap<>();
             result.put("status", "success");
@@ -197,10 +196,11 @@ public class LoginController {
             result.put("status", "fail");
             return result;
         }
-    }     
+    } 
+/*
     @RequestMapping(value="naverLogin")
     public Object naverLogin(
-            Account naccount,
+            User naccount,
             HttpSession session,
             HttpServletRequest request,
             Model model) {
@@ -238,8 +238,8 @@ public class LoginController {
             result.put("exception", e.getStackTrace());
             return result;
         }
-    }*/
-
+    }
+*/
         @RequestMapping("logout")
         public Object logout(HttpSession session, SessionStatus status) {
 

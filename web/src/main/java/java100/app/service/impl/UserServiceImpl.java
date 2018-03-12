@@ -48,6 +48,18 @@ public class UserServiceImpl implements UserService {
         return count;
     }
     
+    @Override
+    public int addUser(User user) {
+        int count = userDao.insert(user);
+        try {
+            addFiles(user.getPhotos(),user.getUserNo());
+        } catch (Exception e) {
+            System.out.println("첨부파일 등록 중 예외 발생!");
+        }
+        
+        return count;
+    }
+    
 
     
     @Override
