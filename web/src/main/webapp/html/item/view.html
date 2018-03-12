@@ -422,16 +422,18 @@ if (index != -1) { // 기존 데이터를 조회할 경우
                 var photo = data.photoName.split(',');
                 var thumb = data.thumbnailName.split(',');
             }
-            for (var data of result.user.photos) {
-                var thumb2 = data.thumbnailName.split(',');
+            var thumb2;
+            if (result.user.photos.thumbnailName == null) {
+                thumb2 = "images/basic.png"
+            } else {
+                thumb2 = "download/"+result.user.photos.thumbnailName;
             }
-            
             $(document).ready(function(){
                 $('[data-toggle="popover"]').popover({
                     placement : 'right',
                     trigger : 'hover',
                     html : true,
-                    content : '<div class="media"><a href="#" class="pull-left"><img src="/download/'+thumb2+'" class="media-object"></a><div class="media-body ml-2"><h4 class="media-heading" style="color:#3680C1">'+result.user.userId+'</h4><p>'+result.user.comment+'</p></div></div>'
+                    content : '<div class="media"><a href="#" class="pull-left"><img src="/'+thumb2+'" class="media-object"></a><div class="media-body ml-2"><h4 class="media-heading" style="color:#3680C1">'+result.user.userId+'</h4><p>'+result.user.comment+'</p></div></div>'
                 });
             });
             
