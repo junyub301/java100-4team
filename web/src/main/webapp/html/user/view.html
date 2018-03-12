@@ -344,8 +344,12 @@ if (index != -1) { // 기존 데이터를 조회할 경우
                 baseAddr.val(result.user.baseAddress);
                 detailAddr.val(result.user.detailAddress);
                 for (var data of result.user.photos){
+                    if(data.photoName == null){
+                    imd.html('<img id="imag" align="middle" src="/images/basic.png">');
+                    } else {
                     var filename = data.thumbnailName
                     imd.html('<img id="imag" align="middle" src="/download/' + filename + '">');
+                    }
                 }
                 } catch (e) {console.log(e)};
                 nod.html("<input id='no' type='hidden' name='userNo' value='" + result.user.userNo + "'>")
