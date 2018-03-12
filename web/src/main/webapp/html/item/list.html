@@ -126,7 +126,7 @@ height: 100%;
       
 
 {{#shared status}}
-    <img class="card-img-top" style="height: 50px; width: 200px; margin:90px 0 0 30px; position:absolute;"src="/images/shared.png">
+    <img class="card-img-top" style="height: 65%; width: 100%; position:absolute;"src="/images/soldout2.png">
 {{/shared}}
     <div class="card-body px-0 py-0"> 
         <h3 class="mb-2 mx-3">
@@ -444,17 +444,6 @@ $('header').load('../header.html',function() {
 $('#itemCartegory').show();
 $('#allItem').addClass("selected_color");
 })
-
-$("#shared_img").mouseover(function(){ 
-    $(this).prev().children().mouseover();    
-})
-
-/* var btn1 = document.querySelector('#shared_img')
-var btn2 = document.querySelector('#sample_image')
-btn1.addEventListener('hover', function(event) {
-  var me = new MouseEvent('hover')
-  btn2.dispatchEvent(me)
-}); */
 
 
 Handlebars.registerHelper('fb', transPrice);
