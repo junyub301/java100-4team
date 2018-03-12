@@ -94,7 +94,9 @@ public class ItemController {
         logger.debug("orderColumn ------------"+orderColumn);
         logger.debug("alignColumn ------------"+alignColumn);
         if (user != null) {
-        options.put("user",user.getUserNo());
+        options.put("user", user.getUserNo());
+        options.put("baseAddress", user.getBaseAddress());
+        logger.debug("주소----------"+user.getBaseAddress());
         }
         /*int totalCount = itemService.getTotalCount(words, categoryNo, priceStart, priceEnd, dealPossible);
         int lastPageNo = totalCount / pageSize;

@@ -56,6 +56,7 @@
             i.price, i.pay_yn, i.status,
             p.pho_no as pho_no,
             <if test="user != null">
+            <if test="baseAddress != null">
             im.lat as originlat,
             im.lng as originlng,
             um.lat as setlat,
@@ -64,12 +65,15 @@
             cos(radians(setlat)) * cos(radians(setlng) - radians(originlng)) +
             sin(radians(originlat)) * sin(radians(setlat))),3)) as distance,
             </if>
+            </if>
             GROUP_CONCAT(p.pho_name order by p.pho_name) as pho_name,
             GROUP_CONCAT(p.th_name order by p.th_name) as th_name
          from item as i
             <if test="user != null">
+            <if test="baseAddress != null">
             join map as im on im.it_no=i.it_no
             join map as um on um.ur_no=#{user}
+            </if>
             </if>
             join photo as p on i.it_no=p.it_no 
             where status <![CDATA[<]]> #{dealPossible}

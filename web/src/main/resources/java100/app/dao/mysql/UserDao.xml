@@ -122,7 +122,8 @@
             ur_id,
             email,
             pwd,
-            ur_name
+            ur_name,
+            bas_addr
         from user
         where ur_id=#{id} and pwd=password(#{password})
     </select>
