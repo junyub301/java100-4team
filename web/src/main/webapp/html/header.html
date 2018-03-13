@@ -196,6 +196,8 @@ ul{
                     </div>
                     <button id="btn2" type="button"
                         class='col-12 btn btn-primary'>로그인</button>
+                    <button id="btn3" type="button"
+                        class='col-12 btn btn-primary mt-2'>회원가입</button>
                 </form>
                 <hr>
             <div id="fb"class="rounded fb-login-button form-group fb-custom-btn" data-width="222"
@@ -455,13 +457,20 @@ $('#add').click(() => {
 var id1 = $('#userId'),
     pwd1 = $('#password'),
     loginBtn = $('#btn2'),
+    loginBtn3 = $('#btn3'),
     saveId = $('#saveaccountName');
     
     if (getCookie('check') == 'ok') {
         saveId.prop("checked", true);
     }
     id1.val(getCookie('id'));
+
+loginBtn3.click(() => {
+    $('#signupBtn').click();
+    $('#myModal').modal('hide');
+});    
     
+
 loginBtn.click(() => {
     
     if (saveId.is(':checked')) {
