@@ -39,7 +39,11 @@ pre {
     line-height: 0px;
     margin: 0px 8px;
 }
-
+.carousel-item , #itemphoto{
+    width:700px;
+    height:435px;
+    
+}
 
 </style>
 <title>아이템 상세 정보</title>
@@ -63,12 +67,14 @@ pre {
      
     </div>
   <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="sr-only">Previous</span>
+    <!-- <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span> -->
+    <img src="/images/leftarrow.png">
   </a>
   <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="sr-only">Next</span>
+   <!--  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span> -->
+    <img src="/images/rightarrow.png">
   </a>
 </div>
     
@@ -182,6 +188,8 @@ pre {
 </div>
 </div>
 
+
+
 <script id='t1' type="text/x-handlebars-template">
 {{#each photos}}
     <img src="/download/{{thumbnailName}}" class="img-responsive">
@@ -195,7 +203,7 @@ pre {
 <div class="carousel-item">
 {{/if}}
 <a data-toggle="modal" data-target="#exampleModal{{@index}}" href="/download/{{this}}">
-    <img class="img-fluid" src="/download/{{this}}"></a>
+    <img style="max-width: 760px; max-height:435px; position: absolute; top: 0; bottom: 0; left:0; right: 0; margin: auto;" class="img-fluid" src="/download/{{this}}"></a>
 </div>
 {{/each}}
 </script>
