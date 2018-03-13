@@ -56,7 +56,7 @@
             i.price, i.pay_yn, i.status,
             p.pho_no as pho_no,
             <if test="user != null">
-            <if test="baseAddress != null">
+            <if test="baseAddress != '' and baseAddress != null">
             im.lat as originlat,
             im.lng as originlng,
             um.lat as setlat,
@@ -70,7 +70,7 @@
             GROUP_CONCAT(p.th_name order by p.th_name) as th_name
          from item as i
             <if test="user != null">
-            <if test="baseAddress != null">
+            <if test="baseAddress != '' and baseAddress != null">
             join map as im on im.it_no=i.it_no
             join map as um on um.ur_no=#{user}
             </if>
@@ -88,7 +88,7 @@
         </if>
         group by it_no
         <if test="user != null">
-        <if test="baseAddress != null">
+        <if test="baseAddress != '' and baseAddress != null">
         <if test="distance != 0">
             having distance <![CDATA[<]]> #{distance}
         </if>

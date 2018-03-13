@@ -441,7 +441,7 @@ $('#add').click(() => {
                 })
                 return;
             } else {
-                if (result.user.baseAddress == null) {
+                if ((result.user.baseAddress == null) || (result.user.baseAddress == "")) {
                     return swal("주소 정보를 추가해주세요").then((value)=> {
                         location.href="/html/user/view.html"
                     })
