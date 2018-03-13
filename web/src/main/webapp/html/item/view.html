@@ -493,6 +493,7 @@ if (index != -1) { // 기존 데이터를 조회할 경우
             $('#title').append('<div style="padding-top: 10px !important;">' + result.item.content + '</div>');
             $('#date').html(template3Engine(result));
             if (result.item.status != 0) {
+                $('#priceBtn').show();
                 $('#priceBtn').prop("disabled",'true').html("거래중입니다");
                 $('#dealBtn').hide();
             }

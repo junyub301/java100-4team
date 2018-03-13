@@ -5,7 +5,7 @@ import java.util.List;
 import java100.app.domain.RequestItem;
 
 public interface RequestItemService {
-    List<RequestItem> list(int no);
+    List<RequestItem> list();
     int add(RequestItem requestItem);
     RequestItem get(int no);
     int update(RequestItem requestItem);

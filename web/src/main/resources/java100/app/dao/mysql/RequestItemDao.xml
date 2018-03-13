@@ -20,7 +20,7 @@
         
     </resultMap>
     
-    <select id="list" resultMap="requestMap" parameterType="int">
+    <select id="list" resultMap="requestMap" >
         select
             r.rq_no,
             r.ur_no,

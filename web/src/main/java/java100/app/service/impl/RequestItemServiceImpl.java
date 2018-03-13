@@ -15,8 +15,8 @@ public class RequestItemServiceImpl implements RequestItemService {
     @Autowired RequestItemDao requestItemDao;
     
     @Override
-    public List<RequestItem> list(int no) {
-        return requestItemDao.list(no);
+    public List<RequestItem> list() {
+        return requestItemDao.list();
     }
     @Override
     public int add(RequestItem requestItem) {

@@ -26,7 +26,7 @@ public class RequestItemController {
     public Object list(HttpSession session) throws Exception {
         User user = (User)session.getAttribute("loginUser");
         HashMap<String,Object> result = new HashMap<>();
-        result.put("requestItem", requestItemService.list(user.getUserNo()));
+        result.put("requestItem", requestItemService.list());
         
         return result;
     }

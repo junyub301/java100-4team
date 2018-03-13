@@ -23,7 +23,7 @@
 <header></header>
 
 <div class='container' style="width:600px;">
-<button id="lendBtn" class="border btn btn-light" data-toggle='modal' data-target='#lendModal'>추가</button>
+<button id="lendBtn" class="border btn btn-light" >추가</button>
 
 <table id="list" style='margin-top: 10px; width:100%'class='table textcenter'>
 <thead class="thead-light">
@@ -129,6 +129,18 @@ Handlebars.registerHelper('Date', function(date) {
     return  moment(date).format('YYYY-MM-DD');
 });
 
+$('#lendBtn').click(()=> {
+    $.getJSON('/json/auth/loginUser', function(result) {
+        if (result.status == "fail"){
+            swal("로그인이 필요한 페이지 입니다.").then((value) => {
+                $('#loginBtn').click()     
+            })
+            return;
+        } else {
+            $('#lendModal').modal("show");
+        }
+})
+})
 var index = location.href.indexOf('?');
 if (index != -1) { // 기존 데이터를 조회할 경우,
     var qs = location.href.substr(index + 1);
@@ -144,7 +156,7 @@ if (index != -1) { // 기존 데이터를 조회할 경우,
                 disDate.val(result.message.dispatchDate);
             },
             error: () => {
-                window.alert('서버 실행 오류!');
+                swal('서버 실행 오류!');
             }
         });
     });
@@ -157,7 +169,6 @@ function load() {
     $.ajax('/json/lend/list', {
         dataType: 'json',
         success: (result) => {
-            console.log(result)
             tbody.html(template1Engine(result));
             
 
@@ -168,19 +179,20 @@ function load() {
     })
 }
 
-$(document).ready(function(){
-    // menu 클래스 바로 하위에 있는 a 태그를 클릭했을때
-    $(".menu>a").click(function(){
-        var submenu = $(this).parent().parent().next("tr");
+$("tbody").on("click",'.menu>a',function() {
+// menu 클래스 바로 하위에 있는 a 태그를 클릭했을때
+   
+    var submenu = $(this).parent().parent().next("tr");
 
-        // submenu 가 화면상에 보일때는 위로 보드랍게 접고 아니면 아래로 보드랍게 펼치기
-        if( submenu.is(":visible") ){
-            submenu.slideUp();
-        }else{
-            submenu.slideDown();
-        }
-    });
-}); 
+    // submenu 가 화면상에 보일때는 위로 보드랍게 접고 아니면 아래로 보드랍게 펼치기
+    if( submenu.is(":visible") ){
+        submenu.slideUp();
+    }else{
+        submenu.slideDown();
+    }
+
+    
+})
 
 //리뷰등록
 function reviewAdd() {
@@ -199,6 +211,7 @@ function reviewAdd() {
             window.alert('서버 실행 오류!');
         }
     });
+            
 }
 
 

@@ -21,7 +21,7 @@ CREATE TABLE item (
 	category  INTEGER      NOT NULL, -- 카테고리
 	item_name VARCHAR(50)  NOT NULL, -- 물품명
 	title     VARCHAR(50)  NOT NULL, -- 글 제목
-	cnt       VARCHAR(255) NOT NULL, -- 내용
+	cnt       TEXT         NOT NULL, -- 내용
 	add_date  DATE         NOT NULL, -- 등록일
 	start     DATE         NOT NULL, -- 대여시작일
 	end       DATE         NOT NULL, -- 대여종료일
