@@ -86,7 +86,6 @@ ul{
 .opacitymd{
     opacity: 0.5;
 }
-
 </style>
 
 <!-- <meta name="google-signin-scope" content="profile email"> -->
@@ -160,7 +159,7 @@ ul{
 </nav>
 
 
-<div class="modal fade" id="myModal" style="display: none;">
+<div class="modal fade" id="myModal">
     <div class="modal-dialog">
         <div class="modal-content">
 
@@ -206,19 +205,19 @@ ul{
                 data-use-continue-as="false" data-scope="public_profile,email"
                 data-onlogin="checkLoginState()"></div>
                 
-            <div class='form-group'>
-                <a id="kakao-login-btn"></a>
-            </div>
+             <div class='form-group'>
+                <a id="kakao-btn" href="javascript:loginWithKakao()"><img src="/images/kakaologinbtn.png" width=222></a>
+            </div> 
             <div class='form-group'>
                 <a id="naverIdLogin_loginButton" href="#" role="button"><img
                     src="https://static.nid.naver.com/oauth/big_g.PNG" width="222"
                     height="49"></a>
             </div>
             <!-- <div align="center" class="form-group g-signin2"
-                data-onsuccess="onSignIn"></div>-->
+                data-onsuccess="onSignIn"></div>
             
             <div id="my-signin2" class="form-group"></div>
-            </div>
+            </div>-->
             </div>
             
             <!-- Modal footer -->
@@ -228,6 +227,7 @@ ul{
 
         </div>
     </div>
+</div>
 </div>
 
  <!-- 회원가입 -->
@@ -362,6 +362,7 @@ ul{
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" type="text/javascript"></script>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=41a90b1059ade44d7db374c4db586dfb&libraries=services"></script>
 <script src='/node_modules/sweetalert/dist/sweetalert.min.js'></script>
+
 
 <!-- <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script> -->
 
@@ -604,24 +605,27 @@ window.fbAsyncInit = function() {
 
 
 Kakao.init("63ef3befe6185210578175ae33f57f48");
-Kakao.Auth.createLoginButton({
-    container: '#kakao-login-btn',
+function loginWithKakao() {
+  Kakao.Auth.login({
     success: function(authObj) {
-          console.log(authObj.access_token)
-          $.getJSON(
-                  '../../json/auth/kakaoLogin', 
-                  {'accessToken': authObj.access_token}, 
-                  function(result) {
-                      console.log(result)
-                    if (result.status == 'success') {
-                        location.href = '../item/list.html';
-                    } else {
-                        swal('로그인 실패입니다!');
-                    }
-              });
+        $.getJSON(
+                '../../json/auth/kakaoLogin', 
+                {'accessToken': authObj.access_token}, 
+                function(result) {
+                    console.log(result)
+                  if (result.status == 'success') {
+                      location.href = '../item/list.html';
+                  } else {
+                      swal('로그인 실패입니다!');
+                  }
+            });
+    },
+    fail: function(err) {
+        swal('로그인 실패입니다!');
     }
-    });
-
+  });
+};
+    
 var naverLogin = new naver.LoginWithNaverId(
         {
             clientId: "ci2uARbrUgEbOCNv2VE7",
@@ -632,6 +636,7 @@ var naverLogin = new naver.LoginWithNaverId(
     );
     /* (4) 네아로 로그인 정보를 초기화하기 위하여 init을 호출 */
 naverLogin.init();
+    
 </script>
 
 <!-- 회원가입 -->
@@ -660,6 +665,11 @@ var pwd = $('#pwd'),
 $('.modal').on('shown.bs.modal', function (e) {
     $('.abcRioButton').addClass('mx-auto');
 });
+/* $('#myModal').on('shown.bs.modal', function (e) {
+    console.log($('#kakao-login-btn iframe'))
+    $('#kakao-login-btn iframe').css('width','222px');
+    $('#kakao-login-btn iframe').css('height','49px');
+}); */
 
 $('#spModal').on('hidden.bs.modal', function (e) {
   $(this).find('form')[0].reset()
