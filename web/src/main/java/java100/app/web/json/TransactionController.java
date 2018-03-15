@@ -41,7 +41,9 @@ public class TransactionController {
             item.setStatus(3);
             itemService.changeStatus(item);
             Message message = new Message(user.getUserNo(),"결제 완료","결제가 완료 되었습니다. 배송이 곧 시작됩니다");
+            Message message2 = new Message(item.getUserNo(),"결제 완료","결제가 완료 되었습니다. 구매자에게 배송을 보내주세요");
             messageService.add(message);
+            messageService.add(message2);
         } else {
             transaction.setDeliveryPayType(0);
             transaction.setPayMethod(null);

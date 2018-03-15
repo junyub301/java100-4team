@@ -135,7 +135,8 @@
             ur_id,
             email,
             pwd,
-            ur_name
+            ur_name,
+            bas_addr
         from user
         where email=#{email}
     </select>

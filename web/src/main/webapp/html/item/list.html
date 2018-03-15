@@ -130,7 +130,7 @@ height: 100%;
       
 
 {{#shared status}}
-    <img class="card-img-top" style="height: 65%; width: 100%; position:absolute;"src="/images/soldout2.png">
+    <img class="card-img-top" style="height: 225px; width: 100%; position:absolute;"src="/images/soldout2.png">
 {{/shared}}
 
     <div class="card-body px-0 py-0"> 
@@ -138,6 +138,9 @@ height: 100%;
         <p class="card-text text-truncate" title="{{title}}">{{title}}</p></h3>
         <p class="card-text mb-0 mx-3 text-truncate text-muted">{{itemName}}</p>
         <p class="card-text mb-0 mx-3 text-truncate text-muted">{{fb price}} 원</p>
+        {{#if distance}}
+        <p class="card-text mb-0 mx-3 text-truncate text-muted">{{distance}}Km</p>
+        {{/if}}
         <div class="mb-2">
     </div>
     </div>
@@ -317,9 +320,9 @@ $('#refresh').click(()=> {
     $('#dealEnd').removeClass("badge-primary");
     $('#dealEnd').addClass("badge-info");
     $('#dealEnd').html("모든 상품 보기")
-    $( "#distanceSlide" ).slider( "value", 1000 );
+    $( "#distanceSlide" ).slider( "value", 500 );
     $( "#priceSlide" ).slider( "values", [ 0, 210000 ] );
-    $('#distanceValue').html("위치 범위 : 1,000Km");
+    $('#distanceValue').html("위치 범위 : 500Km");
     $('#priceValue').html("가격 범위 : 0원 이상");
     $('ul a').removeClass("selected_color");
     $('#allItem').addClass("selected_color");
@@ -393,7 +396,7 @@ $('#priceOrder').click((event)=> {
 
 //검색슬라이더
 $( function() {
-    $( "#distanceSlide" ).slider({min:1,max:1000,value:1000,create: function() {
+    $( "#distanceSlide" ).slider({min:1,max:500,value:500,create: function() {
         $("#distanceValue").text("위치 범위 : "+transPrice($( this ).slider( "value" ))+"Km" );
         distance = $( this ).slider( "value" );
     },
@@ -498,7 +501,6 @@ function loadItem(categoryNo, words, dealEnd, priceStart, priceEnd, distance, or
         },
         dataType: 'json',
         success: (result) => {
-           
             $('#list').html(template1Engine(result))
             $('#lastPage').attr("src","/images/more.png");
             $(window).scrollTop(0);

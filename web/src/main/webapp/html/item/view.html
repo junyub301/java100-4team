@@ -491,7 +491,11 @@ if (index != -1) { // 기존 데이터를 조회할 경우
                 map: map,
                 position: loc
             });
-            
+            var infowindow = new daum.maps.InfoWindow({
+                position : loc, 
+                content : '<div style="padding:5px;">'+result.maps.address+'</div>' 
+            });
+            infowindow.open(map, marker); 
             /* $('#itemphoto').html(template2Engine(thumb)); */
             $('#itemphoto').html(template2Engine(photo));
             $('#itemphoto').append(template4Engine(photo));
