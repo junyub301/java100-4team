@@ -47,8 +47,7 @@ public class MapsServiceImpl implements MapsService {
 
     @Override
     public int delete(int no) {
-        // TODO Auto-generated method stub
-        return 0;
+        return mapsDao.delete(no);
     }
 
 

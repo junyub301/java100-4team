@@ -63,7 +63,7 @@ public class UserServiceImpl implements UserService {
 
     
     @Override
-    public int update(User user) {
+    public int update(User user, Maps maps) {
         int count;
         // 패스워드가 비었으면 패스워드를 제외한 업데이트(sql)를 실행
         if (user.getPassword().isEmpty()) {
@@ -75,7 +75,10 @@ public class UserServiceImpl implements UserService {
         photoDao.deleteAllByUserNo(user.getUserNo());
         addFiles(user.getPhotos(), user.getUserNo());
         }
-
+        if (!maps.getAddress().isEmpty()) {
+            mapsDao.delete(user.getUserNo());
+            mapsDao.insert(maps);
+        }
         return count;
     }
     

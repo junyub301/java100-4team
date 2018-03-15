@@ -20,7 +20,7 @@ public interface UserService {
     int add(User user, Maps maps);
     int addUser(User user);
     User getUser(int no);
-    int update(User user);
+    int update(User user, Maps maps);
     int delete(int no);
     void addFiles(List<Photo>photos, int userNo);
     int checkId(String id);

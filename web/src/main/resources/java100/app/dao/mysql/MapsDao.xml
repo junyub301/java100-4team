@@ -64,11 +64,11 @@
         where ur_no=#{userNo}
     </update>
     
-    <!-- 
+    
     <delete id="delete" parameterType="int">
         delete from map 
-        where m_no=#{value}
-    </delete> -->
+        where ur_no=#{value}
+    </delete>
 
 </mapper>  
 

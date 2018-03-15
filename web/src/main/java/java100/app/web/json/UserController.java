@@ -116,10 +116,7 @@ public class UserController {
         }
         // Board 객체에 저장한 파일명을 등록한다. 
         user.setPhotos(uploadFiles);
-        userService.update(user);
-        if (!maps.getAddress().isEmpty()) {
-        mapsService.update(maps);
-        }
+        userService.update(user,maps);
         HashMap<String,Object> result = new HashMap<>();
         result.put("status", uploadFiles);
         return result;

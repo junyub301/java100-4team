@@ -197,7 +197,7 @@ public class LoginController {
             return result;
         }
     } 
-/*
+
     @RequestMapping(value="naverLogin")
     public Object naverLogin(
             User naccount,
@@ -205,28 +205,28 @@ public class LoginController {
             HttpServletRequest request,
             Model model) {
         try {
-            Account account = accountService.get(naccount.getEmail());
+            User user = userService.get(naccount.getEmail());
 
-            if (account == null) { // 등록된 회원이 아니면,
-                // 페이스북에서 받은 정보로 회원을 자동 등록한다.
-                User user = new User();
-                account = new Account();
-                account.setName(naccount.getName());
-                account.setEmail(naccount.getEmail());
-                String[] a = account.getEmail().split("@");
-                account.setId(a[0]);
-                account.setPassword("1111");
+            if (user == null) { // 등록된 회원이 아니면,
+                
+                user = new User();
+                user.setUserName(naccount.getUserName());
+                user.setEmail(naccount.getEmail());
+                String[] a = user.getEmail().split("@");
+                user.setUserId(a[0]);
+                user.setPassword("1111");
                 user.setAccountNo("");
                 user.setBank("");
                 user.setPhone("");
-                user.setPostNo("");
                 user.setBaseAddress("");
                 user.setDetailAddress("");
-                userService.add(account, user);
+                user.setPostNo("");
+                userService.addUser(user);
+                
             }
 
             // 회원 정보를 세션에 저장하여 자동 로그인 처리를 한다.
-            model.addAttribute("loginUser", account);
+            model.addAttribute("loginUser", user);
 
             HashMap<String,Object> result = new HashMap<>();
             result.put("status", "success");
@@ -239,7 +239,7 @@ public class LoginController {
             return result;
         }
     }
-*/
+
         @RequestMapping("logout")
         public Object logout(HttpSession session, SessionStatus status) {
 
